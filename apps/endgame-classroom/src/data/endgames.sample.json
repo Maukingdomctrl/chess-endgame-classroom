@@ -1,0 +1,16 @@
+[
+  {
+    "id": "lucena-001",
+    "title": "Lucena Bridge Method",
+    "startFen": "8/8/8/8/8/8/8/8 w - - 0 1",
+    "sideToTrain": "white",
+    "difficultyElo": 1200,
+    "starred": true,
+    "result": "victory",
+    "moves": [
+      { "san": "e4", "note": "Take central space and prepare king activity." },
+      { "san": "e5", "note": "Mirror center control." },
+      { "san": "Nf3", "note": "Develop with tempo and support central squares." }
+    ]
+  }
+]
