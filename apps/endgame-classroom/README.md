@@ -26,7 +26,11 @@ npm run build    # production build in dist/
    to play; the opponent's moves are played for you.
 6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves
    count as mistakes; a clean run marks the line **perfected**, lines with mistakes come back first.
-7. **Pick a line** – in both modes, the **Line** dropdown jumps straight to any line you want to
+7. **Search** – the search bar on the home screen finds lines by name, description, notes or moves.
+   Paste a FEN to find every line that reaches that position (at the start or mid-line).
+8. **Promotion** – when a pawn promotes you choose the piece (queen, rook, bishop or knight);
+   in Learn/Practice the choice must match the line, so underpromotions are trained too.
+9. **Pick a line** – in both modes, the **Line** dropdown jumps straight to any line you want to
    train; the session then carries on from there.
 
 ## Code map

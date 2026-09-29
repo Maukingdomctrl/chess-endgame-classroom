@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Chessboard } from "react-chessboard";
 import type { Course } from "../types";
 import { navigate } from "../lib/router";
 import { courseStats } from "../lib/stats";
 import { DEFAULT_FEN } from "../lib/chess";
 import { exportCourseJson, exportCoursePgn, parseCourseBackup } from "../lib/exporting";
+import { searchCourses } from "../lib/search";
 
 interface Props {
   courses: Course[];
@@ -15,6 +16,10 @@ interface Props {
 export default function CourseList({ courses, onAdd, onDelete }: Props) {
   const [menu, setMenu] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const searching = query.trim() !== "";
+  const result = useMemo(() => (searching ? searchCourses(courses, query) : null), [courses, query, searching]);
+  const shown = result ? courses.filter((c) => result.courseIds.has(c.id)) : courses;
 
   async function importBackup(files: FileList | null) {
     if (!files?.length) return;
@@ -49,7 +54,93 @@ export default function CourseList({ courses, onAdd, onDelete }: Props) {
           </label>
         </div>
         {error && <p className="error-text">{error}</p>}
+        {courses.length > 0 && (
+          <div className="search">
+            <span className="search-icon" aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              className="field"
+              placeholder="Search lines, notes and courses — or paste a FEN to find a position"
+              aria-label="Search courses, lines and positions"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => e.key === "Escape" && setQuery("")}
+            />
+            {searching && (
+              <button className="icon-btn search-clear" aria-label="Clear search" onClick={() => setQuery("")}>
+                ✕
+              </button>
+            )}
+          </div>
+        )}
       </section>
+
+      {result && (
+        <section className="results">
+          <h2 className="results-title">
+            {result.hits.length === 0
+              ? result.isPosition
+                ? "No line reaches this position."
+                : "No lines match."
+              : `${result.hits.length} line${result.hits.length === 1 ? "" : "s"}${result.isPosition ? (result.hits.length === 1 ? " reaches this position" : " reach this position") : " found"}`}
+          </h2>
+          {result.hits.length > 0 && (
+            <ul className="hit-list">
+              {result.hits.slice(0, 40).map((h) => {
+                const playable = h.line.moves.length > 0;
+                return (
+                  <li key={`${h.course.id}-${h.line.id}`} className="hit">
+                    <div className="hit-board">
+                      <Chessboard
+                        options={{
+                          id: `hit-${h.line.id}`,
+                          position: h.fen,
+                          boardOrientation: h.course.playAs,
+                          allowDragging: false,
+                          showNotation: false,
+                          darkSquareStyle: { backgroundColor: "#b58863" },
+                          lightSquareStyle: { backgroundColor: "#f0d9b5" },
+                        }}
+                      />
+                    </div>
+                    <div className="hit-body">
+                      <div className="hit-title">
+                        {h.line.name || "Untitled line"} <span className="muted small">· {h.course.name} #{h.index + 1}</span>
+                      </div>
+                      <div className="small muted">Matched in {h.where}</div>
+                      {h.snippet && <div className="small clamp1">{h.snippet}</div>}
+                      <div className="row wrap">
+                        <button
+                          className="btn small primary"
+                          disabled={!playable}
+                          onClick={() => navigate(`/course/${h.course.id}/learn?line=${h.line.id}`)}
+                        >
+                          Learn
+                        </button>
+                        <button
+                          className="btn small"
+                          disabled={!playable}
+                          onClick={() => navigate(`/course/${h.course.id}/practice?line=${h.line.id}`)}
+                        >
+                          Practice
+                        </button>
+                        <button
+                          className="btn small ghost"
+                          onClick={() => navigate(`/course/${h.course.id}/build?line=${h.line.id}`)}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          {result.hits.length > 40 && <p className="small muted">Showing the first 40 — refine your search to see more.</p>}
+          {shown.length > 0 && <h2 className="results-title">Courses</h2>}
+        </section>
+      )}
 
       {courses.length === 0 ? (
         <div className="empty">
@@ -57,7 +148,7 @@ export default function CourseList({ courses, onAdd, onDelete }: Props) {
         </div>
       ) : (
         <div className="grid">
-          {courses.map((c) => {
+          {shown.map((c) => {
             const s = courseStats(c);
             const first = c.lines[0];
             return (
