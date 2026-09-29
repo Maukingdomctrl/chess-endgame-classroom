@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# Endgame Classroom
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Build endgame courses from your own lines, then learn and practice them move by move.
+Everything is stored in your browser on this device (use **Backup (.json)** to move courses between devices).
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production build in dist/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Using it
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Create a Course** – give it a name, description and the side you play.
+2. **Build lines** – paste a FEN to start from any position (or use the normal start), then play
+   the moves for both sides on the board. Add a note to any move; the coach shows it in Learn mode.
+   Press **End line and add to the course**, name it, and **Return to start** to add more.
+3. **Import** – paste PGN or drop `.pgn` files: every game becomes a line, every variation becomes
+   its own line, `[FEN]` headers and `{comments}` are kept. A list of FENs (one per line) creates
+   positions you can then record moves for.
+4. **See / export** – the **Lines** tab lists every line (edit, reorder, delete, copy PGN/FEN) and
+   exports the whole course as PGN or a JSON backup.
+5. **Learn** – lines play one after another. The coach explains each move and an arrow shows what
+   to play; the opponent's moves are played for you.
+6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves
+   count as mistakes; a clean run marks the line **perfected**, lines with mistakes come back first.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Code map
+
+- `src/pages/` – `CourseList`, `NewCourse`, `Builder`, `Trainer` (Learn + Practice)
+- `src/components/` – `Board` (drag or click-to-move, promotion picker), `ImportBox`, `MoveList`, …
+- `src/lib/pgn.ts` – PGN/FEN import (variations → lines) and PGN export
+- `src/lib/store.ts`, `storage.ts` – courses saved in `localStorage`

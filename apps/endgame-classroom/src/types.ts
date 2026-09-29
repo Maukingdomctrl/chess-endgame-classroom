@@ -1,17 +1,36 @@
 export type Side = "white" | "black";
 
-export interface MoveStep {
+export interface LineMove {
   san: string;
-  note: string;
+  /** Coach note shown after this move is played. */
+  comment: string;
 }
 
-export interface EndgameLine {
+export interface Line {
   id: string;
-  title: string;
+  name: string;
+  description: string;
   startFen: string;
-  sideToTrain: Side;
-  difficultyElo: number; // 800..2500
-  starred?: boolean;
-  moves: MoveStep[];
-  result: "victory";
+  /** Note shown before the first move. */
+  intro: string;
+  moves: LineMove[];
+}
+
+export interface LineProgress {
+  learned: boolean;
+  perfected: boolean;
+  /** Mistakes (wrong moves or hints) in the most recent practice run. */
+  lastMistakes: number;
+  practiceRuns: number;
+}
+
+export interface Course {
+  id: string;
+  name: string;
+  description: string;
+  playAs: Side;
+  lines: Line[];
+  progress: Record<string, LineProgress>;
+  createdAt: number;
+  updatedAt: number;
 }
