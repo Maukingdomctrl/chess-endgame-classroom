@@ -25,6 +25,8 @@ h1 {
 }
 
 .board-wrap {
+  width: 620px;
+  max-width: calc(100vw - 56px);
   border: 8px solid #4b2f1a;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
@@ -72,4 +74,9 @@ button:hover {
 .history {
   width: 620px;
   font-size: 1rem;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

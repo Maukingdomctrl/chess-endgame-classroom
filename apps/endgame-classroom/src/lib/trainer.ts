@@ -1,7 +1,34 @@
-import { EndgameLine } from "../types";
+import { Chess } from "chess.js";
+import type { EndgameLine, Side } from "../types";
 
 export function sanitizeSan(san: string) {
   return san.replace(/[+#!?]/g, "").trim();
+}
+
+export function sideToColor(side: Side) {
+  return side === "white" ? "w" : "b";
+}
+
+/**
+ * Plays the line's scripted moves for the opponent, starting at `moveIdx`,
+ * until it is the trainee's turn or the line ends. Returns the moves played
+ * and the index of the next move the trainee must find.
+ */
+export function playOpponentMoves(game: Chess, line: EndgameLine, moveIdx: number) {
+  const trainee = sideToColor(line.sideToTrain);
+  const played: string[] = [];
+  let idx = moveIdx;
+
+  while (idx < line.moves.length && game.turn() !== trainee) {
+    try {
+      played.push(game.move(line.moves[idx].san).san);
+    } catch {
+      break;
+    }
+    idx++;
+  }
+
+  return { played, moveIdx: idx };
 }
 
 export function groupedRandomAscending(lines: EndgameLine[]) {
