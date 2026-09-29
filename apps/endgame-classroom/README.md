@@ -26,6 +26,8 @@ npm run build    # production build in dist/
    to play; the opponent's moves are played for you.
 6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves
    count as mistakes; a clean run marks the line **perfected**, lines with mistakes come back first.
+7. **Pick a line** – in both modes, the **Line** dropdown jumps straight to any line you want to
+   train; the session then carries on from there.
 
 ## Code map
 

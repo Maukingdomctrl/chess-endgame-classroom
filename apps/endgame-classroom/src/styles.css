@@ -808,9 +808,19 @@ details.section summary {
   font-size: 1.1rem;
 }
 
-.line-name {
-  color: var(--muted);
-  font-size: 0.9rem;
+.line-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.line-picker .label {
+  margin-top: 0;
+}
+
+.line-picker select {
+  cursor: pointer;
+  padding: 8px 10px;
 }
 
 .coach {
