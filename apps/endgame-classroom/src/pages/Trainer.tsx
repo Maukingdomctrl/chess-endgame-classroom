@@ -177,6 +177,18 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
     setRun(freshRun(0));
   }
 
+  /** Jump straight to a chosen line; the session then continues from there. */
+  function jumpToLine(lineId: string) {
+    if (!lineId) return;
+    if (!allDone && lineId === line?.id) {
+      restart();
+      return;
+    }
+    setQueue(buildQueue(course, mode, lineId));
+    setAllDone(false);
+    setRun(freshRun(0));
+  }
+
   function restart() {
     setAllDone(false);
     setRun((r) => freshRun(r.idx));
@@ -338,7 +350,26 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
               {allDone ? `${queue.length}/${queue.length}` : `#${run.idx + 1}/${queue.length}`}
             </span>
           </div>
-          {!allDone && line && <p className="line-name">{line.name}</p>}
+          <label className="line-picker">
+            <span className="label">Line</span>
+            <select
+              className="field"
+              value={allDone ? "" : (line?.id ?? "")}
+              onChange={(e) => jumpToLine(e.target.value)}
+            >
+              {allDone && <option value="">Choose a line to train…</option>}
+              {course.lines.map((l, i) => {
+                const p = progressOf(course, l.id);
+                const status = l.moves.length === 0 ? " (no moves)" : p.perfected ? "  ★ perfected" : p.learned ? "  ✓ learned" : "";
+                return (
+                  <option key={l.id} value={l.id} disabled={l.moves.length === 0}>
+                    #{i + 1} {l.name || "Untitled line"}
+                    {status}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
 
           <div className="coach">
             <span className="coach-avatar">♚</span>
