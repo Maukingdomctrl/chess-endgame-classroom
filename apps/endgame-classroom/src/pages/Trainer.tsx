@@ -202,10 +202,10 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
     });
   }
 
-  function onMove(from: string, to: string) {
+  function onMove(from: string, to: string, promotion: string) {
     if (!line || run.status !== "playing" || !traineeTurn || run.viewPly !== null) return false;
     const expected = verbose[run.ply];
-    if (expected.from === from && expected.to === to) {
+    if (expected.from === from && expected.to === to && (!expected.promotion || expected.promotion === promotion)) {
       sounds.move();
       setRun((r) => ({
         ...r,
@@ -218,6 +218,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
       return true;
     }
     sounds.wrong();
+    const wrongPiece = expected.from === from && expected.to === to;
     setRun((r) => {
       const wrongAtPly = r.wrongAtPly + 1;
       return {
@@ -227,8 +228,9 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
         hintLevel: mode === "practice" && wrongAtPly >= 2 ? 2 : r.hintLevel,
         flash: {
           square: to,
-          text:
-            mode === "practice" && wrongAtPly >= 2
+          text: wrongPiece
+            ? "Right square, wrong piece — promote to a different piece."
+            : mode === "practice" && wrongAtPly >= 2
               ? "Not quite — follow the arrow."
               : "That's not the move. Try again.",
         },
@@ -335,7 +337,6 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
               lastMove={lastMove}
               arrows={arrows}
               markSquares={marks}
-              askPromotion={false}
             />
             {run.celebrate > 0 && run.status === "done" && <Confetti key={`${run.idx}-${run.celebrate}`} />}
           </div>
