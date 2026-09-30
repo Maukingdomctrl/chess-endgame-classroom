@@ -5,7 +5,8 @@ import { navigate } from "../lib/router";
 import { newId } from "../lib/storage";
 import { lineFens } from "../lib/chess";
 import { importTvGames } from "../lib/pgn";
-import { setCollections } from "../lib/tvStore";
+import { parseTvBackup, setCollections, tvBackupJson } from "../lib/tvStore";
+import { downloadFile } from "../lib/storage";
 import ImportBox from "../components/ImportBox";
 
 interface Props {
@@ -16,6 +17,26 @@ export default function TvLibrary({ collections }: Props) {
   const [creating, setCreating] = useState(collections.length === 0);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [backupMsg, setBackupMsg] = useState("");
+
+  async function importBackup(files: FileList | null) {
+    if (!files?.length) return;
+    try {
+      const added: TvCollection[] = [];
+      for (const f of files) added.push(...parseTvBackup(await f.text()));
+      setCollections((cs) => [...added, ...cs]);
+      const games = added.reduce((n, c) => n + c.games.length, 0);
+      setBackupMsg(`Imported ${added.length} collection${added.length === 1 ? "" : "s"} (${games} games).`);
+      setCreating(false);
+    } catch {
+      setBackupMsg("That file isn't a Chess TV backup (.json).");
+    }
+  }
+
+  function exportBackup() {
+    const day = new Date().toISOString().slice(0, 10);
+    downloadFile(`chess-tv-backup-${day}.json`, tvBackupJson(collections), "application/json");
+  }
 
   function create(games: ReturnType<typeof importTvGames>["items"] = []) {
     const c: TvCollection = {
@@ -49,12 +70,30 @@ export default function TvLibrary({ collections }: Props) {
             {totalGames === 1 ? "" : "s"}
           </p>
         </div>
-        {!creating && (
-          <button className="btn primary" onClick={() => setCreating(true)}>
-            ＋ New collection
+        <div className="row wrap">
+          {!creating && (
+            <button className="btn primary" onClick={() => setCreating(true)}>
+              ＋ New collection
+            </button>
+          )}
+          <button className="btn ghost" disabled={!collections.length} onClick={exportBackup}>
+            ⬇ Backup (.json)
           </button>
-        )}
+          <label className="btn ghost file-btn">
+            Import backup
+            <input
+              type="file"
+              accept=".json,application/json"
+              multiple
+              onChange={(e) => {
+                importBackup(e.target.files);
+                e.target.value = "";
+              }}
+            />
+          </label>
+        </div>
       </section>
+      {backupMsg && <p className="small muted">{backupMsg}</p>}
 
       {creating && (
         <div className="panel tv-create">
@@ -119,7 +158,9 @@ function CollectionCard({ collection: c }: { collection: TvCollection }) {
   return (
     <article className="tv-card">
       <a className="tv-card-board" href={`#/tv/${c.id}`} aria-label={`Open ${c.name}`}>
-        {preview ? (
+        {c.cover ? (
+          <img className="tv-card-cover" src={c.cover} alt="" loading="lazy" />
+        ) : preview ? (
           <Chessboard
             options={{
               id: `tv-${c.id}`,
@@ -138,7 +179,12 @@ function CollectionCard({ collection: c }: { collection: TvCollection }) {
         </span>
       </a>
       <div className="tv-card-body">
-        <h2>{c.name}</h2>
+        <div className="tv-card-head">
+          <h2>{c.name}</h2>
+          <a className="icon-btn" href={`#/tv/${c.id}?edit=1`} title="Edit name, description and cover photo">
+            ✎
+          </a>
+        </div>
         {c.description && <p className="muted small clamp">{c.description}</p>}
         <p className="small muted">
           {c.games.length} game{c.games.length === 1 ? "" : "s"}

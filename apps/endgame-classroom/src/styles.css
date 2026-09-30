@@ -915,6 +915,112 @@ a {
   pointer-events: none;
 }
 
+.tv-card-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Portraits usually have the face in the upper part. */
+  object-position: center 28%;
+  display: block;
+}
+
+.tv-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.tv-card-head h2 {
+  flex: 1;
+}
+
+.tv-card-head .icon-btn {
+  text-decoration: none;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.section-cover {
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: center 28%;
+  border: 2px solid color-mix(in srgb, var(--cat) 45%, var(--border));
+}
+
+.collection-editor {
+  max-width: 760px;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.cover-drop {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  border: 2px dashed var(--border-strong);
+  background: var(--panel-2);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+}
+
+.cover-drop:focus-visible,
+.cover-drop:focus,
+.cover-drop.drag {
+  border-color: var(--cat);
+  box-shadow: 0 0 0 3px var(--cat-soft);
+}
+
+.cover-drop.has-cover {
+  border-style: solid;
+}
+
+.cover-drop img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+}
+
+.cover-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 12px;
+}
+
+.cover-hint b {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.cover-busy {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(11, 16, 22, 0.7);
+  font-weight: 600;
+}
+
 .tv-card-empty {
   position: absolute;
   inset: 0;
@@ -1939,6 +2045,14 @@ details.section summary {
   .tv-viewer .side {
     contain: none;
     overflow: visible;
+  }
+
+  .editor-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cover-drop {
+    max-width: 260px;
   }
 
   .tv-moves {

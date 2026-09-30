@@ -3,15 +3,18 @@ import type { TvCollection } from "../types";
 import { navigate } from "../lib/router";
 import { downloadFile, slugify } from "../lib/storage";
 import { importTvGames, tvGameToPgn } from "../lib/pgn";
-import { addGames, gameSubtitle, gameTitle, setCollections } from "../lib/tvStore";
+import { addGames, gameSubtitle, gameTitle, setCollections, tvBackupJson } from "../lib/tvStore";
 import ImportBox from "../components/ImportBox";
+import CollectionEditor from "../components/CollectionEditor";
 
 interface Props {
   collection: TvCollection;
+  startEditing?: boolean;
 }
 
-export default function TvCollectionPage({ collection: c }: Props) {
-  const [adding, setAdding] = useState(c.games.length === 0);
+export default function TvCollectionPage({ collection: c, startEditing = false }: Props) {
+  const [editing, setEditing] = useState(startEditing);
+  const [adding, setAdding] = useState(c.games.length === 0 && !startEditing);
   const [filter, setFilter] = useState("");
 
   const q = filter.trim().toLowerCase();
@@ -21,6 +24,10 @@ export default function TvCollectionPage({ collection: c }: Props) {
 
   function exportPgn() {
     downloadFile(`${slugify(c.name)}.pgn`, c.games.map(tvGameToPgn).join("\n"), "application/x-chess-pgn");
+  }
+
+  function exportJson() {
+    downloadFile(`${slugify(c.name)}.chess-tv.json`, tvBackupJson([c]), "application/json");
   }
 
   function removeGame(id: string, title: string) {
@@ -41,9 +48,13 @@ export default function TvCollectionPage({ collection: c }: Props) {
       </nav>
 
       <section className="section-head">
-        <span className="section-icon" aria-hidden="true">
-          ▶
-        </span>
+        {c.cover ? (
+          <img className="section-cover" src={c.cover} alt="" />
+        ) : (
+          <span className="section-icon" aria-hidden="true">
+            ▶
+          </span>
+        )}
         <div className="grow">
           <h1>{c.name}</h1>
           {c.description && <p className="muted">{c.description}</p>}
@@ -62,14 +73,22 @@ export default function TvCollectionPage({ collection: c }: Props) {
           <button className="btn" onClick={() => setAdding((a) => !a)}>
             ＋ Add games
           </button>
+          <button className="btn" onClick={() => setEditing((e) => !e)}>
+            ✎ Edit
+          </button>
           <button className="btn ghost" disabled={!c.games.length} onClick={exportPgn}>
             ⬇ PGN
+          </button>
+          <button className="btn ghost" onClick={exportJson}>
+            ⬇ Backup
           </button>
           <button className="btn ghost danger-text" onClick={removeCollection}>
             Delete
           </button>
         </div>
       </section>
+
+      {editing && <CollectionEditor collection={c} onDone={() => setEditing(false)} />}
 
       {adding && (
         <div className="panel">

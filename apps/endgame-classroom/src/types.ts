@@ -53,6 +53,8 @@ export interface TvCollection {
   id: string;
   name: string;
   description: string;
+  /** Cover photo: a small JPEG data URL, or an https image link. */
+  cover?: string;
   games: TvGame[];
   createdAt: number;
 }

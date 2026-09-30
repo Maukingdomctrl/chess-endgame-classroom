@@ -34,7 +34,14 @@ export default function App() {
     if (!parts[1]) page = <TvLibrary collections={tv.collections} />;
     else if (tvGame && tvCollection)
       page = <TvViewer key={tvGame.id} collection={tvCollection} game={tvGame} autoplay={query.get("autoplay") === "1"} />;
-    else if (tvCollection && !parts[2]) page = <TvCollectionPage collection={tvCollection} />;
+    else if (tvCollection && !parts[2])
+      page = (
+        <TvCollectionPage
+          key={`${tvCollection.id}-${query.get("edit") ?? ""}`}
+          collection={tvCollection}
+          startEditing={query.get("edit") === "1"}
+        />
+      );
     else
       page = (
         <div className="empty">
