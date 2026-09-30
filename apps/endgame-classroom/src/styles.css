@@ -1362,6 +1362,65 @@ details.section summary {
   }
 }
 
+/* ---------- trainer: fixed-height panel ----------
+   The side panel takes exactly the board column's height (contain: size stops its content from
+   stretching the row), and the coach bubble fills the space left over. Only a message too long
+   for that space scrolls — inside the bubble — so nothing moves between moves. */
+.trainer .workspace {
+  align-items: stretch;
+}
+
+.trainer .side {
+  contain: size;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.trainer .coach {
+  flex: 1 1 0;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.done-actions {
+  display: flex;
+  gap: 8px;
+  height: 46px;
+  flex-shrink: 0;
+}
+
+.done-actions .btn {
+  flex: 1;
+  padding: 0 12px;
+}
+
+.trainer .coach-avatar {
+  align-self: flex-start;
+}
+
+.bubble-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trainer .bubble {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.trainer .bubble-notes {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29, 26, 20, 0.25) transparent;
+}
+
+.trainer .bubble .action {
+  flex-shrink: 0;
+}
+
 /* ---------- small screens ---------- */
 @media (max-width: 900px) {
   .workspace {
@@ -1394,5 +1453,17 @@ details.section summary {
 
   .brand {
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .trainer .side {
+    contain: none;
+    overflow: visible;
+  }
+
+  .trainer .coach {
+    flex: none;
+    height: 210px;
   }
 }

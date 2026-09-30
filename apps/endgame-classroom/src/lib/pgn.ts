@@ -142,6 +142,21 @@ function leafPaths(root: Node): Node[][] {
   return out;
 }
 
+/**
+ * Names a variation after the moves where it leaves the main line, e.g. "2...c5" or "2...c5 4...Qc7".
+ * Returns "" for the main line (every move is its parent's first choice).
+ */
+function branchLabel(path: Node[], startFen: string) {
+  const parts: string[] = [];
+  path.forEach((node, i) => {
+    if (node.parent && node.parent.children[0] !== node) {
+      const { moveNo, whiteToMove } = moveNumberLabel(startFen, i);
+      parts.push(`${moveNo}${whiteToMove ? "." : "..."}${node.san}`);
+    }
+  });
+  return parts.join(" ");
+}
+
 function gameTitle(h: Record<string, string>, index: number) {
   if (h.LineName) return h.LineName;
   const clean = (v?: string) => (v && v !== "?" ? v : "");
@@ -197,7 +212,7 @@ export function importPgn(text: string): ImportResult {
     }
     const title = gameTitle(g.headers, gi);
     const paths = leafPaths(g.root);
-    paths.forEach((path, pi) => {
+    paths.forEach((path) => {
       const chess = new Chess(startFen);
       const moves: LineMove[] = [];
       for (const node of path) {
@@ -206,14 +221,14 @@ export function importPgn(text: string): ImportResult {
           moves.push({ san: m.san, comment: node.comment });
         } catch {
           warnings.push(
-            `${title}${paths.length > 1 ? ` (variation ${pi + 1})` : ""}: stopped at illegal move "${node.san}".`,
+            `${title}${branchLabel(path, startFen) ? ` · ${branchLabel(path, startFen)}` : ""}: stopped at illegal move "${node.san}".`,
           );
           break;
         }
       }
       lines.push(
         createLine({
-          name: paths.length > 1 ? `${title} · ${pi + 1}` : title,
+          name: branchLabel(path, startFen) ? `${title} · ${branchLabel(path, startFen)}` : title,
           description: g.headers.LineDescription ?? "",
           startFen,
           intro: g.root.comment,
