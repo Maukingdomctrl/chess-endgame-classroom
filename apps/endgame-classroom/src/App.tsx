@@ -1,7 +1,9 @@
 import type { Course } from "./types";
 import { setCourses, useCourseStore } from "./lib/store";
 import { navigate, useRoute } from "./lib/router";
-import CourseList from "./pages/CourseList";
+import Home from "./pages/Home";
+import Section from "./pages/Section";
+import { CATEGORIES, isCategory } from "./lib/categories";
 import NewCourse from "./pages/NewCourse";
 import Builder from "./pages/Builder";
 import Trainer from "./pages/Trainer";
@@ -19,8 +21,12 @@ export default function App() {
 
   let page;
   const course = parts[0] === "course" ? courses.find((c) => c.id === parts[1]) : undefined;
+  const category = query.get("category");
+  const activeSection = parts[0] === "section" ? parts[1] : course?.category;
   if (parts[0] === "new") {
-    page = <NewCourse onCreate={addCourse} />;
+    page = <NewCourse key={category ?? ""} onCreate={addCourse} initialCategory={isCategory(category) ? category : null} />;
+  } else if (parts[0] === "section" && isCategory(parts[1])) {
+    page = <Section category={parts[1]} courses={courses} onDelete={deleteCourse} />;
   } else if (parts[0] === "course" && !course) {
     page = (
       <div className="empty">
@@ -41,7 +47,7 @@ export default function App() {
       />
     );
   } else {
-    page = <CourseList courses={courses} onAdd={addCourse} onDelete={deleteCourse} />;
+    page = <Home courses={courses} onAdd={addCourse} onDelete={deleteCourse} />;
   }
 
   return (
@@ -50,6 +56,18 @@ export default function App() {
         <a className="brand" href="#/">
           <span className="brand-icon">♚</span> Endgame Classroom
         </a>
+        <nav className="topnav" aria-label="Sections">
+          {CATEGORIES.map((c) => (
+            <a
+              key={c.id}
+              href={`#/section/${c.id}`}
+              className={`cat-${c.id}${activeSection === c.id ? " active" : ""}`}
+              aria-current={activeSection === c.id ? "page" : undefined}
+            >
+              {c.title}
+            </a>
+          ))}
+        </nav>
       </header>
       {saveError && (
         <div className="banner error">

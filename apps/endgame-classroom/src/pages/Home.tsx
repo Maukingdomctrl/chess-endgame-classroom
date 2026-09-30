@@ -2,10 +2,11 @@ import { useMemo, useState } from "react";
 import { Chessboard } from "react-chessboard";
 import type { Course } from "../types";
 import { navigate } from "../lib/router";
-import { courseStats } from "../lib/stats";
-import { DEFAULT_FEN } from "../lib/chess";
-import { exportCourseJson, exportCoursePgn, parseCourseBackup } from "../lib/exporting";
+import { pct } from "../lib/stats";
+import { CATEGORIES, categoryStats } from "../lib/categories";
+import { parseCourseBackup } from "../lib/exporting";
 import { searchCourses } from "../lib/search";
+import CourseGrid from "../components/CourseGrid";
 
 interface Props {
   courses: Course[];
@@ -13,13 +14,12 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
-export default function CourseList({ courses, onAdd, onDelete }: Props) {
-  const [menu, setMenu] = useState<string | null>(null);
+export default function Home({ courses, onAdd, onDelete }: Props) {
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const searching = query.trim() !== "";
   const result = useMemo(() => (searching ? searchCourses(courses, query) : null), [courses, query, searching]);
-  const shown = result ? courses.filter((c) => result.courseIds.has(c.id)) : courses;
+  const matchedCourses = result ? courses.filter((c) => result.courseIds.has(c.id)) : [];
 
   async function importBackup(files: FileList | null) {
     if (!files?.length) return;
@@ -34,9 +34,10 @@ export default function CourseList({ courses, onAdd, onDelete }: Props) {
   return (
     <div className="page">
       <section className="hero">
-        <h1>Endgame Courses</h1>
+        <p className="eyebrow">Your chess classroom</p>
+        <h1>Study every phase of the game</h1>
         <p className="muted">Build courses from PGNs and FENs, then learn and practice them line by line.</p>
-        <div className="row center">
+        <div className="row center wrap">
           <button className="btn primary" onClick={() => navigate("/new")}>
             ＋ Create a Course
           </button>
@@ -75,7 +76,7 @@ export default function CourseList({ courses, onAdd, onDelete }: Props) {
         )}
       </section>
 
-      {result && (
+      {result ? (
         <section className="results">
           <h2 className="results-title">
             {result.hits.length === 0
@@ -89,7 +90,7 @@ export default function CourseList({ courses, onAdd, onDelete }: Props) {
               {result.hits.slice(0, 40).map((h) => {
                 const playable = h.line.moves.length > 0;
                 return (
-                  <li key={`${h.course.id}-${h.line.id}`} className="hit">
+                  <li key={`${h.course.id}-${h.line.id}`} className={`hit cat-${h.course.category}`}>
                     <div className="hit-board">
                       <Chessboard
                         options={{
@@ -138,105 +139,47 @@ export default function CourseList({ courses, onAdd, onDelete }: Props) {
             </ul>
           )}
           {result.hits.length > 40 && <p className="small muted">Showing the first 40 — refine your search to see more.</p>}
-          {shown.length > 0 && <h2 className="results-title">Courses</h2>}
+          {matchedCourses.length > 0 && (
+            <>
+              <h2 className="results-title">Courses</h2>
+              <CourseGrid courses={matchedCourses} onDelete={onDelete} showCategory />
+            </>
+          )}
         </section>
-      )}
-
-      {courses.length === 0 ? (
-        <div className="empty">
-          <p>No courses yet. Create one to start adding lines.</p>
-        </div>
       ) : (
-        <div className="grid">
-          {shown.map((c) => {
-            const s = courseStats(c);
-            const first = c.lines[0];
+        <section className="sections" aria-label="Sections">
+          {CATEGORIES.map((cat) => {
+            const s = categoryStats(courses, cat.id);
             return (
-              <article className="card" key={c.id}>
-                <div className="card-board">
-                  <Chessboard
-                    options={{
-                      id: `mini-${c.id}`,
-                      position: first?.startFen ?? DEFAULT_FEN,
-                      boardOrientation: c.playAs,
-                      allowDragging: false,
-                      showNotation: false,
-                      darkSquareStyle: { backgroundColor: "#b58863" },
-                      lightSquareStyle: { backgroundColor: "#f0d9b5" },
-                    }}
-                  />
-                </div>
-                <div className="card-body">
-                  <div className="card-head">
-                    <h2>{c.name}</h2>
-                    <div className="menu-wrap">
-                      <button className="icon-btn" aria-label="Course menu" onClick={() => setMenu(menu === c.id ? null : c.id)}>
-                        ⋮
-                      </button>
-                      {menu === c.id && (
-                        <div className="menu" onMouseLeave={() => setMenu(null)}>
-                          <button onClick={() => navigate(`/course/${c.id}/build`)}>Edit course</button>
-                          <button onClick={() => exportCoursePgn(c)}>Export PGN</button>
-                          <button onClick={() => exportCourseJson(c)}>Export backup (.json)</button>
-                          <button
-                            className="danger"
-                            onClick={() => {
-                              if (confirm(`Delete "${c.name}" and all its lines? This can't be undone.`)) onDelete(c.id);
-                              setMenu(null);
-                            }}
-                          >
-                            Delete course
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  {c.description && <p className="muted clamp">{c.description}</p>}
-                  <p className="small muted">
-                    Play as {c.playAs} · {s.total} line{s.total === 1 ? "" : "s"}
-                    {s.drafts > 0 && ` · ${s.drafts} without moves`}
-                  </p>
-                  <div className="stack-bar" title={`${s.perfected} perfected, ${s.learned} learned of ${s.total}`}>
+              <a key={cat.id} className={`section-tile cat-${cat.id}`} href={`#/section/${cat.id}`}>
+                <span className="tile-icon" aria-hidden="true">
+                  {cat.icon}
+                </span>
+                <span className="tile-title">{cat.title}</span>
+                <span className="tile-blurb">{cat.blurb}</span>
+                <span className="tile-stats">
+                  <span>
+                    <b>{s.courses}</b> course{s.courses === 1 ? "" : "s"}
+                  </span>
+                  <span>
+                    <b>{s.total}</b> line{s.total === 1 ? "" : "s"}
+                  </span>
+                </span>
+                <span className="tile-progress">
+                  <span className="stack-bar">
                     <span className="bar-learned" style={{ width: pct(s.learned, s.total) }} />
                     <span className="bar-perfected" style={{ width: pct(s.perfected, s.total) }} />
-                  </div>
-                  <p className="small muted">
-                    {s.learned}/{s.total} learned · {s.perfected}/{s.total} perfected
-                  </p>
-                  <div className="row">
-                    {s.total > 0 ? (
-                      <>
-                        <button className="btn primary" onClick={() => navigate(`/course/${c.id}/learn`)}>
-                          {s.learned === 0 ? "Start learning →" : "Learn →"}
-                        </button>
-                        <button
-                          className="btn"
-                          disabled={s.learned === 0}
-                          title={s.learned === 0 ? "Learn a line first" : ""}
-                          onClick={() => navigate(`/course/${c.id}/practice`)}
-                        >
-                          Practice
-                        </button>
-                      </>
-                    ) : (
-                      <button className="btn primary" onClick={() => navigate(`/course/${c.id}/build`)}>
-                        Add lines →
-                      </button>
-                    )}
-                    <button className="btn ghost" onClick={() => navigate(`/course/${c.id}/build`)}>
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              </article>
+                  </span>
+                  <span className="small muted">
+                    {s.total ? `${s.learned} learned · ${s.perfected} perfected` : "No lines yet"}
+                  </span>
+                </span>
+                <span className="tile-cta">Open {cat.title} →</span>
+              </a>
             );
           })}
-        </div>
+        </section>
       )}
     </div>
   );
-}
-
-function pct(n: number, total: number) {
-  return total ? `${(n / total) * 100}%` : "0%";
 }

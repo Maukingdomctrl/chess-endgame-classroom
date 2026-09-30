@@ -1,5 +1,7 @@
 export type Side = "white" | "black";
 
+export type Category = "opening" | "middlegame" | "endgame";
+
 export interface LineMove {
   san: string;
   /** Coach note shown after this move is played. */
@@ -29,6 +31,7 @@ export interface Course {
   name: string;
   description: string;
   playAs: Side;
+  category: Category;
   lines: Line[];
   progress: Record<string, LineProgress>;
   createdAt: number;

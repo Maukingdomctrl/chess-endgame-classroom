@@ -13,7 +13,10 @@ npm run build    # production build in dist/
 
 ## Using it
 
-1. **Create a Course** – give it a name, description and the side you play.
+0. **Sections** – the home screen has three tiles: **Openings**, **Middlegame** and **Endgame**.
+   Each course belongs to one section (change it any time in the builder's *Course details*).
+   Courses created before sections existed are placed in Endgame.
+1. **Create a Course** – give it a name, description, section and the side you play.
 2. **Build lines** – paste a FEN to start from any position (or use the normal start), then play
    the moves for both sides on the board. Add a note to any move; the coach shows it in Learn mode.
    Press **End line and add to the course**, name it, and **Return to start** to add more.
@@ -35,7 +38,8 @@ npm run build    # production build in dist/
 
 ## Code map
 
-- `src/pages/` – `CourseList`, `NewCourse`, `Builder`, `Trainer` (Learn + Practice)
+- `src/pages/` – `Home` (section tiles + search), `Section`, `NewCourse`, `Builder`, `Trainer` (Learn + Practice)
+- `src/lib/categories.ts` – the three sections and their stats
 - `src/components/` – `Board` (drag or click-to-move, promotion picker), `ImportBox`, `MoveList`, …
 - `src/lib/pgn.ts` – PGN/FEN import (variations → lines) and PGN export
 - `src/lib/store.ts`, `storage.ts` – courses saved in `localStorage`

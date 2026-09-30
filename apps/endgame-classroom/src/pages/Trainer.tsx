@@ -398,7 +398,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
                       🎯 Practice again
                     </button>
                   )}
-                  <button className="btn wide" onClick={() => navigate("/")}>
+                  <button className="btn wide" onClick={() => navigate(`/section/${course.category}`)}>
                     Back to courses
                   </button>
                 </>
