@@ -1,4 +1,4 @@
-import type { Course, Line, LineProgress, Side } from "../types";
+import type { Category, Course, Line, LineProgress, Side } from "../types";
 import { DEFAULT_FEN } from "./chess";
 
 const KEY = "endgame-classroom.courses.v1";
@@ -26,13 +26,19 @@ export function saveCourses(courses: Course[]) {
   }
 }
 
-export function createCourse(name: string, description: string, playAs: Side): Course {
+export function createCourse(
+  name: string,
+  description: string,
+  playAs: Side,
+  category: Category = "endgame",
+): Course {
   const now = Date.now();
   return {
     id: newId(),
     name: name.trim() || "Untitled course",
     description: description.trim(),
     playAs,
+    category,
     lines: [],
     progress: {},
     createdAt: now,
@@ -72,6 +78,8 @@ export function normalizeCourse(input: unknown): Course {
     name: typeof c.name === "string" && c.name ? c.name : "Untitled course",
     description: typeof c.description === "string" ? c.description : "",
     playAs: c.playAs === "black" ? "black" : "white",
+    // Courses made before sections existed were all endgame courses.
+    category: c.category === "opening" || c.category === "middlegame" ? c.category : "endgame",
     lines: Array.isArray(c.lines)
       ? c.lines.map((l) =>
           createLine({

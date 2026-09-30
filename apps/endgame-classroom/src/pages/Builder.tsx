@@ -12,6 +12,7 @@ import { navigate } from "../lib/router";
 import { lineToPgn } from "../lib/pgn";
 import { copyText, exportCourseJson, exportCoursePgn } from "../lib/exporting";
 import { courseStats } from "../lib/stats";
+import { CATEGORIES, categoryInfo } from "../lib/categories";
 
 interface Props {
   course: Course;
@@ -234,7 +235,10 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
           <div className="grow">
             <h1 className="title-sm">{course.name}</h1>
             <p className="muted small">
-              {stats.total} line{stats.total === 1 ? "" : "s"} · play as {course.playAs}
+              <a className="cat-link" href={`#/section/${course.category}`}>
+                {categoryInfo(course.category).title}
+              </a>{" "}
+              · {stats.total} line{stats.total === 1 ? "" : "s"} · play as {course.playAs}
             </p>
           </div>
           {stats.total > 0 && (
@@ -522,6 +526,18 @@ function CourseDetails({ course, updateCourse }: { course: Course; updateCourse:
         value={course.description}
         onChange={(e) => updateCourse(course.id, (c) => ({ ...c, description: e.target.value }))}
       />
+      <span className="label">Section</span>
+      <div className="segmented three">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat.id}
+            className={course.category === cat.id ? "active" : ""}
+            onClick={() => updateCourse(course.id, (c) => ({ ...c, category: cat.id }))}
+          >
+            {cat.icon} {cat.title}
+          </button>
+        ))}
+      </div>
       <span className="label">Play as</span>
       <div className="segmented">
         {(["white", "black"] as const).map((s) => (

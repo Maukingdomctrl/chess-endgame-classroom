@@ -7,3 +7,7 @@ export function courseStats(course: Course) {
   const perfected = playable.filter((l) => progressOf(course, l.id).perfected).length;
   return { total: playable.length, drafts: course.lines.length - playable.length, learned, perfected };
 }
+
+export function pct(n: number, total: number) {
+  return total ? `${(n / total) * 100}%` : "0%";
+}
