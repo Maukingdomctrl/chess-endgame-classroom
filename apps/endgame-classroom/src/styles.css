@@ -22,6 +22,8 @@
   --radius: 14px;
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  /* Lexend was designed for reading ease; used for the coach's teaching notes. */
+  --learner: "Lexend", "Atkinson Hyperlegible", "Verdana", system-ui, sans-serif;
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 14px 40px rgba(0, 0, 0, 0.35);
   color-scheme: dark;
   font-family: var(--sans);
@@ -1191,10 +1193,17 @@ details.section summary {
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   position: relative;
-  font-size: 1.02rem;
-  line-height: 1.4;
+  font-family: var(--learner);
+  font-size: 1.12rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  word-spacing: 0.04em;
+  padding: 14px 18px;
+  /* Room for a two-line note plus the instruction, so the panel doesn't jump between moves. */
+  min-height: 136px;
 }
 
 .bubble::before {
@@ -1216,7 +1225,20 @@ details.section summary {
 }
 
 .bubble .action {
-  font-weight: 700;
+  font-weight: 600;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(29, 26, 20, 0.18);
+}
+
+.bubble .action.waiting {
+  font-weight: 400;
+  font-style: italic;
+  color: #6f6858;
+}
+
+.bubble .action:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .next-btn .countdown {
