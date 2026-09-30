@@ -302,11 +302,14 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
   if (allDone) {
     coachMain = [
       mode === "learn"
-        ? `You've gone through all ${queue.length} line${queue.length === 1 ? "" : "s"}. Time to practice them from memory!`
+        ? queue.length === 1
+          ? "You've finished this line. Time to practice it from memory!"
+          : `You've gone through all ${queue.length} lines. Time to practice them from memory!`
         : `Practice round complete: ${queue.length} line${queue.length === 1 ? "" : "s"}.`,
     ];
   } else if (run.status === "done") {
-    coachMain = ["Well done!", line?.description ?? ""].filter(Boolean);
+    // Keep the final move's note: it often explains why the line is won.
+    coachMain = [...notes, "Well done!", line?.description ?? ""];
     if (mode === "practice") coachAction = run.mistakes === 0 ? "Perfect — no mistakes." : `${run.mistakes} mistake${run.mistakes === 1 ? "" : "s"} — this line will come back.`;
   } else if (!live) {
     coachMain = [line?.moves[viewing - 1]?.comment || "Reviewing earlier moves."];
@@ -381,9 +384,14 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
           <div className="coach">
             <span className="coach-avatar">♚</span>
             <div className={`bubble${run.flash && live ? " wrong" : ""}`}>
-              {coachMain.map((t, i) => (
-                <p key={i}>{t}</p>
-              ))}
+              {coachMain.length > 0 && (
+                // Only the notes scroll, so the instruction below stays visible even for long notes.
+                <div className="bubble-notes">
+                  {coachMain.map((t, i) => (
+                    <p key={i}>{t}</p>
+                  ))}
+                </div>
+              )}
               {coachAction && <p className={`action${waiting ? " waiting" : ""}`}>{coachAction}</p>}
               {mode === "learn" && run.hintLevel > 0 && expected && live && run.status === "playing" && (
                 <p className="action">The move is {expected.san}.</p>
@@ -391,31 +399,32 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
             </div>
           </div>
 
-          {(run.status === "done" || allDone) && (
-            <div className="stack">
-              {allDone ? (
-                <>
-                  {mode === "learn" ? (
-                    <button className="btn primary wide" onClick={() => navigate(`/course/${course.id}/practice`)}>
-                      🎯 Practice these lines
-                    </button>
-                  ) : (
-                    <button className="btn primary wide" onClick={newSession}>
-                      🎯 Practice again
-                    </button>
-                  )}
-                  <button className="btn wide" onClick={() => navigate(`/section/${course.category}`)}>
-                    Back to courses
+          {/* Always takes the same space (empty while playing) so the bubble above never resizes. */}
+          <div className="done-actions">
+            {allDone ? (
+              <>
+                {mode === "learn" ? (
+                  <button className="btn primary" onClick={() => navigate(`/course/${course.id}/practice`)}>
+                    🎯 Practice them
                   </button>
-                </>
-              ) : (
-                <button className="btn primary wide next-btn" onClick={nextLine}>
+                ) : (
+                  <button className="btn primary" onClick={newSession}>
+                    🎯 Practice again
+                  </button>
+                )}
+                <button className="btn" onClick={() => navigate(`/section/${course.category}`)}>
+                  Back to courses
+                </button>
+              </>
+            ) : (
+              run.status === "done" && (
+                <button className="btn primary next-btn" onClick={nextLine}>
                   {run.idx + 1 >= queue.length ? "Finish" : "Next line →"}
                   <span className="countdown" key={run.idx} />
                 </button>
-              )}
-            </div>
-          )}
+              )
+            )}
+          </div>
 
           <div className="mode-cards">
             <button
