@@ -4,6 +4,10 @@ import { navigate, useRoute } from "./lib/router";
 import Home from "./pages/Home";
 import Section from "./pages/Section";
 import { CATEGORIES, isCategory } from "./lib/categories";
+import { useTvStore } from "./lib/tvStore";
+import TvLibrary from "./pages/TvLibrary";
+import TvCollectionPage from "./pages/TvCollectionPage";
+import TvViewer from "./pages/TvViewer";
 import NewCourse from "./pages/NewCourse";
 import Builder from "./pages/Builder";
 import Trainer from "./pages/Trainer";
@@ -17,13 +21,35 @@ const deleteCourse = (id: string) => setCourses((cs) => cs.filter((c) => c.id !=
 
 export default function App() {
   const { courses, saveError } = useCourseStore();
+  const tv = useTvStore();
   const { parts, query } = useRoute();
 
   let page;
   const course = parts[0] === "course" ? courses.find((c) => c.id === parts[1]) : undefined;
   const category = query.get("category");
-  const activeSection = parts[0] === "section" ? parts[1] : course?.category;
-  if (parts[0] === "new") {
+  const activeSection = parts[0] === "tv" ? "tv" : parts[0] === "section" ? parts[1] : course?.category;
+  const tvCollection = parts[0] === "tv" && parts[1] ? tv.collections.find((c) => c.id === parts[1]) : undefined;
+  const tvGame = tvCollection && parts[2] ? tvCollection.games.find((g) => g.id === parts[2]) : undefined;
+  if (parts[0] === "tv") {
+    if (!parts[1]) page = <TvLibrary collections={tv.collections} />;
+    else if (tvGame && tvCollection)
+      page = <TvViewer key={tvGame.id} collection={tvCollection} game={tvGame} autoplay={query.get("autoplay") === "1"} />;
+    else if (tvCollection && !parts[2])
+      page = (
+        <TvCollectionPage
+          key={`${tvCollection.id}-${query.get("edit") ?? ""}`}
+          collection={tvCollection}
+          startEditing={query.get("edit") === "1"}
+        />
+      );
+    else
+      page = (
+        <div className="empty">
+          <p>That game isn't in your Chess TV library on this device.</p>
+          <button className="btn" onClick={() => navigate("/tv")}>Back to Chess TV</button>
+        </div>
+      );
+  } else if (parts[0] === "new") {
     page = <NewCourse key={category ?? ""} onCreate={addCourse} initialCategory={isCategory(category) ? category : null} />;
   } else if (parts[0] === "section" && isCategory(parts[1])) {
     page = <Section category={parts[1]} courses={courses} onDelete={deleteCourse} />;
@@ -67,9 +93,16 @@ export default function App() {
               {c.title}
             </a>
           ))}
+          <a
+            href="#/tv"
+            className={`cat-tv tv-nav${activeSection === "tv" ? " active" : ""}`}
+            aria-current={activeSection === "tv" ? "page" : undefined}
+          >
+            ▶ Chess TV
+          </a>
         </nav>
       </header>
-      {saveError && (
+      {(saveError || tv.saveError) && (
         <div className="banner error">
           Couldn't save to this browser's storage (private window or storage full). Export your courses to keep them.
         </div>

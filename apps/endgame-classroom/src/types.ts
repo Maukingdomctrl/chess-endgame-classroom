@@ -37,3 +37,24 @@ export interface Course {
   createdAt: number;
   updatedAt: number;
 }
+
+/** A game in the Chess TV library: stored as imported, watched rather than trained. */
+export interface TvGame {
+  id: string;
+  /** PGN tags such as White, Black, Event, Site, Date, Result, ECO. */
+  headers: Record<string, string>;
+  startFen: string;
+  /** Comment before the first move. */
+  intro: string;
+  moves: LineMove[];
+}
+
+export interface TvCollection {
+  id: string;
+  name: string;
+  description: string;
+  /** Cover photo: a small JPEG data URL, or an https image link. */
+  cover?: string;
+  games: TvGame[];
+  createdAt: number;
+}
