@@ -3,22 +3,38 @@ import type { DragEvent } from "react";
 import type { Line } from "../types";
 import { importText } from "../lib/pgn";
 
-interface Props {
-  onImport: (lines: Line[]) => void;
+interface Props<T> {
+  onImport: (items: T[]) => void;
   compact?: boolean;
+  /** Turns pasted text into items; defaults to course lines from PGN/FEN. */
+  parse?: (text: string) => { items: T[]; warnings: string[] };
+  placeholder?: string;
+  /** Singular noun for the result message, e.g. "line" or "game". */
+  noun?: string;
 }
 
-export default function ImportBox({ onImport, compact }: Props) {
+const parseLines = (text: string) => {
+  const { lines, warnings } = importText(text);
+  return { items: lines, warnings };
+};
+
+export default function ImportBox<T = Line>({
+  onImport,
+  compact,
+  parse = parseLines as unknown as (text: string) => { items: T[]; warnings: string[] },
+  placeholder = "Paste PGN (one or many games, variations become separate lines)\nor FENs, one per line — or drag & drop a .pgn file here",
+  noun = "line",
+}: Props<T>) {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
   const [dragOver, setDragOver] = useState(false);
 
   function run(source: string) {
-    const { lines, warnings } = importText(source);
+    const { items, warnings } = parse(source);
     const msgs = [...warnings];
-    if (lines.length) {
-      msgs.unshift(`Imported ${lines.length} line${lines.length === 1 ? "" : "s"}.`);
-      onImport(lines);
+    if (items.length) {
+      msgs.unshift(`Imported ${items.length} ${noun}${items.length === 1 ? "" : "s"}.`);
+      onImport(items);
       setText("");
     }
     setMessages(msgs);
@@ -41,7 +57,7 @@ export default function ImportBox({ onImport, compact }: Props) {
       <textarea
         className={`field${dragOver ? " drag" : ""}`}
         rows={compact ? 4 : 6}
-        placeholder={"Paste PGN (one or many games, variations become separate lines)\nor FENs, one per line — or drag & drop a .pgn file here"}
+        placeholder={placeholder}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onDragOver={(e) => {

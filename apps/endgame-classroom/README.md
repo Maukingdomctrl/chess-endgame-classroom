@@ -36,10 +36,23 @@ npm run build    # production build in dist/
 9. **Pick a line** – in both modes, the **Line** dropdown jumps straight to any line you want to
    train; the session then carries on from there.
 
+## Chess TV
+
+A separate library for **watching** games (not training them). Open it from the banner under the
+section tiles or **▶ Chess TV** in the top bar.
+
+- Create collections (e.g. *Capablanca*, *Morphy*) and paste or drop PGNs — every game keeps its
+  tags (players, event, date, result, ECO) and comments. Games are stored as imported; you can add,
+  remove and export them, but not edit them.
+- The viewer has **Play/Pause** (10 s per move by default; 1–30 s selectable and remembered),
+  ⏮ ‹ › ⏭ buttons, a clickable move list, flip board, and **Play next game** to watch a whole
+  collection in a row. Keys: Space = play/pause, ←/→ = step, Home/End = start/end.
+
 ## Code map
 
 - `src/pages/` – `Home` (section tiles + search), `Section`, `NewCourse`, `Builder`, `Trainer` (Learn + Practice)
 - `src/lib/categories.ts` – the three sections and their stats
+- `src/pages/Tv*.tsx`, `src/lib/tvStore.ts` – Chess TV library, collection page and game viewer
 - `src/components/` – `Board` (drag or click-to-move, promotion picker), `ImportBox`, `MoveList`, …
 - `src/lib/pgn.ts` – PGN/FEN import (variations → lines) and PGN export
 - `src/lib/store.ts`, `storage.ts` – courses saved in `localStorage`

@@ -7,6 +7,7 @@ import { CATEGORIES, categoryStats } from "../lib/categories";
 import { parseCourseBackup } from "../lib/exporting";
 import { searchCourses } from "../lib/search";
 import CourseGrid from "../components/CourseGrid";
+import { useTvStore } from "../lib/tvStore";
 
 interface Props {
   courses: Course[];
@@ -16,6 +17,8 @@ interface Props {
 
 export default function Home({ courses, onAdd, onDelete }: Props) {
   const [error, setError] = useState("");
+  const { collections } = useTvStore();
+  const tvGames = collections.reduce((n, c) => n + c.games.length, 0);
   const [query, setQuery] = useState("");
   const searching = query.trim() !== "";
   const result = useMemo(() => (searching ? searchCourses(courses, query) : null), [courses, query, searching]);
@@ -147,38 +150,62 @@ export default function Home({ courses, onAdd, onDelete }: Props) {
           )}
         </section>
       ) : (
-        <section className="sections" aria-label="Sections">
-          {CATEGORIES.map((cat) => {
-            const s = categoryStats(courses, cat.id);
-            return (
-              <a key={cat.id} className={`section-tile cat-${cat.id}`} href={`#/section/${cat.id}`}>
-                <span className="tile-icon" aria-hidden="true">
-                  {cat.icon}
-                </span>
-                <span className="tile-title">{cat.title}</span>
-                <span className="tile-blurb">{cat.blurb}</span>
-                <span className="tile-stats">
-                  <span>
-                    <b>{s.courses}</b> course{s.courses === 1 ? "" : "s"}
+        <>
+          <section className="sections" aria-label="Sections">
+            {CATEGORIES.map((cat) => {
+              const s = categoryStats(courses, cat.id);
+              return (
+                <a key={cat.id} className={`section-tile cat-${cat.id}`} href={`#/section/${cat.id}`}>
+                  <span className="tile-icon" aria-hidden="true">
+                    {cat.icon}
                   </span>
-                  <span>
-                    <b>{s.total}</b> line{s.total === 1 ? "" : "s"}
+                  <span className="tile-title">{cat.title}</span>
+                  <span className="tile-blurb">{cat.blurb}</span>
+                  <span className="tile-stats">
+                    <span>
+                      <b>{s.courses}</b> course{s.courses === 1 ? "" : "s"}
+                    </span>
+                    <span>
+                      <b>{s.total}</b> line{s.total === 1 ? "" : "s"}
+                    </span>
                   </span>
-                </span>
-                <span className="tile-progress">
-                  <span className="stack-bar">
-                    <span className="bar-learned" style={{ width: pct(s.learned, s.total) }} />
-                    <span className="bar-perfected" style={{ width: pct(s.perfected, s.total) }} />
+                  <span className="tile-progress">
+                    <span className="stack-bar">
+                      <span className="bar-learned" style={{ width: pct(s.learned, s.total) }} />
+                      <span className="bar-perfected" style={{ width: pct(s.perfected, s.total) }} />
+                    </span>
+                    <span className="small muted">
+                      {s.total ? `${s.learned} learned · ${s.perfected} perfected` : "No lines yet"}
+                    </span>
                   </span>
-                  <span className="small muted">
-                    {s.total ? `${s.learned} learned · ${s.perfected} perfected` : "No lines yet"}
-                  </span>
-                </span>
-                <span className="tile-cta">Open {cat.title} →</span>
-              </a>
-            );
-          })}
-        </section>
+                  <span className="tile-cta">Open {cat.title} →</span>
+                </a>
+              );
+            })}
+          </section>
+
+          <a className="tv-banner cat-tv" href="#/tv">
+            <span className="tv-banner-screen" aria-hidden="true">
+              <span className="tv-banner-play">▶</span>
+            </span>
+            <span className="tv-banner-text">
+              <span className="eyebrow">Watch &amp; enjoy</span>
+              <span className="tv-banner-title">Chess TV</span>
+              <span className="muted">
+                Your library of great games — Capablanca, Morphy and more — replayed move by move.
+              </span>
+            </span>
+            <span className="tv-banner-meta">
+              <span>
+                <b>{collections.length}</b> collection{collections.length === 1 ? "" : "s"}
+              </span>
+              <span>
+                <b>{tvGames}</b> game{tvGames === 1 ? "" : "s"}
+              </span>
+              <span className="tile-cta">Open Chess TV →</span>
+            </span>
+          </a>
+        </>
       )}
     </div>
   );

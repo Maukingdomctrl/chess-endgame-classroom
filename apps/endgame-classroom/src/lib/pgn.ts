@@ -1,5 +1,5 @@
 import { Chess } from "chess.js";
-import type { Line, LineMove } from "../types";
+import type { Line, LineMove, TvGame } from "../types";
 import { DEFAULT_FEN, looksLikeFen, moveNumberLabel, normalizeFen } from "./chess";
 import { createLine } from "./storage";
 
@@ -294,4 +294,58 @@ export function lineToPgn(line: Line, courseName = ""): string {
 
 export function linesToPgn(lines: Line[], courseName = ""): string {
   return lines.map((l) => lineToPgn(l, courseName)).join("\n");
+}
+
+/**
+ * Reads PGN games for Chess TV: keeps every tag and the main line with its comments.
+ * Variations are skipped, since a game is watched from start to finish.
+ */
+export function importTvGames(text: string): { items: Omit<TvGame, "id">[]; warnings: string[] } {
+  const items: Omit<TvGame, "id">[] = [];
+  const warnings: string[] = [];
+  const games = parsePgnGames(text.trim());
+  if (games.length === 0) return { items, warnings: ["No PGN games found."] };
+
+  games.forEach((g, gi) => {
+    let startFen = DEFAULT_FEN;
+    if (g.headers.FEN) {
+      const { fen, error } = normalizeFen(g.headers.FEN);
+      if (!fen) {
+        warnings.push(`Game ${gi + 1} skipped: bad FEN (${error}).`);
+        return;
+      }
+      startFen = fen;
+    }
+    const chess = new Chess(startFen);
+    const moves: LineMove[] = [];
+    let node = g.root.children[0];
+    while (node) {
+      try {
+        moves.push({ san: chess.move(node.san).san, comment: node.comment });
+      } catch {
+        warnings.push(`${gameTitle(g.headers, gi)}: stopped at illegal move "${node.san}".`);
+        break;
+      }
+      node = node.children[0];
+    }
+    if (moves.length === 0) {
+      warnings.push(`${gameTitle(g.headers, gi)} skipped: no moves.`);
+      return;
+    }
+    items.push({ headers: g.headers, startFen, intro: g.root.comment, moves });
+  });
+  return { items, warnings };
+}
+
+/** Writes a Chess TV game back out as PGN with its original tags. */
+export function tvGameToPgn(game: TvGame): string {
+  const line = { ...createLine({ startFen: game.startFen, intro: game.intro, moves: game.moves }) };
+  const pgn = lineToPgn(line);
+  // Movetext starts after the first blank line; swap the "*" terminator for the real result.
+  const body = pgn.slice(pgn.indexOf("\n\n") + 2).replace(/\*\s*$/, game.headers.Result || "*");
+  const tags = { Event: "?", Site: "?", Date: "????.??.??", Round: "?", White: "?", Black: "?", Result: "*", ...game.headers };
+  if (game.startFen !== DEFAULT_FEN) Object.assign(tags, { SetUp: "1", FEN: game.startFen });
+  return `${Object.entries(tags)
+    .map(([k, v]) => `[${k} "${escTag(v)}"]`)
+    .join("\n")}\n\n${body.trim()}\n`;
 }
