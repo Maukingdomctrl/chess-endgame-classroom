@@ -297,6 +297,8 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
 
   let coachMain: string[];
   let coachAction = "";
+  // Keeps the instruction row in place while the opponent replies, so the bubble doesn't collapse.
+  let waiting = false;
   if (allDone) {
     coachMain = [
       mode === "learn"
@@ -316,8 +318,12 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
       if (mode === "learn") coachAction = moveInstruction(expected);
       else if (run.hintLevel >= 1) coachAction = run.hintLevel >= 2 ? moveInstruction(expected) : "Move the highlighted piece.";
       else coachAction = "Your move.";
-    } else coachAction = "";
+    } else if (run.ply < total) {
+      coachAction = "Opponent is replying…";
+      waiting = true;
+    }
   }
+  coachMain = coachMain.filter((t) => t.trim());
 
   return (
     <div className="trainer">
@@ -378,7 +384,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
               {coachMain.map((t, i) => (
                 <p key={i}>{t}</p>
               ))}
-              {coachAction && <p className="action">{coachAction}</p>}
+              {coachAction && <p className={`action${waiting ? " waiting" : ""}`}>{coachAction}</p>}
               {mode === "learn" && run.hintLevel > 0 && expected && live && run.status === "playing" && (
                 <p className="action">The move is {expected.san}.</p>
               )}

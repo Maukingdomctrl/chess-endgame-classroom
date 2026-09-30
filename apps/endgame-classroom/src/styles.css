@@ -1202,6 +1202,8 @@ details.section summary {
   letter-spacing: 0.01em;
   word-spacing: 0.04em;
   padding: 14px 18px;
+  /* Room for a two-line note plus the instruction, so the panel doesn't jump between moves. */
+  min-height: 136px;
 }
 
 .bubble::before {
@@ -1226,6 +1228,12 @@ details.section summary {
   font-weight: 600;
   padding-top: 8px;
   border-top: 1px dashed rgba(29, 26, 20, 0.18);
+}
+
+.bubble .action.waiting {
+  font-weight: 400;
+  font-style: italic;
+  color: #6f6858;
 }
 
 .bubble .action:first-child {
