@@ -1,12 +1,17 @@
 # Course toolkit
 
 Shared tools for the built-in course generators (`tools/<course>/`): an exact endgame solver for up to
-four pieces, a line player, the independent checker, the PGN writer, and a browser test. A course
-generator only adds its lesson list, the search for teaching positions, and its texts.
+four pieces, a line player, the checker, the PGN writer, a table cache, a regression check and a browser
+test. A course generator only adds its lesson list, the search for teaching positions, and its texts.
+Pawn courses (White's pawns against the lone king, lines to the promotion) have their own toolkit in
+`pawn/` (see its README), with an independent second solver for checking.
 
 ```bash
-npm run kit:selftest                     # checks the solver (a few minutes)
-KIT_CACHE=/tmp/kit npm run course:pawns  # optional: keep solved tables on disk between runs
+npm run kit:selftest                     # checks the solver (a few minutes; "-- promotion" for the pawn part)
+npm run kit:test                         # unit tests of the pawn toolkit, incl. the checker and the cache
+npm run kit:regress                      # every built-in course regenerates byte for byte (-- --twice)
+npm run kit:check -- <course.pgn>        # independent check of a pawn course
+KIT_CACHE=1 npm run course:pawns         # keep solved tables on disk between runs (npm run kit:cache)
 npm run course:e2e -- <builtin id>        # browser test of a built-in course (add --all for every line)
 ```
 
@@ -19,6 +24,9 @@ npm run course:e2e -- <builtin id>        # browser test of a built-in course (a
 | `board.cjs` | Squares, FEN helpers, symmetry keys (`canon8`, `canon2`), and the geometry lessons talk about (`ring`, `onEdge`, `isCorner`, `directOpp`, `knightJump`). |
 | `e2e.cjs` | The browser test (Playwright + Chromium): the course appears on a fresh device and on a device that never had it, lines played to the end in Learn (every promotion via the picker), board marks drawn as in the PGN, an `[%also]` move accepted in Practice, no console errors. |
 | `selftest.cjs` | Solver checks, see below. |
+| `cache.cjs` | The disk cache for solved tables (`KIT_CACHE`): every file records its producer and a checksum of the producer's code, and is used only while that code is unchanged. `npm run kit:cache [-- prune\|clear]`. |
+| `regress.cjs` | Regenerates the built-in courses and compares every PGN byte for byte with the working tree (`--twice`: runs each generator twice). New courses are added to its list. |
+| `pawn/` | The pawn toolkit: enumeration, line player, promotion choice, structural keys, sampling and selection, teaching facts, an independent solver (`oracle.cjs`) and checker (`checker.cjs`). |
 
 ## The solver
 
@@ -33,8 +41,8 @@ rule.
 
 **Goal 'promotion'** (`table('KPPK', { goal: 'promotion' })`, `probePromotion(fen)` → `{ result, dtc }`): for
 White's pawns against the lone king, the values count plies to a safe promotion instead of mate, as the
-King & Pawn solver does: a promotion counts when the new piece cannot be taken at once, it is not
-stalemate, and the new position is still won (by the mate table of that material); a captured pawn leads
+King & Pawn solver does: a promotion counts when it makes a queen or a rook that cannot be taken at once,
+it is not stalemate, and the new position is still won (by the mate table of that material); a captured pawn leads
 into the promotion table of what is left. For K+P vs K it gives exactly the King & Pawn solver's values on
 all 331,352 positions. K+P+P vs K takes about 3 minutes, because every promotion opens a 4-piece table
 (K+Q+P, K+R+P, K+B+P, K+N+P vs K, each with its own promotions).
@@ -49,12 +57,19 @@ How it is checked (`npm run kit:selftest`):
 - Lines played by `line.cjs` pass `verify.cjs`.
 - Goal 'promotion' (`node tools/course-kit/selftest.cjs promotion`): K+P vs K equals the King & Pawn solver on
   every position; on sampled K+P+P vs K positions the moves are chess.js's and every value follows from its
-  moves under the safe-promotion rule; a two-pawn line passes `verify.cjs`.
+  moves under the safe-promotion rule; a two-pawn line passes `verify.cjs`; and both whole tables equal the
+  independent `pawn/oracle.cjs` on every position.
 
-**KIT_CACHE=<directory>** keeps solved tables on disk (about 260 MB for everything K+P+P vs K needs), so a
-generator that is run again and again while a course is written skips the table building. A table is
-reused only if `solver.cjs` and `board.cjs` are unchanged (their checksum is in the file name). Without it,
-nothing is written to disk.
+**KIT_CACHE=1** (or a directory) keeps solved tables on disk (about 270 MB for everything K+P+P vs K
+needs), so a generator that is run again and again while a course is written skips the table building.
+A table is reused only while its producer's code is unchanged (see `cache.cjs`). Without it, nothing is
+written to disk.
+
+**Goal 'promotion' and the oracle.** The pawn tables are checked against `pawn/oracle.cjs`, written
+separately (full tables, move counters, its own move generation): K+P vs K and K+P+P vs K agree on every
+position (331,352 and 7,438,086). That comparison found that the solver used to count a safe bishop or
+knight promotion as the goal (with two pawns it can still win); the goal is now a queen or a rook, as the
+lessons and the King & Pawn solver say.
 
 During development the solver was also compared position by position with a second, independent
 implementation (full tables, move counters): KQKR, KBNK and KRKP agreed on every one of their 18-25

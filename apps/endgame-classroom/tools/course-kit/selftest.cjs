@@ -11,8 +11,10 @@
 //   4. Lines played by line.cjs pass verify.cjs.
 //   5. Goal 'promotion' (plies to a safe promotion): K+P vs K gives exactly the King & Pawn solver's values
 //      on every position; on sampled K+P+P vs K positions the moves are chess.js's and every value follows
-//      from its moves (a promotion counts when the new piece cannot be taken, it is not stalemate and the
-//      position stays won); a line played with this measure passes verify.cjs.
+//      from its moves (a promotion counts when it makes a queen or a rook that cannot be taken, it is not
+//      stalemate and the position stays won); a line played with this measure passes verify.cjs.
+//      And the whole K+P vs K and K+P+P vs K tables equal pawn/oracle.cjs, a separate implementation
+//      (full tables, move counters, its own move generation), on every position.
 //      Run alone with: node tools/course-kit/selftest.cjs promotion
 const { Chess } = require('chess.js');
 const { table, probe, probePromotion } = require('./solver.cjs');
@@ -177,7 +179,7 @@ if (!only.length || only.includes('promotion')) {
           let v;
           if (c.isCheckmate()) v = -1;
           else if (c.isStalemate() || c.isInsufficientMaterial()) v = 0;
-          else if (mv.promotion) v = !c.moves({ verbose: true }).some((y) => y.to === mv.to) && probe(c.fen()).result === 'loss' ? -1 : 0; // safe: reached the goal
+          else if (mv.promotion) v = 'qr'.includes(mv.promotion) && !c.moves({ verbose: true }).some((y) => y.to === mv.to) && probe(c.fen()).result === 'loss' ? -1 : 0; // a safe queen or rook: the goal
           else v = enc(probePromotion(c.fen()));
           if (v < 0) { if (!win || -v < win) win = -v; } else if (v > 0) oppMax = Math.max(oppMax, v); else draw = true;
         }
@@ -185,6 +187,26 @@ if (!only.length || only.includes('promotion')) {
       }
       if (expect !== T.val[i]) { if (badValue < 3) console.log(`     ${fen} (${kind}): stored ${T.val[i]}, from its moves ${expect}`); badValue++; }
     }
+  }
+  // every position against the independent oracle
+  {
+    const oracle = require('./pawn/oracle.cjs');
+    const t1 = Date.now();
+    let m = 0, diff = 0;
+    const s4 = new Int8Array(4);
+    for (const n of [1, 2]) {
+      const Tn = n === 1 ? T1 : T;
+      for (let wk = 0; wk < 64; wk++) for (let bk = 0; bk < 64; bk++) for (let a = 8; a < 56; a++) for (let b = n === 1 ? 55 : a + 1; b < 56; b++) for (const stm of [0, 1]) {
+        const ps = n === 1 ? [a] : [a, b];
+        if (!oracle.legal(wk, bk, ps, stm)) continue;
+        m++;
+        const o = oracle.value([wk, bk, ...ps], stm);
+        const sq = n === 1 ? Int8Array.of(wk, bk, a) : (s4[0] = wk, s4[1] = bk, s4[2] = a, s4[3] = b, s4);
+        const v = Tn.value(sq, stm);
+        if ((v > 0 ? v : v < 0 ? -v - 1 : -1) !== o) { if (diff < 3) console.log(`     ${[wk, bk, ...ps]} ${stm}: solver ${v}, oracle ${o}`); diff++; }
+      }
+    }
+    check(diff === 0, `KPK and KPPK, goal 'promotion': every position (${m}) equals the independent oracle (${diff} differences, ${((Date.now() - t1) / 1000).toFixed(0)} s)`);
   }
   check(!badMoves && !badValue, `KPPK, goal 'promotion': ${tested} positions (${Object.keys(kinds).join(', ')}): moves = chess.js (${badMoves} wrong), values consistent (${badValue} wrong); built in ${(ms / 1000).toFixed(1)} s`);
 

@@ -6,13 +6,15 @@
 //
 //   const { probe, table } = require('./solver.cjs');
 //   probe('8/8/8/8/8/2k5/8/K1R1R3 w - - 0 1')  // { result: 'win', dtm: 7 }  dtm = plies to mate
-//   probePromotion('8/8/8/4k3/8/8/3PP3/4K3 w - - 0 1')  // { result: 'win', dtc: 25 }  plies to a safe promotion
+//   probePromotion('8/8/8/4k3/8/8/3PP3/4K3 w - - 0 1')  // { result: 'win', dtc: 27 }  plies to a safe promotion
 //
 // Goal 'promotion' (table(name, { goal: 'promotion' }), for White's pawns against the lone king): the
-// values count plies to a safe promotion instead of mate. A promotion ends the game when the new piece
-// cannot be taken at once and the new position is still won for White (by the mate table of that
-// material), as in ../kpk-course/kpk.cjs; a capture leads into the promotion table of the material left.
-// Checkmate before any promotion also counts as reaching the goal.
+// values count plies to a safe promotion instead of mate. A promotion ends the game when it makes a queen
+// or a rook that cannot be taken at once and the new position is still won for White (by the mate table
+// of that material), as in ../kpk-course/kpk.cjs; a capture leads into the promotion table of the
+// material left. Checkmate before any promotion also counts as reaching the goal. A bishop or a knight
+// does not count, even where it would still win (with two pawns that happens): the lessons promise a
+// queen (a rook where the queen would stalemate), and the checker (pawn/oracle.cjs) measures the same.
 //
 // Material names: White's pieces then Black's, each starting with the king, other pieces in the order
 // Q R B N P: 'KQK', 'KRRK', 'KQKR', 'KRKP' (Black has the pawn), 'KPK'.
@@ -24,12 +26,10 @@
 // king is moved into a1-d1-d4 (without pawns) or onto files a-d, and the smallest of those images is
 // the one kept. Two identical pieces are kept in square order.
 //
-// KIT_CACHE=<directory> (optional) keeps solved tables on disk between runs, for generators that are run
-// again and again while a course is being written. A table is found again only if this file and
-// board.cjs are unchanged (their checksum is part of the file name).
-const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
+// KIT_CACHE (optional, see cache.cjs) keeps solved tables on disk between runs, for generators that are
+// run again and again while a course is being written. A table is reused only while this file and
+// board.cjs are unchanged.
+const cache = require('./cache.cjs');
 const { kingAdj, knightAdj, SYM8 } = require('./board.cjs');
 
 const ORDER = 'QRBNP';
@@ -112,20 +112,13 @@ function table(name, opts = {}) {
   if (!T) {
     T = new Table(name, goal);
     tables.set(key, T);
-    const file = cacheFile(key);
-    if (file && fs.existsSync(file)) T.val = new Int16Array(new Uint8Array(fs.readFileSync(file)).buffer);
-    if (!T.val || T.val.length !== T.size) {
+    T.val = cache.load('solver', key, T.size, Int16Array);
+    if (!T.val) {
       T.solve();
-      if (file) { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(`${file}.tmp`, Buffer.from(T.val.buffer)); fs.renameSync(`${file}.tmp`, file); }
+      cache.save('solver', key, T.val);
     }
   }
   return T;
-}
-let codeSum;
-function cacheFile(key) {
-  if (!process.env.KIT_CACHE) return null;
-  codeSum ??= crypto.createHash('sha1').update(fs.readFileSync(__filename)).update(fs.readFileSync(path.join(__dirname, 'board.cjs'))).digest('hex').slice(0, 12);
-  return path.join(process.env.KIT_CACHE, `${key.replace(':', '-')}-${codeSum}.bin`);
 }
 
 class Table {
@@ -307,7 +300,7 @@ class Table {
 
   /**
    * Value of the child after a capture or a promotion (from the child's side to move), via its own table.
-   * Goal 'promotion': a safe promotion (the new piece cannot be taken at once, and the position stays won)
+   * Goal 'promotion': a safe promotion (a queen or a rook that cannot be taken at once, and the position stays won)
    * ends the game (as if the opponent were mated now, -1), any other promotion counts as a draw; a capture
    * leads into the promotion table of what is left.
    */
@@ -327,6 +320,7 @@ class Table {
     for (let i = 0; i < ex.from.length; i++) ex.sqs[i] = ex.from[i] === k ? to : sqs[ex.from[i]];
     const v = ex.table.value(ex.sqs, 1 - stm);
     if (!ex.ends) return v;
+    if (promo !== Q && promo !== R) return 0; // a bishop or a knight is not the goal
     if (KADJ[ex.sqs[1] * 64 + to] && !ex.table.attacked(ex.sqs, to, 0)) return 0; // the king takes the new piece
     return v < 0 ? -1 : 0;
   }

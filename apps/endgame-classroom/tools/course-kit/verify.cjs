@@ -31,8 +31,9 @@ function afterLearner(fen, opts) {
   const g = new Chess(fen);
   if (g.isCheckmate()) return [0, 0];
   if (g.isStalemate() || g.isInsufficientMaterial()) return null;
-  // goal 'promotion' with a pawn left: a promotion only counts when the new piece cannot be taken at once
-  if (opts.goal === 'promotion' && hasPawn(fen) && !pawnPhase(fen) && newPieceTaken(g)) return null;
+  // goal 'promotion' with a pawn left: a promotion only counts when it makes a queen or a rook that cannot
+  // be taken at once (a bishop or a knight is not the goal; without a pawn left they never win anyway)
+  if (opts.goal === 'promotion' && hasPawn(fen) && !pawnPhase(fen) && (/[BN]/.test(fen.split(' ')[0]) || newPieceTaken(g))) return null;
   if (opts.goal === 'promotion' && pawnPhase(fen)) {
     const r = promotionProbe(opts)(fen);
     return r.result === 'loss' ? [1, r.dtc] : null;

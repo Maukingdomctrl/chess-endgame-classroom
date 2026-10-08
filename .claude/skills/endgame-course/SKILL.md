@@ -9,7 +9,10 @@ Courses are generated, never written by hand: an exact solver decides every move
 positions, an independent checker verifies every line, and the PGN is written by a script that
 regenerates it byte for byte. Everything shared lives in `apps/endgame-classroom/tools/course-kit/`
 (read its README); each course has its own generator in `tools/<course>/`. The working examples are
-`tools/basics-course/` (mates with K+Q and K+R, K+P lines) and `tools/kpk-course/` (King & Pawn).
+`tools/basics-course/` (mates with K+Q and K+R, K+P lines), `tools/kpk-course/` (King & Pawn),
+`tools/ladder-course/` (two heavy pieces) and `tools/pawns-course/` (two connected pawns). **For pawn
+courses (White's pawns against the lone king, lines to the promotion) also use the pawn-endgame-course
+skill**: it has the pawn toolkit, the independent checker and what was learned there.
 
 ## Rules (the owner's, non-negotiable)
 
@@ -75,9 +78,10 @@ regenerates it byte for byte. Everything shared lives in `apps/endgame-classroom
    `signature` = the first LineName, a description with the number of positions and lessons) and add it
    to the app README's "Built-in courses". Copies already on a device refresh themselves when the PGN
    changes (`builtinHash`); a new course is added on the next start.
-6. Check: `npm run course:<name>` twice (same checksum), `npm run build`, `npm run lint`,
-   `npm run course:e2e -- <builtin id>` (add `--all` for every line). If the solver was changed:
-   `npm run kit:selftest`, and `npm run course:basics` / `course:kpk` must still give identical files.
+6. Check: add the course to `tools/course-kit/regress.cjs`; `npm run kit:regress -- --twice` (every course
+   byte for byte, twice), `npm run build`, `npm run lint`, `npm run course:e2e -- <builtin id> --all`.
+   If the solver or the toolkit was changed: `npm run kit:selftest` and `npm run kit:test`. Wait for the
+   browser test to finish before committing.
 7. Commit, push, report: lessons, line counts, unique share, `[%also]` counts, what was verified, and
    any judgement calls the owner should know about.
 
@@ -98,8 +102,9 @@ regenerates it byte for byte. Everything shared lives in `apps/endgame-classroom
 - **Solver pitfalls already fixed** (the self-test guards them): a pawn's double step can block a check
   when the single step cannot; JavaScript integer overflow in a random generator (use `Math.imul`).
 - **Pawn endings are measured to the promotion** (solver goal `'promotion'`, `probePromotion`; pass it to
-  verify as `promotionProbe`): a promotion counts only when the new piece cannot be taken at once, it is not
-  stalemate and the position stays won. Lines end in a queen (a rook when the queen would stalemate).
+  verify as `promotionProbe`): a promotion counts only when it makes a queen or a rook that cannot be taken
+  at once, without stalemate, and the position stays won. Lines end in a queen (a rook when the queen would
+  stalemate). Details: the pawn-endgame-course skill.
 - **Let the solver say what is possible before promising a lesson.** Two connected pawns never promote
   on their own against a king standing in front of them: lessons that "run alone" need the king beside them.
   Ask the solver with a quick experiment (a few filters on the candidate lines) before tuning a search.
@@ -109,7 +114,10 @@ regenerates it byte for byte. Everything shared lives in `apps/endgame-classroom
 - **Notes must be true in the position**: derive them from the board and the solver (who protects what,
   can the king catch the pawn, does taking a pawn save Black), and leave out what the line does not show.
   Read the course as a learner: misplaced "Opposition!" or "attacks the pawn" cues are the usual noise.
-- Slow tables (pawns, several promotions): set `KIT_CACHE` while iterating; check the final file once
-  without it.
+- Slow tables (pawns, several promotions): set `KIT_CACHE=1` while iterating (identity-checked, see
+  `tools/course-kit/cache.cjs`); run the final generator once without it.
+- **Check a solver against a second, independent implementation** where you can (`kpk.cjs`,
+  `pawn/oracle.cjs`): the pawn oracle found a wrong goal definition in 3,816 positions that every other
+  check had passed.
 - The browser test needs Playwright and a Chromium (`CHROMIUM_PATH`; in the cloud container it is
   `/opt/pw-browsers/chromium` with Playwright installed globally).
