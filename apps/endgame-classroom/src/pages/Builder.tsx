@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Chess } from "chess.js";
-import type { Course, Line, LineMove, Side } from "../types";
+import type { Course, Line, LineMove, Marks, Side } from "../types";
 import type { UpdateCourse } from "../App";
 import Board from "../components/Board";
 import Material from "../components/Material";
@@ -13,6 +13,7 @@ import { lineToPgn } from "../lib/pgn";
 import { copyText, exportCourseJson, exportCoursePgn } from "../lib/exporting";
 import { courseStats } from "../lib/stats";
 import { CATEGORIES, categoryInfo } from "../lib/categories";
+import { marksToArrows } from "../lib/marks";
 
 interface Props {
   course: Course;
@@ -25,6 +26,7 @@ interface Draft {
   lineId: string | null;
   startFen: string;
   intro: string;
+  introMarks?: Marks;
   moves: LineMove[];
 }
 
@@ -35,6 +37,7 @@ function draftFromLine(line: Line): Draft {
     lineId: line.id,
     startFen: line.startFen,
     intro: line.intro,
+    introMarks: line.introMarks,
     moves: line.moves.map((m) => ({ ...m })),
   };
 }
@@ -62,6 +65,7 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
   const verbose = useMemo(() => lineVerboseMoves(draft), [draft]);
   const fen = fens[Math.min(cursor, fens.length - 1)];
   const lastMove = cursor > 0 ? verbose[cursor - 1] : null;
+  const cursorMarks = cursor === 0 ? draft.introMarks : draft.moves[cursor - 1]?.marks;
   const orientation: Side = flipped ? (course.playAs === "white" ? "black" : "white") : course.playAs;
   const stats = courseStats(course);
 
@@ -132,7 +136,8 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
     if (draft.moves.length && !confirm("Changing the start position clears this line's moves. Continue?")) return;
     setFenError("");
     setFenInput("");
-    setDraft((d) => ({ ...d, startFen, moves: [] }));
+    // Marks belong to the old position, so they go with it.
+    setDraft((d) => ({ ...d, startFen, introMarks: undefined, moves: [] }));
     setCursor(0);
     setJustSaved(false);
   }
@@ -158,13 +163,20 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
           progress,
           lines: c.lines.map((l) =>
             l.id === savedLine.id
-              ? { ...l, name, description, startFen: draft.startFen, intro: draft.intro, moves: draft.moves }
+              ? { ...l, name, description, startFen: draft.startFen, intro: draft.intro, introMarks: draft.introMarks, moves: draft.moves }
               : l,
           ),
         };
       });
     } else {
-      const line = createLine({ name, description, startFen: draft.startFen, intro: draft.intro, moves: draft.moves });
+      const line = createLine({
+        name,
+        description,
+        startFen: draft.startFen,
+        intro: draft.intro,
+        introMarks: draft.introMarks,
+        moves: draft.moves,
+      });
       updateCourse(course.id, (c) => ({ ...c, lines: [...c.lines, line] }));
       setDraft((d) => ({ ...d, lineId: line.id }));
     }
@@ -176,7 +188,7 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
     if (!fromHere && !confirmDiscard()) return;
     setDraft((d) =>
       fromHere
-        ? { lineId: null, startFen: d.startFen, intro: d.intro, moves: d.moves.slice(0, cursor) }
+        ? { lineId: null, startFen: d.startFen, intro: d.intro, introMarks: d.introMarks, moves: d.moves.slice(0, cursor) }
         : { lineId: null, startFen: d.startFen, intro: "", moves: [] },
     );
     if (!fromHere) setCursor(0);
@@ -225,7 +237,14 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
     <div className="workspace">
       <div className="board-col">
         <Material fen={fen} side={orientation === "white" ? "black" : "white"} />
-        <Board fen={fen} orientation={orientation} onMove={onMove} lastMove={lastMove} />
+        <Board
+          fen={fen}
+          orientation={orientation}
+          onMove={onMove}
+          lastMove={lastMove}
+          highlights={cursorMarks?.squares}
+          arrows={marksToArrows(cursorMarks)}
+        />
         <Material fen={fen} side={orientation} />
       </div>
 

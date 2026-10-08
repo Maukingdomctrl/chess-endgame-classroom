@@ -1,5 +1,6 @@
 import type { Category, Course, Line, LineProgress, Side } from "../types";
 import { DEFAULT_FEN } from "./chess";
+import { cleanMarks } from "./marks";
 
 const KEY = "endgame-classroom.courses.v1";
 
@@ -85,8 +86,9 @@ export function normalizeCourse(input: unknown): Course {
           createLine({
             ...l,
             id: typeof l?.id === "string" && l.id ? l.id : newId(),
+            introMarks: cleanMarks(l?.introMarks),
             moves: Array.isArray(l?.moves)
-              ? l.moves.map((m) => ({ san: String(m?.san ?? ""), comment: String(m?.comment ?? "") }))
+              ? l.moves.map((m) => ({ san: String(m?.san ?? ""), comment: String(m?.comment ?? ""), marks: cleanMarks(m?.marks) }))
               : [],
           }),
         )

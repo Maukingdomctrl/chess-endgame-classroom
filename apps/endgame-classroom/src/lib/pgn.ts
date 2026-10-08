@@ -2,6 +2,7 @@ import { Chess } from "chess.js";
 import type { Line, LineMove, TvGame } from "../types";
 import { DEFAULT_FEN, looksLikeFen, moveNumberLabel, normalizeFen } from "./chess";
 import { createLine } from "./storage";
+import { formatMarks, parseCommentMarks } from "./marks";
 
 interface Node {
   san: string;
@@ -211,6 +212,7 @@ export function importPgn(text: string): ImportResult {
       startFen = fen;
     }
     const title = gameTitle(g.headers, gi);
+    const intro = parseCommentMarks(g.root.comment);
     const paths = leafPaths(g.root);
     paths.forEach((path) => {
       const chess = new Chess(startFen);
@@ -218,7 +220,8 @@ export function importPgn(text: string): ImportResult {
       for (const node of path) {
         try {
           const m = chess.move(node.san);
-          moves.push({ san: m.san, comment: node.comment });
+          const c = parseCommentMarks(node.comment);
+          moves.push({ san: m.san, comment: c.text, ...(c.marks ? { marks: c.marks } : {}) });
         } catch {
           warnings.push(
             `${title}${branchLabel(path, startFen) ? ` · ${branchLabel(path, startFen)}` : ""}: stopped at illegal move "${node.san}".`,
@@ -231,7 +234,8 @@ export function importPgn(text: string): ImportResult {
           name: branchLabel(path, startFen) ? `${title} · ${branchLabel(path, startFen)}` : title,
           description: g.headers.LineDescription ?? "",
           startFen,
-          intro: g.root.comment,
+          intro: intro.text,
+          ...(intro.marks ? { introMarks: intro.marks } : {}),
           moves,
         }),
       );
@@ -263,7 +267,9 @@ export function lineToPgn(line: Line, courseName = ""): string {
   if (line.description) tags.push(["LineDescription", line.description]);
 
   const parts: string[] = [];
-  if (line.intro) parts.push(`{${escComment(line.intro)}}`);
+  const comment = (marks: Line["introMarks"], text: string) => [formatMarks(marks), text].filter(Boolean).join(" ");
+  const introText = comment(line.introMarks, line.intro);
+  if (introText) parts.push(`{${escComment(introText)}}`);
   let needNumber = true;
   line.moves.forEach((m, idx) => {
     const { moveNo, whiteToMove } = moveNumberLabel(line.startFen, idx);
@@ -271,8 +277,9 @@ export function lineToPgn(line: Line, courseName = ""): string {
     else if (needNumber) parts.push(`${moveNo}... ${m.san}`);
     else parts.push(m.san);
     needNumber = false;
-    if (m.comment) {
-      parts.push(`{${escComment(m.comment)}}`);
+    const c = comment(m.marks, m.comment);
+    if (c) {
+      parts.push(`{${escComment(c)}}`);
       needNumber = true;
     }
   });
@@ -321,7 +328,8 @@ export function importTvGames(text: string): { items: Omit<TvGame, "id">[]; warn
     let node = g.root.children[0];
     while (node) {
       try {
-        moves.push({ san: chess.move(node.san).san, comment: node.comment });
+        const c = parseCommentMarks(node.comment);
+        moves.push({ san: chess.move(node.san).san, comment: c.text, ...(c.marks ? { marks: c.marks } : {}) });
       } catch {
         warnings.push(`${gameTitle(g.headers, gi)}: stopped at illegal move "${node.san}".`);
         break;
@@ -332,14 +340,15 @@ export function importTvGames(text: string): { items: Omit<TvGame, "id">[]; warn
       warnings.push(`${gameTitle(g.headers, gi)} skipped: no moves.`);
       return;
     }
-    items.push({ headers: g.headers, startFen, intro: g.root.comment, moves });
+    const intro = parseCommentMarks(g.root.comment);
+    items.push({ headers: g.headers, startFen, intro: intro.text, ...(intro.marks ? { introMarks: intro.marks } : {}), moves });
   });
   return { items, warnings };
 }
 
 /** Writes a Chess TV game back out as PGN with its original tags. */
 export function tvGameToPgn(game: TvGame): string {
-  const line = { ...createLine({ startFen: game.startFen, intro: game.intro, moves: game.moves }) };
+  const line = createLine({ startFen: game.startFen, intro: game.intro, introMarks: game.introMarks, moves: game.moves });
   const pgn = lineToPgn(line);
   // Movetext starts after the first blank line; swap the "*" terminator for the real result.
   const body = pgn.slice(pgn.indexOf("\n\n") + 2).replace(/\*\s*$/, game.headers.Result || "*");

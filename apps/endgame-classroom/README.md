@@ -36,6 +36,21 @@ npm run build    # production build in dist/
 9. **Pick a line** – in both modes, the **Line** dropdown jumps straight to any line you want to
    train; the session then carries on from there.
 
+## Coloured squares and arrows
+
+Comments in a PGN can carry board marks in the standard format used by Lichess and ChessBase:
+`[%csl Gd6,Ge6]` colours squares and `[%cal Ge2e4]` draws arrows (G = green, R = red, Y = yellow,
+B = blue). The app reads them on import, shows them in **Learn** mode (never in Practice, where they
+would give the answer away), in the builder and in Chess TV, and writes them back on export. Other
+`[%…]` codes such as Lichess clock times are removed from the comment text.
+
+## Ready-made course
+
+`courses/king-and-pawn-course.pgn` – *King & Pawn: Opposition and Key Squares*: 50 positions in
+17 lessons, every move verified with an exact king-and-pawn endgame solver. Key squares are shown in
+green (red in the defence lessons, blue for the square of the pawn). Import it as an Endgame course
+playing White.
+
 ## Chess TV
 
 A separate library for **watching** games (not training them). Open it from the banner under the
