@@ -75,6 +75,14 @@ time the app opens on a device:
   pawn, to the promotion). Blue squares show the black king's box (or the squares it can step to),
   green the key squares, red the moves that would stalemate or only draw. Regenerate it with
   `npm run course:basics` (see `tools/basics-course/`).
+- *The Ladder Mate: Two Rooks, Queen and Rook* (`courses/ladder-mate-course.pgn`): 78 positions in
+  7 lessons: the final picture, the ladder with two rooks, switching an attacked rook to the far
+  side, the ladder with queen and rook, stalemate traps, a final exam, and 24 extra practice
+  positions without explanations. Every move of yours is the only fastest mate (verified with the
+  exact solver), and every move in the lessons is explained: check and climb, the wall moving up,
+  the far side, cutting the king off, waiting moves, the final picture. Blue squares show the black
+  king's box (or the squares it can step to), red the move that would be stalemate. Regenerate it
+  with `npm run course:ladder` (see `tools/ladder-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
 imported by hand is adopted instead of duplicated. When a newer version of the app changes a
