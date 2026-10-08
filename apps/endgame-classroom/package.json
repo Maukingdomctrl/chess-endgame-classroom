@@ -13,7 +13,11 @@
     "course:ladder": "node tools/ladder-course/run.cjs",
     "course:pawns": "node tools/pawns-course/run.cjs",
     "course:e2e": "node tools/course-kit/e2e.cjs",
-    "kit:selftest": "node tools/course-kit/selftest.cjs"
+    "kit:selftest": "node tools/course-kit/selftest.cjs",
+    "kit:test": "node tools/course-kit/pawn/test.cjs",
+    "kit:check": "node tools/course-kit/pawn/checker.cjs",
+    "kit:regress": "node tools/course-kit/regress.cjs",
+    "kit:cache": "node tools/course-kit/cache.cjs"
   },
   "dependencies": {
     "chess.js": "^1.4.0",

@@ -924,10 +924,9 @@ from here.} *
 [LineName "06. Don't stalemate! (6/6)"]
 [LineDescription "If a new queen would be stalemate, take a rook: it wins just as surely."]
 
-{[%csl Bh2] [%cal Rb7b8] Promote right now, but count the black king's squares
-first.} 1. b8=R {Rook! A new queen would have taken the black king's last
-square: stalemate. The rook leaves it a square, and the rook wins just as
-surely.} *
+{[%csl Bh2] Promote right now, but count the black king's squares first.} 1.
+b8=R {Rook! A new queen would have taken the black king's last square:
+stalemate. The rook leaves it a square, and the rook wins just as surely.} *
 
 [Event "07. Final exam (1/8)"]
 [Site "Endgame Classroom"]
@@ -1051,13 +1050,13 @@ is too far away to take the new queen. With a queen, the win is easy from here.}
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/k7/3K4/1P6/P7/8 w - - 0 1"]
+[FEN "8/8/4k3/8/1P6/K1P5/8/8 w - - 0 1"]
 [LineName "08. Extra practice (1/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
 {Extra practice: no explanations, just positions. Make a safe queen as fast as
-you can. King and two pawns.} 1. Kc5 Ka6 2. Kc6 Ka5 3. a4 Ka6 4. b4 Ka7 5. Kc7
-Ka6 6. b5+ Ka5 7. b6 Kxa4 8. b7 Ka5 9. b8=Q {Queen!} *
+you can. King and two pawns.} 1. Ka4 Kd5 2. Kb5 Kd6 3. Kb6 Kd5 4. b5 Kc4 5. Kc6
+Kxc3 6. b6 Kb4 7. b7 Ka5 8. b8=Q {Queen!} *
 
 [Event "08. Extra practice (2/24)"]
 [Site "Endgame Classroom"]
@@ -1065,12 +1064,12 @@ Ka6 6. b5+ Ka5 7. b6 Kxa4 8. b7 Ka5 9. b8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/8/5kP1/5P1K/8/8 w - - 0 1"]
+[FEN "8/8/1k6/8/4P3/3P1K2/8/8 w - - 0 1"]
 [LineName "08. Extra practice (2/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kh4 Ke5 2. Kg5 Ke6 3. Kg6 Ke5 4. g5 Kf4 5. Kf6 Kxf3 6.
-g6 Kg4 7. g7 Kh5 8. g8=Q {Queen!} *
+{King and two pawns.} 1. Kf4 Kc5 2. Ke5 Kc6 3. Ke6 Kc5 4. e5 Kd4 5. Kd6 Kxd3 6.
+e6 Ke4 7. e7 Kf5 8. e8=Q {Queen!} *
 
 [Event "08. Extra practice (3/24)"]
 [Site "Endgame Classroom"]
@@ -1078,12 +1077,12 @@ g6 Kg4 7. g7 Kh5 8. g8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/8/3Pk3/1K2P3/8/8 w - - 0 1"]
+[FEN "5k2/8/8/8/K7/2PP4/8/8 w - - 0 1"]
 [LineName "08. Extra practice (3/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kc4 Kf5 2. Kd5 Kf6 3. Kd6 Kf5 4. d5 Ke4 5. Ke6 Kxe3 6.
-d6 Kd4 7. d7 Kc5 8. d8=Q {Queen!} *
+{King and two pawns.} 1. Kb5 Ke7 2. Kc6 Ke6 3. c4 Ke5 4. c5 Kd4 5. Kd6 Kxd3 6.
+c6 Kc4 7. c7 Kb5 8. c8=Q {Queen!} *
 
 [Event "08. Extra practice (4/24)"]
 [Site "Endgame Classroom"]
@@ -1091,12 +1090,12 @@ d6 Kd4 7. d7 Kc5 8. d8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/k7/8/3P4/2P2K2/8/8 w - - 0 1"]
+[FEN "1k6/8/8/8/6K1/8/3PP3/8 w - - 0 1"]
 [LineName "08. Extra practice (4/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Ke4 Kb5 2. Kd5 Kb6 3. Kd6 Kb5 4. d5 Kc4 5. Kc6 Kxc3 6.
-d6 Kd4 7. d7 Ke5 8. d8=Q {Queen!} *
+{King and two pawns.} 1. Kf5 Kc7 2. Ke6 Kc6 3. e4 Kc5 4. e5 Kd4 5. Kd6 Ke4 6. e6
+Kf5 7. e7 Kf6 8. e8=Q {Queen!} *
 
 [Event "08. Extra practice (5/24)"]
 [Site "Endgame Classroom"]
@@ -1104,12 +1103,12 @@ d6 Kd4 7. d7 Ke5 8. d8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "5k2/8/8/8/K7/3P4/2P5/8 w - - 0 1"]
+[FEN "8/8/7k/8/2K5/5P2/4P3/8 w - - 0 1"]
 [LineName "08. Extra practice (5/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kb5 Ke7 2. Kc6 Ke6 3. c4 Ke5 4. c5 Kd4 5. Kd6 Kxd3 6.
-c6 Kc4 7. c7 Kb5 8. c8=Q {Queen!} *
+{King and two pawns.} 1. Kd5 Kg5 2. Ke6 Kf4 3. e4 Kxf3 4. Kf5 Ke3 5. e5 Kd4 6.
+e6 Kd5 7. e7 Kd6 8. e8=Q {Queen!} *
 
 [Event "08. Extra practice (6/24)"]
 [Site "Endgame Classroom"]
@@ -1117,12 +1116,12 @@ c6 Kc4 7. c7 Kb5 8. c8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/8/4K1k1/6P1/5P2/8 w - - 0 1"]
+[FEN "8/8/7k/5K2/8/6P1/7P/8 w - - 0 1"]
 [LineName "08. Extra practice (6/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. f4 Kh5 2. Kf5 Kh6 3. Kf6 Kh5 4. f5 Kg4 5. Kg6 Kxg3 6.
-f6 Kh4 7. f7 Kg4 8. f8=Q {Queen!} *
+{King and two pawns.} 1. Kf6 Kh5 2. h4 Kh6 3. g4 Kh7 4. Kf7 Kh6 5. g5+ Kh5 6. g6
+Kxh4 7. g7 Kh5 8. g8=Q {Queen!} *
 
 [Event "08. Extra practice (7/24)"]
 [Site "Endgame Classroom"]
@@ -1130,12 +1129,12 @@ f6 Kh4 7. f7 Kg4 8. f8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/8/P3k3/1PK5/8/8 w - - 0 1"]
+[FEN "8/8/8/8/1k3P2/3KP3/8/8 w - - 0 1"]
 [LineName "08. Extra practice (7/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kc4 Ke5 2. Kc5 Ke6 3. Kc6 Ke5 4. a5 Kd4 5. a6 Kc3 6. a7
-Kxb3 7. a8=Q {Queen!} *
+{King and two pawns.} 1. Kd4 Kb5 2. Kd5 Kb6 3. Kd6 Kb5 4. f5 Kc4 5. f6 Kc3 6. f7
+Kc4 7. f8=Q {Queen!} *
 
 [Event "08. Extra practice (8/24)"]
 [Site "Endgame Classroom"]
@@ -1143,12 +1142,12 @@ Kxb3 7. a8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/8/3P3k/2P1K3/8/8 w - - 0 1"]
+[FEN "8/8/8/8/2k3P1/4K2P/8/8 w - - 0 1"]
 [LineName "08. Extra practice (8/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kf4 Kh5 2. Kf5 Kh6 3. Kf6 Kh5 4. d5 Kg4 5. d6 Kf4 6. d7
-Kg4 7. d8=Q {Queen!} *
+{King and two pawns.} 1. Ke4 Kc5 2. Ke5 Kc6 3. Ke6 Kc5 4. g5 Kd4 5. g6 Ke4 6. g7
+Kf4 7. g8=Q {Queen!} *
 
 [Event "08. Extra practice (9/24)"]
 [Site "Endgame Classroom"]
@@ -1156,12 +1155,12 @@ Kg4 7. d8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/8/8/1K6/2PP1k2/8/8 w - - 0 1"]
+[FEN "8/8/8/3k4/PK6/1P6/8/8 w - - 0 1"]
 [LineName "08. Extra practice (9/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kc5 Ke3 2. c4 Kxd3 3. Kd5 Kc3 4. c5 Kb4 5. c6 Kb5 6. c7
-Kb6 7. c8=Q {Queen!} *
+{King and two pawns.} 1. Kb5 Kd6 2. Kb6 Kd7 3. Kb7 Kd6 4. a5 Kc5 5. a6 Kb5 6. a7
+Ka5 7. a8=Q+ {Queen!} *
 
 [Event "08. Extra practice (10/24)"]
 [Site "Endgame Classroom"]
@@ -1169,12 +1168,12 @@ Kb6 7. c8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/7k/8/8/3P2K1/4P3/8/8 w - - 0 1"]
+[FEN "6k1/8/8/8/2P2K2/3P4/8/8 w - - 0 1"]
 [LineName "08. Extra practice (10/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kf5 Kg7 2. Ke6 Kg8 3. Ke7 Kg7 4. d5 Kg6 5. d6 Kf5 6. d7
-Ke5 7. d8=Q {Queen!} *
+{King and two pawns.} 1. Ke5 Kf7 2. Kd6 Kf8 3. Kd7 Kf7 4. c5 Kf6 5. c6 Ke5 6. c7
+Kd5 7. c8=Q {Queen!} *
 
 [Event "08. Extra practice (11/24)"]
 [Site "Endgame Classroom"]
@@ -1182,12 +1181,12 @@ Ke5 7. d8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/8/2k5/8/3K2P1/5P2/8/8 w - - 0 1"]
+[FEN "8/8/4k3/8/PP1K4/8/8/8 w - - 0 1"]
 [LineName "08. Extra practice (11/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Ke5 Kd7 2. Kf6 Kd8 3. Kf7 Kd7 4. g5 Kd6 5. g6 Ke5 6. g7
-Kf5 7. g8=Q {Queen!} *
+{King and two pawns.} 1. Kc5 Kd7 2. Kb6 Kc8 3. Ka7 Kc7 4. b5 Kd6 5. b6 Kc5 6. b7
+Kc6 7. b8=Q {Queen!} *
 
 [Event "08. Extra practice (12/24)"]
 [Site "Endgame Classroom"]
@@ -1195,12 +1194,12 @@ Kf5 7. g8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "5k2/8/8/5K2/8/5P2/6P1/8 w - - 0 1"]
+[FEN "8/8/8/4k2K/8/5P2/6P1/8 w - - 0 1"]
 [LineName "08. Extra practice (12/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{King and two pawns.} 1. Kf6 Kg8 2. f4 Kh7 3. f5 Kh6 4. Ke7 Kg5 5. f6 Kf5 6. f7
-Kg6 7. f8=Q {Queen!} *
+{King and two pawns.} 1. Kg6 Kf4 2. g4 Kxf3 3. Kf5 Kg3 4. g5 Kh4 5. g6 Kh5 6. g7
+Kh6 7. g8=Q {Queen!} *
 
 [Event "08. Extra practice (13/24)"]
 [Site "Endgame Classroom"]
@@ -1286,12 +1285,12 @@ b5 Kd3 6. b6 Ke3 7. b7 Ke4 8. b8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/1K6/8/8/2k3P1/7P/8/8 w - - 0 1"]
+[FEN "8/K7/8/3k4/8/2P5/3P4/8 w - - 0 1"]
 [LineName "08. Extra practice (19/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{Two pawns, the king far away.} 1. Kc6 Kd4 2. Kd6 Ke4 3. Ke6 Kf4 4. Kf6 Kf3 5.
-g5 Kf4 6. g6 Ke4 7. g7 Kd4 8. g8=Q {Queen!} *
+{Two pawns, the king far away.} 1. Kb6 Kc4 2. Kc6 Kd3 3. Kd5 Kxd2 4. c4 Kc3 5.
+c5 Kb4 6. c6 Kb5 7. c7 Kb6 8. c8=Q {Queen!} *
 
 [Event "08. Extra practice (20/24)"]
 [Site "Endgame Classroom"]
@@ -1299,12 +1298,12 @@ g5 Kf4 6. g6 Ke4 7. g7 Kd4 8. g8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "8/1k4K1/8/8/2P5/3P4/8/8 w - - 0 1"]
+[FEN "8/6K1/8/8/1P3k2/P7/8/8 w - - 0 1"]
 [LineName "08. Extra practice (20/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{Two pawns, the king far away.} 1. Kf7 Kc6 2. d4 Kd6 3. Ke8 Ke6 4. c5 Kd5 5. Kd7
-Kxd4 6. c6 Kd5 7. c7 Ke5 8. c8=Q {Queen!} *
+{Two pawns, the king far away.} 1. Kf6 Ke4 2. Ke6 Kd4 3. Kd6 Kc4 4. Kc6 Kc3 5.
+b5 Kc4 6. b6 Kd4 7. b7 Ke4 8. b8=Q {Queen!} *
 
 [Event "08. Extra practice (21/24)"]
 [Site "Endgame Classroom"]
@@ -1312,12 +1311,12 @@ Kxd4 6. c6 Kd5 7. c7 Ke5 8. c8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "K7/8/8/8/8/5k2/2PP4/8 w - - 0 1"]
+[FEN "8/1K4k1/8/8/5P2/4P3/8/8 w - - 0 1"]
 [LineName "08. Extra practice (21/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{Two pawns, the king far away.} 1. c4 Ke4 2. c5 Kd5 3. d4 Kc6 4. Kb8 Kb5 5. Kb7
-Kb4 6. c6 Kb5 7. c7 Ka5 8. c8=Q {Queen!} *
+{Two pawns, the king far away.} 1. Kc7 Kf6 2. e4 Ke6 3. Kd8 Kd6 4. f5 Ke5 5. Ke7
+Kxe4 6. f6 Ke5 7. f7 Kd5 8. f8=Q {Queen!} *
 
 [Event "08. Extra practice (22/24)"]
 [Site "Endgame Classroom"]
@@ -1325,12 +1324,12 @@ Kb4 6. c6 Kb5 7. c7 Ka5 8. c8=Q {Queen!} *
 [Black "?"]
 [Result "*"]
 [SetUp "1"]
-[FEN "6K1/8/8/8/8/3P1k2/2P5/8 w - - 0 1"]
+[FEN "7K/8/8/8/8/2k5/4PP2/8 w - - 0 1"]
 [LineName "08. Extra practice (22/24)"]
 [LineDescription "Two connected pawns: a safe queen."]
 
-{Two pawns, the king far away.} 1. c4 Kf4 2. Kf7 Ke5 3. Ke7 Kd4 4. Kd6 Kxd3 5.
-c5 Kd4 6. c6 Ke4 7. c7 Kf4 8. c8=Q {Queen!} *
+{Two pawns, the king far away.} 1. f4 Kd4 2. f5 Ke5 3. e4 Kf6 4. Kg8 Kg5 5. Kg7
+Kg4 6. f6 Kg5 7. f7 Kh5 8. f8=Q {Queen!} *
 
 [Event "08. Extra practice (23/24)"]
 [Site "Endgame Classroom"]

@@ -4,6 +4,7 @@
 const path = require('path');
 const { Chess } = require('chess.js');
 const { file, rank, dist, sqName: n, sqIdx, directOpp } = require('../course-kit/board.cjs');
+const { pos, fenAfter, queenSq, pawnName, protectedBy, catches, kingSquares, stalemateMoves, orList, sq, oneColourPerSquare, withoutHiddenArrows, failedQueenNotes } = require('../course-kit/pawn/teach.cjs');
 const { probePromotion } = require('../course-kit/solver.cjs');
 const { moveComment, formatMarks, writePgn, checkCourse } = require('../course-kit/pgn.cjs');
 const VERIFY = require('./verify-opts.cjs');
@@ -75,36 +76,6 @@ const GROUPS = {
   'pr-far': { first: 'Two pawns, the king far away.', again: 'Two pawns, the king far away.', desc: 'Two connected pawns: a safe queen.' },
 };
 
-// ---------- the position, from a FEN ----------
-function pos(fen) {
-  const g = new Chess(fen);
-  const s = { wk: -1, bk: -1, pawns: [], piece: -1 };
-  for (const row of g.board()) for (const p of row) {
-    if (!p) continue;
-    const sq = sqIdx(p.square);
-    if (p.type === 'k') s[p.color === 'w' ? 'wk' : 'bk'] = sq;
-    else if (p.type === 'p') s.pawns.push(sq);
-    else s.piece = sq;
-  }
-  return s;
-}
-const fenAfter = (fen, san) => { const g = new Chess(fen); g.move(san); return g.fen(); };
-const queenSq = (p) => 56 + file(p);
-const pawnName = (p) => `${'abcdefgh'[file(p)]}-pawn`;
-/** Is square q protected by White (the king next to it, or a pawn diagonally behind it)? */
-const protectedBy = (s, q) => (dist(s.wk, q) === 1 ? 'your king' : s.pawns.some((p) => p !== q && rank(q) === rank(p) + 1 && Math.abs(file(q) - file(p)) === 1) ? `the ${pawnName(s.pawns.find((p) => p !== q && rank(q) === rank(p) + 1 && Math.abs(file(q) - file(p)) === 1))}` : '');
-/** Can the black king (to move) still catch a lone pawn? The rule of the square: it needs to reach the queening square in time. */
-const catches = (s, p) => dist(s.bk, queenSq(p)) <= 7 - rank(p);
-/** Squares the black king could step to if it were Black's turn. */
-function kingSquares(fen) {
-  const parts = fen.split(' ');
-  parts[1] = 'b'; parts[3] = '-';
-  try { return [...new Set(new Chess(parts.join(' ')).moves({ verbose: true }).filter((m) => m.piece === 'k').map((m) => m.to))]; } catch { return []; }
-}
-const stalemateMoves = (fen) => new Chess(fen).moves({ verbose: true }).filter((m) => { const t = new Chess(fen); t.move(m.san); return t.isStalemate(); });
-const orList = (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}`);
-const sq = (list, c) => list.map((x) => `${c}${typeof x === 'number' ? n(x) : x}`);
-
 // ---------- marks (shown before the learner's move) ----------
 function marksFor(l, i) {
   const m = l.moves[i], fen = m.fenBefore, s = pos(fen);
@@ -133,21 +104,12 @@ function marksFor(l, i) {
 }
 
 // ---------- notes ----------
-/** Why the other pawn's queen would not do: stalemate, or the king takes it. */
-function otherQueens(m) {
-  return new Chess(m.fenBefore).moves({ verbose: true }).filter((x) => x.promotion === 'q' && x.from !== m.from).map((x) => {
-    const t = new Chess(m.fenBefore); t.move(x.san);
-    if (t.isStalemate()) return `${x.san} would have been stalemate.`;
-    if (t.moves({ verbose: true }).some((y) => y.captured && y.captured !== 'p')) return `After ${x.san} the king would have taken the new queen.`;
-    return '';
-  }).filter(Boolean);
-}
 function finalNote(l, m) {
   const a = pos(fenAfter(m.fenBefore, m.san)), to = sqIdx(m.to);
   if (m.promotion === 'r') return 'Rook! A new queen would have taken the black king\'s last square: stalemate. The rook leaves it a square, and the rook wins just as surely.';
   const guard = protectedBy(a, to);
   const why = guard ? `${guard[0].toUpperCase()}${guard.slice(1)} protects the new queen` : 'The black king is too far away to take the new queen';
-  const not = l.lesson === 'exam' || l.lesson === 'practice' ? [] : otherQueens(m);
+  const not = l.lesson === 'exam' || l.lesson === 'practice' ? [] : failedQueenNotes(m.fenBefore, m.from);
   return [`Queen! ${why}${m.san.endsWith('#') ? ', and it is even checkmate!' : '. With a queen, the win is easy from here.'}`, ...not].join(' ');
 }
 
@@ -275,9 +237,8 @@ for (const id of ORDER) {
     let introMarks = { squares: [], arrows: [] };
     l.moves.forEach((m, i) => {
       if (m.side !== 'w') return;
-      const mk = marksFor(l, i);
-      const seen = new Set();
-      mk.squares = mk.squares.filter((x) => !seen.has(x.slice(1)) && seen.add(x.slice(1))); // one colour per square: the first one
+      // one colour per square; no arrow on the move to play (the app draws that move there and hides the mark)
+      const mk = withoutHiddenArrows(oneColourPerSquare(marksFor(l, i)), m);
       if (i === 0) introMarks = mk; else moveMarks[i - 1] = mk;
     });
     games.push({
