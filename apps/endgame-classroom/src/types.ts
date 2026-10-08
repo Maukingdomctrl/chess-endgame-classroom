@@ -49,6 +49,8 @@ export interface Course {
   updatedAt: number;
   /** Set when the course ships with the app (see lib/builtinCourses.ts). */
   builtinId?: string;
+  /** Fingerprint of the bundled PGN this copy was built from; a newer app version refreshes it. */
+  builtinHash?: string;
 }
 
 /** A game in the Chess TV library: stored as imported, watched rather than trained. */
