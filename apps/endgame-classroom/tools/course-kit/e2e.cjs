@@ -69,8 +69,9 @@ function loadPlaywright() {
     check(!!course, 'a device that did not have the course gets it on the next start');
 
     // ---- which lines to play ----
+    const learner = course.playAs === 'black' ? 'b' : 'w'; // a line may start with the opponent's move
     const lessonOf = (l) => l.name.slice(0, 3);
-    const learnerMoves = (l) => l.moves.filter((_, i) => i % 2 === 0);
+    const learnerMoves = (l) => { const g = new Chess(l.startFen); return l.moves.filter((m) => { const mine = g.turn() === learner; g.move(m.san); return mine; }); };
     const alsoLine = course.lines.findIndex((l) => learnerMoves(l).some((m) => m.also?.length));
     const pick = course.lines.map((l, i) => i).filter((i) => all ||
       i === course.lines.findIndex((l) => lessonOf(l) === lessonOf(course.lines[i])) ||
@@ -95,7 +96,7 @@ function loadPlaywright() {
       }
       for (let k = 0; k < moves.length; k++) {
         const mv = moves[k];
-        if (mv.color !== moves[0].color) {
+        if (mv.color !== learner) {
           await page.waitForSelector(`[data-square="${mv.to}"] [data-piece="${mv.color}${mv.piece.toUpperCase()}"]`, { timeout: 5000 });
           continue;
         }
