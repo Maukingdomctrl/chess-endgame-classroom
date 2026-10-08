@@ -761,6 +761,27 @@ a {
   margin-bottom: 6px;
 }
 
+.builtin-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(201, 164, 92, 0.14);
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin: 0 6px 6px 0;
+}
+
+.builtin-offer {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .cat-link {
   color: var(--accent);
   text-decoration: none;

@@ -16,7 +16,12 @@ export type UpdateCourse = (id: string, fn: (c: Course) => Course) => void;
 
 const updateCourse: UpdateCourse = (id, fn) =>
   setCourses((cs) => cs.map((c) => (c.id === id ? { ...fn(c), updatedAt: Date.now() } : c)));
-const addCourse = (c: Course) => setCourses((cs) => [c, ...cs]);
+const addCourse = (c: Course) =>
+  setCourses((cs) => {
+    // A backup of a built-in course replaces the untouched copy that was seeded on this device.
+    const i = c.builtinId ? cs.findIndex((x) => x.builtinId === c.builtinId && Object.keys(x.progress).length === 0) : -1;
+    return i >= 0 ? cs.map((x, j) => (j === i ? c : x)) : [c, ...cs];
+  });
 const deleteCourse = (id: string) => setCourses((cs) => cs.filter((c) => c.id !== id));
 
 export default function App() {

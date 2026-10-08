@@ -46,6 +46,7 @@ export default function CourseGrid({ courses, onDelete, showCategory }: Props) {
                       {cat.icon} {cat.title}
                     </span>
                   )}
+                  {c.builtinId && <span className="builtin-chip">★ Built-in</span>}
                   <h2>{c.name}</h2>
                 </div>
                 <div className="menu-wrap">

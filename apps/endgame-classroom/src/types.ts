@@ -47,6 +47,8 @@ export interface Course {
   progress: Record<string, LineProgress>;
   createdAt: number;
   updatedAt: number;
+  /** Set when the course ships with the app (see lib/builtinCourses.ts). */
+  builtinId?: string;
 }
 
 /** A game in the Chess TV library: stored as imported, watched rather than trained. */
