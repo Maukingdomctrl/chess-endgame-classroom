@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "course:kpk": "node tools/kpk-course/run.cjs"
+    "course:kpk": "node tools/kpk-course/run.cjs",
+    "course:basics": "node tools/basics-course/run.cjs"
   },
   "dependencies": {
     "chess.js": "^1.4.0",

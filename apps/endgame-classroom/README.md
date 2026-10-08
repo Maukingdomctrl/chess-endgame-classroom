@@ -66,6 +66,15 @@ time the app opens on a device:
   is stalemate. Key squares are shown in green (red in the defence lessons, blue for the square of
   the pawn; the queening square once the pawn is on the 7th rank). Regenerate it with
   `npm run course:kpk` (see `tools/kpk-course/`).
+- *Endgame Basics: First Principles* (`courses/endgame-basics-course.pgn`): 31 positions in 6
+  lessons: the king as a fighting piece, mating patterns on the edge and in the corner, checkmate
+  with the queen and with the rook, stalemate traps, and a final exam. Every move is verified with
+  exact solvers (king + queen / king + rook vs king with distance to mate, and the king + pawn
+  solver): each of your moves is a fastest win, equally fast moves are accepted via `[%also]`, the
+  opponent always defends as stubbornly as possible, and every line is played to mate (or, with a
+  pawn, to the promotion). Blue squares show the black king's box (or the squares it can step to),
+  green the key squares, red the moves that would stalemate or only draw. Regenerate it with
+  `npm run course:basics` (see `tools/basics-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
 imported by hand is adopted instead of duplicated. When a newer version of the app changes a
