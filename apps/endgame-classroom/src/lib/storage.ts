@@ -95,6 +95,7 @@ export function normalizeCourse(input: unknown): Course {
       : [],
     progress: c.progress && typeof c.progress === "object" ? c.progress : {},
     ...(typeof c.builtinId === "string" && c.builtinId ? { builtinId: c.builtinId } : {}),
+    ...(typeof c.builtinHash === "string" && c.builtinHash ? { builtinHash: c.builtinHash } : {}),
     createdAt: typeof c.createdAt === "number" ? c.createdAt : now,
     updatedAt: typeof c.updatedAt === "number" ? c.updatedAt : now,
   };

@@ -26,7 +26,9 @@ npm run build    # production build in dist/
 4. **See / export** – the **Lines** tab lists every line (edit, reorder, delete, copy PGN/FEN) and
    exports the whole course as PGN or a JSON backup.
 5. **Learn** – lines play one after another. The coach explains each move and an arrow shows what
-   to play; the opponent's moves are played for you.
+   to play; the opponent's moves are played for you. When a line ends you get 15 seconds to read the
+   final notes before the next one starts: press **Next line** to go on now, or **Stay** to stop the
+   countdown and look at the position as long as you like.
 6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves
    count as mistakes; a clean run marks the line **perfected**, lines with mistakes come back first.
 7. **Search** – the search bar on the home screen finds lines by name, description, notes or moves.
@@ -59,7 +61,9 @@ time the app opens on a device:
   `npm run course:kpk` (see `tools/kpk-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
-imported by hand is adopted instead of duplicated. To add another built-in course, put its PGN in
+imported by hand is adopted instead of duplicated. When a newer version of the app changes a
+built-in course's PGN (e.g. adds coloured squares), your copy is updated on the next start: your
+progress is kept for every line whose moves didn't change, and lines you added yourself stay. To add another built-in course, put its PGN in
 `courses/` and register it in `src/lib/builtinCourses.ts`.
 
 ## Chess TV

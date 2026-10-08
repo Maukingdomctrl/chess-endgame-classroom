@@ -1,5 +1,5 @@
 import kingAndPawnPgn from "../../courses/king-and-pawn-course.pgn?raw";
-import type { Category, Course, Side } from "../types";
+import type { Category, Course, Line, Side } from "../types";
 import { importPgn } from "./pgn";
 import { createCourse } from "./storage";
 
@@ -48,9 +48,47 @@ function saveOffered(ids: string[]) {
   }
 }
 
+/** Short fingerprint of a course's PGN, so a changed file (a newer app version) can be detected. */
+export function pgnHash(text: string) {
+  let h = 5381;
+  for (let i = 0; i < text.length; i++) h = ((h << 5) + h + text.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+
 export function builtinToCourse(b: BuiltinCourse): Course {
   const { lines } = importPgn(b.pgn);
-  return { ...createCourse(b.name, b.description, b.playAs, b.category), lines, builtinId: b.id };
+  return { ...createCourse(b.name, b.description, b.playAs, b.category), lines, builtinId: b.id, builtinHash: pgnHash(b.pgn) };
+}
+
+const PLACEHOLDER_NAMES = new Set(["", "Untitled course"]);
+
+/**
+ * Brings a copy of a built-in course up to date with the bundled PGN. Lines are matched by name:
+ * a matching line keeps its id (and so its progress, unless its moves changed); lines the user
+ * added themselves are kept at the end.
+ */
+function refreshBuiltin(c: Course, b: BuiltinCourse): Course {
+  const fresh = importPgn(b.pgn).lines;
+  const oldByName = new Map(c.lines.map((l) => [l.name, l]));
+  const freshNames = new Set(fresh.map((l) => l.name));
+  const progress: Course["progress"] = {};
+  const lines: Line[] = fresh.map((l) => {
+    const old = oldByName.get(l.name);
+    if (!old) return l;
+    const sameMoves = old.startFen === l.startFen && old.moves.map((m) => m.san).join(" ") === l.moves.map((m) => m.san).join(" ");
+    if (sameMoves && c.progress[old.id]) progress[old.id] = c.progress[old.id];
+    return { ...l, id: old.id };
+  });
+  const own = c.lines.filter((l) => !freshNames.has(l.name));
+  for (const l of own) if (c.progress[l.id]) progress[l.id] = c.progress[l.id];
+  return {
+    ...c,
+    name: PLACEHOLDER_NAMES.has(c.name.trim()) ? b.name : c.name,
+    description: c.description || b.description,
+    lines: [...lines, ...own],
+    progress,
+    builtinHash: pgnHash(b.pgn),
+  };
 }
 
 /**
@@ -71,6 +109,14 @@ export function seedBuiltins(courses: Course[]): Course[] | null {
     out = own ? out.map((c) => (c === own ? { ...c, builtinId: b.id } : c)) : [builtinToCourse(b), ...out];
     offered.push(b.id);
     changed = true;
+  }
+  // Refresh copies built from an older version of the bundled PGN (or adopted hand imports).
+  for (const b of BUILTIN_COURSES) {
+    const hash = pgnHash(b.pgn);
+    if (out.some((c) => c.builtinId === b.id && c.builtinHash !== hash)) {
+      out = out.map((c) => (c.builtinId === b.id && c.builtinHash !== hash ? refreshBuiltin(c, b) : c));
+      changed = true;
+    }
   }
   saveOffered(offered);
   return changed ? out : null;

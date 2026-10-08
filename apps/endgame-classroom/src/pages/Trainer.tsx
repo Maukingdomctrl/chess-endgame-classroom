@@ -35,10 +35,13 @@ interface Run {
   status: "playing" | "done";
   viewPly: number | null;
   celebrate: number;
+  /** The learner pressed "Stay": don't move on automatically. */
+  stay: boolean;
 }
 
 const OPPONENT_DELAY_MS = 550;
-const AUTO_NEXT_MS = 2600;
+// Time to read the final notes before the next line starts (the learner can skip or stay).
+const AUTO_NEXT_MS = 15000;
 
 function buildQueue(course: Course, mode: Mode, startLineId: string | null): Line[] {
   const playable = course.lines.filter((l) => l.moves.length > 0);
@@ -78,6 +81,7 @@ function freshRun(idx: number): Run {
     status: "playing",
     viewPly: null,
     celebrate: 0,
+    stay: false,
   };
 }
 
@@ -142,11 +146,11 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
 
   // Move on to the next line automatically after a completed one.
   useEffect(() => {
-    if (run.status !== "done") return;
+    if (run.status !== "done" || run.stay) return;
     const t = window.setTimeout(nextLine, AUTO_NEXT_MS);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [run.status, run.idx]);
+  }, [run.status, run.idx, run.stay]);
 
   // Clear the wrong-move flash.
   useEffect(() => {
@@ -423,10 +427,22 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
               </>
             ) : (
               run.status === "done" && (
-                <button className="btn primary next-btn" onClick={nextLine}>
-                  {run.idx + 1 >= queue.length ? "Finish" : "Next line →"}
-                  <span className="countdown" key={run.idx} />
-                </button>
+                <>
+                  <button className="btn primary next-btn" onClick={nextLine}>
+                    {run.idx + 1 >= queue.length ? "Finish" : "Next line →"}
+                    {!run.stay && (
+                      <span className="countdown" key={run.idx} style={{ animationDuration: `${AUTO_NEXT_MS}ms` }} />
+                    )}
+                  </button>
+                  <button
+                    className="btn stay-btn"
+                    disabled={run.stay}
+                    title="Stop the countdown and stay on this line"
+                    onClick={() => setRun((r) => ({ ...r, stay: true }))}
+                  >
+                    {run.stay ? "Staying" : "⏸ Stay"}
+                  </button>
+                </>
               )
             )}
           </div>
