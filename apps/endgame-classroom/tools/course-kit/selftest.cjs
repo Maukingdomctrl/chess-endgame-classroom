@@ -9,8 +9,13 @@
 //        fastest losing reply, loss = 1 + slowest winning reply, else draw; mate and stalemate agree).
 //   3. The longest mates, compared with the published values.
 //   4. Lines played by line.cjs pass verify.cjs.
+//   5. Goal 'promotion' (plies to a safe promotion): K+P vs K gives exactly the King & Pawn solver's values
+//      on every position; on sampled K+P+P vs K positions the moves are chess.js's and every value follows
+//      from its moves (a promotion counts when the new piece cannot be taken, it is not stalemate and the
+//      position stays won); a line played with this measure passes verify.cjs.
+//      Run alone with: node tools/course-kit/selftest.cjs promotion
 const { Chess } = require('chess.js');
-const { table, probe } = require('./solver.cjs');
+const { table, probe, probePromotion } = require('./solver.cjs');
 const { boardFen, sqName } = require('./board.cjs');
 const { playLine } = require('./line.cjs');
 const { verifyLine } = require('./verify.cjs');
@@ -120,6 +125,75 @@ if (!only.length) for (const [fen, goal] of [['8/8/8/4k3/8/8/8/R3K2R w - - 0 1',
   const r = verifyLine({ fen, moves: l.plies.map((p) => ({ san: p.san, also: p.also })) }, { goal, probe });
   check(!l.end.startsWith('error') && r.problems.length === 0,
     `${fen} (${goal}): ${l.plies.length} plies to ${l.end}, verified (${r.problems.length} problems): ${l.plies.map((p) => p.san).join(' ')}`);
+  for (const p of r.problems.slice(0, 3)) console.log(`     ${p}`);
+}
+
+// ---- 5. goal 'promotion' ----
+if (!only.length || only.includes('promotion')) {
+  const KPK = require('../kpk-course/kpk.cjs');
+  const T1 = table('KPK', { goal: 'promotion' });
+  const s3 = new Int8Array(3);
+  let n = 0, diff = 0;
+  for (let wk = 0; wk < 64; wk++) for (let bk = 0; bk < 64; bk++) for (let p = 8; p < 56; p++) for (const stm of [0, 1]) {
+    if (!KPK.legal(wk, bk, p, stm)) continue;
+    s3[0] = wk; s3[1] = bk; s3[2] = p;
+    const v = T1.value(s3, stm);
+    if ((v > 0 ? v : v < 0 ? -v - 1 : 0) !== KPK.dtc[KPK.idx(wk, bk, p, stm)]) diff++;
+    n++;
+  }
+  check(diff === 0, `KPK, goal 'promotion': ${n} positions, plies to the promotion = kpk.cjs (${diff} differences)`);
+
+  const t0 = Date.now();
+  const T = table('KPPK', { goal: 'promotion' });
+  const ms = Date.now() - t0;
+  const enc = (r) => (r.result === 'win' ? r.dtc : r.result === 'loss' ? -r.dtc - 1 : 0);
+  const kinds = {
+    random: () => true,
+    'in check': (sqs, stm) => T.inCheck(sqs, stm),
+    'a promotion to play': (sqs, stm) => stm === 0 && ((sqs[2] >> 3) === 6 || (sqs[3] >> 3) === 6),
+  };
+  const sqs = new Int8Array(4), buf = new Int16Array(4 * 256);
+  let tested = 0, badMoves = 0, badValue = 0;
+  for (const [kind, want] of Object.entries(kinds)) {
+    for (let found = 0, tries = 0; found < SAMPLES && tries < 5e6; tries++) {
+      const i = rnd(T.size);
+      const stm = T.decode(i, sqs);
+      if (!T.legal(sqs, stm) || T.index(sqs, stm) !== i || !want(sqs, stm)) continue;
+      found++; tested++;
+      const fen = `${boardFen([...sqs].map((q, k) => [q, 'KkPP'[k]]))} ${stm ? 'b' : 'w'} - - 0 1`;
+      const g = new Chess(fen);
+      const m = T.moves(sqs, stm, buf);
+      const mine = [];
+      for (let x = 0; x < m; x++) mine.push(sqName(sqs[buf[x * 4]]) + sqName(buf[x * 4 + 1]) + (buf[x * 4 + 2] >= 0 ? 'qrbn'[buf[x * 4 + 2] - 1] : ''));
+      const theirs = g.moves({ verbose: true }).map((mv) => mv.from + mv.to + (mv.promotion ?? ''));
+      if (mine.sort().join() !== theirs.sort().join()) { if (badMoves < 3) console.log(`     ${fen}: moves ${mine.join(',')} / chess.js ${theirs.join(',')}`); badMoves++; }
+      let expect;
+      const moves = g.moves({ verbose: true });
+      if (!moves.length) expect = g.isCheckmate() ? -1 : 0;
+      else {
+        let win = 0, oppMax = -1, draw = false;
+        for (const mv of moves) {
+          const c = new Chess(fen); c.move(mv.san);
+          let v;
+          if (c.isCheckmate()) v = -1;
+          else if (c.isStalemate() || c.isInsufficientMaterial()) v = 0;
+          else if (mv.promotion) v = !c.moves({ verbose: true }).some((y) => y.to === mv.to) && probe(c.fen()).result === 'loss' ? -1 : 0; // safe: reached the goal
+          else v = enc(probePromotion(c.fen()));
+          if (v < 0) { if (!win || -v < win) win = -v; } else if (v > 0) oppMax = Math.max(oppMax, v); else draw = true;
+        }
+        expect = win ? win : draw ? 0 : -(oppMax + 1) - 1;
+      }
+      if (expect !== T.val[i]) { if (badValue < 3) console.log(`     ${fen} (${kind}): stored ${T.val[i]}, from its moves ${expect}`); badValue++; }
+    }
+  }
+  check(!badMoves && !badValue, `KPPK, goal 'promotion': ${tested} positions (${Object.keys(kinds).join(', ')}): moves = chess.js (${badMoves} wrong), values consistent (${badValue} wrong); built in ${(ms / 1000).toFixed(1)} s`);
+
+  const fen = '8/8/8/4k3/8/8/3PP3/4K3 w - - 0 1';
+  const opts = { goal: 'promotion', probe, promotionProbe: probePromotion };
+  const l = playLine(fen, opts);
+  const r = verifyLine({ fen, moves: l.plies.map((p) => ({ san: p.san, also: p.also })) }, opts);
+  check(!l.end.startsWith('error') && r.problems.length === 0,
+    `${fen} (promotion, two pawns): ${l.plies.length} plies to ${l.end}, verified (${r.problems.length} problems): ${l.plies.map((p) => p.san).join(' ')}`);
   for (const p of r.problems.slice(0, 3)) console.log(`     ${p}`);
 }
 

@@ -23,6 +23,13 @@
 // Each position is stored once for all its mirror images (8 without pawns, 2 with pawns): the white
 // king is moved into a1-d1-d4 (without pawns) or onto files a-d, and the smallest of those images is
 // the one kept. Two identical pieces are kept in square order.
+//
+// KIT_CACHE=<directory> (optional) keeps solved tables on disk between runs, for generators that are run
+// again and again while a course is being written. A table is found again only if this file and
+// board.cjs are unchanged (their checksum is part of the file name).
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
 const { kingAdj, knightAdj, SYM8 } = require('./board.cjs');
 
 const ORDER = 'QRBNP';
@@ -105,9 +112,20 @@ function table(name, opts = {}) {
   if (!T) {
     T = new Table(name, goal);
     tables.set(key, T);
-    T.solve();
+    const file = cacheFile(key);
+    if (file && fs.existsSync(file)) T.val = new Int16Array(new Uint8Array(fs.readFileSync(file)).buffer);
+    if (!T.val || T.val.length !== T.size) {
+      T.solve();
+      if (file) { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(`${file}.tmp`, Buffer.from(T.val.buffer)); fs.renameSync(`${file}.tmp`, file); }
+    }
   }
   return T;
+}
+let codeSum;
+function cacheFile(key) {
+  if (!process.env.KIT_CACHE) return null;
+  codeSum ??= crypto.createHash('sha1').update(fs.readFileSync(__filename)).update(fs.readFileSync(path.join(__dirname, 'board.cjs'))).digest('hex').slice(0, 12);
+  return path.join(process.env.KIT_CACHE, `${key.replace(':', '-')}-${codeSum}.bin`);
 }
 
 class Table {

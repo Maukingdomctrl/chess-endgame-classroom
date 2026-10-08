@@ -83,6 +83,15 @@ time the app opens on a device:
   the far side, cutting the king off, waiting moves, the final picture. Blue squares show the black
   king's box (or the squares it can step to), red the move that would be stalemate. Regenerate it
   with `npm run course:ladder` (see `tools/ladder-course/`).
+- *Two Connected Pawns* (`courses/connected-pawns-course.pgn`): 80 positions in 8 lessons: promoting
+  safely, side-by-side pawns the king cannot stop, letting the king take one pawn while the other
+  runs, the chain that protects itself while your king walks over, escorting the pawns with your
+  king, stalemate traps, a final exam, and 24 extra practice positions without explanations. Every
+  line ends in a safe promotion, and every move of yours is the only fastest way there (verified
+  with the exact solver, measured to the promotion). Green squares show the queening squares (or
+  where your king is heading), blue the squares the black king can step to, red the pawn the king
+  is going to take or the move that would be stalemate. Regenerate it with `npm run course:pawns`
+  (see `tools/pawns-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
 imported by hand is adopted instead of duplicated. When a newer version of the app changes a

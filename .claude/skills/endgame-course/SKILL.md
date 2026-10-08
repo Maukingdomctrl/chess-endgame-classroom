@@ -97,5 +97,19 @@ regenerates it byte for byte. Everything shared lives in `apps/endgame-classroom
 - **Exclude positions of other built-in courses** (read their FENs) so courses don't repeat each other.
 - **Solver pitfalls already fixed** (the self-test guards them): a pawn's double step can block a check
   when the single step cannot; JavaScript integer overflow in a random generator (use `Math.imul`).
+- **Pawn endings are measured to the promotion** (solver goal `'promotion'`, `probePromotion`; pass it to
+  verify as `promotionProbe`): a promotion counts only when the new piece cannot be taken at once, it is not
+  stalemate and the position stays won. Lines end in a queen (a rook when the queen would stalemate).
+- **Let the solver say what is possible before promising a lesson.** Two connected pawns never promote
+  on their own against a king standing in front of them: lessons that "run alone" need the king beside them.
+  Ask the solver with a quick experiment (a few filters on the candidate lines) before tuning a search.
+- **Variety beyond positions**: lines can differ square by square and still teach the same picture. Also
+  compare a pattern (the pieces seen from one of them, mirror images alike) and the files used, and cap
+  each at about a third of a group.
+- **Notes must be true in the position**: derive them from the board and the solver (who protects what,
+  can the king catch the pawn, does taking a pawn save Black), and leave out what the line does not show.
+  Read the course as a learner: misplaced "Opposition!" or "attacks the pawn" cues are the usual noise.
+- Slow tables (pawns, several promotions): set `KIT_CACHE` while iterating; check the final file once
+  without it.
 - The browser test needs Playwright and a Chromium (`CHROMIUM_PATH`; in the cloud container it is
   `/opt/pw-browsers/chromium` with Playwright installed globally).

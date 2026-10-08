@@ -1,0 +1,1359 @@
+[Event "01. Promote safely (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/PP6/k7/8/K7/8/8/8 w - - 0 1"]
+[LineName "01. Promote safely (1/8)"]
+[LineDescription "Before you promote, check that the new queen is safe and that the black king still has a move."]
+
+{[%csl Ga8,Gb8,Ba7,Bb7,Bb6] Welcome! Two connected pawns stand side by side, or
+one diagonally behind the other, so they can protect each other. Every line ends
+when a pawn becomes a safe queen: the black king cannot take it, and the black
+king still has a move (otherwise it is stalemate, only a draw). First the
+finish: which pawn goes, and when? Both pawns can become a queen right now, but
+only one of the new queens is safe. Green: the queening squares. Blue: the
+squares the black king can step to.} 1. a8=Q+ {Queen! The b-pawn protects the
+new queen. With a queen, the win is easy from here. b8=Q would have been
+stalemate.} *
+
+[Event "01. Promote safely (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5PP1/7k/8/6K1/8/8/8 w - - 0 1"]
+[LineName "01. Promote safely (2/8)"]
+[LineDescription "Before you promote, check that the new queen is safe and that the black king still has a move."]
+
+{[%csl Gf8,Gg8,Bg7,Bh7,Bg6] One move to a queen. Which one is safe?} 1. f8=Q
+{Queen! The g-pawn protects the new queen. With a queen, the win is easy from
+here. g8=Q would have been stalemate.} *
+
+[Event "01. Promote safely (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/k1PP4/8/1K6/8/8/8/8 w - - 0 1"]
+[LineName "01. Promote safely (3/8)"]
+[LineDescription "Before you promote, check that the new queen is safe and that the black king still has a move."]
+
+{[%csl Gc8,Gd8,Ba8,Bb7] Two queens to choose from: one of them would be
+stalemate.} 1. d8=Q {Queen! The c-pawn protects the new queen. With a queen, the
+win is easy from here. c8=Q would have been stalemate.} *
+
+[Event "01. Promote safely (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/6P1/7P/8/8/8/5k1K w - - 0 1"]
+[LineName "01. Promote safely (4/8)"]
+[LineDescription "Push the pawn that reaches the queening square first, out of the king's reach."]
+
+{[%csl Gg8,Gh8,Be2,Bf2,Be1] Two moves to a queen. Which pawn gets there first?}
+1. g7 {The g-pawn goes: the black king is too far from g8 to stop it.} 1... Kf2
+{[%csl Gg8,Gh8,Be3,Bf3,Bg3,Bf1,Be1,Be2]} 2. g8=Q {Queen! The black king is too
+far away to take the new queen. With a queen, the win is easy from here.} *
+
+[Event "01. Promote safely (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3P4/4P3/8/8/8/K2k4 w - - 0 1"]
+[LineName "01. Promote safely (5/8)"]
+[LineDescription "Push the pawn that reaches the queening square first, out of the king's reach."]
+
+{[%csl Gd8,Ge8,Bc2,Bd2,Be2,Be1,Bc1] Two moves to a queen again.} 1. d7 {The
+d-pawn goes: the black king is too far from d8 to stop it.} 1... Kc2 {[%csl
+Gd8,Ge8,Bb3,Bc3,Bd3,Bd2,Bd1,Bc1]} 2. d8=Q {Queen! The black king is too far away
+to take the new queen. With a queen, the win is easy from here.} *
+
+[Event "01. Promote safely (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2P5/3P3k/8/8/8/7K w - - 0 1"]
+[LineName "01. Promote safely (6/8)"]
+[LineDescription "Push the pawn that reaches the queening square first, out of the king's reach."]
+
+{[%csl Gc8,Gd8,Bg6,Bh6,Bh4,Bg4,Bg5] The black king is coming. Which pawn wins
+the race?} 1. c7 {The c-pawn goes: the black king is too far from c8 to stop
+it.} 1... Kg4 {[%csl Gc8,Gd8,Bf5,Bg5,Bh5,Bh4,Bh3,Bg3,Bf3,Bf4]} 2. c8=Q+ {Queen!
+The black king is too far away to take the new queen. With a queen, the win is
+easy from here.} *
+
+[Event "01. Promote safely (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/2P5/1P6/8/8/K3k3 w - - 0 1"]
+[LineName "01. Promote safely (7/8)"]
+[LineDescription "Count the moves: the pawn that gets there first, safely."]
+
+{[%csl Gc8,Gb8,Bd2,Be2,Bf2,Bf1,Bd1] Three moves to a queen.} 1. c6 {The c-pawn
+goes: the black king is too far from c8 to stop it.} 1... Kd2 {[%csl
+Gc8,Gb8,Bc3,Bd3,Be3,Be2,Be1,Bd1,Bc1,Bc2]} 2. c7 {The c-pawn keeps running.} 2...
+Kc3 {[%csl Gc8,Gb8,Bb4,Bc4,Bd4,Bd3,Bd2,Bc2,Bb3]} 3. c8=Q+ {Queen! The black king
+is too far away to take the new queen. With a queen, the win is easy from here.}
+*
+
+[Event "01. Promote safely (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/6P1/7P/8/8/2k4K w - - 0 1"]
+[LineName "01. Promote safely (8/8)"]
+[LineDescription "Count the moves: the pawn that gets there first, safely."]
+
+{[%csl Gg8,Gh8,Bb2,Bc2,Bd2,Bd1,Bb1] Three moves to a queen again.} 1. g6 {The
+g-pawn goes: the black king is too far from g8 to stop it.} 1... Kd2 {[%csl
+Gg8,Gh8,Bc3,Bd3,Be3,Be2,Be1,Bd1,Bc1,Bc2]} 2. g7 {The g-pawn keeps running.} 2...
+Ke3 {[%csl Gg8,Gh8,Bd4,Be4,Bf4,Bf3,Bf2,Be2,Bd2,Bd3]} 3. g8=Q {Queen! The black
+king is too far away to take the new queen. With a queen, the win is easy from
+here.} *
+
+[Event "02. Side by side: the king cannot stop both (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/k1PP4/8/8/8/8/K7 w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (1/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Gc8,Gd8,Ba7,Bb6,Bb5,Ba5] Two pawns side by side guard the squares in
+front of each other. When the black king comes up beside them, push the pawn it
+cannot reach: it cannot stop both, and your own king does not even need to help.
+The black king is next to your pawns. Which pawn goes forward? Green: the
+queening squares. Blue: the squares the black king can step to.} 1. d7 {The
+d-pawn goes: the black king is too far from d8 to stop it.} 1... Kb5 {[%csl
+Gd8,Gc8,Ba6,Bb6,Bc6,Bc5,Bc4,Bb4,Ba4,Ba5]} 2. d8=Q {Queen! The black king is too
+far away to take the new queen. With a queen, the win is easy from here.} *
+
+[Event "02. Side by side: the king cannot stop both (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3PP1k1/8/8/8/8/7K w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (2/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Gd8,Ge8,Bg7,Bh7,Bh6,Bh5,Bg5,Bf5,Bf6] Which pawn can the king not reach?}
+1. d7 {The d-pawn goes: the black king is too far from d8 to stop it.} 1... Kf5
+{[%csl Gd8,Ge8,Be6,Bf6,Bg6,Bg5,Bg4,Bf4,Be4,Be5]} 2. d8=Q {Queen! The black king
+is too far away to take the new queen. With a queen, the win is easy from here.}
+*
+
+[Event "02. Side by side: the king cannot stop both (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/4PP2/8/8/8/8/K7 w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (3/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Ge8,Gf8,Bb8,Bc8,Bd8,Bd6,Bc6,Bb6,Bb7] Push the pawn the king cannot stop.}
+1. f7 {The f-pawn goes: the black king is too far from f8 to stop it.} 1... Kd6
+{[%csl Gf8,Ge8,Bc7,Be7,Be6,Be5,Bd5,Bc5,Bc6]} 2. f8=Q+ {Queen! The black king is
+too far away to take the new queen. With a queen, the win is easy from here.} *
+
+[Event "02. Side by side: the king cannot stop both (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/6PP/8/8/8/8/7K w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (4/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Gg8,Gh8,Bd8,Be8,Bf8,Bf6,Be6,Bd6,Bd7] The king is beside the pawns again.}
+1. h7 {The h-pawn goes: the black king is too far from h8 to stop it.} 1... Kf6
+{[%csl Gh8,Gg8,Be7,Bg7,Bg6,Bg5,Bf5,Be5,Be6]} 2. h8=Q+ {Queen! The black king is
+too far away to take the new queen. With a queen, the win is easy from here.} *
+
+[Event "02. Side by side: the king cannot stop both (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/k2PP3/8/8/8/K7 w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (5/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Gd8,Ge8,Ba6,Bb6,Bb5,Bb4,Ba4] One step further from the queening squares.
+The same question: which pawn?} 1. e6 {The e-pawn goes: the black king is too
+far from e8 to stop it.} 1... Kb4 {[%csl
+Ge8,Gd8,Ba5,Bb5,Bc5,Bc4,Bc3,Bb3,Ba3,Ba4]} 2. e7 {The e-pawn keeps running.} 2...
+Kc5 {[%csl Ge8,Gd8,Bb6,Bd6,Bd5,Bd4,Bc4,Bb4,Bb5]} 3. e8=Q {Queen! The black king
+is too far away to take the new queen. With a queen, the win is easy from here.}
+*
+
+[Event "02. Side by side: the king cannot stop both (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/2PP2k1/8/8/8/7K w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (6/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Gc8,Gd8,Bf6,Bg6,Bh6,Bh5,Bh4,Bg4,Bf4,Bf5] Which pawn is out of the king's
+reach?} 1. c6 {The c-pawn goes: the black king is too far from c8 to stop it.}
+1... Kf4 {[%csl Gc8,Gd8,Be5,Bf5,Bg5,Bg4,Bg3,Bf3,Be3,Be4]} 2. c7 {The c-pawn
+keeps running.} 2... Ke5 {[%csl Gc8,Gd8,Bd6,Bf6,Bf5,Bf4,Be4,Bd4,Bd5]} 3. c8=Q
+{Queen! The black king is too far away to take the new queen. With a queen, the
+win is easy from here.} *
+
+[Event "02. Side by side: the king cannot stop both (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/5PP1/8/8/8/K7 w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (7/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Gf8,Gg8,Bb7,Bc7,Bd7,Bd6,Bd5,Bc5,Bb5,Bb6] Count the moves of both pawns
+and of the king.} 1. g6 {The g-pawn goes: the black king is too far from g8 to
+stop it.} 1... Kd5 {[%csl Gg8,Gf8,Bc6,Bd6,Be5,Be4,Bd4,Bc4,Bc5]} 2. g7 {The
+g-pawn keeps running.} 2... Ke5 {[%csl Gg8,Gf8,Bd6,Bf6,Bf5,Bf4,Be4,Bd4,Bd5]} 3.
+g8=Q {Queen! The black king is too far away to take the new queen. With a queen,
+the win is easy from here.} *
+
+[Event "02. Side by side: the king cannot stop both (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/PP6/8/8/8/7K w - - 0 1"]
+[LineName "02. Side by side: the king cannot stop both (8/8)"]
+[LineDescription "Side by side: push the pawn the king cannot reach; it cannot stop both."]
+
+{[%csl Ga8,Gb8,Bd7,Be7,Bf7,Bf6,Bf5,Be5,Bd5,Bd6] Side by side again: which pawn
+runs?} 1. a6 {The a-pawn goes: the black king is too far from a8 to stop it.}
+1... Kd5 {[%csl Ga8,Gb8,Bd6,Be6,Be5,Be4,Bd4,Bc4,Bc5]} 2. a7 {The a-pawn keeps
+running.} 2... Kc5 {[%csl Ga8,Gb8,Bb6,Bd6,Bd5,Bd4,Bc4,Bb4,Bb5]} 3. a8=Q {Queen!
+The black king is too far away to take the new queen. With a queen, the win is
+easy from here.} *
+
+[Event "03. If the king takes one, the other runs (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/K7/8/8/k1P5/3P4/8 w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (1/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gd3,Gd4,Gd5,Gd6,Gd7,Gd8,Rc3] The black king can win one of your pawns.
+Let it! While it is busy taking one, the other pawn runs to the queening square,
+and the king is too far behind to catch it. Push the right pawn and count the
+moves. The black king is close to your pawns. Push the pawn that runs away from
+it. Green: the runner's way to the queening square. Red: the pawn the king is
+going to take.} 1. d4 {Push the runner! The king may take the c-pawn, but then
+the d-pawn is too far ahead for it.} 1... Kb2 {[%csl Gd5,Gd6,Gd7,Gd8,Rc3] The
+king attacks the pawn on c3!} 2. d5 {Forward again: the king is busy with the
+other pawn.} 2... Kxc3 {[%csl Gd6,Gd7,Gd8] The king takes the pawn on c3, but
+now the d-pawn runs, and the king is too far behind to catch it.} 3. d6 {The
+d-pawn goes: the black king is too far from d8 to stop it.} 3... Kb4 {[%csl
+Gd7,Gd8]} 4. d7 {The d-pawn keeps running.} 4... Kc5 {[%csl Gd8]} 5. d8=Q
+{Queen! The black king is too far away to take the new queen. With a queen, the
+win is easy from here.} *
+
+[Event "03. If the king takes one, the other runs (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/6K1/8/8/3PP1k1/8/8 w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (2/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gd4,Gd5,Gd6,Gd7,Gd8,Re3] The king will take one pawn. Make sure it is the
+slow one.} 1. d4 {Push the runner! The king may take the e-pawn, but then the
+d-pawn is too far ahead for it.} 1... Kf2 {[%csl Gd5,Gd6,Gd7,Gd8,Re3] The king
+attacks the pawn on e3!} 2. d5 {Forward again: the king is busy with the other
+pawn.} 2... Kxe3 {[%csl Gd6,Gd7,Gd8] The king takes the pawn on e3, but now the
+d-pawn runs, and the king is too far behind to catch it.} 3. d6 {The d-pawn
+goes: the black king is too far from d8 to stop it.} 3... Kf4 {[%csl Gd7,Gd8]}
+4. d7 {The d-pawn keeps running.} 4... Ke5 {[%csl Gd8]} 5. d8=Q {Queen! The
+black king is too far away to take the new queen. With a queen, the win is easy
+from here.} *
+
+[Event "03. If the king takes one, the other runs (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2K5/8/8/2k1PP2/8/8 w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (3/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gf4,Gf5,Gf6,Gf7,Gf8,Re3] Which pawn runs, and which one do you leave
+behind?} 1. f4 {Push the runner! The king may take the e-pawn, but then the
+f-pawn is too far ahead for it.} 1... Kd2 {[%csl Gf5,Gf6,Gf7,Gf8,Re3] The king
+attacks the pawn on e3!} 2. f5 {Forward again: the king is busy with the other
+pawn.} 2... Kxe3 {[%csl Gf6,Gf7,Gf8] The king takes the pawn on e3, but now the
+f-pawn runs, and the king is too far behind to catch it.} 3. f6 {The f-pawn
+goes: the black king is too far from f8 to stop it.} 3... Kd4 {[%csl Gf7,Gf8]}
+4. f7 {The f-pawn keeps running.} 4... Ke5 {[%csl Gf8]} 5. f8=Q {Queen! The
+black king is too far away to take the new queen. With a queen, the win is easy
+from here.} *
+
+[Event "03. If the king takes one, the other runs (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4K3/8/8/4k1PP/8/8 w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (4/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gh4,Gh5,Gh6,Gh7,Gh8,Rg3] Let the king have one pawn: the other one
+queens.} 1. h4 {Push the runner! The king may take the g-pawn, but then the
+h-pawn is too far ahead for it.} 1... Kf2 {[%csl Gh5,Gh6,Gh7,Gh8,Rg3] The king
+attacks the pawn on g3!} 2. h5 {Forward again: the king is busy with the other
+pawn.} 2... Kxg3 {[%csl Gh6,Gh7,Gh8] The king takes the pawn on g3, but now the
+h-pawn runs, and the king is too far behind to catch it.} 3. h6 {The h-pawn
+goes: the black king is too far from h8 to stop it.} 3... Kh4 {[%csl Gh7,Gh8]}
+4. h7 {The h-pawn keeps running.} 4... Kh5 {[%csl Gh8]} 5. h8=Q+ {Queen! The
+black king is too far away to take the new queen. With a queen, the win is easy
+from here.} *
+
+[Event "03. If the king takes one, the other runs (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/2P5/3P4/8/K1k5 w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (5/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gc5,Gc6,Gc7,Gc8,Rd3] The king will take one pawn. Make sure it is the
+slow one.} 1. c5 {Push the runner! The king may take the d-pawn, but then the
+c-pawn is too far ahead for it.} 1... Kc2 {[%csl Gc6,Gc7,Gc8,Rd3] The king
+attacks the pawn on d3!} 2. c6 {Forward again: the king is busy with the other
+pawn.} 2... Kxd3 {[%csl Gc7,Gc8] The king takes the pawn on d3, but now the
+c-pawn runs, and the king is too far behind to catch it.} 3. c7 {The c-pawn
+goes: the black king is too far from c8 to stop it.} 3... Kc4 {[%csl Gc8]} 4.
+c8=Q+ {Queen! The black king is too far away to take the new queen. With a
+queen, the win is easy from here.} *
+
+[Event "03. If the king takes one, the other runs (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/4P3/3P4/8/3k3K w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (6/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Ge5,Ge6,Ge7,Ge8,Rd3] Which pawn runs, and which one do you leave behind?}
+1. e5 {Push the runner! The king may take the d-pawn, but then the e-pawn is too
+far ahead for it.} 1... Ke2 {[%csl Ge6,Ge7,Ge8,Rd3] The king attacks the pawn on
+d3!} 2. e6 {Forward again: the king is busy with the other pawn.} 2... Kxd3
+{[%csl Ge7,Ge8] The king takes the pawn on d3, but now the e-pawn runs, and the
+king is too far behind to catch it.} 3. e7 {The e-pawn goes: the black king is
+too far from e8 to stop it.} 3... Ke4 {[%csl Ge8]} 4. e8=Q+ {Queen! The black
+king is too far away to take the new queen. With a queen, the win is easy from
+here.} *
+
+[Event "03. If the king takes one, the other runs (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/7P/6P1/8/K5k1 w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (7/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gh5,Gh6,Gh7,Gh8,Rg3] Let the king have one pawn: the other one queens.}
+1. h5 {Push the runner! The king may take the g-pawn, but then the h-pawn is too
+far ahead for it.} 1... Kf2 {[%csl Gh6,Gh7,Gh8,Rg3] The king attacks the pawn on
+g3!} 2. h6 {Forward again: the king is busy with the other pawn.} 2... Kxg3
+{[%csl Gh7,Gh8] The king takes the pawn on g3, but now the h-pawn runs, and the
+king is too far behind to catch it.} 3. h7 {The h-pawn goes: the black king is
+too far from h8 to stop it.} 3... Kf4 {[%csl Gh8]} 4. h8=Q {Queen! The black
+king is too far away to take the new queen. With a queen, the win is easy from
+here.} *
+
+[Event "03. If the king takes one, the other runs (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/2P5/1P6/8/k6K w - - 0 1"]
+[LineName "03. If the king takes one, the other runs (8/8)"]
+[LineDescription "If the king takes one pawn, the other runs: push the pawn that is out of its reach."]
+
+{[%csl Gc5,Gc6,Gc7,Gc8,Rb3] The king will take one pawn. Make sure it is the
+slow one.} 1. c5 {Push the runner! The king may take the b-pawn, but then the
+c-pawn is too far ahead for it.} 1... Kb2 {[%csl Gc6,Gc7,Gc8,Rb3] The king
+attacks the pawn on b3!} 2. c6 {Forward again: the king is busy with the other
+pawn.} 2... Kxb3 {[%csl Gc7,Gc8] The king takes the pawn on b3, but now the
+c-pawn runs, and the king is too far behind to catch it.} 3. c7 {The c-pawn
+goes: the black king is too far from c8 to stop it.} 3... Kc4 {[%csl Gc8]} 4.
+c8=Q+ {Queen! The black king is too far away to take the new queen. With a
+queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/4P3/5P2/K7/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (1/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gd7,Be7,Bf7,Bf5,Bd5] With the black king in front of them, two pawns
+cannot promote on their own. But they do not need help to survive: the back pawn
+protects the front one, and when the king goes for the back pawn, the front one
+runs. So the pawns wait, and your king walks over to help. The black king blocks
+your pawns. They can wait: bring your king. Blue: the squares the black king can
+step to. Green: where your king is heading.} 1. Kb4 {The pawns hold on their
+own: the king cannot take the e-pawn, the f-pawn protects it. So your king walks
+over to help: it is heading for d7, 3 steps away.} 1... Kd5 {[%csl
+Gd7,Bc6,Be6,Be4,Bd4]} 2. Kb5 {The king keeps walking: 2 steps from d7.} 2... Ke6
+{[%csl Gd7,Be7,Bf7,Bf5,Bd5]} 3. Kc6 {The king keeps walking: 1 step from d7.}
+3... Ke7 {[%csl Gd7,Bd8,Be8,Bf8,Bf7,Be6]} 4. Kc7 {Your king goes round: the
+black king guards d7.} 4... Ke6 {[%csl Gd7,Be7,Bf7,Bf5,Bd5]} 5. Kd8 {Your king
+goes round: the black king guards d7.} 5... Kd5 {[%csl
+Gd7,Bc6,Be6,Be4,Bd4,Bc4,Bc5]} 6. Kd7 {The king has arrived on d7: now the pawns
+can move up.} 6... Kd4 {[%csl Bc5,Bd5,Be4,Be3,Bd3,Bc3,Bc4]} 7. e6 {The e-pawn
+moves up, protected by your king.} 7... Kd5 {[%csl Be4,Bd4,Bc4,Bc5]} 8. e7 {The
+e-pawn reaches the 7th rank, protected by your king: one more step.} 8... Kc5
+{[%csl Bb6,Bd5,Bd4,Bc4,Bb4,Bb5]} 9. e8=Q {Queen! Your king protects the new
+queen. With a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/2P5/1P6/6K1/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (2/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gd7,Bb7,Bc7,Bd5,Bb5] The pawns hold on their own. Where does your king
+go?} 1. Kf4 {The pawns hold on their own: the king cannot take the c-pawn, the
+b-pawn protects it. So your king walks over to help: it is heading for d7, 3
+steps away.} 1... Kd5 {[%csl Gd7,Bc6,Be6,Bd4,Bc4]} 2. Kf5 {The king keeps
+walking: 2 steps from d7.} 2... Kc6 {[%csl Gd7,Bb7,Bc7,Bd5,Bb5]} 3. Ke6 {The
+king keeps walking: 1 step from d7.} 3... Kc7 {[%csl Gd7,Bb8,Bc8,Bd8,Bc6,Bb7]}
+4. Ke7 {Your king goes round: the black king guards d7.} 4... Kc6 {[%csl
+Gd7,Bb7,Bc7,Bd5,Bb5]} 5. Kd8 {Your king goes round: the black king guards d7.}
+5... Kd5 {[%csl Gd7,Bc6,Be6,Be5,Be4,Bd4,Bc4]} 6. Kd7 {The king has arrived on
+d7: now the pawns can move up.} 6... Kd4 {[%csl Bd5,Be5,Be4,Be3,Bd3,Bc3,Bc4]} 7.
+c6 {The c-pawn moves up, protected by your king.} 7... Kd5 {[%csl
+Be5,Be4,Bd4,Bc4]} 8. c7 {The c-pawn reaches the 7th rank, protected by your
+king: one more step.} 8... Ke5 {[%csl Bf6,Bf5,Bf4,Be4,Bd4,Bd5]} 9. c8=Q {Queen!
+Your king protects the new queen. With a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/K2P4/4P3/8/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (3/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gc7,Bd7,Be7,Be5,Bc5] Your king is far away. Walk it over; the pawns can
+wait.} 1. Kb6 {The pawns hold on their own: the king cannot take the d-pawn, the
+e-pawn protects it. So your king walks over to help: it is heading for c7, 1
+step away.} 1... Kd7 {[%csl Gc7,Bc8,Bd8,Be8,Be7,Bd6]} 2. Kb7 {Your king goes
+round: the black king guards c7.} 2... Kd6 {[%csl Gc7,Bd7,Be7,Be5,Bc5]} 3. Kc8
+{Your king goes round: the black king guards c7.} 3... Kc5 {[%csl
+Gc7,Bb6,Bd6,Bd4,Bc4,Bb4,Bb5]} 4. Kc7 {The king has arrived on c7: now the pawns
+can move up.} 4... Kc4 {[%csl Bb5,Bc5,Bd4,Bd3,Bc3,Bb3,Bb4]} 5. d6 {The d-pawn
+moves up, protected by your king.} 5... Kc5 {[%csl Bd4,Bc4,Bb4,Bb5]} 6. d7 {The
+d-pawn reaches the 7th rank, protected by your king: one more step.} 6... Kb5
+{[%csl Ba6,Bc5,Bc4,Bb4,Ba4,Ba5]} 7. d8=Q {Queen! Your king protects the new
+queen. With a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/7K/8/4P3/5P2/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (4/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gf6,Bh8,Bf7,Bf8] The black king is in front again: king first, pawns
+later.} 1. Kg6 {The pawns hold on their own: the black king is too far away to
+harm them. So your king walks over to help: it is heading for f6, 1 step away.}
+1... Kf8 {[%csl Gf6,Bg8,Be7,Be8]} 2. Kf6 {The king has arrived on f6: now the
+pawns can move up.} 2... Kg8 {[%csl Bh8,Bh7,Bf8]} 3. e5 {The e-pawn moves up,
+protected by your king.} 3... Kf8 {[%csl Bg8,Be8]} 4. e6 {Up again, protected by
+your king.} 4... Ke8 {[%csl Bf8,Bd8]} 5. e7 {The e-pawn reaches the 7th rank,
+protected by your king: one more step.} 5... Kd7 {[%csl Bc8,Be8,Bd6,Bc6,Bc7]} 6.
+Kf7 {Your king guards e8: now the pawn can promote safely.} 6... Kd6 {[%csl
+Bc7,Bd7,Be5,Bd5,Bc5,Bc6]} 7. e8=Q {Queen! Your king protects the new queen. With
+a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/1K6/8/4P3/3P4/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (5/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gd6,Bd8,Bd7,Bb8] The pawns hold on their own. Where does your king go?}
+1. Kc6 {The pawns hold on their own: the black king is too far away to harm
+them. So your king walks over to help: it is heading for d6, 1 step away.} 1...
+Kd8 {[%csl Gd6,Be8,Be7,Bc8]} 2. Kd6 {The king has arrived on d6: now the pawns
+can move up.} 2... Kc8 {[%csl Bd8,Bb7,Bb8]} 3. e5 {The e-pawn moves up,
+protected by your king.} 3... Kd8 {[%csl Be8,Bc8]} 4. e6 {Up again, protected by
+your king.} 4... Ke8 {[%csl Bf8,Bd8]} 5. e7 {The e-pawn reaches the 7th rank,
+protected by your king: one more step.} 5... Kf7 {[%csl Be8,Bg8,Bg7,Bg6,Bf6]} 6.
+Kd7 {Your king guards e8: now the pawn can promote safely.} 6... Kf6 {[%csl
+Bf7,Bg7,Bg6,Bg5,Bf5,Be5]} 7. e8=Q {Queen! Your king protects the new queen. With
+a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4k3/8/5K2/8/2P5/3P4/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (6/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gd6,Bf8,Bd7,Bd8] Your king is far away. Walk it over; the pawns can
+wait.} 1. Ke6 {The pawns hold on their own: the black king is too far away to
+harm them. So your king walks over to help: it is heading for d6, 1 step away.}
+1... Kd8 {[%csl Gd6,Be8,Bc7,Bc8]} 2. Kd6 {The king has arrived on d6: now the
+pawns can move up.} 2... Ke8 {[%csl Bf8,Bf7,Bd8]} 3. c5 {The c-pawn moves up,
+protected by your king.} 3... Kd8 {[%csl Be8,Bc8]} 4. c6 {Up again, protected by
+your king.} 4... Kc8 {[%csl Bd8,Bb8]} 5. c7 {The c-pawn reaches the 7th rank,
+protected by your king: one more step.} 5... Kb7 {[%csl Ba8,Bc8,Bb6,Ba6,Ba7]} 6.
+Kd7 {Your king guards c8: now the pawn can promote safely.} 6... Kb6 {[%csl
+Ba7,Bb7,Bc5,Bb5,Ba5,Ba6]} 7. c8=Q {Queen! Your king protects the new queen. With
+a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1K6/8/2k5/8/3P4/4P3/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (7/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gc6,Bd7,Bd6,Bd5,Bb5,Bb6] The black king is in front again: king first,
+pawns later.} 1. Kc8 {The pawns hold on their own: the king cannot take the
+d-pawn, the e-pawn protects it. So your king walks over to help: it is heading
+for c6, 2 steps away.} 1... Kd5 {[%csl Gc6,Bd6,Be6,Be4,Bc4]} 2. Kd7 {The king
+keeps walking: 1 step from c6.} 2... Kc4 {[%csl Gc6,Bb5,Bd5,Bd3,Bc3,Bb3,Bb4]} 3.
+Kc6 {The king has arrived on c6: now the pawns can move up.} 3... Kc3 {[%csl
+Bb4,Bc4,Bd3,Bd2,Bc2,Bb2,Bb3]} 4. d5 {The d-pawn moves up, protected by your
+king.} 4... Kc4 {[%csl Bd3,Bc3,Bb3,Bb4]} 5. d6 {Up again, protected by your
+king.} 5... Kb4 {[%csl Ba5,Bc4,Bc3,Bb3,Ba3,Ba4]} 6. d7 {The d-pawn reaches the
+7th rank, protected by your king: one more step.} 6... Ka4 {[%csl
+Ba5,Bb4,Bb3,Ba3]} 7. d8=Q {Queen! The black king is too far away to take the new
+queen. With a queen, the win is easy from here.} *
+
+[Event "04. The chain protects itself: bring your king (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4K3/8/3k4/8/2P5/1P6/8/8 w - - 0 1"]
+[LineName "04. The chain protects itself: bring your king (8/8)"]
+[LineDescription "The chain holds on its own: the pawns wait while the king walks over to help."]
+
+{[%csl Gd6,Bc7,Be6,Be5,Bc5,Bc6] The pawns hold on their own. Where does your
+king go?} 1. Kd8 {The pawns hold on their own: the king cannot take the c-pawn,
+the b-pawn protects it. So your king walks over to help: it is heading for d6, 2
+steps away.} 1... Kc5 {[%csl Gd6,Bb6,Bc6,Bd4,Bb4]} 2. Kc7 {The king keeps
+walking: 1 step from d6.} 2... Kd4 {[%csl Gd6,Bc5,Be5,Be4,Be3,Bd3,Bc3]} 3. Kd6
+{The king has arrived on d6: now the pawns can move up.} 3... Kd3 {[%csl
+Bd4,Be4,Be3,Be2,Bd2,Bc2,Bc3]} 4. c5 {The c-pawn moves up, protected by your
+king.} 4... Kd4 {[%csl Be4,Be3,Bd3,Bc3]} 5. c6 {Up again, protected by your
+king.} 5... Ke4 {[%csl Bf5,Bf4,Bf3,Be3,Bd3,Bd4]} 6. c7 {The c-pawn reaches the
+7th rank, protected by your king: one more step.} 6... Kf4 {[%csl
+Bf5,Bg5,Bg4,Bg3,Bf3,Be3,Be4]} 7. c8=Q {Queen! The black king is too far away to
+take the new queen. With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (1/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k6/8/1PP5/K7/8/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (1/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gc8,Ba8,Bb8,Bc7,Ba7] With your king next to them, the pawns march up
+together. The king goes in front or beside them and takes squares away from the
+black king; the pawns move up when it is safe. King and pawns together: march
+them up. Green: the queening square. Blue: the squares the black king can step
+to.} 1. Ka5 {A king move: the pawns stay protected, and now Black has to move.}
+1... Ka7 {[%csl Gc8,Ba8,Bb8,Bb7]} 2. c6 {The c-pawn moves up, protected by the
+b-pawn.} 2... Ka8 {[%csl Gc8,Bb8,Ba7]} 3. c7 {The c-pawn reaches the 7th rank:
+one more step.} 3... Kb7 {[%csl Gc8,Ba8,Bc7,Ba7] The king attacks the pawn on
+c7!} 4. b6 {Up again, protected by your king. It also protects the pawn on c7,
+which the king attacked.} 4... Kc8 {[%csl Gc8,Bd7,Bb7]} 5. Ka6 {Another king
+move: Black has to move again.} 5... Kd7 {[%csl Gc8,Be8,Be7,Be6,Bd6,Bc6]} 6. Kb7
+{Your king guards c8: now the pawn can promote safely.} 6... Kd6 {[%csl
+Gc8,Bd7,Be7,Be6,Be5,Bd5,Bc5]} 7. c8=Q {Queen! Your king protects the new queen.
+With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (2/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/7k/8/5P1K/6P1/8/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (2/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gf8,Bg8,Bh8,Bg7] Escort the pawns to the queening square.} 1. f6 {The
+f-pawn moves up.} 1... Kh8 {[%csl Gf8,Bh7,Bg8]} 2. Kg6 {A king move: the pawns
+stay protected, and now Black has to move.} 2... Kg8 {[%csl Gf8,Bh8]} 3. f7+
+{Check! The pawn drives the black king back.} 3... Kf8 {[%csl Gf8,Be7]} 4. g5
+{The g-pawn moves up, protected by your king.} 4... Ke7 {[%csl
+Gf8,Bd8,Be6,Bd6,Bd7]} 5. Kg7 {Your king guards f8: now the pawn can promote
+safely.} 5... Ke6 {[%csl Gf8,Bd7,Be7,Bf5,Be5,Bd5,Bd6]} 6. f8=Q {Queen! Your king
+protects the new queen. With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (3/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/8/K7/1P6/P7/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (3/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gb8,Bd8,Bd7,Bc7,Bb7] King in front, pawns behind: up the board.} 1. Kb6
+{The king goes ahead of the pawns: it clears the way and takes squares from the
+black king.} 1... Kd7 {[%csl Gb8,Bc8,Bd8,Be8,Be7,Be6,Bd6]} 2. b5 {The b-pawn
+moves up, protected by your king.} 2... Kd6 {[%csl Gb8,Bd7,Be7,Be6,Be5,Bd5]} 3.
+Ka7 {The king leads the way again.} 3... Kc5 {[%csl Gb8,Bd6,Bd5,Bd4,Bc4,Bb5] The
+king attacks the pawn on b5!} 4. b6 {Up again, protected by your king.} 4... Kb5
+{[%csl Gb8,Bc6,Bc5,Bc4,Ba4,Ba5]} 5. b7 {The b-pawn reaches the 7th rank,
+protected by your king: one more step.} 5... Kc6 {[%csl
+Gb8,Bc7,Bd7,Bd6,Bd5,Bc5,Bb5]} 6. b8=Q {Queen! Your king protects the new queen.
+With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (4/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4k3/8/8/7K/6P1/5P2/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (4/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gg8,Bf8,Bf7,Be7,Bd7,Bd8] Your king is next to the pawns. Bring them
+home.} 1. Kg6 {The king goes ahead of the pawns: it clears the way and takes
+squares from the black king.} 1... Ke7 {[%csl Gg8,Bd8,Be8,Bf8,Be6,Bd6,Bd7]} 2.
+g5 {The g-pawn moves up, protected by your king.} 2... Ke6 {[%csl
+Gg8,Bd7,Be7,Be5,Bd5,Bd6]} 3. Kh7 {The king leads the way again.} 3... Kf5 {[%csl
+Gg8,Be6,Bg5,Bf4,Be5] The king attacks the pawn on g5!} 4. g6 {Up again,
+protected by your king.} 4... Kg5 {[%csl Gg8,Bf6,Bh5,Bh4,Bf4,Bf5]} 5. g7 {The
+g-pawn reaches the 7th rank, protected by your king: one more step.} 5... Kf6
+{[%csl Gg8,Be7,Bf7,Bg5,Bf5,Be5,Be6]} 6. g8=Q {Queen! Your king protects the new
+queen. With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (5/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k7/8/8/1K6/2P5/1P6/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (5/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gc8,Bb8,Bb7,Ba7] Escort the pawns to the queening square.} 1. Kc6 {The
+king goes ahead of the pawns: it clears the way and takes squares from the black
+king.} 1... Ka7 {[%csl Gc8,Ba8,Bb8,Ba6]} 2. c5 {The c-pawn moves up, protected
+by your king.} 2... Ka6 {[%csl Gc8,Ba7,Ba5]} 3. Kd7 {The king leads the way
+again.} 3... Kb5 {[%csl Gc8,Ba6,Bc5,Bb4,Ba5] The king attacks the pawn on c5!}
+4. c6 {Up again, protected by your king.} 4... Kc5 {[%csl
+Gc8,Bb6,Bd5,Bd4,Bb4,Bb5]} 5. c7 {The c-pawn reaches the 7th rank, protected by
+your king: one more step.} 5... Kb6 {[%csl Gc8,Ba7,Bb7,Bc5,Bb5,Ba5,Ba6]} 6. c8=Q
+{Queen! Your king protects the new queen. With a queen, the win is easy from
+here.} *
+
+[Event "05. Escort them with your king (6/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/8/6K1/5P2/4P3/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (6/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gf8,Bh8,Bh7,Bg7,Bf7] King in front, pawns behind: up the board.} 1. Kf6
+{The king goes ahead of the pawns: it clears the way and takes squares from the
+black king.} 1... Kh7 {[%csl Gf8,Bg8,Bh8,Bh6]} 2. f5 {The f-pawn moves up,
+protected by your king.} 2... Kh6 {[%csl Gf8,Bh7,Bh5]} 3. Ke7 {The king leads
+the way again.} 3... Kg5 {[%csl Gf8,Bh6,Bh5,Bh4,Bg4,Bf5] The king attacks the
+pawn on f5!} 4. f6 {Up again, protected by your king.} 4... Kf5 {[%csl
+Gf8,Bg6,Bg5,Bg4,Be4,Be5]} 5. f7 {The f-pawn reaches the 7th rank, protected by
+your king: one more step.} 5... Kg6 {[%csl Gf8,Bg7,Bh7,Bh6,Bh5,Bg5,Bf5]} 6. f8=Q
+{Queen! Your king protects the new queen. With a queen, the win is easy from
+here.} *
+
+[Event "05. Escort them with your king (7/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k7/8/8/2K5/1P6/P7/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (7/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gb8,Bb7,Ba7] Your king is next to the pawns. Bring them home.} 1. Kb6
+{The king goes ahead of the pawns: it clears the way and takes squares from the
+black king.} 1... Kb8 {[%csl Gb8,Bc8,Ba8]} 2. b5 {The b-pawn moves up, protected
+by your king.} 2... Ka8 {[%csl Gb8]} 3. Kc7 {The king leads the way again.} 3...
+Ka7 {[%csl Gb8,Ba8]} 4. b6+ {Check! The pawn drives the black king back.} 4...
+Ka6 {[%csl Gb8,Bb5,Ba5]} 5. b7 {The b-pawn reaches the 7th rank, protected by
+your king: one more step.} 5... Ka7 {[%csl Gb8,Ba6]} 6. b8=Q+ {Queen! Your king
+protects the new queen. With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (8/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/5K2/5P2/4P3/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (8/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gf8,Bg8,Bg7,Bf7,Be7,Be8] Escort the pawns to the queening square.} 1. Kf6
+{The king goes ahead of the pawns: it clears the way and takes squares from the
+black king.} 1... Kg8 {[%csl Gf8,Bh8,Bh7]} 2. Ke7 {The king leads the way
+again.} 2... Kh7 {[%csl Gf8,Bg8,Bh8,Bh6,Bg6,Bg7]} 3. f5 {The f-pawn moves up.}
+3... Kh6 {[%csl Gf8,Bg7,Bh7,Bh5,Bg5]} 4. f6 {The f-pawn moves up, protected by
+your king.} 4... Kg5 {[%csl Gf8,Bg6,Bh6,Bh5,Bh4,Bg4,Bf5]} 5. f7 {The f-pawn
+reaches the 7th rank, protected by your king: one more step.} 5... Kg6 {[%csl
+Gf8,Bg7,Bh7,Bh6,Bh5,Bg5,Bf5]} 6. f8=Q {Queen! Your king protects the new queen.
+With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (9/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/8/2K5/3P4/2P5/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (9/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Gd8,Be8,Be7,Bd7,Bc7,Bc8] King in front, pawns behind: up the board.} 1.
+Kd6 {The king goes ahead of the pawns: it clears the way and takes squares from
+the black king.} 1... Kc8 {[%csl Gd8,Bb7,Bb8]} 2. Ke7 {The king leads the way
+again.} 2... Kb7 {[%csl Gd8,Ba8,Bb8,Bc8,Bc7,Bc6,Bb6,Ba6,Ba7]} 3. d5 {The d-pawn
+moves up.} 3... Kb6 {[%csl Gd8,Ba7,Bb7,Bc7,Bc5,Bb5,Ba5,Ba6]} 4. d6 {The d-pawn
+moves up, protected by your king.} 4... Kc5 {[%csl Gd8,Bb6,Bc6,Bd5,Bc4,Bb5]} 5.
+d7 {The d-pawn reaches the 7th rank, protected by your king: one more step.}
+5... Kc6 {[%csl Gd8,Bb7,Bc7,Bd5,Bc5,Bb5,Bb6]} 6. d8=Q {Queen! Your king protects
+the new queen. With a queen, the win is easy from here.} *
+
+[Event "05. Escort them with your king (10/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/8/5K2/4P3/3P4/8/8 w - - 0 1"]
+[LineName "05. Escort them with your king (10/10)"]
+[LineDescription "The king takes squares from the black king; the pawns move up when it is safe."]
+
+{[%csl Ge8,Be7,Bd7,Bc7,Bc8] Your king is next to the pawns. Bring them home.} 1.
+Ke6 {The king goes ahead of the pawns: it clears the way and takes squares from
+the black king.} 1... Kc7 {[%csl Ge8,Bb8,Bc8,Bd8,Bc6,Bb6,Bb7]} 2. e5 {The e-pawn
+moves up, protected by your king.} 2... Kc6 {[%csl Ge8,Bb7,Bc7,Bc5,Bb5,Bb6]} 3.
+Kf7 {The king leads the way again.} 3... Kd5 {[%csl Ge8,Bc6,Be5,Bd4,Bc5] The
+king attacks the pawn on e5!} 4. e6 {Up again, protected by your king.} 4... Ke5
+{[%csl Ge8,Bd6,Bf5,Bf4,Bd4,Bd5]} 5. e7 {The e-pawn reaches the 7th rank,
+protected by your king: one more step.} 5... Kd6 {[%csl
+Ge8,Bc7,Bd7,Be5,Bd5,Bc5,Bc6]} 6. e8=Q {Queen! Your king protects the new queen.
+With a queen, the win is easy from here.} *
+
+[Event "06. Don't stalemate! (1/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k7/2K5/8/1P6/2P5/8/8/8 w - - 0 1"]
+[LineName "06. Don't stalemate! (1/6)"]
+[LineDescription "Before a quiet move near the corner, check that the black king still has a move."]
+
+{[%csl Ba7] [%cal Rb5b6] Near the edge, the lone king is often short of squares.
+Before every move ask: does the black king still have a move? If it has none and
+is not in check, it is stalemate, and the game is only a draw. The black king is
+in the corner with hardly a square. One careless move and it is stalemate. Blue:
+the squares the black king can step to. Red arrow: a natural move that would be
+stalemate.} 1. c5 {Not b6: that leaves the black king without a move, and it is
+stalemate! The c-pawn moves up.} 1... Ka7 {[%csl Ba8]} 2. b6+ {Check! The pawn
+drives the black king back.} 2... Ka6 {[%csl Bb5,Ba5]} 3. b7 {The b-pawn reaches
+the 7th rank, protected by your king: one more step.} 3... Ka7 {[%csl Ba6]} 4.
+b8=Q+ {Queen! Your king protects the new queen. With a queen, the win is easy
+from here.} *
+
+[Event "06. Don't stalemate! (2/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/5P2/6P1/6K1/8/8/8/8 w - - 0 1"]
+[LineName "06. Don't stalemate! (2/6)"]
+[LineDescription "Before a quiet move near the corner, check that the black king still has a move."]
+
+{[%csl Bg7,Be7] [%cal Rg5f6] Short of squares again: leave the king a move.} 1.
+Kh6 {Not Kf6: that leaves the black king without a move, and it is stalemate! A
+king move: the pawns stay protected, and now Black has to move.} 1... Ke7 {[%csl
+Bd8,Bf8,Bf6,Be6,Bd6,Bd7]} 2. Kg7 {Your king guards f8: now the pawn can promote
+safely.} 2... Ke6 {[%csl Bd7,Be7,Bf5,Be5,Bd5,Bd6]} 3. f8=Q {Queen! Your king
+protects the new queen. With a queen, the win is easy from here.} *
+
+[Event "06. Don't stalemate! (3/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/3P4/2P5/2K5/8/8/8/8 w - - 0 1"]
+[LineName "06. Don't stalemate! (3/6)"]
+[LineDescription "Before a quiet move near the corner, check that the black king still has a move."]
+
+{[%csl Be7,Bc7] [%cal Rc5d6] Count the black king's squares before you move.} 1.
+Kb6 {Not Kd6: that leaves the black king without a move, and it is stalemate! A
+king move: the pawns stay protected, and now Black has to move.} 1... Ke7 {[%csl
+Bd8,Bf8,Bf7,Bf6,Be6,Bd6]} 2. Kc7 {Your king guards d8: now the pawn can promote
+safely.} 2... Ke6 {[%csl Be7,Bf7,Bf6,Bf5,Be5,Bd5]} 3. d8=Q {Queen! Your king
+protects the new queen. With a queen, the win is easy from here.} *
+
+[Event "06. Don't stalemate! (4/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "7k/8/4PP1K/8/8/8/8/8 w - - 0 1"]
+[LineName "06. Don't stalemate! (4/6)"]
+[LineDescription "Before a quiet move near the corner, check that the black king still has a move."]
+
+{[%csl Bg8] [%cal Rf6f7] Short of squares again: leave the king a move.} 1. e7
+{Not f7: that leaves the black king without a move, and it is stalemate! The
+e-pawn reaches the 7th rank, protected by the f-pawn: one more step.} 1... Kg8
+{[%csl Bh8,Bf7]} 2. e8=Q# {Queen! The black king is too far away to take the new
+queen, and it is even checkmate!} *
+
+[Event "06. Don't stalemate! (5/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k1K5/8/1P6/P7/8/8/8/8 w - - 0 1"]
+[LineName "06. Don't stalemate! (5/6)"]
+[LineDescription "Before a quiet move near the corner, check that the black king still has a move."]
+
+{[%cal Rc8c7,Ra5a6] Count the black king's squares before you move.} 1. b7+ {Not
+Kc7 or a6: each of them leaves the black king without a move, and it is
+stalemate! Check! The pawn drives the black king back.} 1... Ka7 {[%csl Ba6]} 2.
+b8=Q+ {Queen! Your king protects the new queen. With a queen, the win is easy
+from here.} *
+
+[Event "06. Don't stalemate! (6/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1P6/2P5/8/8/8/8/5K1k w - - 0 1"]
+[LineName "06. Don't stalemate! (6/6)"]
+[LineDescription "If a new queen would be stalemate, take a rook: it wins just as surely."]
+
+{[%csl Bh2] [%cal Rb7b8] Promote right now, but count the black king's squares
+first.} 1. b8=R {Rook! A new queen would have taken the black king's last
+square: stalemate. The rook leaves it a square, and the rook wins just as
+surely.} *
+
+[Event "07. Final exam (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/K1k5/8/8/8/2PP4/8/8 w - - 0 1"]
+[LineName "07. Final exam (1/8)"]
+[LineDescription "Pawns alone, or bring the king: count first."]
+
+{Final exam! No colours and no hints this time. Sometimes the pawns run alone,
+sometimes your king has to help. Make a safe queen as fast as you can. Your king
+is far away.} 1. c4 Kc6 2. Kb8 Kc5 3. Kc7 Kb4 4. Kb6 Kb3 5. c5 Kb4 6. c6 Ka4 7.
+c7 Kb4 8. c8=Q {Queen! The black king is too far away to take the new queen.
+With a queen, the win is easy from here.} *
+
+[Event "07. Final exam (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4K3/8/8/8/4k3/8/5PP1/8 w - - 0 1"]
+[LineName "07. Final exam (2/8)"]
+[LineDescription "Pawns alone, or bring the king: count first."]
+
+{Your king is far away again.} 1. g4 Kf4 2. f3 Kg5 3. Ke7 Kh4 4. Kf6 Kh3 5. g5
+Kh4 6. g6 Kh5 7. g7 Kh6 8. g8=Q {Queen! The black king is too far away to take
+the new queen. With a queen, the win is easy from here.} *
+
+[Event "07. Final exam (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3K4/8/8/8/6k1/8/4PP2/8 w - - 0 1"]
+[LineName "07. Final exam (3/8)"]
+[LineDescription "Pawns alone, or bring the king: count first."]
+
+{Your king is far away again.} 1. e4 Kf4 2. f3 Ke5 3. Ke7 Kd4 4. Kd6 Kd3 5. e5
+Kd4 6. e6 Kc4 7. e7 Kb4 8. e8=Q {Queen! The black king is too far away to take
+the new queen. With a queen, the win is easy from here.} *
+
+[Event "07. Final exam (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/8/7K/8/6P1/5P2/8 w - - 0 1"]
+[LineName "07. Final exam (4/8)"]
+[LineDescription "Escort the pawns with your king."]
+
+{Your king is near its pawns.} 1. Kg6 Ke6 2. g4 Ke5 3. g5 Kf4 4. Kf6 Kg4 5. g6
+Kh5 6. g7 Kh6 7. g8=Q {Queen! The black king is too far away to take the new
+queen. With a queen, the win is easy from here.} *
+
+[Event "07. Final exam (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/K7/8/1P6/P7/8 w - - 0 1"]
+[LineName "07. Final exam (5/8)"]
+[LineDescription "Escort the pawns with your king."]
+
+{King and pawns together.} 1. Kb6 Ka8 2. b4 Kb8 3. b5 Ka8 4. Kc7 Ka7 5. b6+ Ka6
+6. b7 Ka7 7. b8=Q+ {Queen! Your king protects the new queen. With a queen, the
+win is easy from here.} *
+
+[Event "07. Final exam (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/7k/8/6K1/8/5P2/6P1/8 w - - 0 1"]
+[LineName "07. Final exam (6/8)"]
+[LineDescription "Escort the pawns with your king."]
+
+{King and pawns together.} 1. Kf6 Kh6 2. f4 Kh5 3. f5 Kg4 4. Kg6 Kf4 5. f6 Ke5
+6. f7 Ke6 7. f8=Q {Queen! The black king is too far away to take the new queen.
+With a queen, the win is easy from here.} *
+
+[Event "07. Final exam (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/2K2Pk1/6P1/8 w - - 0 1"]
+[LineName "07. Final exam (7/8)"]
+[LineDescription "One pawn may fall; the other one queens."]
+
+{The black king is after your pawns.} 1. Kd4 Kf4 2. g4 Kg5 3. Ke5 Kg6 4. Ke6 Kg5
+5. Ke7 Kf4 6. Kf6 Kxf3 7. g5 Kf4 8. g6 Ke4 9. g7 Kd4 10. g8=Q {Queen! The black
+king is too far away to take the new queen. With a queen, the win is easy from
+here.} *
+
+[Event "07. Final exam (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7K/8/6k1/8/2PP4/8 w - - 0 1"]
+[LineName "07. Final exam (8/8)"]
+[LineDescription "One pawn may fall; the other one queens."]
+
+{The black king is close again.} 1. Kg6 Kf4 2. Kf6 Ke4 3. Ke6 Kd4 4. c3+ Kd3 5.
+Kd5 Kxd2 6. c4 Kd3 7. c5 Ke3 8. c6 Kf3 9. c7 Kf4 10. c8=Q {Queen! The black king
+is too far away to take the new queen. With a queen, the win is easy from here.}
+*
+
+[Event "08. Extra practice (1/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/k7/3K4/1P6/P7/8 w - - 0 1"]
+[LineName "08. Extra practice (1/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Extra practice: no explanations, just positions. Make a safe queen as fast as
+you can. King and two pawns.} 1. Kc5 Ka6 2. Kc6 Ka5 3. a4 Ka6 4. b4 Ka7 5. Kc7
+Ka6 6. b5+ Ka5 7. b6 Kxa4 8. b7 Ka5 9. b8=Q {Queen!} *
+
+[Event "08. Extra practice (2/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/5kP1/5P1K/8/8 w - - 0 1"]
+[LineName "08. Extra practice (2/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kh4 Ke5 2. Kg5 Ke6 3. Kg6 Ke5 4. g5 Kf4 5. Kf6 Kxf3 6.
+g6 Kg4 7. g7 Kh5 8. g8=Q {Queen!} *
+
+[Event "08. Extra practice (3/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/3Pk3/1K2P3/8/8 w - - 0 1"]
+[LineName "08. Extra practice (3/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kc4 Kf5 2. Kd5 Kf6 3. Kd6 Kf5 4. d5 Ke4 5. Ke6 Kxe3 6.
+d6 Kd4 7. d7 Kc5 8. d8=Q {Queen!} *
+
+[Event "08. Extra practice (4/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/k7/8/3P4/2P2K2/8/8 w - - 0 1"]
+[LineName "08. Extra practice (4/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Ke4 Kb5 2. Kd5 Kb6 3. Kd6 Kb5 4. d5 Kc4 5. Kc6 Kxc3 6.
+d6 Kd4 7. d7 Ke5 8. d8=Q {Queen!} *
+
+[Event "08. Extra practice (5/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/8/K7/3P4/2P5/8 w - - 0 1"]
+[LineName "08. Extra practice (5/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kb5 Ke7 2. Kc6 Ke6 3. c4 Ke5 4. c5 Kd4 5. Kd6 Kxd3 6.
+c6 Kc4 7. c7 Kb5 8. c8=Q {Queen!} *
+
+[Event "08. Extra practice (6/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/4K1k1/6P1/5P2/8 w - - 0 1"]
+[LineName "08. Extra practice (6/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. f4 Kh5 2. Kf5 Kh6 3. Kf6 Kh5 4. f5 Kg4 5. Kg6 Kxg3 6.
+f6 Kh4 7. f7 Kg4 8. f8=Q {Queen!} *
+
+[Event "08. Extra practice (7/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/P3k3/1PK5/8/8 w - - 0 1"]
+[LineName "08. Extra practice (7/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kc4 Ke5 2. Kc5 Ke6 3. Kc6 Ke5 4. a5 Kd4 5. a6 Kc3 6. a7
+Kxb3 7. a8=Q {Queen!} *
+
+[Event "08. Extra practice (8/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/3P3k/2P1K3/8/8 w - - 0 1"]
+[LineName "08. Extra practice (8/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kf4 Kh5 2. Kf5 Kh6 3. Kf6 Kh5 4. d5 Kg4 5. d6 Kf4 6. d7
+Kg4 7. d8=Q {Queen!} *
+
+[Event "08. Extra practice (9/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/1K6/2PP1k2/8/8 w - - 0 1"]
+[LineName "08. Extra practice (9/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kc5 Ke3 2. c4 Kxd3 3. Kd5 Kc3 4. c5 Kb4 5. c6 Kb5 6. c7
+Kb6 7. c8=Q {Queen!} *
+
+[Event "08. Extra practice (10/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/7k/8/8/3P2K1/4P3/8/8 w - - 0 1"]
+[LineName "08. Extra practice (10/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kf5 Kg7 2. Ke6 Kg8 3. Ke7 Kg7 4. d5 Kg6 5. d6 Kf5 6. d7
+Ke5 7. d8=Q {Queen!} *
+
+[Event "08. Extra practice (11/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/3K2P1/5P2/8/8 w - - 0 1"]
+[LineName "08. Extra practice (11/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Ke5 Kd7 2. Kf6 Kd8 3. Kf7 Kd7 4. g5 Kd6 5. g6 Ke5 6. g7
+Kf5 7. g8=Q {Queen!} *
+
+[Event "08. Extra practice (12/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/5K2/8/5P2/6P1/8 w - - 0 1"]
+[LineName "08. Extra practice (12/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{King and two pawns.} 1. Kf6 Kg8 2. f4 Kh7 3. f5 Kh6 4. Ke7 Kg5 5. f6 Kf5 6. f7
+Kg6 7. f8=Q {Queen!} *
+
+[Event "08. Extra practice (13/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/5k2/8/K7/3P4/4P3/8 w - - 0 1"]
+[LineName "08. Extra practice (13/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kb5 Ke5 2. Kc6 Kd4 3. Kd6 Ke3 4. Ke5 Kxe2 5.
+d4 Kd3 6. d5 Kc4 7. d6 Kc5 8. d7 Kc6 9. d8=Q {Queen!} *
+
+[Event "08. Extra practice (14/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/8/7K/2P5/1P6/8/8 w - - 0 1"]
+[LineName "08. Extra practice (14/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kg6 Kf8 2. Kf6 Ke8 3. Ke6 Kd8 4. Kd6 Ke8 5.
+c5 Kd8 6. c6 Kc8 7. c7 Kb7 8. Kd7 Kb6 9. c8=Q {Queen!} *
+
+[Event "08. Extra practice (15/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/1K2k3/8/8/3PP3/8 w - - 0 1"]
+[LineName "08. Extra practice (15/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kc6 Kd4 2. e3+ Kd3 3. Kd5 Kxd2 4. e4 Kd3 5.
+e5 Kc3 6. e6 Kb3 7. e7 Kb4 8. e8=Q {Queen!} *
+
+[Event "08. Extra practice (16/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4K3/1Pk5/P7/8/8 w - - 0 1"]
+[LineName "08. Extra practice (16/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kd6 Kb5 2. Kc7 Ka6 3. a4 Ka7 4. b5 Ka8 5. a5
+Ka7 6. b6+ Ka6 7. b7 Kxa5 8. b8=Q {Queen!} *
+
+[Event "08. Extra practice (17/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/K7/3k4/8/8/2PP4/8 w - - 0 1"]
+[LineName "08. Extra practice (17/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kb6 Kc4 2. d3+ Kc3 3. Kc5 Kxc2 4. d4 Kc3 5.
+d5 Kb3 6. d6 Ka3 7. d7 Ka4 8. d8=Q {Queen!} *
+
+[Event "08. Extra practice (18/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4K3/1k6/8/8/1PP5/8 w - - 0 1"]
+[LineName "08. Extra practice (18/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kd6 Kc4 2. b3+ Kc3 3. Kc5 Kxc2 4. b4 Kc3 5.
+b5 Kd3 6. b6 Ke3 7. b7 Ke4 8. b8=Q {Queen!} *
+
+[Event "08. Extra practice (19/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1K6/8/8/2k3P1/7P/8/8 w - - 0 1"]
+[LineName "08. Extra practice (19/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kc6 Kd4 2. Kd6 Ke4 3. Ke6 Kf4 4. Kf6 Kf3 5.
+g5 Kf4 6. g6 Ke4 7. g7 Kd4 8. g8=Q {Queen!} *
+
+[Event "08. Extra practice (20/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k4K1/8/8/2P5/3P4/8/8 w - - 0 1"]
+[LineName "08. Extra practice (20/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kf7 Kc6 2. d4 Kd6 3. Ke8 Ke6 4. c5 Kd5 5. Kd7
+Kxd4 6. c6 Kd5 7. c7 Ke5 8. c8=Q {Queen!} *
+
+[Event "08. Extra practice (21/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "K7/8/8/8/8/5k2/2PP4/8 w - - 0 1"]
+[LineName "08. Extra practice (21/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. c4 Ke4 2. c5 Kd5 3. d4 Kc6 4. Kb8 Kb5 5. Kb7
+Kb4 6. c6 Kb5 7. c7 Ka5 8. c8=Q {Queen!} *
+
+[Event "08. Extra practice (22/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6K1/8/8/8/8/3P1k2/2P5/8 w - - 0 1"]
+[LineName "08. Extra practice (22/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. c4 Kf4 2. Kf7 Ke5 3. Ke7 Kd4 4. Kd6 Kxd3 5.
+c5 Kd4 6. c6 Ke4 7. c7 Kf4 8. c8=Q {Queen!} *
+
+[Event "08. Extra practice (23/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1K6/8/3k4/8/8/8/1PP5/8 w - - 0 1"]
+[LineName "08. Extra practice (23/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. b4 Kd5 2. b5 Kc5 3. c4 Kb6 4. Ka8 Ka5 5. Ka7
+Ka4 6. b6 Ka5 7. b7 Ka4 8. b8=Q {Queen!} *
+
+[Event "08. Extra practice (24/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4K3/7k/8/8/8/6P1/7P/8 w - - 0 1"]
+[LineName "08. Extra practice (24/24)"]
+[LineDescription "Two connected pawns: a safe queen."]
+
+{Two pawns, the king far away.} 1. Kf7 Kh6 2. h4 Kh5 3. Kg7 Kg4 4. Kg6 Kxg3 5.
+h5 Kh4 6. h6 Kg4 7. h7 Kh4 8. h8=Q+ {Queen!} *

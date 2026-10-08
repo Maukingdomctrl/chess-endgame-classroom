@@ -6,6 +6,7 @@ generator only adds its lesson list, the search for teaching positions, and its 
 
 ```bash
 npm run kit:selftest                     # checks the solver (a few minutes)
+KIT_CACHE=/tmp/kit npm run course:pawns  # optional: keep solved tables on disk between runs
 npm run course:e2e -- <builtin id>        # browser test of a built-in course (add --all for every line)
 ```
 
@@ -46,6 +47,14 @@ How it is checked (`npm run kit:selftest`):
   retrograde step, and every stored value follows from the values of the positions its moves lead to.
 - The longest mates match the published values (KQK 10, KRK 16, KPK 28, KQQK 4, KQRK 6, KRRK 7, KQKR 35 moves).
 - Lines played by `line.cjs` pass `verify.cjs`.
+- Goal 'promotion' (`node tools/course-kit/selftest.cjs promotion`): K+P vs K equals the King & Pawn solver on
+  every position; on sampled K+P+P vs K positions the moves are chess.js's and every value follows from its
+  moves under the safe-promotion rule; a two-pawn line passes `verify.cjs`.
+
+**KIT_CACHE=<directory>** keeps solved tables on disk (about 260 MB for everything K+P+P vs K needs), so a
+generator that is run again and again while a course is written skips the table building. A table is
+reused only if `solver.cjs` and `board.cjs` are unchanged (their checksum is in the file name). Without it,
+nothing is written to disk.
 
 During development the solver was also compared position by position with a second, independent
 implementation (full tables, move counters): KQKR, KBNK and KRKP agreed on every one of their 18-25

@@ -1,6 +1,7 @@
 import kingAndPawnPgn from "../../courses/king-and-pawn-course.pgn?raw";
 import endgameBasicsPgn from "../../courses/endgame-basics-course.pgn?raw";
 import ladderMatePgn from "../../courses/ladder-mate-course.pgn?raw";
+import connectedPawnsPgn from "../../courses/connected-pawns-course.pgn?raw";
 import type { Category, Course, Line, Side } from "../types";
 import { importPgn } from "./pgn";
 import { createCourse } from "./storage";
@@ -47,6 +48,16 @@ export const BUILTIN_COURSES: BuiltinCourse[] = [
     playAs: "white",
     pgn: ladderMatePgn,
     signature: "01. The final picture (1/8)",
+  },
+  {
+    id: "two-connected-pawns",
+    name: "Two Connected Pawns",
+    description:
+      "80 positions in 8 lessons: two connected pawns against the lone king, from the safe promotion to escorting them with your king, explained move by move, plus extra practice. Every move is verified with an exact endgame solver.",
+    category: "endgame",
+    playAs: "white",
+    pgn: connectedPawnsPgn,
+    signature: "01. Promote safely (1/8)",
   },
 ];
 
