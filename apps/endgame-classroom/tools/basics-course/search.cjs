@@ -4,30 +4,14 @@ const path = require('path');
 const E = require('./engine.cjs');
 const { M, KP, ring, onEdge, isCorner, directOpp, knightJump, box, isWait, whiteOptions, playMate, boxSizes, monotone } = E;
 const { K } = KP;
-const { file, rank, dist } = M;
+const { file, rank, dist } = require('../course-kit/board.cjs');
 
-// ---------- symmetry: the same position mirrored or rotated is not picked twice ----------
-const SYM = [];
-for (const fx of [0, 1]) for (const fy of [0, 1]) for (const tr of [0, 1])
-  SYM.push((s) => { let f = file(s), r = rank(s); if (tr) [f, r] = [r, f]; if (fx) f = 7 - f; if (fy) r = 7 - r; return r * 8 + f; });
-const canonMate = (...sqs) => SYM.map((t) => sqs.map(t).join('-')).sort()[0];
-const canonPawn = (wk, bk, p) => [[wk, bk, p], [wk ^ 7, bk ^ 7, p ^ 7]].map((a) => a.join('-')).sort()[0];
+// The same position mirrored or rotated is not picked twice.
+const { canon8: canonMate, canon2: canonPawn, boardFen } = require('../course-kit/board.cjs');
 
 // Positions already in the King & Pawn course are not reused.
 const kpCourse = fs.readFileSync(path.join(__dirname, '../../courses/king-and-pawn-course.pgn'), 'utf8');
 const kpFens = new Set([...kpCourse.matchAll(/\[FEN "([^"]+)"\]/g)].map((m) => m[1].split(' ')[0]));
-const boardFen = (pcs) => {
-  const b = Array(64).fill(null);
-  for (const [sq, c] of pcs) b[sq] = c;
-  const rows = [];
-  for (let r = 7; r >= 0; r--) {
-    let row = '', e = 0;
-    for (let f = 0; f < 8; f++) { const c = b[r * 8 + f]; if (!c) e++; else { if (e) row += e; e = 0; row += c; } }
-    if (e) row += e;
-    rows.push(row);
-  }
-  return rows.join('/');
-};
 
 // ---------- lesson groups ----------
 // kind: 'q' | 'r' (mate with queen/rook) or 'p' (king + pawn, ends with a safe promotion).

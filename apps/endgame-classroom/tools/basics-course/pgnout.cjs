@@ -1,15 +1,15 @@
 // Writes the course PGN: lesson texts, move notes and board marks derived from the verified lines.
 // Then reads the file back and checks every line again (verify.cjs) before declaring success.
-const fs = require('fs');
 const path = require('path');
 const { Chess } = require('chess.js');
 const E = require('./engine.cjs');
-const { M, KP, ring, onEdge, isCorner, directOpp, box, isWait } = E;
-const { verifyLine } = require('./verify.cjs');
-const { file, rank, dist, sqName: n } = M;
+const { M, KP, box, isWait } = E;
+const { file, rank, dist, sqName: n, ring, onEdge, isCorner, directOpp, parseFen } = require('../course-kit/board.cjs');
+const { formatMarks, moveComment, writePgn, checkCourse } = require('../course-kit/pgn.cjs');
 const lines = require('./.out/lines.json');
 
 const OUT = path.join(__dirname, '../../courses/endgame-basics-course.pgn');
+const VERIFY = require('./verify-opts.cjs');
 const ORDER = ['king', 'patterns', 'queen', 'rook', 'stalemate', 'exam'];
 
 const LESSONS = {
@@ -90,7 +90,7 @@ const GROUPS = {
 
 // ---------- geometry from a FEN ----------
 function pos(fen) {
-  const { pcs } = M.parseFen(fen);
+  const { pcs } = parseFen(fen);
   return { wk: pcs.K, bk: pcs.k, x: pcs.Q ?? pcs.R, p: pcs.P };
 }
 const fenAfter = (fen, san) => { const g = new Chess(fen); g.move(san); return g.fen(); };
@@ -127,7 +127,6 @@ function marksFor(l, fen, first) {
   const arrows = l.lesson === 'stalemate' ? [...new Set(stalemateMoves(fen).map((mv) => `R${mv.from}${mv.to}`))] : [];
   return { squares, arrows };
 }
-const fmt = (mk) => [mk.squares.length ? `[%csl ${mk.squares.join(',')}]` : '', mk.arrows.length ? `[%cal ${mk.arrows.join(',')}]` : ''].filter(Boolean).join(' ');
 
 // ---------- move notes ----------
 function mateText(kind, a) {
@@ -225,7 +224,7 @@ function pawnNotes(l) {
 }
 
 // ---------- assemble ----------
-const out = [];
+const games = [];
 let lessonNo = 0;
 for (const id of ORDER) {
   lessonNo++;
@@ -260,83 +259,30 @@ for (const id of ORDER) {
       moveMarks[l.moves.length - 1] = { squares: [`R${n(pos(fenAfter(last.fenBefore, last.san)).bk)}`], arrows: [] };
     }
 
-    // ---- movetext ----
-    const g = new Chess(l.fen);
-    let mt = `{${[fmt(introMarks), intro].filter(Boolean).join(' ')}}`;
-    let needNumber = true;
-    l.moves.forEach((m, i) => {
-      const num = g.moveNumber();
-      if (g.turn() === 'w') mt += ` ${num}. ${m.san}`;
-      else mt += needNumber ? ` ${num}... ${m.san}` : ` ${m.san}`;
-      g.move(m.san);
-      const also = m.also.length ? `[%also ${m.also.join(',')}]` : '';
-      const c = [fmt(moveMarks[i]), also, notes[i].filter(Boolean).join(' ')].filter(Boolean).join(' ');
-      needNumber = !!c;
-      if (c) mt += ` {${c}}`;
+    games.push({
+      name: `${String(lessonNo).padStart(2, '0')}. ${L.title} (${gi + 1}/${group.length})`,
+      description: G.desc,
+      fen: l.fen,
+      intro: [formatMarks(introMarks), intro].filter(Boolean).join(' '),
+      moves: l.moves.map((m, i) => ({ san: m.san, comment: moveComment(moveMarks[i], m.also, notes[i].filter(Boolean).join(' ')) })),
     });
-    mt += ' *';
-    const name = `${String(lessonNo).padStart(2, '0')}. ${L.title} (${gi + 1}/${group.length})`;
-    const tags = [['Event', name], ['Site', 'Endgame Classroom'], ['White', '?'], ['Black', '?'], ['Result', '*'],
-      ['SetUp', '1'], ['FEN', l.fen], ['LineName', name], ['LineDescription', G.desc]];
-    const words = mt.split(' ');
-    const rows = [];
-    let row = '';
-    for (const w of words) { if (row && row.length + w.length + 1 > 80) { rows.push(row); row = w; } else row = row ? `${row} ${w}` : w; }
-    rows.push(row);
-    out.push(tags.map(([k, v]) => `[${k} "${v.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"]`).join('\n') + '\n\n' + rows.join('\n') + '\n');
   });
 }
-fs.writeFileSync(OUT, out.join('\n'));
+writePgn(OUT, games);
 
 // ---------- read the file back and check it all again ----------
-function readPgn(text) {
-  return text.split(/\n(?=\[Event )/).map((chunk) => {
-    const tags = Object.fromEntries([...chunk.matchAll(/^\[(\w+) "((?:[^"\\]|\\.)*)"\]$/gm)].map((m) => [m[1], m[2].replace(/\\(.)/g, '$1')]));
-    const body = chunk.slice(chunk.indexOf('\n\n') + 2).replace(/\n/g, ' ');
-    const tokens = body.match(/\{[^}]*\}|[^\s{}]+/g) ?? [];
-    const moves = [];
-    let intro = '';
-    for (const t of tokens) {
-      if (t.startsWith('{')) { if (moves.length) moves[moves.length - 1].comment = t.slice(1, -1); else intro = t.slice(1, -1); continue; }
-      if (t === '*' || /^\d+\.+$/.test(t)) continue;
-      moves.push({ san: t, comment: '' });
-    }
-    for (const m of moves) m.also = (m.comment.match(/\[%also ([^\]]+)\]/)?.[1] ?? '').split(',').filter(Boolean);
-    return { tags, intro, moves };
-  });
-}
-let problems = 0;
-const fail = (...a) => { problems++; console.log('PROBLEM', ...a); };
-const games = readPgn(fs.readFileSync(OUT, 'utf8'));
-if (games.length !== lines.length) fail(`wrote ${lines.length} lines but read back ${games.length}`);
-let learnerMoves = 0, uniqueMoves = 0, withAlso = 0, alsoTotal = 0;
-for (const gm of games) {
-  const name = gm.tags.LineName;
-  if (!/^\d\d\. .+ \(\d+\/\d+\)$/.test(name ?? '') || gm.tags.Event !== name) fail('bad LineName/Event', name);
-  if (gm.tags.SetUp !== '1' || !gm.tags.FEN || !gm.tags.LineDescription) fail('missing tags', name);
-  if (!gm.intro.trim()) fail('no intro comment', name);
-  const comments = [gm.intro, ...gm.moves.map((m) => m.comment)];
-  for (const c of comments) {
-    for (const [, cmd, args] of c.matchAll(/\[%(\w+) ([^\]]*)\]/g)) {
-      const ok = cmd === 'csl' ? /^[GRB][a-h][1-8](,[GRB][a-h][1-8])*$/.test(args) : cmd === 'cal' ? /^[GRB][a-h][1-8][a-h][1-8](,[GRB][a-h][1-8][a-h][1-8])*$/.test(args) : cmd === 'also';
-      if (!ok) fail('bad mark', name, cmd, args);
-      if (name.includes('Final exam') && cmd !== 'also') fail('marks in the exam', name);
-    }
-  }
-  const res = verifyLine({ fen: gm.tags.FEN, moves: gm.moves });
-  for (const p of res.problems) fail(name, p);
-  learnerMoves += res.unique.length;
-  uniqueMoves += res.unique.filter(Boolean).length;
-  const learner = gm.moves.filter((_, i) => i % 2 === 0);
-  withAlso += learner.filter((m) => m.also.length).length;
-  alsoTotal += learner.reduce((s, m) => s + m.also.length, 0);
-  const last = gm.moves[gm.moves.length - 1].comment;
-  if (!/^(\[%[^\]]*\] )*(Checkmate|Queen!|Rook!)/.test(last)) fail('the final move has no closing note', name, last);
-}
-console.log(`wrote ${games.length} lines to ${path.relative(process.cwd(), OUT)}; read back and re-verified: ` +
-  `${learnerMoves} learner moves, ${uniqueMoves} unique (${Math.round((100 * uniqueMoves) / learnerMoves)}%), ` +
-  `${withAlso} with [%also] (${alsoTotal} alternatives); problems: ${problems}`);
-if (problems) {
-  console.error(`pgnout: ${problems} problem(s) in the written course`);
+const { problems, stats } = checkCourse(OUT, {
+  count: lines.length,
+  verify: VERIFY,
+  learner: 'w',
+  noMarks: (name) => name.includes('Final exam'),
+  finalNote: /^(\[%[^\]]*\] )*(Checkmate|Queen!|Rook!)/,
+});
+for (const p of problems) console.log('PROBLEM', p);
+console.log(`wrote ${stats.lines} lines to ${path.relative(process.cwd(), OUT)}; read back and re-verified: ` +
+  `${stats.learnerMoves} learner moves, ${stats.unique} unique (${stats.pct}%), ` +
+  `${stats.withAlso} with [%also] (${stats.alsoTotal} alternatives); problems: ${problems.length}`);
+if (problems.length) {
+  console.error(`pgnout: ${problems.length} problem(s) in the written course`);
   process.exit(1);
 }

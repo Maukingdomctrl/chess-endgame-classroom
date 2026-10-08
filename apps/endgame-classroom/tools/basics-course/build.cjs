@@ -1,5 +1,5 @@
 // Converts the picked lines into real FENs + SAN with chess.js and checks every move a second time,
-// on the real FEN, with chess.js and the exact solvers (verify.cjs):
+// on the real FEN, with chess.js and the exact solvers (../course-kit/verify.cjs):
 //   - each learner move keeps the win and is a fastest one (K+Q/K+R: lowest DTM; K+P: fastest safe
 //     promotion, and the promotion piece that mates fastest);
 //   - its [%also] list is exactly the other equally fast moves (none slower, none missing);
@@ -9,24 +9,14 @@
 const fs = require('fs');
 const path = require('path');
 const { Chess } = require('chess.js');
-const M = require('./mate3.cjs');
-const { afterWhite, cmp, verifyLine } = require('./verify.cjs');
+const { sqName: n, boardFen } = require('../course-kit/board.cjs');
+const { afterLearner, cmp, verifyLine, summary } = require('../course-kit/verify.cjs');
+const VERIFY = require('./verify-opts.cjs');
 const picked = require('./.out/picked.json');
-
-const n = M.sqName;
 
 function toActual(pk) {
   const pcs = pk.kind === 'p' ? [[pk.s.wk, 'K'], [pk.s.bk, 'k'], [pk.s.p, 'P']] : [[pk.s.wk, 'K'], [pk.s.bk, 'k'], [pk.s.x, pk.kind.toUpperCase()]];
-  const b = Array(64).fill(null);
-  for (const [sq, c] of pcs) b[sq] = c;
-  const rows = [];
-  for (let r = 7; r >= 0; r--) {
-    let row = '', e = 0;
-    for (let f = 0; f < 8; f++) { const c = b[r * 8 + f]; if (!c) e++; else { if (e) row += e; e = 0; row += c; } }
-    if (e) row += e;
-    rows.push(row);
-  }
-  const fen = `${rows.join('/')} w - - 0 1`;
+  const fen = `${boardFen(pcs)} w - - 0 1`;
   const g = new Chess(fen);
   const moves = [];
   for (const pl of pk.line.plies) {
@@ -39,7 +29,7 @@ function toActual(pk) {
       const opts = ['q', 'r'].map((pc) => {
         const t = new Chess(g.fen());
         const mv = t.move({ from: n(m.from), to: n(m.to), promotion: pc });
-        return { pc, san: mv.san, v: afterWhite(t.fen()) };
+        return { pc, san: mv.san, v: afterLearner(t.fen(), VERIFY) };
       }).filter((o) => o.v);
       opts.sort((a, b) => cmp(a.v, b.v));
       promo = opts[0].pc;
@@ -54,9 +44,11 @@ function toActual(pk) {
 
 let problems = 0;
 const out = [];
+const results = [];
 for (const pk of picked) {
   const act = toActual(pk);
-  const res = verifyLine(act);
+  const res = verifyLine(act, VERIFY);
+  results.push(res);
   for (const p of res.problems) { problems++; console.log('PROBLEM', pk.group, p); }
   act.moves.filter((m) => m.side === 'w').forEach((m, i) => { m.unique = res.unique[i]; });
   out.push({ lesson: pk.lesson, group: pk.group, kind: pk.kind, fen: act.fen, moves: act.moves });
@@ -64,9 +56,9 @@ for (const pk of picked) {
 
 // ---------- report ----------
 const learner = out.flatMap((l) => l.moves.filter((m) => m.side === 'w'));
-const uniq = learner.filter((m) => m.unique).length;
 const withAlso = learner.filter((m) => m.also.length).length;
-console.log(`verified ${out.length} lines, ${learner.length} learner moves: ${uniq} unique (${Math.round((100 * uniq) / learner.length)}%), ` +
+const st = summary(results);
+console.log(`verified ${out.length} lines, ${st.learnerMoves} learner moves: ${st.unique} unique (${st.pct}%), ` +
   `${withAlso} with [%also] alternatives (${learner.reduce((s, m) => s + m.also.length, 0)} alternatives in all); problems: ${problems}`);
 for (const l of out) {
   const txt = l.moves.map((m) => (m.side === 'w' && m.also.length ? `${m.san}[${m.also.join(',')}]` : m.san)).join(' ');
