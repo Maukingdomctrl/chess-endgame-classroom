@@ -1884,6 +1884,14 @@ details.section summary {
   border-right-color: #f6dcd8;
 }
 
+.bubble.good {
+  background: #dcefe2;
+}
+
+.bubble.good::before {
+  border-right-color: #dcefe2;
+}
+
 .bubble .action {
   font-weight: 600;
   padding-top: 8px;

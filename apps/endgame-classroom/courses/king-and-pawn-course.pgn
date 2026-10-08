@@ -11,11 +11,21 @@
 {[%csl Gc6,Gd6,Ge6] Welcome! This course masters ONE idea: king and pawn against
 king. Rule 1: every pawn has KEY SQUARES. If your king reaches one of them, the
 pawn will queen whatever Black does. For a pawn on the 4th rank they are the
-three squares two ranks in front of it. Pawn on d4: the key squares (green) are
-c6, d6, e6.} 1. Kc5 {Diagonal opposition: next move it turns into a key square
-or the direct opposition.} 1... Ke6 {[%csl Gc6,Gd6,Ge6]} 2. Kc6 {[%csl
-Gc6,Gd6,Ge6] Key square c6! With your king here the pawn will queen, whoever is
-to move.} *
+three squares two ranks in front of it. Every line is played to the end, so you
+will see the pawn become a queen. Pawn on d4: the key squares (green) are c6,
+d6, e6.} 1. Kc5 {Diagonal opposition: next move it turns into a key square or
+the direct opposition.} 1... Ke6 {[%csl Gc6,Gd6,Ge6]} 2. Kc6 {Key square c6!
+With your king here the pawn will queen, whoever is to move. Now escort it all
+the way.} 2... Ke7 {[%csl Gc6,Gd6,Ge6]} 3. d5 {Now the pawn advances, with the
+king clearing the way.} 3... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 4. Kd6
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 4... Kc8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 5. Ke7 {The king walks
+ahead of the pawn and clears the way; the pawn follows.} 5... Kc7 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 6. d6+ {Pawn forward, with check.} 6... Kc6 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 7. d7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 7... Kc7 {[%csl Gd8]} 8.
+d8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "01. Key squares: pawn on the 4th rank (2/3)"]
 [Site "Endgame Classroom"]
@@ -30,8 +40,18 @@ to move.} *
 {[%csl Gd6,Ge6,Gf6] Same rule: walk your king to a key square. Black may stand
 in the way, so go around him. Pawn on e4: the key squares (green) are d6, e6,
 f6.} 1. Kf5 {Diagonal opposition: next move it turns into a key square or the
-direct opposition.} 1... Kd6 {[%csl Gd6,Ge6,Gf6]} 2. Kf6 {[%csl Gd6,Ge6,Gf6] Key
-square f6! With your king here the pawn will queen, whoever is to move.} *
+direct opposition.} 1... Kd6 {[%csl Gd6,Ge6,Gf6]} 2. Kf6 {Key square f6! With
+your king here the pawn will queen, whoever is to move. Now escort it all the
+way.} 2... Kd7 {[%csl Gd6,Ge6,Gf6]} 3. e5 {Now the pawn advances, with the king
+clearing the way.} 3... Ke8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 4. Ke6 {Opposition!
+The kings face each other with one square between them, and Black must give
+way.} 4... Kd8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 5. Kf7 {The king walks ahead of
+the pawn and clears the way; the pawn follows.} 5... Kd7 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 6. e6+ {Pawn forward, with check.} 6... Kd6 {[%csl
+Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 7. e7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 7... Kd7 {[%csl Ge8]} 8.
+e8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "01. Key squares: pawn on the 4th rank (3/3)"]
 [Site "Endgame Classroom"]
@@ -48,8 +68,16 @@ in the way, so go around him. Pawn on c4: the key squares (green) are b6, c6,
 d6.} 1. Kc3 Ka5 {[%csl Gb6,Gc6,Gd6]} 2. Kd4 Kb6 {[%csl Gb6,Gc6,Gd6]} 3. Kd5 Kc7
 {[%csl Gb6,Gc6,Gd6]} 4. Kc5 {Opposition! The kings face each other with one
 square between them, and Black must give way.} 4... Kd7 {[%csl Gb6,Gc6,Gd6]} 5.
-Kb6 {[%csl Gb6,Gc6,Gd6] Key square b6! With your king here the pawn will queen,
-whoever is to move.} *
+Kb6 {Key square b6! With your king here the pawn will queen, whoever is to move.
+Now escort it all the way.} 5... Kc8 {[%csl Gb6,Gc6,Gd6]} 6. Kc6 {[%also c5]
+Opposition again.} 6... Kb8 {[%csl Gb6,Gc6,Gd6]} 7. Kd7 {The king walks ahead of
+the pawn and clears the way; the pawn follows.} 7... Ka7 {[%csl Gb6,Gc6,Gd6]} 8.
+c5 {Now the pawn advances, with the king clearing the way.} 8... Kb7 {[%csl
+Gb6,Gc6,Gd6,Gb7,Gc7,Gd7]} 9. c6+ {Pawn forward, with check.} 9... Kb6 {[%csl
+Gb7,Gc7,Gd7,Gb8,Gc8,Gd8]} 10. c7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 10... Kb7 {[%csl Gc8]} 11.
+c8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "02. Key squares: pawn on the 2nd or 3rd rank (1/3)"]
 [Site "Endgame Classroom"]
@@ -67,8 +95,18 @@ the king up first. Pawn on d3: the key squares (green) are c5, d5, e5.} 1. Kd2
 Kb4 {[%csl Gc5,Gd5,Ge5]} 2. Ke3 Kc5 {[%csl Gc5,Gd5,Ge5]} 3. Ke4 Kd6 {[%csl
 Gc5,Gd5,Ge5]} 4. Kd4 {Opposition! The kings face each other with one square
 between them, and Black must give way.} 4... Kc6 {[%csl Gc5,Gd5,Ge5]} 5. Ke5
-{[%csl Gc5,Gd5,Ge5] Key square e5! With your king here the pawn will queen,
-whoever is to move.} *
+{Key square e5! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 5... Kd7 {[%csl Gc5,Gd5,Ge5]} 6. Kd5 {Opposition again.}
+6... Kc7 {[%csl Gc5,Gd5,Ge5]} 7. Ke6 {The king walks ahead of the pawn and
+clears the way; the pawn follows.} 7... Kb6 {[%csl Gc5,Gd5,Ge5]} 8. d4 {Now the
+pawn advances, with the king clearing the way.} 8... Kc7 {[%csl Gc6,Gd6,Ge6]} 9.
+d5 {Pawn forward.} 9... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 10. Kd6 {Opposition
+again.} 10... Kc8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 11. Ke7 Kc7 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 12. d6+ {Pawn forward, with check.} 12... Kc6 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 13. d7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 13... Kc7 {[%csl Gd8]} 14.
+d8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "02. Key squares: pawn on the 2nd or 3rd rank (2/3)"]
 [Site "Endgame Classroom"]
@@ -84,8 +122,18 @@ whoever is to move.} *
 e3: the key squares (green) are d5, e5, f5.} 1. Ke2 Kg4 {[%csl Gd5,Ge5,Gf5]} 2.
 Kd3 Kf5 {[%csl Gd5,Ge5,Gf5]} 3. Kd4 Ke6 {[%csl Gd5,Ge5,Gf5]} 4. Ke4 {Opposition!
 The kings face each other with one square between them, and Black must give
-way.} 4... Kd6 {[%csl Gd5,Ge5,Gf5]} 5. Kf5 {[%csl Gd5,Ge5,Gf5] Key square f5!
-With your king here the pawn will queen, whoever is to move.} *
+way.} 4... Kd6 {[%csl Gd5,Ge5,Gf5]} 5. Kf5 {Key square f5! With your king here
+the pawn will queen, whoever is to move. Now escort it all the way.} 5... Ke7
+{[%csl Gd5,Ge5,Gf5]} 6. Ke5 {Opposition again.} 6... Kd7 {[%csl Gd5,Ge5,Gf5]} 7.
+Kf6 {The king walks ahead of the pawn and clears the way; the pawn follows.}
+7... Kc6 {[%csl Gd5,Ge5,Gf5]} 8. e4 {Now the pawn advances, with the king
+clearing the way.} 8... Kd7 {[%csl Gd6,Ge6,Gf6]} 9. e5 {Pawn forward.} 9... Ke8
+{[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 10. Ke6 {Opposition again.} 10... Kd8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 11. Kf7 Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 12. e6+
+{Pawn forward, with check.} 12... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 13. e7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 13... Kd7 {[%csl Ge8]} 14. e8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "02. Key squares: pawn on the 2nd or 3rd rank (3/3)"]
 [Site "Endgame Classroom"]
@@ -101,8 +149,18 @@ With your king here the pawn will queen, whoever is to move.} *
 c3: the key squares (green) are b5, c5, d5.} 1. Kc2 Ke4 {[%csl Gb5,Gc5,Gd5]} 2.
 Kb3 Kd5 {[%csl Gb5,Gc5,Gd5]} 3. Kb4 Kc6 {[%csl Gb5,Gc5,Gd5]} 4. Kc4 {Opposition!
 The kings face each other with one square between them, and Black must give
-way.} 4... Kb6 {[%csl Gb5,Gc5,Gd5]} 5. Kd5 {[%csl Gb5,Gc5,Gd5] Key square d5!
-With your king here the pawn will queen, whoever is to move.} *
+way.} 4... Kb6 {[%csl Gb5,Gc5,Gd5]} 5. Kd5 {Key square d5! With your king here
+the pawn will queen, whoever is to move. Now escort it all the way.} 5... Kc7
+{[%csl Gb5,Gc5,Gd5]} 6. Kc5 {Opposition again.} 6... Kb7 {[%csl Gb5,Gc5,Gd5]} 7.
+Kd6 {The king walks ahead of the pawn and clears the way; the pawn follows.}
+7... Ka6 {[%csl Gb5,Gc5,Gd5]} 8. c4 {Now the pawn advances, with the king
+clearing the way.} 8... Kb7 {[%csl Gb6,Gc6,Gd6]} 9. c5 {Pawn forward.} 9... Kc8
+{[%csl Gb6,Gc6,Gd6,Gb7,Gc7,Gd7]} 10. Kc6 {Opposition again.} 10... Kb8 {[%csl
+Gb6,Gc6,Gd6,Gb7,Gc7,Gd7]} 11. Kd7 Kb7 {[%csl Gb6,Gc6,Gd6,Gb7,Gc7,Gd7]} 12. c6+
+{Pawn forward, with check.} 12... Kb6 {[%csl Gb7,Gc7,Gd7,Gb8,Gc8,Gd8]} 13. c7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 13... Kb7 {[%csl Gc8]} 14. c8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "03. Key squares: pawn on the 5th rank (1/2)"]
 [Site "Endgame Classroom"]
@@ -118,8 +176,17 @@ With your king here the pawn will queen, whoever is to move.} *
 key squares: the three squares on the 6th rank in front of it and the three on
 the 7th. That makes the win much easier. Pawn on d5: the key squares (green) are
 c6, d6, e6, c7, d7, e7.} 1. Kd4 Kb6 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 2. Ke5 Kc7
-{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 3. Ke6 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7] Key
-square e6! With your king here the pawn will queen, whoever is to move.} *
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 3. Ke6 {Key square e6! With your king here the
+pawn will queen, whoever is to move. Now escort it all the way.} 3... Kd8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 4. Kd6 {Opposition! The kings face each other with one
+square between them, and Black must give way.} 4... Kc8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 5. Ke7 {The king walks ahead of the pawn and clears
+the way; the pawn follows.} 5... Kc7 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 6. d6+
+{Now the pawn advances, with the king clearing the way.} 6... Kc6 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 7. d7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 7... Kc7 {[%csl Gd8]} 8.
+d8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "03. Key squares: pawn on the 5th rank (2/2)"]
 [Site "Endgame Classroom"]
@@ -134,8 +201,17 @@ square e6! With your king here the pawn will queen, whoever is to move.} *
 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7] Six key squares this time. Find the quickest way
 onto one of them. Pawn on e5: the key squares (green) are d6, e6, f6, d7, e7,
 f7.} 1. Ke4 Kg6 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 2. Kd5 Kf7 {[%csl
-Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 3. Kd6 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7] Key square d6!
-With your king here the pawn will queen, whoever is to move.} *
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 3. Kd6 {Key square d6! With your king here the pawn
+will queen, whoever is to move. Now escort it all the way.} 3... Ke8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 4. Ke6 {Opposition! The kings face each other with one
+square between them, and Black must give way.} 4... Kd8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 5. Kf7 {The king walks ahead of the pawn and clears
+the way; the pawn follows.} 5... Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 6. e6+
+{Now the pawn advances, with the king clearing the way.} 6... Kd6 {[%csl
+Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 7. e7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 7... Kd7 {[%csl Ge8]} 8.
+e8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "04. Finishing: pawn on the 6th rank (1/3)"]
 [Site "Endgame Classroom"]
@@ -152,8 +228,9 @@ wins against any defence. Watch how king and pawn work together all the way to
 the queening square. Pawn on d6: the key squares (green) are c7, d7, e7, c8, d8,
 e8.} 1. Kc6 {Opposition! The kings face each other with one square between them,
 and Black must give way.} 1... Kd8 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 2. d7 {Now
-the pawn advances, with the king clearing the way.} 2... Ke7 3. Kc7 {Opposition
-again.} 3... Ke6 4. d8=Q {Queen! The pawn promotes safely.} *
+the pawn advances, with the king clearing the way.} 2... Ke7 {[%csl Gd8]} 3. Kc7
+{Opposition again.} 3... Ke6 {[%csl Gd8]} 4. d8=Q {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "04. Finishing: pawn on the 6th rank (2/3)"]
 [Site "Endgame Classroom"]
@@ -169,9 +246,10 @@ again.} 3... Ke6 4. d8=Q {Queen! The pawn promotes safely.} *
 it. Pawn on e6: the key squares (green) are d7, e7, f7, d8, e8, f8.} 1. Kd6
 {Diagonal opposition: next move it turns into a key square or the direct
 opposition.} 1... Ke8 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 2. e7 {Now the pawn
-advances, with the king clearing the way.} 2... Kf7 3. Kd7 {Opposition! The
-kings face each other with one square between them, and Black must give way.}
-3... Kf6 4. e8=Q {Queen! The pawn promotes safely.} *
+advances, with the king clearing the way.} 2... Kf7 {[%csl Ge8]} 3. Kd7
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 3... Kf6 {[%csl Ge8]} 4. e8=Q {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "04. Finishing: pawn on the 6th rank (3/3)"]
 [Site "Endgame Classroom"]
@@ -187,9 +265,10 @@ kings face each other with one square between them, and Black must give way.}
 it. Pawn on c6: the key squares (green) are b7, c7, d7, b8, c8, d8.} 1. Kd6
 {Diagonal opposition: next move it turns into a key square or the direct
 opposition.} 1... Kc8 {[%csl Gb7,Gc7,Gd7,Gb8,Gc8,Gd8]} 2. c7 {Now the pawn
-advances, with the king clearing the way.} 2... Kb7 3. Kd7 {Opposition! The
-kings face each other with one square between them, and Black must give way.}
-3... Kb6 4. c8=Q {Queen! The pawn promotes safely.} *
+advances, with the king clearing the way.} 2... Kb7 {[%csl Gc8]} 3. Kd7
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 3... Kb6 {[%csl Gc8]} 4. c8=Q {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "05. The opposition (1/5)"]
 [Site "Endgame Classroom"]
@@ -208,8 +287,20 @@ forward to a key square. Pawn on d2: the key squares (green) are c4, d4, e4.} 1.
 Kb3 {Opposition! The kings face each other with one square between them, and
 Black must give way.} 1... Kc5 {[%csl Gc4,Gd4,Ge4]} 2. Kc3 {Opposition again.}
 2... Kd5 {[%csl Gc4,Gd4,Ge4]} 3. Kd3 {Opposition again.} 3... Kc5 {[%csl
-Gc4,Gd4,Ge4]} 4. Ke4 {[%csl Gc4,Gd4,Ge4] Key square e4! With your king here the
-pawn will queen, whoever is to move.} *
+Gc4,Gd4,Ge4]} 4. Ke4 {Key square e4! With your king here the pawn will queen,
+whoever is to move. Now escort it all the way.} 4... Kd6 {[%csl Gc4,Gd4,Ge4]} 5.
+Kd4 {Opposition again.} 5... Kc6 {[%csl Gc4,Gd4,Ge4]} 6. Ke5 {The king walks
+ahead of the pawn and clears the way; the pawn follows.} 6... Kd7 {[%csl
+Gc4,Gd4,Ge4]} 7. Kd5 {[%also d3] Opposition again.} 7... Kc7 {[%csl
+Gc4,Gd4,Ge4]} 8. Ke6 {[%also d3]} 8... Kb6 {[%csl Gc4,Gd4,Ge4]} 9. d4 {Now the
+pawn advances, with the king clearing the way.} 9... Kc7 {[%csl Gc6,Gd6,Ge6]}
+10. d5 {Pawn forward.} 10... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 11. Kd6
+{Opposition again.} 11... Kc8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 12. Ke7 Kc7
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 13. d6+ {Pawn forward, with check.} 13... Kc6
+{[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 14. d7 {The pawn reaches the 7th rank and your
+king guards the queening square: nothing can stop it now.} 14... Kc7 {[%csl
+Gd8]} 15. d8=Q+ {Queen! The pawn has promoted safely, and king and queen against
+king is an easy win.} *
 
 [Event "05. The opposition (2/5)"]
 [Site "Endgame Classroom"]
@@ -225,8 +316,20 @@ pawn will queen, whoever is to move.} *
 the key squares (green) are d4, e4, f4.} 1. Kg3 {Opposition! The kings face each
 other with one square between them, and Black must give way.} 1... Kf5 {[%csl
 Gd4,Ge4,Gf4]} 2. Kf3 {Opposition again.} 2... Ke5 {[%csl Gd4,Ge4,Gf4]} 3. Ke3
-{Opposition again.} 3... Kd5 {[%csl Gd4,Ge4,Gf4]} 4. Kf4 {[%csl Gd4,Ge4,Gf4] Key
-square f4! With your king here the pawn will queen, whoever is to move.} *
+{Opposition again.} 3... Kd5 {[%csl Gd4,Ge4,Gf4]} 4. Kf4 {Key square f4! With
+your king here the pawn will queen, whoever is to move. Now escort it all the
+way.} 4... Ke6 {[%csl Gd4,Ge4,Gf4]} 5. Ke4 {Opposition again.} 5... Kd6 {[%csl
+Gd4,Ge4,Gf4]} 6. Kf5 {The king walks ahead of the pawn and clears the way; the
+pawn follows.} 6... Ke7 {[%csl Gd4,Ge4,Gf4]} 7. Ke5 {[%also e3] Opposition
+again.} 7... Kd7 {[%csl Gd4,Ge4,Gf4]} 8. Kf6 {[%also e3]} 8... Kc6 {[%csl
+Gd4,Ge4,Gf4]} 9. e4 {Now the pawn advances, with the king clearing the way.}
+9... Kd7 {[%csl Gd6,Ge6,Gf6]} 10. e5 {Pawn forward.} 10... Ke8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 11. Ke6 {Opposition again.} 11... Kd8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 12. Kf7 Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 13. e6+
+{Pawn forward, with check.} 13... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 14. e7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 14... Kd7 {[%csl Ge8]} 15. e8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "05. The opposition (3/5)"]
 [Site "Endgame Classroom"]
@@ -242,8 +345,18 @@ square f4! With your king here the pawn will queen, whoever is to move.} *
 the key squares (green) are c5, d5, e5.} 1. Kc4 {Opposition! The kings face each
 other with one square between them, and Black must give way.} 1... Kd6 {[%csl
 Gc5,Gd5,Ge5]} 2. Kd4 {Opposition again.} 2... Kc6 {[%csl Gc5,Gd5,Ge5]} 3. Ke5
-{[%csl Gc5,Gd5,Ge5] Key square e5! With your king here the pawn will queen,
-whoever is to move.} *
+{Key square e5! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 3... Kd7 {[%csl Gc5,Gd5,Ge5]} 4. Kd5 {Opposition again.}
+4... Kc7 {[%csl Gc5,Gd5,Ge5]} 5. Ke6 {The king walks ahead of the pawn and
+clears the way; the pawn follows.} 5... Kb6 {[%csl Gc5,Gd5,Ge5]} 6. d4 {Now the
+pawn advances, with the king clearing the way.} 6... Kc7 {[%csl Gc6,Gd6,Ge6]} 7.
+d5 {Pawn forward.} 7... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 8. Kd6 {Opposition
+again.} 8... Kc8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 9. Ke7 Kc7 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 10. d6+ {Pawn forward, with check.} 10... Kc6 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 11. d7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 11... Kc7 {[%csl Gd8]} 12.
+d8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "05. The opposition (4/5)"]
 [Site "Endgame Classroom"]
@@ -259,8 +372,18 @@ whoever is to move.} *
 the key squares (green) are d5, e5, f5.} 1. Kf4 {Opposition! The kings face each
 other with one square between them, and Black must give way.} 1... Ke6 {[%csl
 Gd5,Ge5,Gf5]} 2. Ke4 {Opposition again.} 2... Kd6 {[%csl Gd5,Ge5,Gf5]} 3. Kf5
-{[%csl Gd5,Ge5,Gf5] Key square f5! With your king here the pawn will queen,
-whoever is to move.} *
+{Key square f5! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 3... Ke7 {[%csl Gd5,Ge5,Gf5]} 4. Ke5 {Opposition again.}
+4... Kd7 {[%csl Gd5,Ge5,Gf5]} 5. Kf6 {The king walks ahead of the pawn and
+clears the way; the pawn follows.} 5... Kc6 {[%csl Gd5,Ge5,Gf5]} 6. e4 {Now the
+pawn advances, with the king clearing the way.} 6... Kd7 {[%csl Gd6,Ge6,Gf6]} 7.
+e5 {Pawn forward.} 7... Ke8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 8. Ke6 {Opposition
+again.} 8... Kd8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 9. Kf7 Kd7 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 10. e6+ {Pawn forward, with check.} 10... Kd6 {[%csl
+Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 11. e7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 11... Kd7 {[%csl Ge8]} 12.
+e8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is
+an easy win.} *
 
 [Event "05. The opposition (5/5)"]
 [Site "Endgame Classroom"]
@@ -276,8 +399,15 @@ whoever is to move.} *
 the key squares (green) are c6, d6, e6.} 1. Kc5 {Opposition! The kings face each
 other with one square between them, and Black must give way.} 1... Kd7 {[%csl
 Gc6,Gd6,Ge6]} 2. Kd5 {Opposition again.} 2... Kc7 {[%csl Gc6,Gd6,Ge6]} 3. Ke6
-{[%csl Gc6,Gd6,Ge6] Key square e6! With your king here the pawn will queen,
-whoever is to move.} *
+{Key square e6! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 3... Kc6 {[%csl Gc6,Gd6,Ge6]} 4. d5+ {Now the pawn
+advances, with the king clearing the way.} 4... Kc5 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 5. d6 {Pawn forward.} 5... Kc6 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 6. Ke7 {[%also d7]} 6... Kc5 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 7. d7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 7... Kc6 {[%csl Gd8]} 8.
+d8=Q {Queen! The pawn has promoted safely, and king and queen against king is an
+easy win.} *
 
 [Event "06. With the opposition, Black must give way (1/3)"]
 [Site "Endgame Classroom"]
@@ -292,8 +422,20 @@ whoever is to move.} *
 {Here you already have the opposition and it is Black to move. Whichever way
 Black steps, your king walks past on the side he has just left open. Pawn on d2:
 the key squares (green) are c4, d4, e4. Black moves first.} 1... Kc6 {[%csl
-Gc4,Gd4,Ge4]} 2. Kc4 {[%csl Gc4,Gd4,Ge4] Key square c4! With your king here the
-pawn will queen, whoever is to move.} *
+Gc4,Gd4,Ge4]} 2. Kc4 {Key square c4! With your king here the pawn will queen,
+whoever is to move. Now escort it all the way.} 2... Kd6 {[%csl Gc4,Gd4,Ge4]} 3.
+Kd4 {Opposition! The kings face each other with one square between them, and
+Black must give way.} 3... Kc6 {[%csl Gc4,Gd4,Ge4]} 4. Ke5 {The king walks ahead
+of the pawn and clears the way; the pawn follows.} 4... Kd7 {[%csl Gc4,Gd4,Ge4]}
+5. Kd5 {[%also d3] Opposition again.} 5... Kc7 {[%csl Gc4,Gd4,Ge4]} 6. Ke6
+{[%also d3]} 6... Kb6 {[%csl Gc4,Gd4,Ge4]} 7. d4 {Now the pawn advances, with
+the king clearing the way.} 7... Kc7 {[%csl Gc6,Gd6,Ge6]} 8. d5 {Pawn forward.}
+8... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 9. Kd6 {Opposition again.} 9... Kc8
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 10. Ke7 Kc7 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]}
+11. d6+ {Pawn forward, with check.} 11... Kc6 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]}
+12. d7 {The pawn reaches the 7th rank and your king guards the queening square:
+nothing can stop it now.} 12... Kc7 {[%csl Gd8]} 13. d8=Q+ {Queen! The pawn has
+promoted safely, and king and queen against king is an easy win.} *
 
 [Event "06. With the opposition, Black must give way (2/3)"]
 [Site "Endgame Classroom"]
@@ -307,8 +449,20 @@ pawn will queen, whoever is to move.} *
 
 {Black must step aside. Go past on the other side. Pawn on e2: the key squares
 (green) are d4, e4, f4. Black moves first.} 1... Kf6 {[%csl Gd4,Ge4,Gf4]} 2. Kf4
-{[%csl Gd4,Ge4,Gf4] Key square f4! With your king here the pawn will queen,
-whoever is to move.} *
+{Key square f4! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 2... Ke6 {[%csl Gd4,Ge4,Gf4]} 3. Ke4 {Opposition! The
+kings face each other with one square between them, and Black must give way.}
+3... Kd6 {[%csl Gd4,Ge4,Gf4]} 4. Kf5 {The king walks ahead of the pawn and
+clears the way; the pawn follows.} 4... Ke7 {[%csl Gd4,Ge4,Gf4]} 5. Ke5 {[%also
+e3] Opposition again.} 5... Kd7 {[%csl Gd4,Ge4,Gf4]} 6. Kf6 {[%also e3]} 6...
+Kc6 {[%csl Gd4,Ge4,Gf4]} 7. e4 {Now the pawn advances, with the king clearing
+the way.} 7... Kd7 {[%csl Gd6,Ge6,Gf6]} 8. e5 {Pawn forward.} 8... Ke8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 9. Ke6 {Opposition again.} 9... Kd8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 10. Kf7 Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 11. e6+
+{Pawn forward, with check.} 11... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 12. e7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 12... Kd7 {[%csl Ge8]} 13. e8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "06. With the opposition, Black must give way (3/3)"]
 [Site "Endgame Classroom"]
@@ -324,8 +478,18 @@ whoever is to move.} *
 (green) are c5, d5, e5. Black moves first.} 1... Kc6 {[%csl Gc5,Gd5,Ge5]} 2. Kc4
 {Opposition! The kings face each other with one square between them, and Black
 must give way.} 2... Kd6 {[%csl Gc5,Gd5,Ge5]} 3. Kd4 {Opposition again.} 3...
-Kc6 {[%csl Gc5,Gd5,Ge5]} 4. Ke5 {[%csl Gc5,Gd5,Ge5] Key square e5! With your
-king here the pawn will queen, whoever is to move.} *
+Kc6 {[%csl Gc5,Gd5,Ge5]} 4. Ke5 {Key square e5! With your king here the pawn
+will queen, whoever is to move. Now escort it all the way.} 4... Kd7 {[%csl
+Gc5,Gd5,Ge5]} 5. Kd5 {Opposition again.} 5... Kc7 {[%csl Gc5,Gd5,Ge5]} 6. Ke6
+{The king walks ahead of the pawn and clears the way; the pawn follows.} 6...
+Kb6 {[%csl Gc5,Gd5,Ge5]} 7. d4 {Now the pawn advances, with the king clearing
+the way.} 7... Kc7 {[%csl Gc6,Gd6,Ge6]} 8. d5 {Pawn forward.} 8... Kd8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 9. Kd6 {Opposition again.} 9... Kc8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 10. Ke7 Kc7 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 11. d6+
+{Pawn forward, with check.} 11... Kc6 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 12. d7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 12... Kc7 {[%csl Gd8]} 13. d8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "07. Distant opposition (1/2)"]
 [Site "Endgame Classroom"]
@@ -342,8 +506,19 @@ three (or five) squares between the kings. Take it at a distance and it turns
 into the direct opposition as the kings come closer. Pawn on d3: the key squares
 (green) are c5, d5, e5.} 1. Kb4 {Distant opposition: same file, three squares
 apart. Keep it and it becomes the direct opposition.} 1... Kc7 {[%csl
-Gc5,Gd5,Ge5]} 2. Kc5 {[%csl Gc5,Gd5,Ge5] Key square c5! With your king here the
-pawn will queen, whoever is to move.} *
+Gc5,Gd5,Ge5]} 2. Kc5 {Key square c5! With your king here the pawn will queen,
+whoever is to move. Now escort it all the way.} 2... Kd7 {[%csl Gc5,Gd5,Ge5]} 3.
+Kd5 {Opposition! The kings face each other with one square between them, and
+Black must give way.} 3... Kc7 {[%csl Gc5,Gd5,Ge5]} 4. Ke6 {The king walks ahead
+of the pawn and clears the way; the pawn follows.} 4... Kb6 {[%csl Gc5,Gd5,Ge5]}
+5. d4 {Now the pawn advances, with the king clearing the way.} 5... Kc7 {[%csl
+Gc6,Gd6,Ge6]} 6. d5 {Pawn forward.} 6... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 7.
+Kd6 {Opposition again.} 7... Kc8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 8. Ke7 Kc7
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 9. d6+ {Pawn forward, with check.} 9... Kc6
+{[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 10. d7 {The pawn reaches the 7th rank and your
+king guards the queening square: nothing can stop it now.} 10... Kc7 {[%csl
+Gd8]} 11. d8=Q+ {Queen! The pawn has promoted safely, and king and queen against
+king is an easy win.} *
 
 [Event "07. Distant opposition (2/2)"]
 [Site "Endgame Classroom"]
@@ -358,8 +533,19 @@ pawn will queen, whoever is to move.} *
 {[%csl Gd5,Ge5,Gf5] Take the opposition from a distance. Pawn on e3: the key
 squares (green) are d5, e5, f5.} 1. Kg4 {Distant opposition: same file, three
 squares apart. Keep it and it becomes the direct opposition.} 1... Kf7 {[%csl
-Gd5,Ge5,Gf5]} 2. Kf5 {[%csl Gd5,Ge5,Gf5] Key square f5! With your king here the
-pawn will queen, whoever is to move.} *
+Gd5,Ge5,Gf5]} 2. Kf5 {Key square f5! With your king here the pawn will queen,
+whoever is to move. Now escort it all the way.} 2... Ke7 {[%csl Gd5,Ge5,Gf5]} 3.
+Ke5 {Opposition! The kings face each other with one square between them, and
+Black must give way.} 3... Kd7 {[%csl Gd5,Ge5,Gf5]} 4. Kf6 {The king walks ahead
+of the pawn and clears the way; the pawn follows.} 4... Kc6 {[%csl Gd5,Ge5,Gf5]}
+5. e4 {Now the pawn advances, with the king clearing the way.} 5... Kd7 {[%csl
+Gd6,Ge6,Gf6]} 6. e5 {Pawn forward.} 6... Ke8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 7.
+Ke6 {Opposition again.} 7... Kd8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 8. Kf7 Kd7
+{[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 9. e6+ {Pawn forward, with check.} 9... Kd6
+{[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 10. e7 {The pawn reaches the 7th rank and your
+king guards the queening square: nothing can stop it now.} 10... Kd7 {[%csl
+Ge8]} 11. e8=Q+ {Queen! The pawn has promoted safely, and king and queen against
+king is an easy win.} *
 
 [Event "08. Diagonal opposition (1/2)"]
 [Site "Endgame Classroom"]
@@ -375,8 +561,17 @@ pawn will queen, whoever is to move.} *
 also in opposition. Use it to shadow the defending king and step onto a key
 square. Pawn on e4: the key squares (green) are d6, e6, f6.} 1. Kd5 {Diagonal
 opposition: next move it turns into a key square or the direct opposition.} 1...
-Kf6 {[%csl Gd6,Ge6,Gf6]} 2. Kd6 {[%csl Gd6,Ge6,Gf6] Key square d6! With your
-king here the pawn will queen, whoever is to move.} *
+Kf6 {[%csl Gd6,Ge6,Gf6]} 2. Kd6 {Key square d6! With your king here the pawn
+will queen, whoever is to move. Now escort it all the way.} 2... Kf7 {[%csl
+Gd6,Ge6,Gf6]} 3. e5 {Now the pawn advances, with the king clearing the way.}
+3... Ke8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 4. Ke6 {Opposition! The kings face
+each other with one square between them, and Black must give way.} 4... Kd8
+{[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 5. Kf7 {The king walks ahead of the pawn and
+clears the way; the pawn follows.} 5... Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 6.
+e6+ {Pawn forward, with check.} 6... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 7. e7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 7... Kd7 {[%csl Ge8]} 8. e8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "08. Diagonal opposition (2/2)"]
 [Site "Endgame Classroom"]
@@ -390,9 +585,18 @@ king here the pawn will queen, whoever is to move.} *
 
 {[%csl Gc6,Gd6,Ge6] The diagonal opposition again. Pawn on d4: the key squares
 (green) are c6, d6, e6.} 1. Ke5 {Diagonal opposition: next move it turns into a
-key square or the direct opposition.} 1... Kc6 {[%csl Gc6,Gd6,Ge6]} 2. Ke6
-{[%csl Gc6,Gd6,Ge6] Key square e6! With your king here the pawn will queen,
-whoever is to move.} *
+key square or the direct opposition.} 1... Kc6 {[%csl Gc6,Gd6,Ge6]} 2. Ke6 {Key
+square e6! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 2... Kc7 {[%csl Gc6,Gd6,Ge6]} 3. d5 {Now the pawn
+advances, with the king clearing the way.} 3... Kd8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 4. Kd6 {Opposition! The kings face each other with one
+square between them, and Black must give way.} 4... Kc8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 5. Ke7 {The king walks ahead of the pawn and clears
+the way; the pawn follows.} 5... Kc7 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 6. d6+
+{Pawn forward, with check.} 6... Kc6 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 7. d7 {The
+pawn reaches the 7th rank and your king guards the queening square: nothing can
+stop it now.} 7... Kc7 {[%csl Gd8]} 8. d8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "09. King first, pawn later (1/4)"]
 [Site "Endgame Classroom"]
@@ -410,8 +614,20 @@ it. Bring the king in front first, and only then push. Pawn on d2: the key
 squares (green) are c4, d4, e4.} 1. Ke2 {(d3 would only draw: king first, pawn
 later.)} 1... Kc4 {[%csl Gc4,Gd4,Ge4]} 2. Ke3 Kd5 {[%csl Gc4,Gd4,Ge4]} 3. Kd3
 {Opposition! The kings face each other with one square between them, and Black
-must give way.} 3... Kc5 {[%csl Gc4,Gd4,Ge4]} 4. Ke4 {[%csl Gc4,Gd4,Ge4] Key
-square e4! With your king here the pawn will queen, whoever is to move.} *
+must give way.} 3... Kc5 {[%csl Gc4,Gd4,Ge4]} 4. Ke4 {Key square e4! With your
+king here the pawn will queen, whoever is to move. Now escort it all the way.}
+4... Kd6 {[%csl Gc4,Gd4,Ge4]} 5. Kd4 {Opposition again.} 5... Kc6 {[%csl
+Gc4,Gd4,Ge4]} 6. Ke5 {The king walks ahead of the pawn and clears the way; the
+pawn follows.} 6... Kd7 {[%csl Gc4,Gd4,Ge4]} 7. Kd5 {[%also d3] Opposition
+again.} 7... Kc7 {[%csl Gc4,Gd4,Ge4]} 8. Ke6 {[%also d3]} 8... Kb6 {[%csl
+Gc4,Gd4,Ge4]} 9. d4 {Now the pawn advances, with the king clearing the way.}
+9... Kc7 {[%csl Gc6,Gd6,Ge6]} 10. d5 {Pawn forward.} 10... Kd8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 11. Kd6 {Opposition again.} 11... Kc8 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 12. Ke7 Kc7 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 13. d6+
+{Pawn forward, with check.} 13... Kc6 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 14. d7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 14... Kc7 {[%csl Gd8]} 15. d8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "09. King first, pawn later (2/4)"]
 [Site "Endgame Classroom"]
@@ -427,8 +643,20 @@ square e4! With your king here the pawn will queen, whoever is to move.} *
 squares (green) are d4, e4, f4.} 1. Kd2 {(e3 would only draw: king first, pawn
 later.)} 1... Kf4 {[%csl Gd4,Ge4,Gf4]} 2. Kd3 Ke5 {[%csl Gd4,Ge4,Gf4]} 3. Ke3
 {Opposition! The kings face each other with one square between them, and Black
-must give way.} 3... Kd5 {[%csl Gd4,Ge4,Gf4]} 4. Kf4 {[%csl Gd4,Ge4,Gf4] Key
-square f4! With your king here the pawn will queen, whoever is to move.} *
+must give way.} 3... Kd5 {[%csl Gd4,Ge4,Gf4]} 4. Kf4 {Key square f4! With your
+king here the pawn will queen, whoever is to move. Now escort it all the way.}
+4... Ke6 {[%csl Gd4,Ge4,Gf4]} 5. Ke4 {Opposition again.} 5... Kd6 {[%csl
+Gd4,Ge4,Gf4]} 6. Kf5 {The king walks ahead of the pawn and clears the way; the
+pawn follows.} 6... Ke7 {[%csl Gd4,Ge4,Gf4]} 7. Ke5 {[%also e3] Opposition
+again.} 7... Kd7 {[%csl Gd4,Ge4,Gf4]} 8. Kf6 {[%also e3]} 8... Kc6 {[%csl
+Gd4,Ge4,Gf4]} 9. e4 {Now the pawn advances, with the king clearing the way.}
+9... Kd7 {[%csl Gd6,Ge6,Gf6]} 10. e5 {Pawn forward.} 10... Ke8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 11. Ke6 {Opposition again.} 11... Kd8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 12. Kf7 Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 13. e6+
+{Pawn forward, with check.} 13... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 14. e7
+{The pawn reaches the 7th rank and your king guards the queening square: nothing
+can stop it now.} 14... Kd7 {[%csl Ge8]} 15. e8=Q+ {Queen! The pawn has promoted
+safely, and king and queen against king is an easy win.} *
 
 [Event "09. King first, pawn later (3/4)"]
 [Site "Endgame Classroom"]
@@ -444,8 +672,18 @@ square f4! With your king here the pawn will queen, whoever is to move.} *
 squares (green) are c5, d5, e5.} 1. Ke3 {(d4 would only draw: king first, pawn
 later.)} 1... Kc5 {[%csl Gc5,Gd5,Ge5]} 2. Ke4 Kd6 {[%csl Gc5,Gd5,Ge5]} 3. Kd4
 {Opposition! The kings face each other with one square between them, and Black
-must give way.} 3... Kc6 {[%csl Gc5,Gd5,Ge5]} 4. Ke5 {[%csl Gc5,Gd5,Ge5] Key
-square e5! With your king here the pawn will queen, whoever is to move.} *
+must give way.} 3... Kc6 {[%csl Gc5,Gd5,Ge5]} 4. Ke5 {Key square e5! With your
+king here the pawn will queen, whoever is to move. Now escort it all the way.}
+4... Kd7 {[%csl Gc5,Gd5,Ge5]} 5. Kd5 {Opposition again.} 5... Kc7 {[%csl
+Gc5,Gd5,Ge5]} 6. Ke6 {The king walks ahead of the pawn and clears the way; the
+pawn follows.} 6... Kb6 {[%csl Gc5,Gd5,Ge5]} 7. d4 {Now the pawn advances, with
+the king clearing the way.} 7... Kc7 {[%csl Gc6,Gd6,Ge6]} 8. d5 {Pawn forward.}
+8... Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 9. Kd6 {Opposition again.} 9... Kc8
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 10. Ke7 Kc7 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]}
+11. d6+ {Pawn forward, with check.} 11... Kc6 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]}
+12. d7 {The pawn reaches the 7th rank and your king guards the queening square:
+nothing can stop it now.} 12... Kc7 {[%csl Gd8]} 13. d8=Q+ {Queen! The pawn has
+promoted safely, and king and queen against king is an easy win.} *
 
 [Event "09. King first, pawn later (4/4)"]
 [Site "Endgame Classroom"]
@@ -461,8 +699,18 @@ square e5! With your king here the pawn will queen, whoever is to move.} *
 squares (green) are d5, e5, f5.} 1. Kd3 {(e4 would only draw: king first, pawn
 later.)} 1... Kf5 {[%csl Gd5,Ge5,Gf5]} 2. Kd4 Ke6 {[%csl Gd5,Ge5,Gf5]} 3. Ke4
 {Opposition! The kings face each other with one square between them, and Black
-must give way.} 3... Kd6 {[%csl Gd5,Ge5,Gf5]} 4. Kf5 {[%csl Gd5,Ge5,Gf5] Key
-square f5! With your king here the pawn will queen, whoever is to move.} *
+must give way.} 3... Kd6 {[%csl Gd5,Ge5,Gf5]} 4. Kf5 {Key square f5! With your
+king here the pawn will queen, whoever is to move. Now escort it all the way.}
+4... Ke7 {[%csl Gd5,Ge5,Gf5]} 5. Ke5 {Opposition again.} 5... Kd7 {[%csl
+Gd5,Ge5,Gf5]} 6. Kf6 {The king walks ahead of the pawn and clears the way; the
+pawn follows.} 6... Kc6 {[%csl Gd5,Ge5,Gf5]} 7. e4 {Now the pawn advances, with
+the king clearing the way.} 7... Kd7 {[%csl Gd6,Ge6,Gf6]} 8. e5 {Pawn forward.}
+8... Ke8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 9. Ke6 {Opposition again.} 9... Kd8
+{[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 10. Kf7 Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]}
+11. e6+ {Pawn forward, with check.} 11... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]}
+12. e7 {The pawn reaches the 7th rank and your king guards the queening square:
+nothing can stop it now.} 12... Kd7 {[%csl Ge8]} 13. e8=Q+ {Queen! The pawn has
+promoted safely, and king and queen against king is an easy win.} *
 
 [Event "10. Defending: keep the opposition (1/5)"]
 [Site "Endgame Classroom"]
@@ -479,9 +727,10 @@ opposition in front of the pawn, the black king can never reach a key square and
 the game is a draw. Black's pawn is on d7. You are White: hold the draw. Red
 squares: the key squares Black's king must never reach.} 1. Kc4 {Opposition!
 Black's king cannot advance.} 1... Kd6 {[%csl Rc5,Rd5,Re5]} 2. Kd4 {Opposition
-again.} 2... Kc6 {[%csl Rc5,Rd5,Re5]} 3. Kc4 {Opposition again.} 3... Kd6 {[%csl
-Rc5,Rd5,Re5]} 4. Kd4 {Opposition again.} 4... Kc6 {[%csl Rc5,Rd5,Re5] Black is
-getting nowhere. Keep this up and it is a draw.} *
+again.} 2... Kc6 {[%csl Rc5,Rd5,Re5]} 3. Kc4 {Opposition again.} 3... d6 {[%csl
+Rc4,Rd4,Re4] Black pushes. Keep your king in front of the pawn.} 4. Kd4 Kb5
+{[%csl Rc4,Rd4,Re4]} 5. Kd5 {[%also Kd3] Opposition again.} 5... Kb4 {[%csl
+Rc4,Rd4,Re4]} 6. Kxd6 {You win the pawn: draw!} *
 
 [Event "10. Defending: keep the opposition (2/5)"]
 [Site "Endgame Classroom"]
@@ -496,10 +745,13 @@ getting nowhere. Keep this up and it is a draw.} *
 {[%csl Rd5,Re5,Rf5] Hold the opposition and Black gets nowhere. Black's pawn is
 on e7. You are White: hold the draw. Red squares: the key squares Black's king
 must never reach.} 1. Kd4 {Opposition! Black's king cannot advance.} 1... Ke6
-{[%csl Rd5,Re5,Rf5]} 2. Ke4 {Opposition again.} 2... Kd6 {[%csl Rd5,Re5,Rf5]} 3.
-Kd4 {Opposition again.} 3... Ke6 {[%csl Rd5,Re5,Rf5]} 4. Ke4 {Opposition again.}
-4... Kd6 {[%csl Rd5,Re5,Rf5] Black is getting nowhere. Keep this up and it is a
-draw.} *
+{[%csl Rd5,Re5,Rf5]} 2. Ke4 {Opposition again.} 2... Kf6 {[%csl Rd5,Re5,Rf5]} 3.
+Kf4 {Opposition again.} 3... Ke6 {[%csl Rd5,Re5,Rf5]} 4. Ke4 {Opposition again.}
+4... Kd7 {[%csl Rd5,Re5,Rf5]} 5. Kd5 {[%also Kd3,Ke3,Ke5] Opposition again.}
+5... Ke8 {[%csl Rd5,Re5,Rf5]} 6. Ke6 {[%also Kd4,Ke4,Ke5] Opposition again.}
+6... Kd8 {[%csl Rd5,Re5,Rf5]} 7. Kd5 {[%also Ke5,Kf5]} 7... Kd7 {[%csl
+Rd5,Re5,Rf5]} 8. Ke5 Kc6 {[%csl Rd5,Re5,Rf5]} 9. Ke6 {[%also Ke4] Opposition
+again.} 9... Kc5 {[%csl Rd5,Re5,Rf5]} 10. Kxe7 {You win the pawn: draw!} *
 
 [Event "10. Defending: keep the opposition (3/5)"]
 [Site "Endgame Classroom"]
@@ -514,10 +766,10 @@ draw.} *
 {[%csl Rc4,Rd4,Re4] Hold the opposition and Black gets nowhere. Black's pawn is
 on d6. You are White: hold the draw. Red squares: the key squares Black's king
 must never reach.} 1. Kd3 {Opposition! Black's king cannot advance.} 1... Kc5
-{[%csl Rc4,Rd4,Re4]} 2. Kc3 {Opposition again.} 2... Kd5 {[%csl Rc4,Rd4,Re4]} 3.
-Kd3 {Opposition again.} 3... Kc5 {[%csl Rc4,Rd4,Re4]} 4. Kc3 {Opposition again.}
-4... Kd5 {[%csl Rc4,Rd4,Re4] Black is getting nowhere. Keep this up and it is a
-draw.} *
+{[%csl Rc4,Rd4,Re4]} 2. Kc3 {Opposition again.} 2... d5 {[%csl Rc3,Rd3,Re3]
+Black pushes. Keep your king in front of the pawn.} 3. Kd3 Kb4 {[%csl
+Rc3,Rd3,Re3]} 4. Kd4 {[%also Kd2] Opposition again.} 4... Kb3 {[%csl
+Rc3,Rd3,Re3]} 5. Kxd5 {You win the pawn: draw!} *
 
 [Event "10. Defending: keep the opposition (4/5)"]
 [Site "Endgame Classroom"]
@@ -533,9 +785,10 @@ draw.} *
 on e6. You are White: hold the draw. Red squares: the key squares Black's king
 must never reach.} 1. Ke3 {Opposition! Black's king cannot advance.} 1... Kd5
 {[%csl Rd4,Re4,Rf4]} 2. Kd3 {Opposition again.} 2... Ke5 {[%csl Rd4,Re4,Rf4]} 3.
-Ke3 {Opposition again.} 3... Kd5 {[%csl Rd4,Re4,Rf4]} 4. Kd3 {Opposition again.}
-4... Ke5 {[%csl Rd4,Re4,Rf4] Black is getting nowhere. Keep this up and it is a
-draw.} *
+Ke3 {Opposition again.} 3... Kf5 {[%csl Rd4,Re4,Rf4]} 4. Kf3 {Opposition again.}
+4... e5 {[%csl Rd3,Re3,Rf3] Black pushes. Keep your king in front of the pawn.}
+5. Ke3 Kg4 {[%csl Rd3,Re3,Rf3]} 6. Ke4 {[%also Ke2] Opposition again.} 6... Kg3
+{[%csl Rd3,Re3,Rf3]} 7. Kxe5 {You win the pawn: draw!} *
 
 [Event "10. Defending: keep the opposition (5/5)"]
 [Site "Endgame Classroom"]
@@ -552,8 +805,11 @@ on d5. You are White: hold the draw. Red squares: the key squares Black's king
 must never reach.} 1. Ke2 {Opposition! Black's king cannot advance.} 1... Kd4
 {[%csl Rc3,Rd3,Re3]} 2. Kd2 {Opposition again.} 2... Kc4 {[%csl Rc3,Rd3,Re3]} 3.
 Kc2 {Opposition again.} 3... Kd4 {[%csl Rc3,Rd3,Re3]} 4. Kd2 {Opposition again.}
-4... Kc4 {[%csl Rc3,Rd3,Re3] Black is getting nowhere. Keep this up and it is a
-draw.} *
+4... Kc5 {[%csl Rc3,Rd3,Re3]} 5. Kc3 {[%also Kd1,Kc1,Kd3] Opposition again.}
+5... Kd6 {[%csl Rc3,Rd3,Re3]} 6. Kd4 {[%also Kc2,Kd2,Kd3] Opposition again.}
+6... Kc6 {[%csl Rc3,Rd3,Re3]} 7. Kc3 {[%also Kd3,Ke3]} 7... Kc5 {[%csl
+Rc3,Rd3,Re3]} 8. Kd3 Kb4 {[%csl Rc3,Rd3,Re3]} 9. Kd4 {[%also Kd2] Opposition
+again.} 9... Kb3 {[%csl Rc3,Rd3,Re3]} 10. Kxd5 {You win the pawn: draw!} *
 
 [Event "11. Defending: retreat straight back (1/3)"]
 [Site "Endgame Classroom"]
@@ -570,11 +826,8 @@ front of the pawn, never to the side. Then, as soon as the pawn advances, you
 can take the opposition again. Black's pawn is on d3. You are White: hold the
 draw. Red squares: the key squares Black's king must never reach.} 1. Kd1
 {Straight back, in front of the pawn. Now you can take the opposition after the
-pawn moves.} 1... Kf3 {[%csl Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 2. Kd2 Ke4 {[%csl
-Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 3. Kd1 {Straight back, in front of the pawn. Now you
-can take the opposition after the pawn moves.} 3... Kf3 {[%csl
-Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 4. Kd2 Ke4 {[%csl Rc2,Rd2,Re2,Rc1,Rd1,Re1] Black is
-getting nowhere. Keep this up and it is a draw.} *
+pawn moves.} 1... Kf3 {[%csl Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 2. Kd2 Kf4 {[%csl
+Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 3. Kxd3 {You win the pawn: draw!} *
 
 [Event "11. Defending: retreat straight back (2/3)"]
 [Site "Endgame Classroom"]
@@ -656,9 +909,14 @@ the corner in front of the pawn. To win, your king must reach the key square
 next to the queening corner (b7/b8 for an a-pawn, g7/g8 for an h-pawn). Pawn on
 a4: the key squares (green) are b7, b8.} 1. Kb5 {Opposition! The kings face each
 other with one square between them, and Black must give way.} 1... Kd6 {[%csl
-Gb7,Gb8]} 2. Kb6 {Opposition again.} 2... Kd7 {[%csl Gb7,Gb8]} 3. Kb7 {[%csl
-Gb7,Gb8] Key square b7! With your king here the pawn will queen, whoever is to
-move.} *
+Gb7,Gb8]} 2. Kb6 {Opposition again.} 2... Kd7 {[%csl Gb7,Gb8]} 3. Kb7 {Key
+square b7! With your king here the pawn will queen, whoever is to move. Now
+escort it all the way.} 3... Kd6 {[%csl Gb7,Gb8]} 4. a5 {Now the pawn advances,
+with the king clearing the way.} 4... Kc5 {[%csl Gb7,Gb8]} 5. a6 {Pawn forward.}
+5... Kb5 {[%csl Gb7,Gb8]} 6. a7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 6... Ka5 {[%csl Gb7,Gb8]}
+7. a8=Q+ {Queen! The pawn has promoted safely, and king and queen against king
+is an easy win.} *
 
 [Event "13. Rook pawn: the key square next to the corner (2/3)"]
 [Site "Endgame Classroom"]
@@ -673,8 +931,14 @@ move.} *
 {[%csl Gg7,Gg8] Head for the key square beside the corner. Pawn on h4: the key
 squares (green) are g7, g8.} 1. Kg5 {Opposition! The kings face each other with
 one square between them, and Black must give way.} 1... Ke6 {[%csl Gg7,Gg8]} 2.
-Kg6 {Opposition again.} 2... Ke7 {[%csl Gg7,Gg8]} 3. Kg7 {[%csl Gg7,Gg8] Key
-square g7! With your king here the pawn will queen, whoever is to move.} *
+Kg6 {Opposition again.} 2... Ke7 {[%csl Gg7,Gg8]} 3. Kg7 {Key square g7! With
+your king here the pawn will queen, whoever is to move. Now escort it all the
+way.} 3... Ke6 {[%csl Gg7,Gg8]} 4. h5 {Now the pawn advances, with the king
+clearing the way.} 4... Kf5 {[%csl Gg7,Gg8]} 5. h6 {Pawn forward.} 5... Kg5
+{[%csl Gg7,Gg8]} 6. h7 {The pawn reaches the 7th rank and your king guards the
+queening square: nothing can stop it now.} 6... Kf5 {[%csl Gg7,Gg8]} 7. h8=Q
+{Queen! The pawn has promoted safely, and king and queen against king is an easy
+win.} *
 
 [Event "13. Rook pawn: the key square next to the corner (3/3)"]
 [Site "Endgame Classroom"]
@@ -689,8 +953,11 @@ square g7! With your king here the pawn will queen, whoever is to move.} *
 {[%csl Gb7,Gb8] Head for the key square beside the corner. Pawn on a5: the key
 squares (green) are b7, b8.} 1. a6 {Now the pawn advances, with the king
 clearing the way.} 1... Ka5 {[%csl Gb7,Gb8] Black takes the opposition, so you
-go around him: outflanking.} 2. Kb7 {[%csl Gb7,Gb8] Key square b7! With your
-king here the pawn will queen, whoever is to move.} *
+go around him: outflanking.} 2. Kb7 {Key square b7! With your king here the pawn
+will queen, whoever is to move. Now escort it all the way.} 2... Kb5 {[%csl
+Gb7,Gb8]} 3. a7 {The pawn reaches the 7th rank and your king guards the queening
+square: nothing can stop it now.} 3... Ka5 {[%csl Gb7,Gb8]} 4. a8=Q+ {Queen! The
+pawn has promoted safely, and king and queen against king is an easy win.} *
 
 [Event "14. Rook pawn: run to the corner (1/3)"]
 [Site "Endgame Classroom"]
@@ -766,7 +1033,7 @@ king is outside it, the pawn queens.} 1. e5 {Run! After this push the black king
 is outside the pawn's square.} 1... Kd4 {[%csl
 Bc6,Bd6,Be6,Bc7,Bd7,Be7,Bc8,Bd8,Be8]} 2. e6 {Keep running.} 2... Kd5 {[%csl
 Bd7,Be7,Bd8,Be8]} 3. e7 {Keep running.} 3... Kd6 {[%csl Be8]} 4. e8=Q {Queen!
-The pawn promotes safely.} *
+The pawn has promoted safely, and king and queen against king is an easy win.} *
 
 [Event "15. The rule of the square (2/3)"]
 [Site "Endgame Classroom"]
@@ -784,7 +1051,7 @@ it moves: if the black king is outside it, the pawn queens.} 1. d5 {Run! After
 this push the black king is outside the pawn's square.} 1... Kc4 {[%csl
 Bb6,Bc6,Bd6,Bb7,Bc7,Bd7,Bb8,Bc8,Bd8]} 2. d6 {Keep running.} 2... Kc5 {[%csl
 Bc7,Bd7,Bc8,Bd8]} 3. d7 {Keep running.} 3... Kc6 {[%csl Bd8]} 4. d8=Q {Queen!
-The pawn promotes safely.} *
+The pawn has promoted safely, and king and queen against king is an easy win.} *
 
 [Event "15. The rule of the square (3/3)"]
 [Site "Endgame Classroom"]
@@ -802,7 +1069,7 @@ black king is outside it, the pawn queens.} 1. f5 {Run! After this push the
 black king is outside the pawn's square.} 1... Ke4 {[%csl
 Bd6,Be6,Bf6,Bd7,Be7,Bf7,Bd8,Be8,Bf8]} 2. f6 {Keep running.} 2... Ke5 {[%csl
 Be7,Bf7,Be8,Bf8]} 3. f7 {Keep running.} 3... Ke6 {[%csl Bf8]} 4. f8=Q {Queen!
-The pawn promotes safely.} *
+The pawn has promoted safely, and king and queen against king is an easy win.} *
 
 [Event "16. Defending: catch the pawn (1/2)"]
 [Site "Endgame Classroom"]
@@ -867,7 +1134,15 @@ win the pawn: draw!} *
 the pawn move? Try this one in Practice mode without hints.} 1. Ke2 Kc4 2. Kf3
 Kd5 3. Kf4 Ke6 4. Ke4 {Opposition! The kings face each other with one square
 between them, and Black must give way.} 4... Kd6 5. Kf5 {Key square f5! With
-your king here the pawn will queen, whoever is to move.} *
+your king here the pawn will queen, whoever is to move. Now escort it all the
+way.} 5... Ke7 6. Ke5 {Opposition again.} 6... Kd7 7. Kf6 {The king walks ahead
+of the pawn and clears the way; the pawn follows.} 7... Kc6 8. e4 {Now the pawn
+advances, with the king clearing the way.} 8... Kd7 9. e5 {Pawn forward.} 9...
+Ke8 10. Ke6 {Opposition again.} 10... Kd8 11. Kf7 Kd7 12. e6+ {Pawn forward,
+with check.} 12... Kd6 13. e7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 13... Kd7 14. e8=Q+
+{Queen! The pawn has promoted safely, and king and queen against king is an easy
+win.} *
 
 [Event "17. Final exam (2/2)"]
 [Site "Endgame Classroom"]
@@ -883,4 +1158,12 @@ your king here the pawn will queen, whoever is to move.} *
 the pawn move? Try this one in Practice mode without hints.} 1. Kd2 Kf4 2. Kc3
 Ke5 3. Kc4 Kd6 4. Kd4 {Opposition! The kings face each other with one square
 between them, and Black must give way.} 4... Kc6 5. Ke5 {Key square e5! With
-your king here the pawn will queen, whoever is to move.} *
+your king here the pawn will queen, whoever is to move. Now escort it all the
+way.} 5... Kd7 6. Kd5 {Opposition again.} 6... Kc7 7. Ke6 {The king walks ahead
+of the pawn and clears the way; the pawn follows.} 7... Kb6 8. d4 {Now the pawn
+advances, with the king clearing the way.} 8... Kc7 9. d5 {Pawn forward.} 9...
+Kd8 10. Kd6 {Opposition again.} 10... Kc8 11. Ke7 Kc7 12. d6+ {Pawn forward,
+with check.} 12... Kc6 13. d7 {The pawn reaches the 7th rank and your king
+guards the queening square: nothing can stop it now.} 13... Kc7 14. d8=Q+
+{Queen! The pawn has promoted safely, and king and queen against king is an easy
+win.} *

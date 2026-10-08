@@ -34,8 +34,10 @@ function toActual(pk) {
   for (const pl of pk.line.plies) {
     const m = pl.move;
     const from = n(m.from), to = n(m.to);
+    // other moves that are just as good here, as SAN (the trainer accepts them without a mistake)
+    const also = (pl.others ?? []).map((o) => new Chess(g.fen()).move({ from: n(o.from), to: n(o.to), promotion: o.promo || undefined }).san);
     const mv = g.move({ from, to, promotion: m.promo || undefined });
-    moves.push({ san: mv.san, side: pl.side, unique: pl.unique, alts: pl.alts, raw: m, before: pl.before, fenAfter: g.fen() });
+    moves.push({ san: mv.san, side: pl.side, unique: pl.unique, alts: pl.alts, also, raw: m, before: pl.before, fenAfter: g.fen() });
   }
   return { fen, flip, moves, n };
 }
@@ -46,26 +48,31 @@ for (const pk of picked) {
   const act = toActual(pk);
   // independent verification on real FENs
   const g = new Chess(act.fen);
+  // A trainee move is good if it keeps the win (or the draw); a promotion must not hang the queen or stalemate.
+  const good = (fenBefore, san) => {
+    const t = new Chess(fenBefore);
+    const mv = t.move(san);
+    const after = t.fen();
+    if (pk.mode === 'win') {
+      if (mv.promotion) {
+        const hangs = t.attackers(mv.to, t.turn()).length > 0 && t.attackers(mv.to, mv.color).length === 0;
+        return !hangs && !t.isStalemate();
+      }
+      return K.probe(after).result === 'loss'; // black to move: must be lost for black
+    }
+    return (after.split(' ')[0].includes('p') ? K.probe(after) : { result: 'draw' }).result === 'draw';
+  };
   for (const m of act.moves) {
     const fenBefore = g.fen();
-    const mover = g.turn();
-    g.move(m.san);
-    const trainee = mover === 'w';
+    const trainee = g.turn() === 'w';
     if (trainee) {
-      const after = g.fen();
-      const isPromo = m.san.includes('=');
-      if (pk.mode === 'win') {
-        if (!isPromo) {
-          const r = K.probe(after); // black to move: must be lost for black
-          if (r.result !== 'loss') { problems++; console.log('PROBLEM win', pk.lesson, fenBefore, m.san, r); }
-        }
-      } else {
-        const r = after.split(' ')[0].includes('p') ? K.probe(after) : { result: 'draw' };
-        if (r.result !== 'draw') { problems++; console.log('PROBLEM draw', pk.lesson, fenBefore, m.san, r); }
+      for (const san of [m.san, ...m.also]) {
+        if (!good(fenBefore, san)) { problems++; console.log('PROBLEM', pk.mode, pk.lesson, fenBefore, san); }
       }
     }
+    g.move(m.san);
   }
-  out.push({ lesson: pk.lesson, mode: pk.mode, fen: act.fen, end: pk.line.end, ev: pk.ev, moves: act.moves.map(({ san, side, unique, alts, raw, before }) => ({ san, side, unique, alts, raw, before })), flip: act.flip });
+  out.push({ lesson: pk.lesson, mode: pk.mode, fen: act.fen, end: pk.line.end, ev: pk.ev, moves: act.moves.map(({ san, side, unique, alts, also, raw, before }) => ({ san, side, unique, alts, also, raw, before })), flip: act.flip });
 }
 require('fs').writeFileSync(path.join(__dirname, '.out/lines.json'), JSON.stringify(out, null, 1));
 console.log('verified', out.length, 'lines; problems:', problems);

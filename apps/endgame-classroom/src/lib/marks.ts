@@ -6,15 +6,17 @@ import type { MarkColor, Marks } from "../types";
  *   [%csl Gd6,Ge6,Rf6]   coloured squares
  *   [%cal Ge2e4,Rd8h4]   arrows
  * G = green, R = red, Y = yellow, B = blue.
+ * This app also reads [%also Kd6,Ke7]: other moves that are just as good as the one played.
  */
 
 const SQ = "[a-h][1-8]";
 const COLORS = "RGYB";
 
-/** Splits a raw PGN comment into readable text and board marks. Other [%…] commands (clock, eval) are dropped. */
-export function parseCommentMarks(raw: string): { text: string; marks?: Marks } {
+/** Splits a raw PGN comment into readable text, board marks and [%also] moves. Other [%…] commands (clock, eval) are dropped. */
+export function parseCommentMarks(raw: string): { text: string; marks?: Marks; also?: string[] } {
   const squares: Marks["squares"] = [];
   const arrows: Marks["arrows"] = [];
+  const also: string[] = [];
   const text = raw
     .replace(/\[%(\w+)\s*([^\]]*)\]/g, (_, cmd: string, args: string) => {
       const items = args.split(/[\s,]+/).filter(Boolean);
@@ -28,12 +30,25 @@ export function parseCommentMarks(raw: string): { text: string; marks?: Marks } 
           const m = it.match(new RegExp(`^([${COLORS}])(${SQ})(${SQ})$`));
           if (m) arrows.push({ from: m[2], to: m[3], color: m[1] as MarkColor });
         }
+      } else if (cmd === "also") {
+        also.push(...items);
       }
       return " ";
     })
     .replace(/\s+/g, " ")
     .trim();
-  return { text, marks: squares.length || arrows.length ? { squares, arrows } : undefined };
+  return { text, marks: squares.length || arrows.length ? { squares, arrows } : undefined, ...(also.length ? { also } : {}) };
+}
+
+/** Writes [%also] moves back into PGN comment syntax (empty string when there are none). */
+export function formatAlso(also?: string[]): string {
+  return also?.length ? `[%also ${also.join(",")}]` : "";
+}
+
+/** Keeps a list of SAN moves loaded from storage or a backup (undefined when empty). */
+export function cleanAlso(input: unknown): string[] | undefined {
+  const list = Array.isArray(input) ? input.filter((s): s is string => typeof s === "string" && /^[a-hKQRBNO1-8x=+#-]+$/.test(s)) : [];
+  return list.length ? list : undefined;
 }
 
 /** Writes marks back into PGN comment syntax (empty string when there are none). */

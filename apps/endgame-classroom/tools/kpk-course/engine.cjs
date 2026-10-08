@@ -45,12 +45,17 @@ const losingRepliesFor = (child) => defenderOptions({ wk: child[0], bk: child[1]
 function playLine(start, mode, opts = {}) {
   let s = { ...start };
   const plies = [];
-  const max = opts.maxPlies ?? (mode === 'win' ? 45 : 16);
+  const max = opts.maxPlies ?? (mode === 'win' ? 90 : 16);
+  // opts.finish (draw mode): instead of repeating moves, the attacker pushes the pawn, so the line
+  // ends in something the learner can see (stalemate, or the pawn or new queen being taken).
+  const seen = new Set();
+  const key = (q) => `${q.wk}-${q.bk}-${q.p}-${q.stm}`;
   for (let n = 0; n < max; n++) {
+    seen.add(key(s));
     if (s.stm === 0) {
       const os = attackerOptions(s);
       if (!os.length) return { plies, end: 'stalemate-att' }; // the side with the pawn is stalemated
-      let pick, unique = null, alts = 0;
+      let pick, unique = null, alts = 0, others = [];
       if (mode === 'win') {
         const winners = os.filter((o) => o.win);
         if (!winners.length) return { plies, end: 'error:no-win' };
@@ -59,6 +64,9 @@ function playLine(start, mode, opts = {}) {
         alts = keys.size; unique = keys.size === 1;
         winners.sort((a, b) => (a.kind === 'promo' ? -1 : 0) - (b.kind === 'promo' ? -1 : 0) || a.d - b.d || (a.kind === 'k' ? 0 : 1) - (b.kind === 'k' ? 0 : 1) || (a.promo === 'q' ? -1 : 1));
         pick = winners[0];
+        // other moves that win just as fast (one per from/to: a rook promotion beside the queen one is not offered)
+        others = [...new Map(winners.map((o) => [`${o.from}-${o.to}`, o])).values()].filter(
+          (o) => (o.from !== pick.from || o.to !== pick.to) && o.kind !== 'promo' && pick.kind !== 'promo' && o.d === pick.d);
       } else {
         if (os.some((o) => o.win)) return { plies, end: 'error:attacker-wins' };
         const stalemates = (o) =>
@@ -67,14 +75,29 @@ function playLine(start, mode, opts = {}) {
         // The attacker shows the most instructive try: a stalemate finish, else the move that sets the most traps.
         scored.sort((a, b) => b.sm - a.sm || b.traps - a.traps || (a.o.kind === 'p' ? 0 : 1) - (b.o.kind === 'p' ? 0 : 1) || dist(a.o.to, promoSq(s.p)) - dist(b.o.to, promoSq(s.p)));
         pick = scored[0].o;
+        const repeats = (o) => o.kind !== 'promo' && seen.has(key({ wk: o.child[0], bk: o.child[1], p: o.child[2], stm: 1 }));
+        if (opts.finish && repeats(pick)) {
+          const fresh = scored.map((x) => x.o).filter((o) => !repeats(o));
+          pick = fresh.find((o) => o.kind === 'p') ?? fresh.find((o) => o.kind === 'promo') ?? fresh[0];
+          if (!pick) return { plies, end: 'max' };
+        }
       }
-      plies.push({ side: 'att', move: pick, unique, alts, before: { ...s } });
-      if (pick.kind === 'promo') return { plies, end: pick.result === 'win' ? 'promoted' : 'promo-draw' };
+      plies.push({ side: 'att', move: pick, unique, alts, others: others.map(({ from, to, promo }) => ({ from, to, promo })), before: { ...s } });
+      if (pick.kind === 'promo' && pick.result === 'win') return { plies, end: 'promoted' };
+      if (pick.kind === 'promo') {
+        // A drawn promotion: the defender takes the new piece, or has no move (stalemate).
+        const q = pick.to, bk = s.bk;
+        if (dist(bk, q) <= 1 && dist(s.wk, q) > 1) {
+          plies.push({ side: 'def', move: { from: bk, to: q, capture: true, takesPromoted: true }, unique: true, alts: 1, before: { ...s, p: q, stm: 1 } });
+          return { plies, end: 'captured-promo' };
+        }
+        return { plies, end: 'stalemate' };
+      }
       s = { wk: pick.child[0], bk: pick.child[1], p: pick.child[2], stm: 1 };
     } else {
       const os = defenderOptions(s);
       if (!os.length) return { plies, end: pawnAttacks(s.p, s.bk) ? 'mate' : 'stalemate' };
-      let pick, unique = null, alts = 0;
+      let pick, unique = null, alts = 0, others = [];
       const front = s.p + 8;
       if (mode === 'win') {
         if (os.some((o) => o.holds)) return { plies, end: 'error:defender-holds' };
@@ -87,8 +110,9 @@ function playLine(start, mode, opts = {}) {
         const score = (o) => (o.capture ? -100 : 0) + (directOpp(o.to, s.wk) ? -10 : 0) + dist(o.to, promoSq(s.p)) + dist(o.to, front) * 0.5;
         holders.sort((a, b) => score(a) - score(b));
         pick = holders[0];
+        others = pick.capture ? [] : holders.slice(1); // when the pawn can be taken, take it
       }
-      plies.push({ side: 'def', move: pick, unique, alts, before: { ...s } });
+      plies.push({ side: 'def', move: pick, unique, alts, others: others.map(({ from, to }) => ({ from, to })), before: { ...s } });
       if (pick.capture) return { plies, end: 'captured' };
       s = { wk: pick.child[0], bk: pick.child[1], p: pick.child[2], stm: 0 };
     }
