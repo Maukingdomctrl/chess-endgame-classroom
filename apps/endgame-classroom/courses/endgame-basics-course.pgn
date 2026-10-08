@@ -1,0 +1,616 @@
+[Event "01. The king is a fighting piece (1/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/8/3P4/K7/8/8 w - - 0 1"]
+[LineName "01. The king is a fighting piece (1/4)"]
+[LineDescription "A far-away king walks to the centre first: from there it gets in front of its pawn."]
+
+{[%csl Gc6,Gd6,Ge6] [%cal Rd4d5] Welcome to Endgame Basics! First principle: in
+the endgame the king is a fighting piece. With so few pieces left it is safe, so
+bring it to the centre and in front of your pawn. Your king is far away: march
+it to the centre first. Pushing the pawn now would only draw. Green: the key
+squares (with your king on one, the pawn will queen). Red arrow: the push that
+would only draw.} 1. Kb4 {The king heads for the centre. (d5 would only draw.)}
+1... Ke7 {[%csl Gc6,Gd6,Ge6]} 2. Kc5 Ke6 {[%csl Gc6,Gd6,Ge6]} 3. Kc6 {Key square
+c6! With your king here the pawn will queen whatever Black does.} 3... Ke7
+{[%csl Gc6,Gd6,Ge6]} 4. d5 {Now the pawn advances, escorted by the king.} 4...
+Kd8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 5. Kd6 {Opposition: the kings face each
+other, and Black has to give way.} 5... Kc8 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 6.
+Ke7 {The king walks ahead of the pawn and clears the way.} 6... Kc7 {[%csl
+Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 7. d6+ {Pawn forward, with check.} 7... Kc6 {[%csl
+Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 8. d7 {The pawn reaches the 7th rank, and your king
+guards the queening square.} 8... Kc7 {[%csl Gd8]} 9. d8=Q+ {Queen! The pawn has
+promoted safely, and king and queen against king is a win (lesson 3).} *
+
+[Event "01. The king is a fighting piece (2/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/8/5P2/8/2K5/8 w - - 0 1"]
+[LineName "01. The king is a fighting piece (2/4)"]
+[LineDescription "A far-away king walks to the centre first: from there it gets in front of its pawn."]
+
+{[%csl Ge6,Gf6,Gg6] [%cal Rf4f5] Far away again: centralise the king first, the
+pawn can wait.} 1. Kd3 {The king heads for the centre. (f5 would only draw.)}
+1... Kc7 {[%csl Ge6,Gf6,Gg6]} 2. Ke4 Kd6 {[%csl Ge6,Gf6,Gg6]} 3. Kf5 Ke7 {[%csl
+Ge6,Gf6,Gg6]} 4. Kg6 {Key square g6! With your king here the pawn will queen
+whatever Black does.} 4... Kf8 {[%csl Ge6,Gf6,Gg6]} 5. Kf6 {[%also f5]
+Opposition: the kings face each other, and Black has to give way.} 5... Ke8
+{[%csl Ge6,Gf6,Gg6]} 6. Kg7 {The king walks ahead of the pawn and clears the
+way.} 6... Kd7 {[%csl Ge6,Gf6,Gg6]} 7. f5 {Now the pawn advances, escorted by
+the king.} 7... Ke7 {[%csl Ge6,Gf6,Gg6,Ge7,Gf7,Gg7]} 8. f6+ {Pawn forward, with
+check.} 8... Ke6 {[%csl Ge7,Gf7,Gg7,Ge8,Gf8,Gg8]} 9. f7 {The pawn reaches the
+7th rank, and your king guards the queening square.} 9... Ke7 {[%csl Gf8]} 10.
+f8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is a
+win (lesson 3).} *
+
+[Event "01. The king is a fighting piece (3/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5k2/8/8/2K1P3/8/8/8 w - - 0 1"]
+[LineName "01. The king is a fighting piece (3/4)"]
+[LineDescription "The king leads and the pawn follows: the king clears the way to the queening square."]
+
+{[%csl Gd6,Ge6,Gf6] [%cal Re4e5] The king stands next to its pawn. Pushing now
+would only draw: the king goes first and clears the way.} 1. Kd5 {The king heads
+for the centre. (e5 would only draw.)} 1... Kf6 {[%csl Gd6,Ge6,Gf6]} 2. Kd6 {Key
+square d6! With your king here the pawn will queen whatever Black does.} 2...
+Kf7 {[%csl Gd6,Ge6,Gf6]} 3. e5 {Now the pawn advances, escorted by the king.}
+3... Ke8 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 4. Ke6 {Opposition: the kings face
+each other, and Black has to give way.} 4... Kd8 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 5. Kf7 {The king walks ahead of the pawn and clears
+the way.} 5... Kd7 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 6. e6+ {Pawn forward, with
+check.} 6... Kd6 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 7. e7 {The pawn reaches the
+7th rank, and your king guards the queening square.} 7... Kd7 {[%csl Ge8]} 8.
+e8=Q+ {Queen! The pawn has promoted safely, and king and queen against king is a
+win (lesson 3).} *
+
+[Event "01. The king is a fighting piece (4/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/6Pk/4K3/8 w - - 0 1"]
+[LineName "01. The king is a fighting piece (4/4)"]
+[LineDescription "The king leads and the pawn follows: the king clears the way to the queening square."]
+
+{[%csl Gf5,Gg5,Gh5] [%cal Rg3g4] King first, pawn later.} 1. Kf3 {The king heads
+for the centre. (g4 would only draw.) Opposition: the kings face each other, and
+Black has to give way.} 1... Kh2 {[%csl Gf5,Gg5,Gh5]} 2. g4 {Now the pawn
+advances, escorted by the king.} 2... Kh3 {[%csl Gf6,Gg6,Gh6]} 3. g5 Kh4 {[%csl
+Gf6,Gg6,Gh6,Gf7,Gg7,Gh7]} 4. g6 Kg5 {[%csl Gf7,Gg7,Gh7,Gf8,Gg8,Gh8]} 5. g7 Kf6
+{[%csl Gg8]} 6. g8=Q {Queen! The pawn has promoted safely, and king and queen
+against king is a win (lesson 3).} *
+
+[Event "02. Mating patterns on the edge and in the corner (1/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/4Q3/2K5/8/8/8/8/8 w - - 0 1"]
+[LineName "02. Mating patterns on the edge and in the corner (1/6)"]
+[LineDescription "Queen next to the king and protected by your king: checkmate."]
+
+{[%csl Bc8,Ba8] First learn what the finish looks like. On the edge or in the
+corner a king has only a few squares, so a queen or a rook can mate it with the
+help of your king. Mate in 1 with the queen right next to the black king,
+protected by your king. Blue: the squares the black king can step to. Find the
+check that takes them all away.} 1. Qb7# {[%csl Rb8] Checkmate! The queen stands
+right next to the black king, and your king protects it.} *
+
+[Event "02. Mating patterns on the edge and in the corner (2/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/1K6/5Q2/8/8/8/8 w - - 0 1"]
+[LineName "02. Mating patterns on the edge and in the corner (2/6)"]
+[LineDescription "Edge mate: your king takes the squares in front, the queen checks along the edge."]
+
+{[%csl Ba8] Mate in 1. The kings face each other: your king covers the squares
+in front of the black king, so the queen only has to check along the edge.} 1.
+Qf8# {[%csl Rb8] Checkmate on the edge! The queen checks along the edge and your
+king covers the squares in front.} *
+
+[Event "02. Mating patterns on the edge and in the corner (3/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1Q3K1k/8/8/8/8/8/8/8 w - - 0 1"]
+[LineName "02. Mating patterns on the edge and in the corner (3/6)"]
+[LineDescription "In the corner the king has only three squares: your king covers two, the queen gives check."]
+
+{[%csl Bh7] Mate in 1. In the corner the black king has only three squares: your
+king takes two of them. Find the queen check that does the rest.} 1. Qh2# {[%csl
+Rh8] Checkmate in the corner! The queen gives check and your king covers the
+other squares.} *
+
+[Event "02. Mating patterns on the edge and in the corner (4/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/4R3/2K5/8/8/8/8/8 w - - 0 1"]
+[LineName "02. Mating patterns on the edge and in the corner (4/6)"]
+[LineDescription "Rook mate on the edge: kings face to face, rook check along the edge."]
+
+{[%csl Bd8,Bb8] Mate in 1. The rook mates on the edge the same way: kings face
+to face, rook check along the edge.} 1. Re8# {[%csl Rc8] Checkmate on the edge!
+The rook checks along the edge and your king covers the squares in front.} *
+
+[Event "02. Mating patterns on the edge and in the corner (5/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "7k/1R6/6K1/8/8/8/8/8 w - - 0 1"]
+[LineName "02. Mating patterns on the edge and in the corner (5/6)"]
+[LineDescription "Corner mate: your king a knight's jump away, the rook checks along the edge."]
+
+{[%csl Bg8] Mate in 1 in the corner: your king stands a knight's jump away and
+covers the squares in front of the black king.} 1. Rb8# {[%csl Rh8] Checkmate in
+the corner! The rook gives check and your king covers the other squares.} *
+
+[Event "02. Mating patterns on the edge and in the corner (6/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/3K4/6R1/8/8/8/8 w - - 0 1"]
+[LineName "02. Mating patterns on the edge and in the corner (6/6)"]
+[LineDescription "A waiting move forces the black king to step in front of yours: then the rook mates."]
+
+{[%csl Bd8,Bb7,Bb8] Mate in 2. A rook check now would let the king escape. Make
+a quiet waiting move with the rook: the black king has to step in front of
+yours, and then the rook mates.} 1. Rb5 {A waiting move! The rook keeps the king
+locked in, and now Black has to move: step in front of your king (and be mated)
+or step back.} 1... Kd8 {[%csl Be8,Bc8]} 2. Rb8# {[%csl Rd8] Checkmate on the
+edge! The rook checks along the edge and your king covers the squares in front.}
+*
+
+[Event "03. Checkmate with the queen (1/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1Q5K/8/8/3k4/8/8/8/8 w - - 0 1"]
+[LineName "03. Checkmate with the queen (1/5)"]
+[LineDescription "Queen a knight's jump from the black king: the box shrinks without a check."]
+
+{[%csl
+Bc1,Bd1,Be1,Bf1,Bg1,Bh1,Bc2,Bd2,Be2,Bf2,Bg2,Bc3,Bd3,Be3,Bf3,Bh3,Bc4,Bd4,Be4,Bg4,Bh4,Bc5,Bd5,Bf5,Bg5,Bh5,Bc6,Be6,Bf6,Bg6,Bh6,Bd7,Be7,Bf7]
+King and queen against king always wins, in at most 10 moves. The plan: shrink
+the black king's box with the queen, bring your king, mate on the edge. Every
+move here is the fastest mate. The key move: put the queen a knight's jump away
+from the black king. It takes away a whole block of squares without giving
+check. Blue: the box, every square the black king can still reach. It shrinks
+and never grows.} 1. Qb4 {The queen goes a knight's jump away from the black
+king: the box shrinks to 16 squares.} 1... Ke5 {[%csl
+Bd5,Be5,Bf5,Bg5,Bh5,Bc6,Be6,Bf6,Bg6,Bh6,Bc7,Bd7,Bf7,Bc8,Bd8,Be8]} 2. Kg7 {Your
+king comes closer: the queen cannot mate on its own.} 2... Kd5 {[%csl
+Bd5,Be5,Bf5,Bg5,Bh5,Bc6,Be6,Bc7,Bd7,Bc8,Bd8,Be8]} 3. Kf6 Kc6 {[%csl
+Bd5,Bc6,Bc7,Bd7,Bc8,Bd8,Be8]} 4. Ke6 Kc7 {[%csl Bc6,Bc7,Bc8,Bd8,Be8]} 5. Qb5 {A
+knight's jump again: 3 squares left.} 5... Kc8 {[%csl Bc7,Bc8,Bd8]} 6. Kd6 Kd8
+{[%csl Bc8,Bd8]} 7. Qd7# {[%csl Rd8] [%also Qb8#] Checkmate! The queen stands
+right next to the black king, and your king protects it.} *
+
+[Event "03. Checkmate with the queen (2/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1Q6/8/4k3/1K6/8/8/8/8 w - - 0 1"]
+[LineName "03. Checkmate with the queen (2/5)"]
+[LineDescription "Queen a knight's jump from the black king: the box shrinks without a check."]
+
+{[%csl
+Ba1,Bb1,Bc1,Bd1,Be1,Bf1,Bg1,Bh1,Ba2,Bb2,Bc2,Bd2,Be2,Bf2,Bg2,Ba3,Bb3,Bc3,Bd3,Be3,Bf3,Bh3,Bd4,Be4,Bg4,Bh4,Bd5,Bf5,Bg5,Bh5,Be6,Bf6,Bg6,Bh6,Bd7,Be7,Bf7,Bg7,Bh7]
+Find the queen move a knight's jump from the black king.} 1. Qf4 {The queen goes
+a knight's jump away from the black king: the box shrinks to 10 squares.} 1...
+Kd5 {[%csl Bd5,Be6,Ba7,Bb7,Bd7,Be7,Ba8,Bc8,Bd8,Be8]} 2. Kb6 {Your king comes
+closer: the queen cannot mate on its own.} 2... Ke6 {[%csl
+Bd5,Be6,Bd7,Be7,Bc8,Bd8,Be8]} 3. Kc6 Ke7 {[%csl Be6,Be7,Bc8,Bd8,Be8]} 4. Qf5 {A
+knight's jump again: 3 squares left.} 4... Ke8 {[%csl Be7,Bd8,Be8]} 5. Kd6 Kd8
+{[%csl Bd8,Be8]} 6. Qd7# {[%csl Rd8] [%also Qf8#] Checkmate! The queen stands
+right next to the black king, and your king protects it.} *
+
+[Event "03. Checkmate with the queen (3/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/3Q4/8/8/4K3/8/8/8 w - - 0 1"]
+[LineName "03. Checkmate with the queen (3/5)"]
+[LineDescription "With the black king on the edge, the queen holds the box while your king comes to help."]
+
+{[%csl Ba8,Bb8] The black king is already on the edge, but the queen cannot mate
+on its own. Bring your king!} 1. Kd5 {Your king comes closer: the queen cannot
+mate on its own.} 1... Ka8 {[%csl Ba8,Bb8]} 2. Kc6 Kb8 {[%csl Ba8,Bb8]} 3. Qb7#
+{[%csl Rb8] Checkmate! The queen stands right next to the black king, and your
+king protects it.} *
+
+[Event "03. Checkmate with the queen (4/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2Q5/8/3k4/8/8/2K5/8/8 w - - 0 1"]
+[LineName "03. Checkmate with the queen (4/5)"]
+[LineDescription "Shrink the box, bring the king, mate on the edge."]
+
+{[%csl
+Ba1,Bb1,Bc1,Bd1,Be1,Bf1,Bg1,Bh1,Ba2,Be2,Bf2,Bg2,Bh2,Ba3,Be3,Bf3,Bg3,Ba4,Be4,Bf4,Bh4,Ba5,Bb5,Bd5,Be5,Bg5,Bh5,Bb6,Bd6,Bf6,Bg6,Bh6,Ba7,Be7,Bf7,Bg7,Bh7]
+From the middle of the board: shrink the box with the queen, bring your king,
+then mate.} 1. Kd4 {Your king comes closer: the queen cannot mate on its own.}
+1... Ke7 {[%csl
+Bd1,Be1,Bf1,Bg1,Bh1,Bd2,Be2,Bf2,Bg2,Bh2,Bf3,Bg3,Bf4,Bh4,Bg5,Bh5,Bd6,Bf6,Bg6,Bh6,Be7,Bf7,Bg7,Bh7]}
+2. Ke5 Kf7 {[%csl
+Bd1,Be1,Bf1,Bg1,Bh1,Bd2,Be2,Bf2,Bg2,Bh2,Bd3,Be3,Bf3,Bg3,Bh4,Bg5,Bh5,Bg6,Bh6,Be7,Bf7,Bg7,Bh7]}
+3. Qg4 {[%also Kf5,Qh8] The queen takes more squares: the box shrinks to 16.}
+3... Ke7 {[%csl
+Ba5,Bb5,Bc5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7,Be7,Bf7,Ba8,Bb8,Bd8,Be8,Bf8]} 4. Qg7+
+{Check! The black king has to step back: 6 squares left in its box.} 4... Kd8
+{[%csl Ba8,Bb8,Bc8,Bd8,Be8]} 5. Kd6 Kc8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8]} 6. Qc7#
+{[%csl Rc8] Checkmate! The queen stands right next to the black king, and your
+king protects it.} *
+
+[Event "03. Checkmate with the queen (5/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3Q4/8/4k3/8/7K/8/8/8 w - - 0 1"]
+[LineName "03. Checkmate with the queen (5/5)"]
+[LineDescription "Shrink the box, bring the king, mate on the edge."]
+
+{[%csl
+Be1,Bf1,Bg1,Bh1,Be2,Bf2,Bg2,Bh2,Be3,Bf3,Be4,Bf4,Be5,Bf5,Be6,Bg6,Bh6,Bf7,Bg7,Bh7]
+The whole plan again: box, king, mate.} 1. Qd4 {The queen goes a knight's jump
+away from the black king: the box shrinks to 10 squares.} 1... Kf5 {[%csl
+Bf5,Be6,Bg6,Bh6,Be7,Bf7,Bh7,Be8,Bf8,Bg8]} 2. Kh5 {Your king comes closer: the
+queen cannot mate on its own.} 2... Ke6 {[%csl Bf5,Be6,Be7,Bf7,Bh7,Be8,Bf8,Bg8]}
+3. Kg6 Ke7 {[%csl Be6,Be7,Be8,Bf8,Bg8]} 4. Qd5 {A knight's jump again: 3 squares
+left.} 4... Ke8 {[%csl Be7,Be8,Bf8]} 5. Kf6 Kf8 {[%csl Be8,Bf8]} 6. Qf7# {[%csl
+Rf8] [%also Qa8#,Qd8#] Checkmate! The queen stands right next to the black king,
+and your king protects it.} *
+
+[Event "04. Checkmate with the rook (1/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1R6/8/3K4/5k2/8/8/8/8 w - - 0 1"]
+[LineName "04. Checkmate with the rook (1/5)"]
+[LineDescription "The rook cuts the king off; with your king's help the box shrinks row by row."]
+
+{[%csl
+Bc1,Bd1,Be1,Bf1,Bg1,Bh1,Bc2,Bd2,Be2,Bf2,Bg2,Bh2,Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bc4,Bd4,Be4,Bf4,Bg4,Bh4,Bf5,Bg5,Bh5,Bf6,Bg6,Bh6,Bf7,Bg7,Bh7]
+King and rook against king wins too, but takes longer. The plan: cut the king
+off with the rook, bring your king, and check on the edge when the kings stand
+face to face. Every move here is the fastest mate. The rook cuts the black king
+off along a rank or a file. Each rook move then shrinks the box, while your king
+comes closer and protects the rook. Blue: the box, every square the black king
+can still reach. It never grows.} 1. Rb4 {The rook cuts the king off: the box
+shrinks to 15 squares.} 1... Kf6 {[%csl
+Bf5,Bg5,Bh5,Bf6,Bg6,Bh6,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 2. Rb5 {The box
+shrinks to 12 squares.} 2... Kf7 {[%csl
+Bf6,Bg6,Bh6,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rf5+ {Check! The black king
+has to step back.} 3... Kg6 {[%csl Bg6,Bh6,Bg7,Bh7,Bg8,Bh8] Black attacks the
+rook!} 4. Ke6 {Your king protects the rook and faces the black king.} 4... Kg7
+{[%csl Bg6,Bh6,Bg7,Bh7,Bg8,Bh8]} 5. Rf6 {[%also Rg5+] The box shrinks to 4
+squares.} 5... Kg8 {[%csl Bg7,Bh7,Bg8,Bh8]} 6. Rf7 {[%also Rg6+] The box shrinks
+to 2 squares.} 6... Kh8 {[%csl Bg8,Bh8]} 7. Kf6 {[%also Kf5] Your king comes
+closer: the rook cannot mate on its own.} 7... Kg8 {[%csl Bg8,Bh8]} 8. Kg6
+{Opposition: the kings face each other with one square between them.} 8... Kh8
+{[%csl Bg8,Bh8]} 9. Rf8# {[%csl Rh8] Checkmate in the corner! The rook gives
+check and your king covers the other squares.} *
+
+[Event "04. Checkmate with the rook (2/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/3K4/8/8/2R5 w - - 0 1"]
+[LineName "04. Checkmate with the rook (2/5)"]
+[LineDescription "The rook cuts the king off; with your king's help the box shrinks row by row."]
+
+{[%csl
+Bd2,Be2,Bf2,Bg2,Bh2,Bf3,Bg3,Bh3,Bf4,Bg4,Bh4,Bf5,Bg5,Bh5,Bd6,Be6,Bf6,Bg6,Bh6,Bd7,Be7,Bf7,Bg7,Bh7,Bd8,Be8,Bf8,Bg8,Bh8]
+Cut the king off and shrink the box.} 1. Re1 {The rook cuts the king off: the
+box shrinks to 22 squares.} 1... Kc6 {[%csl
+Ba2,Bb2,Bc2,Bd2,Ba3,Bb3,Ba4,Bb4,Ba5,Bb5,Ba6,Bb6,Bc6,Bd6,Ba7,Bb7,Bc7,Bd7,Ba8,Bb8,Bc8,Bd8]}
+2. Re3 {[%also Re2,Kc4,Re6+,Re4] The box shrinks to 16 squares.} 2... Kd6 {[%csl
+Ba4,Bb4,Ba5,Bb5,Ba6,Bb6,Bc6,Bd6,Ba7,Bb7,Bc7,Bd7,Ba8,Bb8,Bc8,Bd8]} 3. Kc4 {Your
+king comes closer: the rook cannot mate on its own.} 3... Kc6 {[%csl
+Ba4,Ba5,Ba6,Bb6,Bc6,Bd6,Ba7,Bb7,Bc7,Bd7,Ba8,Bb8,Bc8,Bd8]} 4. Rd3 {The box
+shrinks to 11 squares.} 4... Kb6 {[%csl
+Ba4,Ba5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7,Ba8,Bb8,Bc8]} 5. Rd6+ {Check! The black king has
+to step back.} 5... Kb7 {[%csl Ba7,Bb7,Bc7,Ba8,Bb8,Bc8]} 6. Kb5 {Opposition: the
+kings face each other with one square between them.} 6... Kc7 {[%csl
+Ba7,Bb7,Bc7,Ba8,Bb8,Bc8] Black attacks the rook!} 7. Rd1 {[%also
+Rd2,Rd3,Rd4,Rd5] The rook steps away from the black king without opening the
+box.} 7... Kb7 {[%csl Ba7,Bb7,Bc7,Ba8,Bb8,Bc8]} 8. Rc1 {The box shrinks to 4
+squares.} 8... Ka8 {[%csl Ba7,Bb7,Ba8,Bb8]} 9. Ka6 {[%also Kb6,Rc7] Opposition
+again.} 9... Kb8 {[%csl Ba8,Bb8]} 10. Rc2 {[%also Rc3,Rc4,Rc5,Rc6,Kb6] A waiting
+move! The rook keeps the king locked in, and now Black has to move: step in
+front of your king (and be mated) or step back.} 10... Ka8 {[%csl Ba8,Bb8]} 11.
+Rc8# {[%csl Ra8] Checkmate in the corner! The rook gives check and your king
+covers the other squares.} *
+
+[Event "04. Checkmate with the rook (3/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3K4/6k1/5R2/8/8/8/8/8 w - - 0 1"]
+[LineName "04. Checkmate with the rook (3/5)"]
+[LineDescription "When the kings face each other on the edge, a rook check is mate."]
+
+{[%csl Bg7,Bh7,Bg8,Bh8] Bring your king in front of the black king: the
+opposition. When Black has to move, his king must give way, or step in front of
+yours and be mated.} 1. Ke7 {Your king protects the rook and faces the black
+king.} 1... Kg8 {[%csl Bg7,Bh7,Bg8,Bh8]} 2. Rf7 {[%also Rg6+] The rook cuts the
+king off: the box shrinks to 2 squares.} 2... Kh8 {[%csl Bg8,Bh8]} 3. Kf6 {Your
+king comes closer: the rook cannot mate on its own.} 3... Kg8 {[%csl Bg8,Bh8]}
+4. Kg6 {Opposition: the kings face each other with one square between them.}
+4... Kh8 {[%csl Bg8,Bh8]} 5. Rf8# {[%csl Rh8] Checkmate in the corner! The rook
+gives check and your king covers the other squares.} *
+
+[Event "04. Checkmate with the rook (4/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5R2/1k6/8/8/1K6/8/8/8 w - - 0 1"]
+[LineName "04. Checkmate with the rook (4/5)"]
+[LineDescription "A waiting rook move: Black must step into the opposition (and is mated) or step back."]
+
+{[%csl
+Ba1,Bb1,Bc1,Bd1,Be1,Ba2,Bb2,Bc2,Bd2,Be2,Bd3,Be3,Bd4,Be4,Bd5,Be5,Ba6,Bb6,Bc6,Bd6,Be6,Ba7,Bb7,Bc7,Bd7,Be7]
+Look out for the waiting move: when the kings are a knight's jump apart, the
+rook slides along its rank and Black has to move.} 1. Kc5 {Your king comes
+closer: the rook cannot mate on its own.} 1... Kc7 {[%csl
+Ba1,Bb1,Bc1,Bd1,Be1,Ba2,Bb2,Bc2,Bd2,Be2,Ba3,Bb3,Bc3,Bd3,Be3,Ba4,Be4,Ba5,Be5,Ba6,Be6,Ba7,Bb7,Bc7,Bd7,Be7]}
+2. Rf7+ {Check! The black king has to step back: 6 squares left in its box.}
+2... Kd8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8]} 3. Kd6 {Opposition: the kings face each
+other with one square between them.} 3... Kc8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8]} 4.
+Re7 {[%also Rg7,Rh7] A waiting move! The rook keeps the king locked in, and now
+Black has to move: step in front of your king (and be mated) or step back.} 4...
+Kb8 {[%csl Ba8,Bb8,Bc8,Bd8]} 5. Kc6 Ka8 {[%csl Ba8,Bb8,Bc8,Bd8]} 6. Kb6 Kb8
+{[%csl Ba8,Bb8,Bc8,Bd8]} 7. Re8# {[%csl Rb8] Checkmate on the edge! The rook
+checks along the edge and your king covers the squares in front.} *
+
+[Event "04. Checkmate with the rook (5/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3R4/8/8/2k5/8/8/5K2/8 w - - 0 1"]
+[LineName "04. Checkmate with the rook (5/5)"]
+[LineDescription "Cut off, bring the king, take the opposition, check on the edge: mate."]
+
+{[%csl
+Ba1,Bb1,Bc1,Ba2,Bb2,Bc2,Ba3,Bb3,Bc3,Ba4,Bb4,Bc4,Ba5,Bb5,Bc5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7]
+The whole method from the middle of the board: cut off, bring the king, take the
+opposition, check on the edge.} 1. Ke3 {Your king comes closer: the rook cannot
+mate on its own.} 1... Kc4 {[%csl
+Ba1,Bb1,Bc1,Ba2,Bb2,Bc2,Ba3,Bb3,Bc3,Ba4,Bb4,Bc4,Ba5,Bb5,Bc5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7]}
+2. Rd4+ {Check! The black king has to step back.} 2... Kc5 {[%csl
+Ba5,Bb5,Bc5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7,Ba8,Bb8,Bc8]} 3. Kd3 Kb5 {[%csl
+Ba5,Bb5,Bc5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7,Ba8,Bb8,Bc8]} 4. Rc4 {The rook cuts the king
+off: the box shrinks to 8 squares.} 4... Kb6 {[%csl
+Ba5,Bb5,Ba6,Bb6,Ba7,Bb7,Ba8,Bb8]} 5. Kc3 Kb7 {[%csl
+Ba5,Bb5,Ba6,Bb6,Ba7,Bb7,Ba8,Bb8]} 6. Kb4 {[%also Kb3]} 6... Kb6 {[%csl
+Ba6,Bb6,Ba7,Bb7,Ba8,Bb8]} 7. Ka4 {[%also Rc1,Rc2,Rc3,Rc5]} 7... Ka7 {[%csl
+Ba6,Bb6,Ba7,Bb7,Ba8,Bb8]} 8. Ka5 {[%also Kb5] Opposition: the kings face each
+other with one square between them.} 8... Kb7 {[%csl Ba7,Bb7,Ba8,Bb8]} 9. Kb5
+{Opposition again.} 9... Ka8 {[%csl Ba7,Bb7,Ba8,Bb8]} 10. Ka6 {[%also Kb6,Rc7]}
+10... Kb8 {[%csl Ba8,Bb8]} 11. Rc1 {[%also Rc2,Rc3,Rc5,Rc6,Kb6] A waiting move!
+The rook keeps the king locked in, and now Black has to move: step in front of
+your king (and be mated) or step back.} 11... Ka8 {[%csl Ba8,Bb8]} 12. Rc8#
+{[%csl Ra8] Checkmate in the corner! The rook gives check and your king covers
+the other squares.} *
+
+[Event "05. Don't stalemate! (1/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/4K3/8/8/8/8/8/1Q6 w - - 0 1"]
+[LineName "05. Don't stalemate! (1/5)"]
+[LineDescription "When the black king has few squares left, make sure it still has one after your move (unless it is mate)."]
+
+{[%csl Bc7] [%cal Rb1b6] Stalemate: the side to move is not in check but has no
+legal move, and the game is a draw. It throws away many won endings, usually on
+the last moves. Count the black king's squares before every move! The
+knight's-jump trick can backfire: with the black king near the corner it may
+leave no square at all. Blue: the squares the black king can step to. Red arrow:
+the natural move that would be stalemate.} 1. Kd6 {Not Qb6: that would be
+stalemate! Your king comes closer: the queen cannot mate on its own.} 1... Kd8
+{[%csl Be8,Bc8]} 2. Qb8# {Checkmate on the edge! The queen checks along the edge
+and your king covers the squares in front.} *
+
+[Event "05. Don't stalemate! (2/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "7k/Q3K3/8/8/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (2/5)"]
+[LineDescription "Even a king move can stalemate: count the black king's squares first."]
+
+{[%csl Bh7,Bg7,Bg8] [%cal Re7f8] Bringing your king closer can stalemate too.}
+1. Kf6 {Not Kf8: that would be stalemate! Your king comes closer: the queen
+cannot mate on its own.} 1... Kg8 {[%csl Bh8,Bf8]} 2. Qg7# {Checkmate! The queen
+stands right next to the black king, and your king protects it.} *
+
+[Event "05. Don't stalemate! (3/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "7k/1R6/5K2/8/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (3/5)"]
+[LineDescription "Before every move with the rook or the king, count the black king's squares."]
+
+{[%csl Bg8] [%cal Rb7g7] The rook can stalemate as well.} 1. Kg6 {Not Rg7: that
+would be stalemate! Your king comes closer: the rook cannot mate on its own.}
+1... Kg8 {[%csl Bh8,Bf8]} 2. Rb8# {Checkmate on the edge! The rook checks along
+the edge and your king covers the squares in front.} *
+
+[Event "05. Don't stalemate! (4/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5P1k/5K2/8/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (4/5)"]
+[LineDescription "When a new queen would stalemate, promote to a rook: it still wins."]
+
+{[%csl Bh8,Bh6] Which piece should the pawn become? Count the black king's
+squares first.} 1. f8=R {Rook! A queen on f8 would cover every square the black
+king can go to: stalemate. The rook leaves it h6, and king and rook against king
+is a win (lesson 4).} *
+
+[Event "05. Don't stalemate! (5/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5K1k/8/8/6P1/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (5/5)"]
+[LineDescription "A pawn push that leaves Black without a move is stalemate: move the king first."]
+
+{[%csl Bh7] [%cal Rg5g6] The pawn push looks natural, but count Black's moves
+first!} 1. Kf7 {g6 would be stalemate: the black king would have no move. The
+king goes first. Key square f7! With your king here the pawn will queen whatever
+Black does.} 1... Kh7 {[%csl Bh8]} 2. g6+ {Now the pawn advances, escorted by
+the king.} 2... Kh6 {[%csl Bh5,Bg5]} 3. g7 {The pawn reaches the 7th rank, and
+your king guards the queening square.} 3... Kh7 {[%csl Bh6]} 4. g8=Q+ {Queen!
+The pawn has promoted safely, and king and queen against king is a win (lesson
+3).} *
+
+[Event "06. Final exam (1/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1k6/8/3K4/2P5/8/8 w - - 0 1"]
+[LineName "06. Final exam (1/6)"]
+[LineDescription "Active king, key squares, opposition: the pawn queens."]
+
+{Final exam! No coloured squares this time. Use it all: an active king, the box,
+the opposition, and no stalemate. Then try Practice mode without hints. King and
+pawn: win it.} 1. Kd5 Kc7 2. Kc5 Kb7 3. Kd6 Ka6 4. c4 Kb7 5. c5 Kc8 6. Kc6 Kb8
+7. Kd7 Kb7 8. c6+ Kb6 9. c7 Kb7 10. c8=Q+ {Queen! The pawn has promoted safely,
+and king and queen against king is a win (lesson 3).} *
+
+[Event "06. Final exam (2/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/6k1/8/4K3/5P2/8 w - - 0 1"]
+[LineName "06. Final exam (2/6)"]
+[LineDescription "Active king, key squares, opposition: the pawn queens."]
+
+{Another pawn ending.} 1. Ke4 Kf6 2. Kf4 Ke6 3. Kg5 Kf7 4. Kf5 Ke7 5. Kg6 Kd6 6.
+f4 Ke7 7. f5 Kf8 8. Kf6 Ke8 9. Kg7 Ke7 10. f6+ Ke6 11. f7 Ke7 12. f8=Q+ {Queen!
+The pawn has promoted safely, and king and queen against king is a win (lesson
+3).} *
+
+[Event "06. Final exam (3/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/3Q4/8/8/7K w - - 0 1"]
+[LineName "06. Final exam (3/6)"]
+[LineDescription "Box, king, mate: the queen mate."]
+
+{King and queen: mate as fast as you can.} 1. Kg2 Kb5 2. Kf3 Kc6 3. Ke4 Kc7 4.
+Qc5+ {[%also Kd5]} 4... Kb7 5. Kd5 Ka6 6. Qb4 Ka7 7. Kc6 Ka6 8. Qa3# {[%also
+Qa4#,Qb6#] Checkmate on the edge! The queen checks along the edge and your king
+covers the squares in front.} *
+
+[Event "06. Final exam (4/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1K6/6Q1/8/5k2/8/8/8/8 w - - 0 1"]
+[LineName "06. Final exam (4/6)"]
+[LineDescription "Box, king, mate: the queen mate."]
+
+{King and queen again.} 1. Qd4 Kg5 2. Qf2 {[%also Kc7,Kc8]} 2... Kg4 3. Kc7 Kg5
+4. Kd6 Kg4 5. Ke5 Kg5 6. Qg3+ {[%also Qg2+,Qg1+]} 6... Kh5 7. Kf5 {[%also Kf6]}
+7... Kh6 8. Qg6# {Checkmate! The queen stands right next to the black king, and
+your king protects it.} *
+
+[Event "06. Final exam (5/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4R3/8/4K3/8/8/2k5/8/8 w - - 0 1"]
+[LineName "06. Final exam (5/6)"]
+[LineDescription "Cut off, opposition, check on the edge: the rook mate."]
+
+{King and rook: mate as fast as you can.} 1. Kd5 Kd3 2. Kc5 Kc3 3. Rd8 Kb3 4.
+Rd3+ Kb2 5. Kb4 Kc2 6. Rd4 {[%also Rd5,Rd6,Rd7,Rd8]} 6... Kb2 7. Rc4 Ka1 8. Ka3
+{[%also Kb3,Rc2]} 8... Kb1 9. Rc3 {[%also Rc5,Rc6,Rc7,Rc8,Kb3]} 9... Ka1 10.
+Rc1# {Checkmate in the corner! The rook gives check and your king covers the
+other squares.} *
+
+[Event "06. Final exam (6/6)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/5k2/R7/6K1 w - - 0 1"]
+[LineName "06. Final exam (6/6)"]
+[LineDescription "Cut off, opposition, check on the edge: the rook mate."]
+
+{King and rook again.} 1. Ra4 Kg3 2. Kf1 Kf3 3. Ke1 Ke3 4. Rh4 Kd3 5. Kf2 Kc2 6.
+Rh3 {[%also Ke2,Ke3]} 6... Kb2 7. Ke1 {[%also Ke2,Re3]} 7... Kc2 8. Ke2 {[%also
+Re3,Rf3,Rg3]} 8... Kb1 9. Kd1 {[%also Kd2,Kd3]} 9... Kb2 10. Kd2 Ka1 11. Kc1
+{[%also Kc2,Rb3]} 11... Ka2 12. Rc3 {[%also Rd3,Re3,Rf3,Rg3,Kc2]} 12... Ka1 13.
+Ra3# {Checkmate in the corner! The rook gives check and your king covers the
+other squares.} *

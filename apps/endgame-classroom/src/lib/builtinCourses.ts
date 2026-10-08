@@ -1,4 +1,5 @@
 import kingAndPawnPgn from "../../courses/king-and-pawn-course.pgn?raw";
+import endgameBasicsPgn from "../../courses/endgame-basics-course.pgn?raw";
 import type { Category, Course, Line, Side } from "../types";
 import { importPgn } from "./pgn";
 import { createCourse } from "./storage";
@@ -25,6 +26,16 @@ export const BUILTIN_COURSES: BuiltinCourse[] = [
     playAs: "white",
     pgn: kingAndPawnPgn,
     signature: "01. Key squares: pawn on the 4th rank (1/3)",
+  },
+  {
+    id: "endgame-basics-first-principles",
+    name: "Endgame Basics: First Principles",
+    description:
+      "31 positions in 6 lessons: an active king, the basic mates with queen and rook, mating patterns and stalemate traps. Every move is verified with exact endgame solvers.",
+    category: "endgame",
+    playAs: "white",
+    pgn: endgameBasicsPgn,
+    signature: "01. The king is a fighting piece (1/4)",
   },
 ];
 
