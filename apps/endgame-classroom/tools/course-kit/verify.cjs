@@ -7,12 +7,19 @@
 //
 // opts.probe(fen) -> { result: 'win' | 'loss' | 'draw', dtm }: exact value for the side to move, dtm in
 //   plies to mate (the toolkit's solver.cjs).
-// opts.goal: 'mate' (default) or 'promotion': while a pawn is on the board, "fastest" means the quickest
-//   safe promotion (K+P vs K, measured by ../kpk-course/kpk.cjs), then the piece that mates fastest.
+// opts.goal: 'mate' (default) or 'promotion': while only the kings and pawns are on the board, "fastest"
+//   means the quickest safe promotion, then the piece that mates fastest.
+// opts.promotionProbe(fen) -> { result, dtc }: the measure for goal 'promotion' (dtc = plies to a safe
+//   promotion). Default: ../kpk-course/kpk.cjs (K+P vs K); solver.cjs's probePromotion covers two pawns.
 const { Chess } = require('chess.js');
 
 let kpk; // loaded on first use: the King & Pawn solver
 const hasPawn = (fen) => /p/i.test(fen.split(' ')[0]);
+/** Only kings and pawns on the board: the part of a line measured to the promotion. */
+const pawnPhase = (fen) => hasPawn(fen) && !/[qrbn]/i.test(fen.split(' ')[0]);
+/** After a promotion (the opponent to move): can the new piece (the only one besides kings and pawns) be taken? */
+const newPieceTaken = (g) => g.moves({ verbose: true }).some((m) => m.captured && m.captured !== 'p');
+const promotionProbe = (opts) => opts.promotionProbe ?? (kpk ??= require('../kpk-course/kpk.cjs')).probe;
 const cmp = (a, b) => a[0] - b[0] || a[1] - b[1];
 
 /**
@@ -24,9 +31,10 @@ function afterLearner(fen, opts) {
   const g = new Chess(fen);
   if (g.isCheckmate()) return [0, 0];
   if (g.isStalemate() || g.isInsufficientMaterial()) return null;
-  if (opts.goal === 'promotion' && hasPawn(fen)) {
-    kpk ??= require('../kpk-course/kpk.cjs');
-    const r = kpk.probe(fen);
+  // goal 'promotion' with a pawn left: a promotion only counts when the new piece cannot be taken at once
+  if (opts.goal === 'promotion' && hasPawn(fen) && !pawnPhase(fen) && newPieceTaken(g)) return null;
+  if (opts.goal === 'promotion' && pawnPhase(fen)) {
+    const r = promotionProbe(opts)(fen);
     return r.result === 'loss' ? [1, r.dtc] : null;
   }
   const r = opts.probe(fen);
@@ -36,9 +44,8 @@ function afterLearner(fen, opts) {
 function afterOpponent(fen, opts) {
   const g = new Chess(fen);
   if (g.isInsufficientMaterial()) return null;
-  if (opts.goal === 'promotion' && hasPawn(fen)) {
-    kpk ??= require('../kpk-course/kpk.cjs');
-    const r = kpk.probe(fen);
+  if (opts.goal === 'promotion' && pawnPhase(fen)) {
+    const r = promotionProbe(opts)(fen);
     return r.result === 'win' ? r.dtc : null;
   }
   const r = opts.probe(fen);
@@ -81,7 +88,8 @@ function verifyLine(line, opts) {
   }
   const last = line.moves[line.moves.length - 1];
   if (opts.goal === 'promotion' && pawnLine) {
-    if (!last || !/=[QR]/.test(last.san) || afterLearner(g.fen(), opts)?.[0] !== 0) problems.push(`does not end in a safe promotion: ${g.fen()}`);
+    // a pawn can also mate before it promotes: that ends the line too
+    if (!g.isCheckmate() && (!last || !/=[QR]/.test(last.san) || afterLearner(g.fen(), opts)?.[0] !== 0)) problems.push(`does not end in a safe promotion: ${g.fen()}`);
   } else if (!g.isCheckmate()) problems.push(`does not end in checkmate: ${g.fen()}`);
   return { problems, unique };
 }

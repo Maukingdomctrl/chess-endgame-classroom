@@ -6,7 +6,7 @@
 //   playLine('8/8/8/4k3/8/8/8/R3K2R w - - 0 1')
 //   // { plies: [{ fen, san, learner: true, also: [...], unique, move }, ...], end: 'mate' }
 //
-// opts.goal / opts.probe: as for verify.cjs ('mate' by default, the toolkit's solver).
+// opts.goal / opts.probe / opts.promotionProbe: as for verify.cjs ('mate' by default, the toolkit's solver).
 // opts.learnerOrder(a, b, ctx) / opts.opponentOrder(a, b, ctx): order among equally good moves (the first
 // one is played; for the learner the others become [%also]). a and b are chess.js verbose moves; ctx is
 // { fen, chess } before the move. By default the opponent's king stays nearest the centre.
@@ -20,7 +20,7 @@ const byKey = (a, b) => (a.from + a.to + (a.promotion ?? '') < b.from + b.to + (
 const centralKing = (a, b) => (a.piece === 'k' ? ring(sqIdx(a.to)) : 9) - (b.piece === 'k' ? ring(sqIdx(b.to)) : 9) || byKey(a, b);
 
 function playLine(fen, opts = {}) {
-  const vopts = { goal: opts.goal ?? 'mate', probe: opts.probe ?? require('./solver.cjs').probe };
+  const vopts = { goal: opts.goal ?? 'mate', probe: opts.probe ?? require('./solver.cjs').probe, promotionProbe: opts.promotionProbe };
   const g = new Chess(fen);
   const learner = g.turn();
   const plies = [];
