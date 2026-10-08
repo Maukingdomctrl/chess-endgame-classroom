@@ -11,7 +11,7 @@ const ORDER = ['key4', 'key23', 'key5', 'finish6', 'opp', 'giveway', 'distant', 
 
 const T = {
   key4: { title: 'Key squares: pawn on the 4th rank',
-    intro: 'Welcome! This course masters ONE idea: king and pawn against king. Rule 1: every pawn has KEY SQUARES. If your king reaches one of them, the pawn will queen whatever Black does. For a pawn on the 4th rank they are the three squares two ranks in front of it.',
+    intro: 'Welcome! This course masters ONE idea: king and pawn against king. Rule 1: every pawn has KEY SQUARES. If your king reaches one of them, the pawn will queen whatever Black does. For a pawn on the 4th rank they are the three squares two ranks in front of it. Every line is played to the end, so you will see the pawn become a queen.',
     again: 'Same rule: walk your king to a key square. Black may stand in the way, so go around him.',
     desc: 'Key squares of a pawn on the 2nd-4th rank: the three squares two ranks ahead of it.' },
   key23: { title: 'Key squares: pawn on the 2nd or 3rd rank',
@@ -103,7 +103,11 @@ function marksFor(id, st, n) {
     case 'stalemate': return sqs([promoSq(st.p)], 'G');
     case 'rookdef': return sqs([promoSq(st.p), promoSq(st.p) + (file(st.p) === 0 ? 1 : -1)], 'G');
     case 'defopp': case 'straight': return sqs(keySquares(st.p), 'R');
-    default: return sqs(keySquares(st.p), 'G');
+    default: {
+      // once the pawn is on the 7th rank, the target is the queening square itself
+      const ks = keySquares(st.p);
+      return sqs(ks.length ? ks : [promoSq(st.p)], 'G');
+    }
   }
 }
 const csl = (list) => (list.length ? `[%csl ${list.join(',')}]` : '');
@@ -141,20 +145,33 @@ for (const id of ORDER) {
 
     // ---- per-move notes ----
     const notes = l.moves.map(() => []);
+    let keyReached = false, kingLeads = false, pushes = 0;
     l.moves.forEach((m, i) => {
       const b = m.before, mv = m.raw;
       const trainee = l.mode === 'win' ? m.side === 'att' : m.side === 'def';
       if (l.mode === 'win' && m.side === 'att') {
-        if (mv.kind === 'promo') notes[i].push('Queen! The pawn promotes safely.');
+        if (mv.kind === 'promo')
+          notes[i].push(mv.promo === 'r'
+            ? 'Promote to a ROOK! A queen here would be stalemate, but the rook wins.'
+            : 'Queen! The pawn has promoted safely, and king and queen against king is an easy win.');
         else if (mv.kind === 'k') {
-          if (keySquares(b.p).includes(mv.to) && !keySquares(b.p).includes(b.wk))
-            notes[i].push(`Key square ${n(mv.to)}! With your king here the pawn will queen, whoever is to move.`);
-          else if (directOpp(mv.to, b.bk)) notes[i].push('Opposition! The kings face each other with one square between them, and Black must give way.');
+          if (!keyReached && keySquares(b.p).includes(mv.to) && !keySquares(b.p).includes(b.wk)) {
+            keyReached = true;
+            notes[i].push(`Key square ${n(mv.to)}! With your king here the pawn will queen, whoever is to move. Now escort it all the way.`);
+          } else if (directOpp(mv.to, b.bk)) notes[i].push('Opposition! The kings face each other with one square between them, and Black must give way.');
           else if (distantOpp(mv.to, b.bk)) notes[i].push('Distant opposition: same file, three squares apart. Keep it and it becomes the direct opposition.');
           else if (diagOpp(mv.to, b.bk)) notes[i].push('Diagonal opposition: next move it turns into a key square or the direct opposition.');
+          else if (keyReached && !kingLeads && rank(mv.to) > rank(b.p) + 1) {
+            kingLeads = true;
+            notes[i].push('The king walks ahead of the pawn and clears the way; the pawn follows.');
+          }
         } else if (mv.kind === 'p') {
           if (id === 'race') notes[i].push(i === 0 ? "Run! After this push the black king is outside the pawn's square." : 'Keep running.');
-          else notes[i].push('Now the pawn advances, with the king clearing the way.');
+          else if (rank(mv.to) === 6 && dist(b.wk, promoSq(b.p)) <= 1)
+            notes[i].push('The pawn reaches the 7th rank and your king guards the queening square: nothing can stop it now.');
+          else if (pushes === 0) notes[i].push('Now the pawn advances, with the king clearing the way.');
+          else notes[i].push(m.san.includes('+') ? 'Pawn forward, with check.' : 'Pawn forward.');
+          pushes++;
         }
         if (i === l.moves.findIndex((x) => x.side === 'att') && id === 'kingfirst') {
           // name the drawing pawn push
@@ -169,7 +186,7 @@ for (const id of ORDER) {
         if (next && next.raw.kind === 'k' && directOpp(nk, b.wk) && file(next.raw.to) !== file(b.wk))
           notes[i].push('Black takes the opposition, so you go around him: outflanking.');
       } else if (l.mode === 'draw' && m.side === 'def') {
-        if (mv.capture) notes[i].push('You win the pawn: draw!');
+        if (mv.capture) notes[i].push(mv.takesPromoted ? 'You take the new queen: draw!' : 'You win the pawn: draw!');
         else if (id === 'stalemate') notes[i].push('Step in front of the pawn: the queening square is blocked.');
         else if (id === 'rookdef' && (mv.to === promoSq(b.p) || (rank(mv.to) === 7 && Math.abs(file(mv.to) - file(b.p)) === 1)) && i > 0) notes[i].push('In the corner! Now Black can never drive you out.');
         else if (id === 'rookdef' && dist(mv.to, promoSq(b.p)) < dist(b.bk, promoSq(b.p))) notes[i].push('Towards the corner: against a rook pawn, a king in the corner cannot be driven out.');
@@ -228,7 +245,9 @@ for (const id of ORDER) {
       else mt += first || hadComment ? ` ${num}... ${m.san}` : ` ${m.san}`;
       g.move(m.san);
       first = false;
-      const c = [csl(moveMarks[i]), notes[i].filter(Boolean).join(' ')].filter(Boolean).join(' ');
+      // [%also]: other moves just as good as this one (the trainer accepts them without a mistake)
+      const also = m.also?.length ? `[%also ${m.also.join(',')}]` : '';
+      const c = [csl(moveMarks[i]), also, notes[i].filter(Boolean).join(' ')].filter(Boolean).join(' ');
       hadComment = !!c;
       if (c) mt += ` {${c}}`;
     });

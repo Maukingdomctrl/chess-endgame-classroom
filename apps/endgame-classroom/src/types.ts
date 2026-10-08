@@ -15,6 +15,9 @@ export interface LineMove {
   /** Coach note shown after this move is played. */
   comment: string;
   marks?: Marks;
+  /** Other moves that are just as correct here (they keep the win or the draw). The trainer accepts
+   *  them without counting a mistake, then asks for the line's move so the line can go on. */
+  also?: string[];
 }
 
 export interface Line {

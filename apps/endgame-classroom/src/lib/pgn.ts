@@ -2,7 +2,7 @@ import { Chess } from "chess.js";
 import type { Line, LineMove, TvGame } from "../types";
 import { DEFAULT_FEN, looksLikeFen, moveNumberLabel, normalizeFen } from "./chess";
 import { createLine } from "./storage";
-import { formatMarks, parseCommentMarks } from "./marks";
+import { formatAlso, formatMarks, parseCommentMarks } from "./marks";
 
 interface Node {
   san: string;
@@ -221,7 +221,7 @@ export function importPgn(text: string): ImportResult {
         try {
           const m = chess.move(node.san);
           const c = parseCommentMarks(node.comment);
-          moves.push({ san: m.san, comment: c.text, ...(c.marks ? { marks: c.marks } : {}) });
+          moves.push({ san: m.san, comment: c.text, ...(c.marks ? { marks: c.marks } : {}), ...(c.also ? { also: c.also } : {}) });
         } catch {
           warnings.push(
             `${title}${branchLabel(path, startFen) ? ` · ${branchLabel(path, startFen)}` : ""}: stopped at illegal move "${node.san}".`,
@@ -267,7 +267,8 @@ export function lineToPgn(line: Line, courseName = ""): string {
   if (line.description) tags.push(["LineDescription", line.description]);
 
   const parts: string[] = [];
-  const comment = (marks: Line["introMarks"], text: string) => [formatMarks(marks), text].filter(Boolean).join(" ");
+  const comment = (marks: Line["introMarks"], text: string, also?: string[]) =>
+    [formatMarks(marks), formatAlso(also), text].filter(Boolean).join(" ");
   const introText = comment(line.introMarks, line.intro);
   if (introText) parts.push(`{${escComment(introText)}}`);
   let needNumber = true;
@@ -277,7 +278,7 @@ export function lineToPgn(line: Line, courseName = ""): string {
     else if (needNumber) parts.push(`${moveNo}... ${m.san}`);
     else parts.push(m.san);
     needNumber = false;
-    const c = comment(m.marks, m.comment);
+    const c = comment(m.marks, m.comment, m.also);
     if (c) {
       parts.push(`{${escComment(c)}}`);
       needNumber = true;

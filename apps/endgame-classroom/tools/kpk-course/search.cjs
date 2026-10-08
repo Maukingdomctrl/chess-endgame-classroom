@@ -109,6 +109,8 @@ for (const les of LESSONS) {
       const os = les.mode === 'win' ? attackerOptions(fp.before) : defenderOptions(fp.before);
       if (!les.first(fp.move, fp.before, os)) continue;
     }
+    // Positions are chosen on the part up to the key square; the course then plays on to the queen.
+    const full = line;
     if (les.stop === 'key') line = trimToKey(line);
     if (les.stop === 'key' && line.end !== 'key') continue;
     if (les.stop === 'promo' && line.end !== 'promoted') continue;
@@ -119,7 +121,7 @@ for (const les of LESSONS) {
     if (les.minScore && ev.score < les.minScore) continue;
     if (les.maxN && ev.n > les.maxN) continue;
     const spread = dist(wk, p) + dist(bk, p);
-    cands.push({ s, line, ev, spread, key: `${wk}-${bk}-${p}-${les.stm}` });
+    cands.push({ s, line, full, ev, spread, key: `${wk}-${bk}-${p}-${les.stm}` });
   }
   cands.sort((a, b) => b.ev.score - a.ev.score || b.ev.uniq - a.ev.uniq || a.spread - b.spread || Math.abs(file(a.s.p) - 3.5) - Math.abs(file(b.s.p) - 3.5));
   const chosen = [];
@@ -131,7 +133,14 @@ for (const les of LESSONS) {
     chosen.push(c); used.add(c.key);
   }
   console.log(`${les.id.padEnd(10)} candidates=${String(cands.length).padStart(6)} picked=${chosen.length} scores=${chosen.map((c) => `${c.ev.uniq}/${c.ev.n}`).join(' ')}`);
-  for (const c of chosen) picked.push({ lesson: les.id, mode: les.mode, s: c.s, line: c.line, ev: c.ev });
+  for (const c of chosen) {
+    // Every line is played to its real finish: a winning line until the pawn promotes, a defence
+    // until the pawn (or the new queen) is taken or it is stalemate.
+    const line = les.mode === 'win' ? c.full : c.line.end === 'max' ? playLine(c.s, 'draw', { maxPlies: 60, finish: true }) : c.line;
+    const ok = les.mode === 'win' ? line.end === 'promoted' : ['captured', 'captured-promo', 'stalemate'].includes(line.end);
+    if (!ok) throw new Error(`${les.id}: line does not reach a finish (${line.end})`);
+    picked.push({ lesson: les.id, mode: les.mode, s: c.s, line, ev: c.ev });
+  }
 }
 require('fs').mkdirSync(require('path').join(__dirname, '.out'), { recursive: true });
 require('fs').writeFileSync(require('path').join(__dirname, '.out/picked.json'), JSON.stringify(picked, null, 1));

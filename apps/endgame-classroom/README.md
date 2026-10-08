@@ -31,6 +31,8 @@ npm run build    # production build in dist/
    countdown and look at the position as long as you like.
 6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves
    count as mistakes; a clean run marks the line **perfected**, lines with mistakes come back first.
+   A move the line marks as just as good (see `[%also]` below) is not a mistake: the coach says so and
+   asks for the line's move, so the line can go on.
 7. **Search** – the search bar on the home screen finds lines by name, description, notes or moves.
    Paste a FEN to find every line that reaches that position (at the start or mid-line).
 8. **Promotion** – when a pawn promotes you choose the piece (queen, rook, bishop or knight);
@@ -46,6 +48,9 @@ B = blue). The app reads them on import, shows them in **Learn** mode (never in 
 would give the answer away), in the builder and in Chess TV, and writes them back on export. Other
 `[%…]` codes such as Lichess clock times are removed from the comment text.
 
+The app also reads `[%also Kd6,Ke7]` in the comment after a move: other moves that are just as good
+as the one played there. Learn and Practice accept them without counting a mistake.
+
 To mark a position yourself, open it in the builder and press **🎨 Mark the board**: pick a colour,
 then click squares to colour them (click again to remove), or switch to **Arrows** and click a start
 and an end square. Marks belong to the position on screen and are saved with the line.
@@ -56,8 +61,10 @@ Courses in `courses/` ship with the app and appear automatically (marked ★ Bui
 time the app opens on a device:
 
 - *King & Pawn: Opposition and Key Squares* (`courses/king-and-pawn-course.pgn`): 50 positions in
-  17 lessons, every move verified with an exact king-and-pawn endgame solver. Key squares are shown
-  in green (red in the defence lessons, blue for the square of the pawn). Regenerate it with
+  17 lessons, every move verified with an exact king-and-pawn endgame solver. Every line is played
+  to the end: until the pawn becomes a queen, or in the defence lessons until the pawn is won or it
+  is stalemate. Key squares are shown in green (red in the defence lessons, blue for the square of
+  the pawn; the queening square once the pawn is on the 7th rank). Regenerate it with
   `npm run course:kpk` (see `tools/kpk-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had

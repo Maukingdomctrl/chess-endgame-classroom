@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
+import { Chess } from "chess.js";
 import type { Arrow } from "react-chessboard";
 import type { Course, Line } from "../types";
 import type { UpdateCourse } from "../App";
 import Board from "../components/Board";
 import Material from "../components/Material";
 import Confetti from "../components/Confetti";
-import { lineFens, lineVerboseMoves, moveInstruction, sideToColor } from "../lib/chess";
+import { lineFens, lineVerboseMoves, moveInstruction, sameSan, sideToColor } from "../lib/chess";
 import { progressOf } from "../lib/storage";
 import { navigate } from "../lib/router";
 import { setSoundEnabled, soundEnabled, sounds } from "../lib/sound";
@@ -31,7 +32,8 @@ interface Run {
   hintLevel: number;
   /** Coach notes gathered since the trainee's last turn. */
   notes: string[];
-  flash: { square: string; text: string } | null;
+  /** Feedback on a move that wasn't the line's move; `good` = it was one of the line's [%also] moves. */
+  flash: { square: string; text: string; good?: boolean } | null;
   status: "playing" | "done";
   viewPly: number | null;
   celebrate: number;
@@ -152,10 +154,10 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run.status, run.idx, run.stay]);
 
-  // Clear the wrong-move flash.
+  // Clear the wrong-move flash (a "good too" message stays longer, so it can be read).
   useEffect(() => {
     if (!run.flash) return;
-    const t = window.setTimeout(() => setRun((r) => ({ ...r, flash: null })), 900);
+    const t = window.setTimeout(() => setRun((r) => ({ ...r, flash: null })), run.flash.good ? 4000 : 900);
     return () => window.clearTimeout(t);
   }, [run.flash]);
 
@@ -221,6 +223,23 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
         flash: null,
       }));
       return true;
+    }
+    // A move the line lists as just as good: no mistake, but the line goes on with its own move.
+    const also = line.moves[run.ply]?.also;
+    if (also?.length) {
+      let san = "";
+      try {
+        san = new Chess(fens[run.ply]).move({ from, to, promotion }).san;
+      } catch {
+        // illegal move: handled as a wrong move below
+      }
+      if (san && also.some((a) => sameSan(a, san))) {
+        setRun((r) => ({
+          ...r,
+          flash: { square: to, good: true, text: `${san} is good too! This line continues with ${expected.san}: play that to go on.` },
+        }));
+        return false;
+      }
     }
     sounds.wrong();
     const wrongPiece = expected.from === from && expected.to === to;
@@ -296,7 +315,8 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
       marks[expected.from] = { boxShadow: "inset 0 0 0 4px rgba(255, 170, 0, 0.9)" };
     }
   }
-  if (run.flash && live) marks[run.flash.square] = { backgroundColor: "rgba(220, 60, 60, 0.6)" };
+  if (run.flash && live)
+    marks[run.flash.square] = { backgroundColor: run.flash.good ? "rgba(46, 160, 110, 0.5)" : "rgba(220, 60, 60, 0.6)" };
 
   const notes = run.notes.filter((n) => n.trim());
   const progress = allDone
@@ -392,7 +412,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
 
           <div className="coach">
             <span className="coach-avatar">♚</span>
-            <div className={`bubble${run.flash && live ? " wrong" : ""}`}>
+            <div className={`bubble${run.flash && live ? (run.flash.good ? " good" : " wrong") : ""}`}>
               {coachMain.length > 0 && (
                 // Only the notes scroll, so the instruction below stays visible even for long notes.
                 <div className="bubble-notes">
