@@ -13,7 +13,7 @@ npm run course:e2e -- <builtin id>        # browser test of a built-in course (a
 |---|---|
 | `solver.cjs` | `probe(fen)` → `{ result: 'win' \| 'loss' \| 'draw', dtm }` for the side to move (dtm = plies to mate). `table('KRRK')` → the solved table: `value(sqs, stm)`, `options(sqs, stm)` (every legal move with what it leads to, for fast searches), `legal`, `inCheck`, `moves`. Any material with up to 4 pieces: the two kings and two more, either colour, pawns included (captures and promotions lead into other tables, built on first use). |
 | `line.cjs` | `playLine(fen, opts)` → a line with best play: the learner (side to move) a fastest move, the opponent the most stubborn defence; equally fast learner moves become `also`. Tie-breaks via `opts.learnerOrder` / `opts.opponentOrder`. |
-| `verify.cjs` | `verifyLine(line, opts)`: on the real FENs with chess.js and the solver, every learner move is a fastest win, its `[%also]` list is exactly the other equally fast moves, every opponent move is the most stubborn defence, and the line ends in mate (or a safe promotion with `goal: 'promotion'`). |
+| `verify.cjs` | `verifyLine(line, opts)`: on the real FENs with chess.js and the solver, every learner move is a fastest win, its `[%also]` list is exactly the other equally fast moves, every opponent move is the most stubborn defence, and the line ends in mate (or a safe promotion with `goal: 'promotion'`; the measure to the promotion is `opts.promotionProbe`, by default the King & Pawn solver). |
 | `pgn.cjs` | `writePgn(file, games)` in the app's format (tags, intro comment, `[%csl]`/`[%cal]` marks, `[%also]`, notes, 80-column rows); `checkCourse(file, opts)` reads the file back and checks it all again. |
 | `board.cjs` | Squares, FEN helpers, symmetry keys (`canon8`, `canon2`), and the geometry lessons talk about (`ring`, `onEdge`, `isCorner`, `directOpp`, `knightJump`). |
 | `e2e.cjs` | The browser test (Playwright + Chromium): the course appears on a fresh device and on a device that never had it, lines played to the end in Learn (every promotion via the picker), board marks drawn as in the PGN, an `[%also]` move accepted in Practice, no console errors. |
@@ -29,6 +29,14 @@ memory for the run (10-35 MB for a 4-piece table).
 
 Not covered: en passant (materials with pawns on both sides are refused), castling, the fifty-move
 rule.
+
+**Goal 'promotion'** (`table('KPPK', { goal: 'promotion' })`, `probePromotion(fen)` → `{ result, dtc }`): for
+White's pawns against the lone king, the values count plies to a safe promotion instead of mate, as the
+King & Pawn solver does: a promotion counts when the new piece cannot be taken at once, it is not
+stalemate, and the new position is still won (by the mate table of that material); a captured pawn leads
+into the promotion table of what is left. For K+P vs K it gives exactly the King & Pawn solver's values on
+all 331,352 positions. K+P+P vs K takes about 3 minutes, because every promotion opens a 4-piece table
+(K+Q+P, K+R+P, K+B+P, K+N+P vs K, each with its own promotions).
 
 How it is checked (`npm run kit:selftest`):
 

@@ -6,6 +6,13 @@
 //
 //   const { probe, table } = require('./solver.cjs');
 //   probe('8/8/8/8/8/2k5/8/K1R1R3 w - - 0 1')  // { result: 'win', dtm: 7 }  dtm = plies to mate
+//   probePromotion('8/8/8/4k3/8/8/3PP3/4K3 w - - 0 1')  // { result: 'win', dtc: 25 }  plies to a safe promotion
+//
+// Goal 'promotion' (table(name, { goal: 'promotion' }), for White's pawns against the lone king): the
+// values count plies to a safe promotion instead of mate. A promotion ends the game when the new piece
+// cannot be taken at once and the new position is still won for White (by the mate table of that
+// material), as in ../kpk-course/kpk.cjs; a capture leads into the promotion table of the material left.
+// Checkmate before any promotion also counts as reaching the goal.
 //
 // Material names: White's pieces then Black's, each starting with the king, other pieces in the order
 // Q R B N P: 'KQK', 'KRRK', 'KQKR', 'KRKP' (Black has the pawn), 'KPK'.
@@ -89,21 +96,24 @@ function fenPieces(fen) {
 }
 
 const tables = new Map();
-/** The solved table for a material (built on first use, then kept). */
-function table(name) {
+/** The solved table for a material (built on first use, then kept). opts.goal: 'mate' (default) or 'promotion'. */
+function table(name, opts = {}) {
   name = normalise(name);
-  let T = tables.get(name);
+  const goal = opts.goal ?? 'mate';
+  const key = goal === 'mate' ? name : `${name}:${goal}`;
+  let T = tables.get(key);
   if (!T) {
-    T = new Table(name);
-    tables.set(name, T);
+    T = new Table(name, goal);
+    tables.set(key, T);
     T.solve();
   }
   return T;
 }
 
 class Table {
-  constructor(name) {
+  constructor(name, goal = 'mate') {
     this.name = name;
+    this.goal = goal;
     const i = name.indexOf('K', 1);
     const w = name.slice(0, i), b = name.slice(i);
     const list = [{ c: 0, t: K }, { c: 1, t: K }, ...[...w.slice(1)].map((ch) => ({ c: 0, t: TYPE_OF[ch] })), ...[...b.slice(1)].map((ch) => ({ c: 1, t: TYPE_OF[ch] }))];
@@ -113,6 +123,9 @@ class Table {
     this.typ = Int8Array.from(list.map((p) => p.t));
     if (list.some((p) => p.t === P && p.c === 0) && list.some((p) => p.t === P && p.c === 1))
       throw new Error(`${name}: pawns on both sides (en passant) are not supported`);
+    if (goal === 'promotion' && list.slice(2).some((p) => p.c !== 0 || p.t !== P))
+      throw new Error(`${name}: the promotion goal is for White's pawns against the lone king`);
+    if (goal !== 'mate' && goal !== 'promotion') throw new Error(`${name}: unknown goal "${goal}"`);
     this.sym = SYMMETRY[list.some((p) => p.t === P) ? 1 : 0];
     this.same = this.n === 4 && this.col[2] === this.col[3] && this.typ[2] === this.typ[3]; // two identical pieces
     this.size = 2 * this.sym.region.length * 64 ** (this.n - 1);
@@ -274,7 +287,12 @@ class Table {
     return out;
   }
 
-  /** Value of the child after a capture or a promotion (from the child's side to move), via its own table. */
+  /**
+   * Value of the child after a capture or a promotion (from the child's side to move), via its own table.
+   * Goal 'promotion': a safe promotion (the new piece cannot be taken at once, and the position stays won)
+   * ends the game (as if the opponent were mated now, -1), any other promotion counts as a draw; a capture
+   * leads into the promotion table of what is left.
+   */
   exitValue(sqs, stm, k, to, promo, cap) {
     const key = cap * 64 + k * 8 + promo;
     let ex = this.exits.get(key);
@@ -284,11 +302,15 @@ class Table {
       const order = (x) => (x.t === K ? x.c : 2 + x.c * 10 + ORDER.indexOf(LETTER[x.t]));
       kept.sort((a, b) => order(a) - order(b));
       const name = kept.filter((x) => x.c === 0).map((x) => LETTER[x.t]).join('') + kept.filter((x) => x.c === 1).map((x) => LETTER[x.t]).join('');
-      ex = { table: table(name), from: Int8Array.from(kept.map((x) => x.p)), sqs: new Int8Array(kept.length) };
+      const ends = this.goal === 'promotion' && promo >= 0;
+      ex = { table: table(name, { goal: ends ? 'mate' : this.goal }), ends, from: Int8Array.from(kept.map((x) => x.p)), sqs: new Int8Array(kept.length) };
       this.exits.set(key, ex);
     }
     for (let i = 0; i < ex.from.length; i++) ex.sqs[i] = ex.from[i] === k ? to : sqs[ex.from[i]];
-    return ex.table.value(ex.sqs, 1 - stm);
+    const v = ex.table.value(ex.sqs, 1 - stm);
+    if (!ex.ends) return v;
+    if (KADJ[ex.sqs[1] * 64 + to] && !ex.table.attacked(ex.sqs, to, 0)) return 0; // the king takes the new piece
+    return v < 0 ? -1 : 0;
   }
 
   /**
@@ -429,4 +451,20 @@ function probe(fen) {
   return { result: 'draw', dtm: -1 };
 }
 
-module.exports = { table, probe, fenPieces, normalise };
+/**
+ * Plies to a safe promotion for the side to move, in a position with White's pawns against the lone king
+ * (goal 'promotion'): { result: 'win' | 'loss' | 'draw', dtc } (dtc 0 for a draw), like ../kpk-course/kpk.cjs.
+ */
+function probePromotion(fen) {
+  const { name, pieces, stm } = fenPieces(fen);
+  if (pieces.length > 4) throw new Error(`${fen}: more than 4 pieces`);
+  const T = table(name, { goal: 'promotion' });
+  const sqs = Int8Array.from(pieces.map((p) => p.sq));
+  if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);
+  const v = T.value(sqs, stm);
+  if (v > 0) return { result: 'win', dtc: v };
+  if (v < 0) return { result: 'loss', dtc: -v - 1 };
+  return { result: 'draw', dtc: 0 };
+}
+
+module.exports = { table, probe, probePromotion, fenPieces, normalise };
