@@ -1,5 +1,6 @@
 import kingAndPawnPgn from "../../courses/king-and-pawn-course.pgn?raw";
 import endgameBasicsPgn from "../../courses/endgame-basics-course.pgn?raw";
+import ladderMatePgn from "../../courses/ladder-mate-course.pgn?raw";
 import type { Category, Course, Line, Side } from "../types";
 import { importPgn } from "./pgn";
 import { createCourse } from "./storage";
@@ -36,6 +37,16 @@ export const BUILTIN_COURSES: BuiltinCourse[] = [
     playAs: "white",
     pgn: endgameBasicsPgn,
     signature: "01. The king is a fighting piece (1/4)",
+  },
+  {
+    id: "ladder-mate-two-rooks-queen-rook",
+    name: "The Ladder Mate: Two Rooks, Queen and Rook",
+    description:
+      "78 positions in 7 lessons: mating the lone king with two rooks or queen and rook, explained move by move, plus extra practice. Every move is verified with an exact endgame solver.",
+    category: "endgame",
+    playAs: "white",
+    pgn: ladderMatePgn,
+    signature: "01. The final picture (1/8)",
   },
 ];
 

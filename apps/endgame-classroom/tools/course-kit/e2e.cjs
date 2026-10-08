@@ -8,7 +8,8 @@
 //   - Learn: lines played to the end by clicking the board (the first line of every lesson, every line with
 //     a promotion - chosen in the promotion picker - and a line with an [%also] move), with the board marks
 //     drawn where the PGN has them (and none where it has none), and the line's takeaway shown at the end;
-//   - Practice: an [%also] move is accepted as "good too" without counting a mistake ("Perfect");
+//   - Practice: an [%also] move is accepted as "good too" without counting a mistake ("Perfect"; without
+//     [%also] moves in the course, a line is played cleanly in Practice);
 //   - no console errors or warnings.
 // Needs Playwright (npm i -D playwright, or a global install) and a Chromium: set CHROMIUM_PATH, or let
 // Playwright use its own (npx playwright install chromium).
@@ -139,7 +140,11 @@ function loadPlaywright() {
       });
       check(said.includes('good too'), `Practice: the [%also] move gets "${said}"`);
       check(r.bubble.includes('Perfect'), `Practice: "${r.line.name}" finished without a mistake ("Perfect")`);
-    } else console.log('(no line with an [%also] move: Practice check skipped)');
+    } else {
+      // no [%also] in this course: still check that a line can be played cleanly in Practice
+      const r = await play(0, 'practice');
+      check(r.bubble.includes('Perfect'), `Practice: "${r.line.name}" finished without a mistake ("Perfect"; the course has no [%also] moves)`);
+    }
 
     check(errors.length === 0, `no console errors or warnings${errors.length ? `: ${errors.slice(0, 5).join(' | ')}` : ''}`);
   } catch (e) {

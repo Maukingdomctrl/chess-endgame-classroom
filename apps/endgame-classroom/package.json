@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "course:kpk": "node tools/kpk-course/run.cjs",
     "course:basics": "node tools/basics-course/run.cjs",
+    "course:ladder": "node tools/ladder-course/run.cjs",
     "course:e2e": "node tools/course-kit/e2e.cjs",
     "kit:selftest": "node tools/course-kit/selftest.cjs"
   },

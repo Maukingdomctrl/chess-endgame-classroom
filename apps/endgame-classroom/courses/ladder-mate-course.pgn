@@ -1,0 +1,1336 @@
+[Event "01. The final picture (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/4R3/8/8/8/8/8/K2R4 w - - 0 1"]
+[LineName "01. The final picture (1/8)"]
+[LineDescription "The ladder's last rung: one rook on the 7th rank, the other checks on the 8th."]
+
+{[%csl Bc8,Ba8] Welcome to the ladder mate! Two heavy pieces (two rooks, or a
+queen and a rook) can mate the lone king without any help from your own king.
+First the goal: what the mate looks like on the edge of the board. Mate in 1
+with two rooks: one rook holds the 7th rank, so the other only has to check
+along the 8th. Blue: the squares the black king can step to. Find the check that
+takes them all away.} 1. Rd8# {[%csl Rb8] Checkmate! The rook on d8 checks along
+the 8th rank and the rook on e7 holds the 7th: the king has no square left.} *
+
+[Event "01. The final picture (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/4R3/8/8/8/8/R7/K7 w - - 0 1"]
+[LineName "01. The final picture (2/8)"]
+[LineDescription "The ladder's last rung: one rook on the 7th rank, the other checks on the 8th."]
+
+{[%csl Bd8,Bb8] Mate in 1 again: the wall on the 7th rank, the check on the
+8th.} 1. Ra8# {[%csl Rc8] Checkmate! The rook on a8 checks along the 8th rank
+and the rook on e7 holds the 7th: the king has no square left.} *
+
+[Event "01. The final picture (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k7/3R4/8/8/8/8/8/K1R5 w - - 0 1"]
+[LineName "01. The final picture (3/8)"]
+[LineDescription "Two rooks mate in the corner just as on the edge: wall on the 7th, check on the 8th."]
+
+{[%csl Bb8] Mate in 1 in the corner: the same picture, with the king in the
+corner.} 1. Rc8# {[%csl Ra8] Checkmate! The rook on c8 checks along the 8th rank
+and the rook on d7 holds the 7th: the king has no square left.} *
+
+[Event "01. The final picture (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k7/2R5/8/8/8/8/8/KQ6 w - - 0 1"]
+[LineName "01. The final picture (4/8)"]
+[LineDescription "The queen next to the king, protected by the rook: checkmate."]
+
+{Mate in 1 with queen and rook: the queen can mate right next to the king when
+the rook protects it.} 1. Qb7# {[%csl Ra8] Checkmate! The queen on b7 stands
+right next to the king, protected by the rook on c7: the king can neither take
+it nor run.} *
+
+[Event "01. The final picture (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/3R4/8/8/8/8/Q7/K7 w - - 0 1"]
+[LineName "01. The final picture (5/8)"]
+[LineDescription "Rook on the 7th, queen on the 8th: checkmate on the edge."]
+
+{[%csl Bc8] Mate in 1: the rook holds the 7th rank, the queen checks along the
+8th.} 1. Qg8# {[%csl Rb8] Checkmate! The queen on g8 checks along the 8th rank
+and the rook on d7 holds the 7th: the king has no square left.} *
+
+[Event "01. The final picture (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/Q7/8/8/8/8/8/K3R3 w - - 0 1"]
+[LineName "01. The final picture (6/8)"]
+[LineDescription "Queen on the 7th, rook on the 8th: either piece can give the final check."]
+
+{[%csl Bd8] Mate in 1: this time the queen holds the 7th rank and the rook gives
+the check.} 1. Re8# {[%csl Rc8] Checkmate! The rook on e8 checks along the 8th
+rank and the queen on a7 holds the 7th: the king has no square left.} *
+
+[Event "01. The final picture (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4R3/k7/3R4/8/8/8/8/K7 w - - 0 1"]
+[LineName "01. The final picture (7/8)"]
+[LineDescription "Mate in 2: put one rook on the 7th rank, then mate on the 8th."]
+
+{[%csl Bb7] Mate in 2 with two rooks: first build the picture, then mate.} 1.
+Re7+ {Check on the 7th rank! The rook on d6 holds the 6th rank, so the king has
+to climb to the 8th.} 1... Ka8 {[%csl Bb8]} 2. Rd8# {[%csl Ra8] Checkmate! The
+rook on d8 checks along the 8th rank and the rook on e7 holds the 7th: the king
+has no square left.} *
+
+[Event "01. The final picture (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/k7/2Q5/8/8/8/8/K2R4 w - - 0 1"]
+[LineName "01. The final picture (8/8)"]
+[LineDescription "Mate in 2: one piece takes the 7th rank, the other mates."]
+
+{[%csl Bb8] Mate in 2 with queen and rook: first build the picture, then mate.}
+1. Rd7+ {Check on the 7th rank! The queen on c6 holds the 6th rank, so the king
+has to climb to the 8th.} 1... Kb8 2. Qb7# {[%csl Rb8] Checkmate! The queen on
+b7 stands right next to the king, protected by the rook on d7: the king can
+neither take it nor run.} *
+
+[Event "02. The ladder with two rooks (1/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1R6/8/5k2/3R4/8/8/1K6 w - - 0 1"]
+[LineName "02. The ladder with two rooks (1/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl Be5,Bf5,Bg5,Bh5,Be6,Bf6,Bg6,Bh6] The ladder (also called the lawnmower):
+one rook holds a row, the "wall", so the king cannot go back; the other rook
+gives check one row further, so the king has to climb. Then the rooks swap
+roles, row by row, until the king is mated on the edge. Your king stays at home.
+Climb the ladder: check, then let the other rook take the next row, and so on up
+to the 8th rank. Blue: the box, every square the black king can still reach.
+Watch it shrink row by row.} 1. Rb5+ {Check on the 5th rank! The rook on d4
+holds the 4th rank, so the king has to climb to the 6th.} 1... Ke6 {[%csl
+Be6,Bf6,Bg6,Bh6,Be7,Bf7,Bg7,Bh7,Be8,Bf8,Bg8,Bh8]} 2. Rh4 {A quiet move: the rook
+slides along the 4th rank to the far side (h4), so that the king cannot attack
+it when it gives the next check.} 2... Kd6 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 3. Rh6+ {Check on
+the 6th rank: up to the 7th.} 3... Kc7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 4. Rg5 {The rook slides to the far
+side again (g5) before the next check.} 4... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rg7+ {Check on the 7th
+rank: up to the 8th.} 5... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 6. Rh8# {[%csl
+Ra8] Checkmate! The rook on h8 checks along the 8th rank and the rook on g7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (2/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/5k2/7R/KR6/8 w - - 0 1"]
+[LineName "02. The ladder with two rooks (2/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl
+Bc4,Bd4,Be4,Bf4,Bg4,Bc5,Bd5,Be5,Bf5,Bg5,Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]
+Another ladder: wall, check, wall, check, up to the edge.} 1. Rb4+ {Check on the
+4th rank! The rook on h3 holds the 3rd rank, so the king has to climb to the
+5th.} 1... Ke5 {[%csl
+Bc5,Bd5,Be5,Bf5,Bg5,Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]}
+2. Rh5+ {Check on the 5th rank: up to the 6th.} 2... Kd6 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 3. Rb6+ {Check on
+the 6th rank: up to the 7th.} 3... Kc7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8] The king attacks the rook on b6!} 4.
+Rg6 {The king attacked the rook: it moves to the far side, g6, out of the king's
+reach and still holds the 6th rank.} 4... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rh7+ {Check on the 7th
+rank: up to the 8th.} 5... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 6. Rg8# {[%csl
+Ra8] Checkmate! The rook on g8 checks along the 8th rank and the rook on h7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (3/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1R6/8/8/2k5/6R1/8/K7/8 w - - 0 1"]
+[LineName "02. The ladder with two rooks (3/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl Bc5,Bd5,Be5,Bf5,Bc6,Bd6,Be6,Bf6,Bc7,Bd7,Be7,Bf7] Which rook holds the
+wall, and which one checks next?} 1. Rd8 {The rook cuts the king off along the
+d-file: the box shrinks to 9 squares.} 1... Kc6 {[%csl
+Ba5,Bb5,Bc5,Ba6,Bb6,Bc6,Ba7,Bb7,Bc7]} 2. Rg6+ {Check! The king's toughest reply
+is to step up to c7, where it is locked in the top 2 rows.} 2... Kc7 {[%csl
+Ba7,Bb7,Bc7] The king attacks the rook on d8!} 3. Rh8 {The king attacked the
+rook: it moves to the far side, h8, out of the king's reach and still holds the
+8th rank.} 3... Kb7 {[%csl Ba7,Bb7,Bc7,Bd7,Be7,Bf7]} 4. Rh7+ {Check on the 7th
+rank! The rook on g6 holds the 6th rank, so the king has to climb to the 8th.}
+4... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rg8# {[%csl Ra8] Checkmate! The
+rook on g8 checks along the 8th rank and the rook on h7 holds the 7th: the king
+has no square left.} *
+
+[Event "02. The ladder with two rooks (4/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/8/8/K7/1R4R1 w - - 0 1"]
+[LineName "02. The ladder with two rooks (4/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl
+Bc2,Bd2,Be2,Bf2,Bc3,Bd3,Be3,Bf3,Bc4,Bd4,Be4,Bf4,Bc5,Bd5,Be5,Bf5,Bc6,Bd6,Be6,Bf6,Bc7,Bd7,Be7,Bf7,Bc8,Bd8,Be8,Bf8]
+Push the king up row by row. Keep both rooks out of its reach.} 1. Rg5 {The rook
+takes the 5th rank: the wall moves up, and the king is locked in the top 3
+rows.} 1... Kd6 {[%csl Bc6,Bd6,Be6,Bf6,Bc7,Bd7,Be7,Bf7,Bc8,Bd8,Be8,Bf8]} 2. Rb6+
+{Check on the 6th rank! The rook on g5 holds the 5th rank, so the king has to
+climb to the 7th.} 2... Kc7 {[%csl Bc7,Bd7,Be7,Bf7,Bc8,Bd8,Be8,Bf8] The king
+attacks the rook on b6!} 3. Rh6 {The king attacked the rook: it moves to the far
+side, h6, out of the king's reach and still holds the 6th rank.} 3... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 4. Rg7+ {Check on the 7th
+rank: up to the 8th.} 4... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rh8# {[%csl
+Ra8] Checkmate! The rook on h8 checks along the 8th rank and the rook on g7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (5/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4k3/1R6/8/8/1K5R w - - 0 1"]
+[LineName "02. The ladder with two rooks (5/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl
+Bc5,Bd5,Be5,Bf5,Bg5,Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]
+One rook guards the row, the other climbs past it.} 1. Rh5+ {Check on the 5th
+rank! The rook on b4 holds the 4th rank, so the king has to climb to the 6th.}
+1... Kd6 {[%csl Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 2.
+Rb6+ {Check on the 6th rank: up to the 7th.} 2... Kc7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8] The king attacks the rook on b6!} 3.
+Rg6 {The king attacked the rook: it moves to the far side, g6, out of the king's
+reach and still holds the 6th rank.} 3... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 4. Rh7+ {Check on the 7th
+rank: up to the 8th.} 4... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rg8# {[%csl
+Ra8] Checkmate! The rook on g8 checks along the 8th rank and the rook on h7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (6/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/5k2/8/8/8/8/RK4R1 w - - 0 1"]
+[LineName "02. The ladder with two rooks (6/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl
+Bd2,Be2,Bf2,Bb3,Bc3,Bd3,Be3,Bf3,Bb4,Bc4,Bd4,Be4,Bf4,Bb5,Bc5,Bd5,Be5,Bf5,Bb6,Bc6,Bd6,Be6,Bf6,Bb7,Bc7,Bd7,Be7,Bf7,Bb8,Bc8,Bd8,Be8,Bf8]
+Another ladder: wall, check, wall, check, up to the edge.} 1. Ra5 {The rook
+takes the 5th rank: the wall moves up, and the king is locked in the top 3
+rows.} 1... Ke6 {[%csl
+Bb6,Bc6,Bd6,Be6,Bf6,Bb7,Bc7,Bd7,Be7,Bf7,Bb8,Bc8,Bd8,Be8,Bf8]} 2. Rg6+ {Check on
+the 6th rank! The rook on a5 holds the 5th rank, so the king has to climb to the
+7th.} 2... Kf7 {[%csl Bb7,Bc7,Bd7,Be7,Bf7,Bb8,Bc8,Bd8,Be8,Bf8] The king attacks
+the rook on g6!} 3. Rb6 {The king attacked the rook: it moves to the far side,
+b6, out of the king's reach and still holds the 6th rank.} 3... Ke7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Ra7+ {Check on the 7th
+rank: up to the 8th.} 4... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 5. Rb8# {[%csl
+Rd8] Checkmate! The rook on b8 checks along the 8th rank and the rook on a7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (7/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5k2/8/8/8/8/K7/3R2R1 w - - 0 1"]
+[LineName "02. The ladder with two rooks (7/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl Be2,Bf2,Be3,Bf3,Be4,Bf4,Be5,Bf5,Be6,Bf6,Be7,Bf7,Be8,Bf8] Which rook holds
+the wall, and which one checks next?} 1. Rd6 {The rook takes the 6th rank: the
+wall moves up, and the king is locked in the top 2 rows.} 1... Ke7 {[%csl
+Be7,Bf7,Be8,Bf8] The king attacks the rook on d6!} 2. Ra6 {The king attacked the
+rook: it moves to the far side, a6, out of the king's reach and still holds the
+6th rank.} 2... Kf7 {[%csl Bb7,Bc7,Bd7,Be7,Bf7,Bb8,Bc8,Bd8,Be8,Bf8]} 3. Rb1 {A
+quiet move: the rook goes to b1, ready to give the next check while the other
+rook keeps the king in.} 3... Ke7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Rb7+ {Check on the 7th
+rank! The rook on a6 holds the 6th rank, so the king has to climb to the 8th.}
+4... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 5. Ra8# {[%csl Rd8] Checkmate! The
+rook on a8 checks along the 8th rank and the rook on b7 holds the 7th: the king
+has no square left.} *
+
+[Event "02. The ladder with two rooks (8/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/1R6/8/K7/8/R7 w - - 0 1"]
+[LineName "02. The ladder with two rooks (8/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]
+Push the king up row by row. Keep both rooks out of its reach.} 1. Rh1 {A quiet
+move: the rook goes to h1, ready to give the next check while the other rook
+keeps the king in.} 1... Kd6 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 2. Rh6+ {Check on
+the 6th rank! The rook on b5 holds the 5th rank, so the king has to climb to the
+7th.} 2... Kc7 {[%csl Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 3. Rg5 {A quiet
+move: the rook slides along the 5th rank to the far side (g5), so that the king
+cannot attack it when it gives the next check.} 3... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 4. Rg7+ {Check on the 7th
+rank: up to the 8th.} 4... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rh8# {[%csl
+Ra8] Checkmate! The rook on h8 checks along the 8th rank and the rook on g7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (9/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/8/1R6/8/8/8/1RK5 w - - 0 1"]
+[LineName "02. The ladder with two rooks (9/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]
+One rook guards the row, the other climbs past it.} 1. Rh5 {The rook slides
+along the 5th rank to h5: it keeps the wall and clears the b-file for the other
+rook to check.} 1... Kd6 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8]} 2. Rb6+ {Check on
+the 6th rank! The rook on h5 holds the 5th rank, so the king has to climb to the
+7th.} 2... Kc7 {[%csl Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8] The king attacks
+the rook on b6!} 3. Rg6 {The king attacked the rook: it moves to the far side,
+g6, out of the king's reach and still holds the 6th rank.} 3... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 4. Rh7+ {Check on the 7th
+rank: up to the 8th.} 4... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 5. Rg8# {[%csl
+Ra8] Checkmate! The rook on g8 checks along the 8th rank and the rook on h7
+holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (10/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3R4/1k6/8/3R4/8/8/8/K7 w - - 0 1"]
+[LineName "02. The ladder with two rooks (10/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl Ba6,Bb6,Bc6,Ba7,Bb7,Bc7] Another ladder: wall, check, wall, check, up to
+the edge.} 1. R5d6 {The rook takes the 6th rank: the wall moves up, and the king
+is locked in the top 2 rows.} 1... Kc7 {[%csl Ba7,Bb7,Bc7]} 2. R8d7+ {Check on
+the 7th rank! The rook on d6 holds the 6th rank, so the king has to climb to the
+8th.} 2... Kb8 {[%csl Ba8,Bb8,Bc8]} 3. Rc6 {A quiet move: the rook goes to c6,
+ready to mate while the other rook keeps the king in.} 3... Ka8 {[%csl Ba8,Bb8]}
+4. Rc8# {[%csl Ra8] Checkmate! The rook on c8 checks along the 8th rank and the
+rook on d7 holds the 7th: the king has no square left.} *
+
+[Event "02. The ladder with two rooks (11/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "R7/4k3/8/8/8/8/R7/K7 w - - 0 1"]
+[LineName "02. The ladder with two rooks (11/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl
+Bb3,Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bb4,Bc4,Bd4,Be4,Bf4,Bg4,Bh4,Bb5,Bc5,Bd5,Be5,Bf5,Bg5,Bh5,Bb6,Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bb7,Bc7,Bd7,Be7,Bf7,Bg7,Bh7]
+Which rook holds the wall, and which one checks next?} 1. R2a6 {The rook takes
+the 6th rank: the wall moves up, and the king is locked in the top 2 rows.} 1...
+Kd7 {[%csl Bb7,Bc7,Bd7,Be7,Bf7,Bg7,Bh7]} 2. R8a7+ {Check on the 7th rank! The
+rook on a6 holds the 6th rank, so the king has to climb to the 8th.} 2... Kc8
+{[%csl Bb8,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rb6 {A quiet move: the rook goes to b6,
+ready to mate while the other rook keeps the king in.} 3... Kd8 {[%csl
+Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Rb8# {[%csl Rd8] Checkmate! The rook on b8 checks
+along the 8th rank and the rook on a7 holds the 7th: the king has no square
+left.} *
+
+[Event "02. The ladder with two rooks (12/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1R6/5k2/8/8/8/8/8/KR6 w - - 0 1"]
+[LineName "02. The ladder with two rooks (12/12)"]
+[LineDescription "The ladder: one rook holds the wall, the other checks one row further; repeat up to the edge."]
+
+{[%csl
+Bc2,Bd2,Be2,Bf2,Bg2,Bh2,Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bc4,Bd4,Be4,Bf4,Bg4,Bh4,Bc5,Bd5,Be5,Bf5,Bg5,Bh5,Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc7,Bd7,Be7,Bf7,Bg7,Bh7]
+Push the king up row by row. Keep both rooks out of its reach.} 1. R1b6 {The
+rook takes the 6th rank: the wall moves up, and the king is locked in the top 2
+rows.} 1... Ke7 {[%csl Bc7,Bd7,Be7,Bf7,Bg7,Bh7]} 2. R8b7+ {Check on the 7th
+rank! The rook on b6 holds the 6th rank, so the king has to climb to the 8th.}
+2... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rc6 {A quiet move: the rook goes to
+c6, ready to mate while the other rook keeps the king in.} 3... Ke8 {[%csl
+Bd8,Be8,Bf8,Bg8,Bh8]} 4. Rc8# {[%csl Re8] Checkmate! The rook on c8 checks along
+the 8th rank and the rook on b7 holds the 7th: the king has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1k6/R7/8/8/8/K5R1 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (1/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bb6,Bc6,Bd6,Be6,Bf6,Bb7,Bc7,Bd7,Be7,Bf7,Bb8,Bc8,Bd8,Be8,Bf8] The black
+king will try to catch a rook that stands near it. Don't defend the rook and
+don't give up the row: move it along the same row to the far side of the board,
+out of the king's reach. The wall stays, and the ladder goes on. The black king
+is next to one of your rooks. Move that rook along its row to the far side of
+the board. Blue: the box, every square the black king can still reach.} 1. Rh5
+{The king attacked the rook: it moves to the far side, h5, out of the king's
+reach and still holds the 5th rank.} 1... Kc6 {[%csl
+Ba6,Bb6,Bc6,Bd6,Be6,Bf6,Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 2.
+Rg6+ {Check on the 6th rank! The rook on h5 holds the 5th rank, so the king has
+to climb to the 7th.} 2... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 3. Rh7+ {Check on the 7th
+rank: up to the 8th.} 3... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 4. Rg8# {[%csl
+Ra8] Checkmate! The rook on g8 checks along the 8th rank and the rook on h7
+holds the 7th: the king has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "R7/1k6/8/6R1/8/8/8/K7 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (2/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bb6,Bc6,Bd6,Be6,Bf6,Bb7,Bc7,Bd7,Be7,Bf7] A rook is under attack again:
+switch it to the far side, keeping its row.} 1. Rh8 {The king attacked the rook:
+it moves to the far side, h8, out of the king's reach and still holds the 8th
+rank.} 1... Kc6 {[%csl Ba6,Bb6,Bc6,Bd6,Be6,Bf6,Ba7,Bb7,Bc7,Bd7,Be7,Bf7]} 2. Rh6+
+{Check on the 6th rank! The rook on g5 holds the 5th rank, so the king has to
+climb to the 7th.} 2... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 3. Rg7+ {Check on the 7th
+rank: up to the 8th.} 3... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 4. Rh8# {[%csl
+Ra8] Checkmate! The rook on h8 checks along the 8th rank and the rook on g7
+holds the 7th: the king has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/3R4/8/8/8/8/K5R1 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (3/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Be7,Bf7,Be8,Bf8] The king has reached a rook. Where does it go?} 1. Ra6
+{The king attacked the rook: it moves to the far side, a6, out of the king's
+reach and still holds the 6th rank.} 1... Kf7 {[%csl
+Bb7,Bc7,Bd7,Be7,Bf7,Bb8,Bc8,Bd8,Be8,Bf8]} 2. Rb1 {A quiet move: the rook goes to
+b1, ready to give the next check while the other rook keeps the king in.} 2...
+Ke7 {[%csl Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rb7+ {Check on
+the 7th rank! The rook on a6 holds the 6th rank, so the king has to climb to the
+8th.} 3... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Ra8# {[%csl Rd8] Checkmate!
+The rook on a8 checks along the 8th rank and the rook on b7 holds the 7th: the
+king has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/6k1/7R/8/8/8/KR6 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (4/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7,Bc8,Bd8,Be8,Bf8,Bg8] Keep the
+row, leave the king behind: the far side of the board.} 1. Ra5 {The king
+attacked the rook: it moves to the far side, a5, out of the king's reach and
+still holds the 5th rank.} 1... Kf6 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 2.
+Rb6+ {Check on the 6th rank! The rook on a5 holds the 5th rank, so the king has
+to climb to the 7th.} 2... Ke7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Ra7+ {Check on the 7th
+rank: up to the 8th.} 3... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Rb8# {[%csl
+Rd8] Checkmate! The rook on b8 checks along the 8th rank and the rook on a7
+holds the 7th: the king has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "7R/6k1/8/1R6/8/8/8/K7 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (5/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bc6,Bd6,Be6,Bf6,Bg6,Bc7,Bd7,Be7,Bf7,Bg7] A rook is under attack again:
+switch it to the far side, keeping its row.} 1. Ra8 {The king attacked the rook:
+it moves to the far side, a8, out of the king's reach and still holds the 8th
+rank.} 1... Kf6 {[%csl Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc7,Bd7,Be7,Bf7,Bg7,Bh7]} 2. Ra6+
+{Check on the 6th rank! The rook on b5 holds the 5th rank, so the king has to
+climb to the 7th.} 2... Ke7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rb7+ {Check on the 7th
+rank: up to the 8th.} 3... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Ra8# {[%csl
+Rd8] Checkmate! The rook on a8 checks along the 8th rank and the rook on b7
+holds the 7th: the king has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/6k1/7R/8/8/K3R3/8/8 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (6/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bf7,Bg7,Bf8,Bg8] The king has reached a rook. Where does it go?} 1. Ra6
+{The king attacked the rook: it moves to the far side, a6, out of the king's
+reach and still holds the 6th rank.} 1... Kf7 {[%csl Bf7,Bg7,Bh7,Bf8,Bg8,Bh8]}
+2. Rb3 {A quiet move: the rook goes to b3, ready to give the next check while
+the other rook keeps the king in.} 2... Ke7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rb7+ {Check on the 7th
+rank! The rook on a6 holds the 6th rank, so the king has to climb to the 8th.}
+3... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Ra8# {[%csl Rd8] Checkmate! The
+rook on a8 checks along the 8th rank and the rook on b7 holds the 7th: the king
+has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/1R6/8/8/8/8/K5R1 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (7/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bc7,Bd7,Be7,Bf7,Bc8,Bd8,Be8,Bf8] Keep the row, leave the king behind: the
+far side of the board.} 1. Rh6 {The king attacked the rook: it moves to the far
+side, h6, out of the king's reach and still holds the 6th rank.} 1... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Bf7,Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 2. Rg7+ {Check on the 7th
+rank! The rook on h6 holds the 6th rank, so the king has to climb to the 8th.}
+2... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8,Bf8]} 3. Rh8# {[%csl Ra8] Checkmate! The
+rook on h8 checks along the 8th rank and the rook on g7 holds the 7th: the king
+has no square left.} *
+
+[Event "03. The king attacks a rook: switch sides (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5k2/4R3/8/8/8/R7/K7 w - - 0 1"]
+[LineName "03. The king attacks a rook: switch sides (8/8)"]
+[LineDescription "An attacked rook goes to the far side along its row: the wall stays and the king cannot reach it."]
+
+{[%csl Bf7,Bg7,Bh7,Bf8,Bg8,Bh8] A rook is under attack again: switch it to the
+far side, keeping its row.} 1. Rb6 {The king attacked the rook: it moves to the
+far side, b6, out of the king's reach and still holds the 6th rank.} 1... Ke7
+{[%csl Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 2. Ra7+ {Check on the
+7th rank! The rook on b6 holds the 6th rank, so the king has to climb to the
+8th.} 2... Kd8 {[%csl Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3. Rb8# {[%csl Rd8] Checkmate!
+The rook on b8 checks along the 8th rank and the rook on a7 holds the 7th: the
+king has no square left.} *
+
+[Event "04. The ladder with queen and rook (1/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/7R/8/2k5/Q7/8/8/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (1/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Bc5,Bd5,Be5,Bf5,Bg5,Bb6,Bd6,Be6,Bf6,Bg6] Queen and rook climb the same
+ladder, only faster: the queen covers rows, columns and diagonals at once. One
+piece holds the wall, the other checks one row further, until the king is mated
+on the edge. Climb the ladder with queen and rook: one piece holds the wall, the
+other checks one row further. Blue: the box, every square the black king can
+still reach.} 1. Rh5+ {Check on the 5th rank! The queen on a4 holds the 4th
+rank, so the king has to climb to the 6th.} 1... Kd6 {[%csl
+Bb6,Bd6,Be6,Bf6,Bg6,Bb7,Bc7,Be7,Bf7,Bg7,Bb8,Bc8,Bd8,Bf8,Bg8]} 2. Qa6+ {Check on
+the 6th rank: up to the 7th.} 2... Kc7 {[%csl
+Bc7,Bd7,Be7,Bf7,Bg7,Bb8,Bd8,Be8,Bf8,Bg8]} 3. Rh7+ {Check on the 7th rank: up to
+the 8th.} 3... Kb8 {[%csl Bb8]} 4. Qb7# {[%csl Rb8] Checkmate! The queen on b7
+stands right next to the king, protected by the rook on h7: the king can neither
+take it nor run.} *
+
+[Event "04. The ladder with queen and rook (2/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1R6/8/8/2k5/4Q3/8/8/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (2/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Bc5,Bd6,Bc7,Bd7] Another ladder with queen and rook.} 1. Rc8+ {Check! The
+king's toughest reply is to step up to d6, where it is locked in the top 3
+rows.} 1... Kd6 {[%csl Bd6,Bd7]} 2. Rc6+ {Check on the 6th rank! The king has to
+climb to the 7th.} 2... Kd7 {[%csl Bd7,Bd8]} 3. Qe6+ {Check! The king has only
+one square left: d8.} 3... Kd8 {[%csl Bd8]} 4. Rc8# {[%csl Rd8] Checkmate! The
+rook on c8 checks along the 8th rank, and the queen on e6 covers the squares in
+front of the king.} *
+
+[Event "04. The ladder with queen and rook (3/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/2k5/6Q1/8/8/K4R2 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (3/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Ba5,Bb5,Bc5,Bd5,Be5,Ba6,Bb6,Bc6,Bd6,Ba7,Bb7,Bc7,Be7,Ba8,Bb8,Bd8,Be8]
+Queen and rook: which piece holds the wall, which one checks?} 1. Rf5+ {Check on
+the 5th rank! The queen on g4 holds the 4th rank, so the king has to climb to
+the 6th.} 1... Kc6 {[%csl
+Ba6,Bb6,Bc6,Bd6,Be6,Ba7,Bb7,Bc7,Bd7,Be7,Ba8,Bb8,Bc8,Bd8,Be8]} 2. Qg6+ {Check on
+the 6th rank: up to the 7th.} 2... Kb7 {[%csl
+Ba7,Bb7,Bc7,Bd7,Be7,Ba8,Bb8,Bc8,Bd8]} 3. Rf7+ {Check on the 7th rank: up to the
+8th.} 3... Ka8 {[%csl Ba8,Bb8,Bc8,Bd8,Be8]} 4. Qg8# {[%csl Ra8] Checkmate! The
+queen on g8 checks along the 8th rank and the rook on f7 holds the 7th: the king
+has no square left.} *
+
+[Event "04. The ladder with queen and rook (4/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/8/8/QR6/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (4/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl
+Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bd4,Be4,Bf4,Bg4,Bh4,Bc5,Be5,Bf5,Bg5,Bh5,Bc6,Bd6,Bf6,Bg6,Bh6,Bc7,Bd7,Be7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bh8]
+Push the king to the edge with queen and rook, row by row.} 1. Qa5 {The queen
+takes the 5th rank: the wall moves up, and the king is locked in the top 3
+rows.} 1... Kd6 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Be8,Bf8,Bg8,Bh8]} 2. Rb6+ {Check
+on the 6th rank! The queen on a5 holds the 5th rank, so the king has to climb to
+the 7th.} 2... Kc7 {[%csl Bc7,Bd7,Be7,Bf7,Bg7,Bh7,Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 3.
+Qa7+ {Check on the 7th rank: up to the 8th.} 3... Kc8 {[%csl
+Bc8,Bd8,Be8,Bf8,Bg8,Bh8]} 4. Rb8# {[%csl Rc8] Checkmate! The rook on b8 checks
+along the 8th rank and the queen on a7 holds the 7th: the king has no square
+left.} *
+
+[Event "04. The ladder with queen and rook (5/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4R3/2k5/8/8/8/Q7/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (5/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Bc3,Bd3,Bb4,Bd4,Bb5,Bc5,Bb6,Bc6,Bd6] Another ladder with queen and rook.}
+1. Qc4+ {Check! The king has to step away; its toughest reply is d6.} 1... Kd6
+{[%csl Bd6] The king attacks the rook on e7!} 2. Re6+ {Check on the 6th rank!
+The king has to climb to the 7th.} 2... Kd7 {[%csl Bd7,Bd8]} 3. Qc6+ {Check! The
+king has only one square left: d8.} 3... Kd8 {[%csl Bd8]} 4. Re8# {[%csl Rd8]
+Checkmate! The rook on e8 checks along the 8th rank, and the queen on c6 covers
+the squares in front of the king.} *
+
+[Event "04. The ladder with queen and rook (6/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "R7/8/2k5/8/8/8/5Q2/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (6/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Bb3,Bc3,Bd3,Bb4,Bc4,Be4,Bb5,Bd5,Be5,Bc6,Bd6,Be6,Bb7,Bc7,Bd7,Be7] Queen
+and rook: which piece holds the wall, which one checks?} 1. Rd8 {The rook cuts
+the king off along the d-file: the box shrinks to 12 squares.} 1... Kc7 {[%csl
+Ba3,Bb3,Bc3,Ba4,Bb4,Bc4,Ba5,Bb5,Ba6,Bc6,Bb7,Bc7] The king attacks the rook on
+d8!} 2. Qf6 {The queen takes the 6th rank: the wall moves up, and the king is
+locked in the top 2 rows. It also protects the rook on d8, which the king
+attacked.} 2... Kb7 {[%csl Ba7,Bb7,Bc7]} 3. Rd7+ {Check on the 7th rank! The
+queen on f6 holds the 6th rank, so the king has to climb to the 8th.} 3... Kc8
+{[%csl Ba8,Bb8,Bc8] The rook on d7 is attacked again.} 4. Qd8# {[%csl Rc8]
+Checkmate! The queen on d8 stands right next to the king, protected by the rook
+on d7: the king can neither take it nor run.} *
+
+[Event "04. The ladder with queen and rook (7/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1R6/8/2k5/8/8/8/8/K5Q1 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (7/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl
+Bc2,Bd2,Be2,Bc3,Bd3,Bf3,Bc4,Be4,Bf4,Bd5,Be5,Bf5,Bc6,Bd6,Be6,Bf6,Bc7,Bd7,Be7,Bf7]
+Push the king to the edge with queen and rook, row by row.} 1. Qd4 {The queen
+takes the 4th rank: the wall moves up, and the king is locked in the top 3
+rows.} 1... Kc7 {[%csl Bc6,Bc7] The king attacks the rook on b8!} 2. Rb6 {The
+king attacked the rook: it steps to b6, where the queen protects it. From there
+it holds the 6th rank: the wall moves up, and the king is locked in the top 2
+rows.} 2... Kc8 {[%csl Bc7,Bc8]} 3. Qg7 {The wall moves up to the 7th rank: 1
+row left.} 3... Kd8 {[%csl Bc8,Bd8,Be8]} 4. Rb8# {[%csl Rd8] Checkmate! The rook
+on b8 checks along the 8th rank and the queen on g7 holds the 7th: the king has
+no square left.} *
+
+[Event "04. The ladder with queen and rook (8/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1R6/8/2k5/8/8/6Q1/8/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (8/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Bc4,Bd4,Be4,Bc5,Bd5,Bf5,Bc6,Be6,Bf6,Bd7,Be7,Bf7] Another ladder with
+queen and rook.} 1. Qe5 {The queen takes the 5th rank: the wall moves up, and
+the king is locked in the top 3 rows.} 1... Kd7 {[%csl Bc6,Bd7]} 2. Rb6 {The
+wall moves up to the 6th rank: 2 rows left.} 2... Kc8 {[%csl Bd7,Bc8,Bd8]} 3.
+Qg7 {The wall moves up to the 7th rank: 1 row left.} 3... Kd8 {[%csl
+Bc8,Bd8,Be8]} 4. Rb8# {[%csl Rd8] Checkmate! The rook on b8 checks along the 8th
+rank and the queen on g7 holds the 7th: the king has no square left.} *
+
+[Event "04. The ladder with queen and rook (9/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6R1/8/2k5/8/8/6Q1/8/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (9/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl
+Ba4,Bb4,Bc4,Bd4,Be4,Ba5,Bb5,Bc5,Bd5,Bf5,Ba6,Bb6,Bc6,Be6,Bf6,Ba7,Bb7,Bd7,Be7,Bf7]
+Queen and rook: which piece holds the wall, which one checks?} 1. Qe5 {The queen
+takes the 5th rank: the wall moves up, and the king is locked in the top 3
+rows.} 1... Kb6 {[%csl Ba6,Bb6,Bc6,Ba7,Bb7,Bd7]} 2. Rg6+ {Check on the 6th rank!
+The queen on e5 holds the 5th rank, so the king has to climb to the 7th.} 2...
+Kb7 {[%csl Ba7,Bb7,Bd7,Ba8,Bc8,Bd8]} 3. Qe7+ {Check on the 7th rank: up to the
+8th.} 3... Ka8 {[%csl Ba8,Bb8,Bc8]} 4. Rg8# {[%csl Ra8] Checkmate! The rook on
+g8 checks along the 8th rank and the queen on e7 holds the 7th: the king has no
+square left.} *
+
+[Event "04. The ladder with queen and rook (10/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4R3/2k5/8/8/7Q/8/K7 w - - 0 1"]
+[LineName "04. The ladder with queen and rook (10/10)"]
+[LineDescription "Queen and rook climb the ladder like two rooks, only faster."]
+
+{[%csl Ba4,Bb4,Bc4,Bd4,Ba5,Bb5,Bc5,Bd5,Ba6,Bb6,Bc6,Bd6] Push the king to the
+edge with queen and rook, row by row.} 1. Qf5 {The queen takes the 5th rank: the
+wall moves up, and the king is locked in the top 3 rows.} 1... Kd6 {[%csl
+Ba6,Bb6,Bc6,Bd6] The king attacks the rook on e7!} 2. Re6+ {Check on the 6th
+rank! The queen on f5 holds the 5th rank, so the king has to climb to the 7th.}
+2... Kc7 {[%csl Ba7,Bb7,Bc7,Bd7,Ba8,Bb8,Bc8,Bd8]} 3. Qf7+ {Check on the 7th
+rank: up to the 8th.} 3... Kb8 {[%csl Ba8,Bb8,Bc8,Bd8]} 4. Re8# {[%csl Rb8]
+Checkmate! The rook on e8 checks along the 8th rank and the queen on f7 holds
+the 7th: the king has no square left.} *
+
+[Event "05. Don't stalemate! (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/KR6/3R4/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (1/8)"]
+[LineDescription "Before a quiet move with two rooks, check that the king still has a square."]
+
+{[%csl Bc7] [%cal Rb6b7] With two heavy pieces it is easy to take every square
+from the king without giving check: that is stalemate, and the game is a draw.
+Before each quiet move, make sure the king still has a square, or that your move
+gives check. Two rooks near the king in the corner: one careless quiet move and
+it is stalemate. Blue: the squares the black king can step to. Red arrow: a
+natural move that would be stalemate.} 1. Rc6+ {Not Rb7: that takes the king's
+last square without check, and it is stalemate! Check! The king has only one
+square left: b8.} 1... Kb8 {[%csl Ba8]} 2. Rd8# {Checkmate! The rook on d8
+checks along the 8th rank, and the rook on c6 covers the squares in front of the
+king.} *
+
+[Event "05. Don't stalemate! (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k2K4/2R5/3R4/8/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (2/8)"]
+[LineDescription "Before a quiet move with two rooks, check that the king still has a square."]
+
+{[%csl Bb8] [%cal Rd8c8,Rd6b6] Two rooks again: check, or leave the king a
+square.} 1. Rdd7 {Not Kc8 or Rb6: each of them takes the king's last square
+without check, and it is stalemate! A waiting move: the rook goes to d7. The box
+stays closed, and now Black has to move.} 1... Kb8 {[%csl Ba8] [%cal Rc7a7]
+Careful: Ra7 would be stalemate.} 2. Rc8# {Checkmate! The rook on c8 checks
+along the 8th rank and the rook on d7 holds the 7th: the king has no square
+left.} *
+
+[Event "05. Don't stalemate! (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k1K4/3R4/3R4/8/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (3/8)"]
+[LineDescription "Before a quiet move with two rooks, check that the king still has a square."]
+
+{[%csl Ba8] [%cal Rd6a6] Two rooks again: check, or leave the king a square.} 1.
+Rc6 {Not Ra6: that takes the king's last square without check, and it is
+stalemate! A quiet move: the rook goes to c6, ready to mate while the other rook
+keeps the king in.} 1... Ka8 {[%csl Bb8] [%cal Rd8c8,Rc6b6] Careful: Kc8 or Rb6
+would be stalemate.} 2. Rc8# {Checkmate! The rook on c8 checks along the 8th
+rank and the rook on d7 holds the 7th: the king has no square left.} *
+
+[Event "05. Don't stalemate! (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/1KR5/4R3/8/8/8/8 w - - 0 1"]
+[LineName "05. Don't stalemate! (4/8)"]
+[LineDescription "Before a quiet move with two rooks, check that the king still has a square."]
+
+{[%csl Bd7] [%cal Rc6c7] Two rooks again: check, or leave the king a square.} 1.
+Rd6+ {Not Rc7: that takes the king's last square without check, and it is
+stalemate! Check! The king has only one square left: c8.} 1... Kc8 {[%csl Bb8]}
+2. Re8# {Checkmate! The rook on e8 checks along the 8th rank, and the rook on d6
+covers the squares in front of the king.} *
+
+[Event "05. Don't stalemate! (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3R4/k7/8/7Q/8/8/8/K7 w - - 0 1"]
+[LineName "05. Don't stalemate! (5/8)"]
+[LineDescription "The queen is the piece that stalemates most easily: count the king's squares first."]
+
+{[%csl Bb7,Bb6,Ba6] [%cal Rh5b5] The queen takes so many squares that a quiet
+queen move easily stalemates.} 1. Qg6 {Not Qb5: that takes all 3 of the king's
+squares without check, and it is stalemate! The queen takes the 6th rank: the
+wall moves up, and the king is locked in the top 2 rows.} 1... Kb7 {[%csl
+Bc7,Ba7]} 2. Rd7+ {Check on the 7th rank! The queen on g6 holds the 6th rank, so
+the king has to climb to the 8th.} 2... Kc8 {[%csl Bd7,Bb8] [%cal Rg6d6] The
+king attacks the rook on d7! Careful: Qd6 would be stalemate.} 3. Qe8#
+{Checkmate! The queen on e8 checks along the 8th rank and the rook on d7 holds
+the 7th: the king has no square left.} *
+
+[Event "05. Don't stalemate! (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/8/8/8/8/4Q3/KR6 w - - 0 1"]
+[LineName "05. Don't stalemate! (6/8)"]
+[LineDescription "The queen is the piece that stalemates most easily: count the king's squares first."]
+
+{[%csl Bd8,Bd7,Bc7] [%cal Re2e7] Queen and rook again: careful with quiet queen
+moves.} 1. Qa6+ {Not Qe7: that takes all 3 of the king's squares without check,
+and it is stalemate! Check! The king has to step away; its toughest reply is
+c7.} 1... Kc7 {[%csl Bd8,Bd7]} 2. Rb7+ {Check on the 7th rank! The queen on a6
+holds the 6th rank, so the king has to climb to the 8th.} 2... Kc8 {[%csl Bd8]
+[%cal Ra6b6] Careful: Qb6 would be stalemate.} 3. Qa8# {Checkmate! The queen on
+a8 checks along the 8th rank and the rook on b7 holds the 7th: the king has no
+square left.} *
+
+[Event "05. Don't stalemate! (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/8/1Q6/8/8/8/K3R3 w - - 0 1"]
+[LineName "05. Don't stalemate! (7/8)"]
+[LineDescription "The queen is the piece that stalemates most easily: count the king's squares first."]
+
+{[%csl Bc7,Bc8] [%cal Rb5b7,Rb5c6] Queen and rook again: careful with quiet
+queen moves.} 1. Qc5 {Not Qb7 or Qc6: each of them takes both of the king's
+squares without check, and it is stalemate! The queen takes the 5th rank: the
+wall moves up, and the king is locked in the top 2 rows.} 1... Kd7 {[%csl Bd8]}
+2. Re7+ {Check on the 7th rank! The king has to climb to the 8th.} 2... Kd8
+{[%cal Ra1a2,Ra1b2,Ra1b1] Careful: Ka2, Kb2 or Kb1 would be stalemate.} 3. Qc7#
+{Checkmate! The queen on c7 stands right next to the king, protected by the rook
+on e7: the king can neither take it nor run.} *
+
+[Event "05. Don't stalemate! (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/8/8/8/3Q4/K5R1 w - - 0 1"]
+[LineName "05. Don't stalemate! (8/8)"]
+[LineDescription "The queen is the piece that stalemates most easily: count the king's squares first."]
+
+{[%csl Bf7,Be7,Be8] [%cal Rd2d7] Queen and rook again: careful with quiet queen
+moves.} 1. Qh6+ {Not Qd7: that takes all 3 of the king's squares without check,
+and it is stalemate! Check! The king has to step away; its toughest reply is
+e7.} 1... Ke7 {[%csl Bd8,Be8,Bf7,Bd7]} 2. Rg7+ {Check on the 7th rank! The queen
+on h6 holds the 6th rank, so the king has to climb to the 8th.} 2... Kd8 {[%csl
+Be8,Bc8] [%cal Rh6e6,Rh6c6] Careful: Qe6 or Qc6 would be stalemate.} 3. Qh8#
+{Checkmate! The queen on h8 checks along the 8th rank and the rook on g7 holds
+the 7th: the king has no square left.} *
+
+[Event "06. Final exam (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2R5/8/3k4/K7/R7/8/8/8 w - - 0 1"]
+[LineName "06. Final exam (1/8)"]
+[LineDescription "Wall and check, row by row: the two-rook mate."]
+
+{Final exam! No colours and no hints this time. Usually the pieces do it alone,
+but now and then the fastest mate needs your king. Find the fastest mate. Two
+rooks: mate as fast as you can.} 1. Re4 Kd5 2. Rcc4 Kd6 3. Kb6 Kd7 4. Rcd4+ Kc8
+5. Re8# {Checkmate! The rook on e8 checks along the 8th rank, and the rook on d4
+covers the squares in front of the king.} *
+
+[Event "06. Final exam (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/3k4/K5R1/1R6/8/8 w - - 0 1"]
+[LineName "06. Final exam (2/8)"]
+[LineDescription "Wall and check, row by row: the two-rook mate."]
+
+{Two rooks again.} 1. Rb5+ Kc6 2. Rg6+ Kc7 3. Rh5 Kb7 4. Rh7+ Ka8 5. Rg8#
+{Checkmate! The rook on g8 checks along the 8th rank and the rook on h7 holds
+the 7th: the king has no square left.} *
+
+[Event "06. Final exam (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/K7/1R5R/8/8 w - - 0 1"]
+[LineName "06. Final exam (3/8)"]
+[LineDescription "Wall and check, row by row: the two-rook mate."]
+
+{Two rooks again.} 1. Rb5 Kc6 2. Rh6+ Kc7 3. Rg5 Kb7 4. Rg7+ Ka8 5. Rh8#
+{Checkmate! The rook on h8 checks along the 8th rank and the rook on g7 holds
+the 7th: the king has no square left.} *
+
+[Event "06. Final exam (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/3k4/Q7/8/8/KR6 w - - 0 1"]
+[LineName "06. Final exam (4/8)"]
+[LineDescription "Queen and rook: the fastest ladder."]
+
+{Queen and rook: mate as fast as you can.} 1. Rb5+ Kc6 2. Qa6+ Kc7 3. Rb7+ Kc8
+4. Qa8# {Checkmate! The queen on a8 checks along the 8th rank and the rook on b7
+holds the 7th: the king has no square left.} *
+
+[Event "06. Final exam (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/3k4/1Q6/8/8/K1R5 w - - 0 1"]
+[LineName "06. Final exam (5/8)"]
+[LineDescription "Queen and rook: the fastest ladder."]
+
+{Queen and rook again.} 1. Rc5+ Kd6 2. Qb6+ Kd7 3. Rc7+ Kd8 4. Qb8# {Checkmate!
+The queen on b8 checks along the 8th rank and the rook on c7 holds the 7th: the
+king has no square left.} *
+
+[Event "06. Final exam (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4Q3/8/8/3k4/6R1/8/8/K7 w - - 0 1"]
+[LineName "06. Final exam (6/8)"]
+[LineDescription "Queen and rook: the fastest ladder."]
+
+{Queen and rook again.} 1. Qh5+ Kc6 2. Rg6+ Kb7 3. Qh7+ Ka8 4. Rg8# {Checkmate!
+The rook on g8 checks along the 8th rank and the queen on h7 holds the 7th: the
+king has no square left.} *
+
+[Event "06. Final exam (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "K6R/6k1/8/4R3/8/8/8/8 w - - 0 1"]
+[LineName "06. Final exam (7/8)"]
+[LineDescription "Attacked rook: to the far side, keep the row, keep climbing."]
+
+{Two rooks, and the king is coming for one of them.} 1. Rb8 Kf6 2. Ra5 Ke6 3.
+Rb6+ Kd7 4. Ra7+ Kc8 5. Rb8# {Checkmate! The rook on b8 checks along the 8th
+rank and the rook on a7 holds the 7th: the king has no square left.} *
+
+[Event "06. Final exam (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/K4k2/4R3/2R5/8/8/8 w - - 0 1"]
+[LineName "06. Final exam (8/8)"]
+[LineDescription "Attacked rook: to the far side, keep the row, keep climbing."]
+
+{Two rooks, and the king is near a rook again.} 1. Rb5 Ke6 2. Rc6+ Kd7 3. Rh6
+Kc7 4. Rb7+ Kc8 5. Rh8# {Checkmate! The rook on h8 checks along the 8th rank and
+the rook on b7 holds the 7th: the king has no square left.} *
+
+[Event "07. Extra practice (1/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/7k/R7/8/RK6/8 w - - 0 1"]
+[LineName "07. Extra practice (1/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Extra practice: no explanations, just positions. Mate as fast as you can. Two
+rooks.} 1. Rb4 Kg5 2. Ra5+ Kf6 3. Rb6+ Ke7 4. Ra7+ Kd8 5. Rb8# {Checkmate!} *
+
+[Event "07. Extra practice (2/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1R6/7k/R7/8/8/K7 w - - 0 1"]
+[LineName "07. Extra practice (2/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rb5+ Kg6 2. Ra6+ Kf7 3. Rb7+ Ke8 4. Ra8# {Checkmate!} *
+
+[Event "07. Extra practice (3/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2R5/6k1/8/2R5/8/8/8/K7 w - - 0 1"]
+[LineName "07. Extra practice (3/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. R5c6 Kf7 2. R8c7+ Ke8 3. Rd6 Kf8 4. Rd8# {Checkmate!} *
+
+[Event "07. Extra practice (4/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3R3R/8/1k6/8/8/8/K7/8 w - - 0 1"]
+[LineName "07. Extra practice (4/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rh6+ Kc7 2. Rg8 Kb7 3. Rg7+ Ka8 4. Rh8# {Checkmate!} *
+
+[Event "07. Extra practice (5/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/R7/8/8/K7/6R1 w - - 0 1"]
+[LineName "07. Extra practice (5/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rg6+ Kf7 2. Rb6 Ke7 3. Ra7+ Kd8 4. Rb8# {Checkmate!} *
+
+[Event "07. Extra practice (6/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1R6/6k1/R7/8/8/1K6 w - - 0 1"]
+[LineName "07. Extra practice (6/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rb5+ Kf6 2. Ra6+ Ke7 3. Rb7+ Kd8 4. Ra8# {Checkmate!} *
+
+[Event "07. Extra practice (7/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/7R/8/K7/8/1R6 w - - 0 1"]
+[LineName "07. Extra practice (7/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rb6+ Kc7 2. Rg6 Kb7 3. Rh7+ Ka8 4. Rg8# {Checkmate!} *
+
+[Event "07. Extra practice (8/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/3k4/8/8/8/8/8/1RK3R1 w - - 0 1"]
+[LineName "07. Extra practice (8/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rb6 Kc7 2. Rh6 Kb7 3. Rg7+ Ka8 4. Rh8# {Checkmate!} *
+
+[Event "07. Extra practice (9/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3R4/8/2k5/8/8/8/1K4R1/8 w - - 0 1"]
+[LineName "07. Extra practice (9/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rg6+ Kc7 2. Rh8 Kb7 3. Rh7+ Ka8 4. Rg8# {Checkmate!} *
+
+[Event "07. Extra practice (10/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/4R3/2R5/8/1K6/8/8 w - - 0 1"]
+[LineName "07. Extra practice (10/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Kc4 Kd7 2. Kd5 Kd8 3. Kc6 Kc8 4. Re8# {Checkmate!} *
+
+[Event "07. Extra practice (11/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/2R5/8/8/1K6/8/4R3 w - - 0 1"]
+[LineName "07. Extra practice (11/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Kc4 Kd7 2. Kd5 Kd8 3. Ke6 Ke8 4. Rc8# {Checkmate!} *
+
+[Event "07. Extra practice (12/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5R2/k7/4R3/8/8/8/K7 w - - 0 1"]
+[LineName "07. Extra practice (12/24)"]
+[LineDescription "Two rooks: checkmate."]
+
+{Two rooks.} 1. Rf6+ Kb7 2. Re7+ Ka8 3. Rf8# {Checkmate!} *
+
+[Event "07. Extra practice (13/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/Q7/8/R7/K7 w - - 0 1"]
+[LineName "07. Extra practice (13/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qb5 Ke6 2. Ra6+ Ke7 3. Qb7+ Kd8 4. Ra8# {Checkmate!} *
+
+[Event "07. Extra practice (14/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/Q1R5/8/8/K7 w - - 0 1"]
+[LineName "07. Extra practice (14/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qb5 Ke6 2. Rc6+ Kd7 3. Qb7+ Kd8 4. Rc8# {Checkmate!} *
+
+[Event "07. Extra practice (15/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4R3/8/3k4/8/Q7/8/8/K7 w - - 0 1"]
+[LineName "07. Extra practice (15/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qc4 Kd7 2. Qe6+ Kc7 3. Re7+ Kb8 4. Qg8# {Checkmate!} *
+
+[Event "07. Extra practice (16/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5R2/3k4/8/Q7/8/8/K7 w - - 0 1"]
+[LineName "07. Extra practice (16/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qd4+ Ke6 2. Rf6+ Ke7 3. Qd6+ Ke8 4. Rf8# {Checkmate!} *
+
+[Event "07. Extra practice (17/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/4R3/8/8/K1Q5 w - - 0 1"]
+[LineName "07. Extra practice (17/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qc4 Kd7 2. Qc5 Kd8 3. Qa7 Kc8 4. Re8# {Checkmate!} *
+
+[Event "07. Extra practice (18/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/8/8/8/K1Q2R2 w - - 0 1"]
+[LineName "07. Extra practice (18/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qg5 Kc6 2. Rf6+ Kb7 3. Qg7+ Ka8 4. Rf8# {Checkmate!} *
+
+[Event "07. Extra practice (19/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5R2/3k4/8/8/8/8/K1Q5 w - - 0 1"]
+[LineName "07. Extra practice (19/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qg5 Ke6 2. Rf6+ Kd7 3. Qg7+ Kc8 4. Rf8# {Checkmate!} *
+
+[Event "07. Extra practice (20/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2R5/8/3k4/8/8/8/5Q2/K7 w - - 0 1"]
+[LineName "07. Extra practice (20/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qf5 Ke7 2. Rc6 Kd8 3. Qh7 Ke8 4. Rc8# {Checkmate!} *
+
+[Event "07. Extra practice (21/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5Q2/3k4/8/8/8/8/KR6 w - - 0 1"]
+[LineName "07. Extra practice (21/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Rb5 Kc6 2. Qd5+ Kc7 3. Rb7+ Kc8 4. Qd7# {Checkmate!} *
+
+[Event "07. Extra practice (22/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3k4/8/8/8/8/K3R2Q w - - 0 1"]
+[LineName "07. Extra practice (22/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qh5 Kc6 2. Re6+ Kd7 3. Qf7+ Kc8 4. Re8# {Checkmate!} *
+
+[Event "07. Extra practice (23/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4k3/6R1/8/8/K6Q w - - 0 1"]
+[LineName "07. Extra practice (23/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Qh5+ Kd6 2. Rg6+ Kc7 3. Qh7+ Kb8 4. Rg8# {Checkmate!} *
+
+[Event "07. Extra practice (24/24)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4k3/1Q6/8/R7/K7 w - - 0 1"]
+[LineName "07. Extra practice (24/24)"]
+[LineDescription "Queen and rook: checkmate."]
+
+{Queen and rook.} 1. Ra5+ Ke6 2. Qb6+ Kd7 3. Ra7+ Kc8 4. Qc7# {Checkmate!} *
