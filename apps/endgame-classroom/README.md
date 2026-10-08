@@ -82,6 +82,15 @@ built-in course's PGN (e.g. adds coloured squares), your copy is updated on the 
 progress is kept for every line whose moves didn't change, and lines you added yourself stay. To add another built-in course, put its PGN in
 `courses/` and register it in `src/lib/builtinCourses.ts`.
 
+New courses are generated with the shared toolkit in `tools/course-kit/` (exact endgame solver for up
+to four pieces, line player, checker, PGN writer, browser test; see its README), following the
+project skill `.claude/skills/endgame-course/` at the repository root:
+
+```bash
+npm run kit:selftest                    # check the solver
+npm run course:e2e -- <builtin id>       # browser test of a built-in course
+```
+
 ## Chess TV
 
 A separate library for **watching** games (not training them). Open it from the banner under the

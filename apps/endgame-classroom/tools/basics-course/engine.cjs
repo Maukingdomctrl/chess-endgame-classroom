@@ -1,20 +1,10 @@
 // Plays lines with best play on top of the exact solvers (coordinates: square = rank * 8 + file).
-//   K+Q / K+R vs K (mate3.cjs): White plays a fastest mate (lowest DTM), Black the longest defence.
+//   K+Q / K+R vs K (kxk.cjs, values from ../course-kit/solver.cjs): White plays a fastest mate (lowest
+//   DTM), Black the longest defence.
 //   K+P vs K (../kpk-course): the King & Pawn course's engine, fastest safe promotion.
-const M = require('./mate3.cjs');
+const M = require('./kxk.cjs');
 const KP = require('../kpk-course/engine.cjs');
-const { file, rank, dist, kingAdj } = M;
-
-/** Ring of a square counted from the centre: 0 = d4/e4/d5/e5 ... 3 = the edge. */
-const ring = (s) => Math.max(Math.abs(file(s) - 3.5), Math.abs(rank(s) - 3.5)) - 0.5;
-const onEdge = (s) => ring(s) === 3;
-const isCorner = (s) => (file(s) === 0 || file(s) === 7) && (rank(s) === 0 || rank(s) === 7);
-const directOpp = (a, b) =>
-  (file(a) === file(b) && Math.abs(rank(a) - rank(b)) === 2) || (rank(a) === rank(b) && Math.abs(file(a) - file(b)) === 2);
-const knightJump = (a, b) => {
-  const df = Math.abs(file(a) - file(b)), dr = Math.abs(rank(a) - rank(b));
-  return (df === 1 && dr === 2) || (df === 2 && dr === 1);
-};
+const { file, rank, dist, kingAdj, ring, onEdge, isCorner, directOpp, knightJump } = require('../course-kit/board.cjs');
 
 /** The black king's box: every square it can still reach if White stood still (its own square included). */
 function box(S, wk, bk, x) {
