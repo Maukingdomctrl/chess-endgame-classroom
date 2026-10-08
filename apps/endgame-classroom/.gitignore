@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# solved tables kept by KIT_CACHE=1 (tools/course-kit/cache.cjs)
+tools/.kit-cache/
