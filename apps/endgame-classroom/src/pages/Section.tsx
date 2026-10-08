@@ -2,6 +2,8 @@ import type { Category, Course } from "../types";
 import { navigate } from "../lib/router";
 import { categoryInfo, categoryStats } from "../lib/categories";
 import CourseGrid from "../components/CourseGrid";
+import { builtinToCourse, missingBuiltins } from "../lib/builtinCourses";
+import { setCourses } from "../lib/store";
 
 interface Props {
   category: Category;
@@ -36,6 +38,19 @@ export default function Section({ category, courses, onDelete }: Props) {
           ＋ New {cat.singular.toLowerCase()} course
         </button>
       </section>
+
+      {missingBuiltins(courses, category).map((b) => (
+        <div key={b.id} className="panel builtin-offer">
+          <div className="grow">
+            <span className="builtin-chip">★ Built-in course</span>
+            <h2 className="title-sm">{b.name}</h2>
+            <p className="small muted">{b.description}</p>
+          </div>
+          <button className="btn" onClick={() => setCourses((cs) => [builtinToCourse(b), ...cs])}>
+            ↺ Restore
+          </button>
+        </div>
+      ))}
 
       {list.length === 0 ? (
         <div className="empty panel">

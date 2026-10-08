@@ -1,13 +1,21 @@
 import { useSyncExternalStore } from "react";
 import type { Course } from "../types";
 import { loadCourses, saveCourses } from "./storage";
+import { seedBuiltins } from "./builtinCourses";
 
 interface State {
   courses: Course[];
   saveError: boolean;
 }
 
-let state: State = { courses: loadCourses(), saveError: false };
+function initialCourses() {
+  const stored = loadCourses();
+  const seeded = seedBuiltins(stored);
+  if (seeded) saveCourses(seeded);
+  return seeded ?? stored;
+}
+
+let state: State = { courses: initialCourses(), saveError: false };
 const listeners = new Set<() => void>();
 
 export function setCourses(fn: (cs: Course[]) => Course[]) {

@@ -48,12 +48,19 @@ To mark a position yourself, open it in the builder and press **🎨 Mark the bo
 then click squares to colour them (click again to remove), or switch to **Arrows** and click a start
 and an end square. Marks belong to the position on screen and are saved with the line.
 
-## Ready-made course
+## Built-in courses
 
-`courses/king-and-pawn-course.pgn` – *King & Pawn: Opposition and Key Squares*: 50 positions in
-17 lessons, every move verified with an exact king-and-pawn endgame solver. Key squares are shown in
-green (red in the defence lessons, blue for the square of the pawn). Import it as an Endgame course
-playing White.
+Courses in `courses/` ship with the app and appear automatically (marked ★ Built-in) the first
+time the app opens on a device:
+
+- *King & Pawn: Opposition and Key Squares* (`courses/king-and-pawn-course.pgn`): 50 positions in
+  17 lessons, every move verified with an exact king-and-pawn endgame solver. Key squares are shown
+  in green (red in the defence lessons, blue for the square of the pawn). Regenerate it with
+  `npm run course:kpk` (see `tools/kpk-course/`).
+
+A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
+imported by hand is adopted instead of duplicated. To add another built-in course, put its PGN in
+`courses/` and register it in `src/lib/builtinCourses.ts`.
 
 ## Chess TV
 
