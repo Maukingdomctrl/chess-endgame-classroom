@@ -22,6 +22,8 @@ export interface BoardProps {
   askPromotion?: boolean;
   /** Teaching highlights (e.g. key squares) drawn as a soft tint over the square. */
   highlights?: { square: string; color: MarkColor }[];
+  /** When set, square clicks go here (the builder's mark tool) and pieces can't be moved. */
+  onMarkClick?: (square: string) => void;
 }
 
 const LAST_MOVE: CSSProperties = { backgroundColor: "rgba(235, 215, 80, 0.55)" };
@@ -44,8 +46,10 @@ export default function Board({
   movableColor,
   askPromotion = true,
   highlights = [],
+  onMarkClick,
 }: BoardProps) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [picked, setSelected] = useState<string | null>(null);
+  const selected = onMarkClick ? null : picked;
   const [pending, setPending] = useState<{ from: string; to: string; color: "w" | "b" } | null>(null);
   const [selectedFen, setSelectedFen] = useState(fen);
 
@@ -85,6 +89,10 @@ export default function Board({
   }
 
   function onSquareClick({ square }: SquareHandlerArgs) {
+    if (onMarkClick) {
+      onMarkClick(square);
+      return;
+    }
     if (!interactive || pending) return;
     if (selected && selected !== square && targets.some((t) => t.to === square)) {
       attempt(selected, square);
@@ -128,9 +136,10 @@ export default function Board({
           boardOrientation: orientation,
           onPieceDrop,
           onSquareClick,
-          canDragPiece: ({ square }) => interactive && !pending && !!square && ownPiece(square),
+          canDragPiece: ({ square }) => !onMarkClick && interactive && !pending && !!square && ownPiece(square),
           squareStyles,
-          arrows,
+          // One arrow per from/to pair: a PGN arrow can coincide with the trainer's move arrow (the later one wins).
+          arrows: [...new Map(arrows.map((a) => [`${a.startSquare}-${a.endSquare}`, a])).values()],
           allowDrawingArrows: true,
           animationDurationInMs: 200,
           darkSquareStyle: { backgroundColor: "#b58863" },

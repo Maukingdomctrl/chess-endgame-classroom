@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Chess } from "chess.js";
-import type { Course, Line, LineMove, Marks, Side } from "../types";
+import type { Course, Line, LineMove, MarkColor, Marks, Side } from "../types";
 import type { UpdateCourse } from "../App";
 import Board from "../components/Board";
 import Material from "../components/Material";
@@ -13,7 +13,7 @@ import { lineToPgn } from "../lib/pgn";
 import { copyText, exportCourseJson, exportCoursePgn } from "../lib/exporting";
 import { courseStats } from "../lib/stats";
 import { CATEGORIES, categoryInfo } from "../lib/categories";
-import { marksToArrows } from "../lib/marks";
+import { MARK_COLOR_NAMES, MARK_TINT, hasMarks, marksToArrows, sameMarks, toggleArrowMark, toggleSquareMark } from "../lib/marks";
 
 interface Props {
   course: Course;
@@ -59,6 +59,11 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
   const [saveForm, setSaveForm] = useState<{ name: string; description: string } | null>(null);
   const [justSaved, setJustSaved] = useState(false);
   const [toast, setToast] = useState("");
+  const [markMode, setMarkMode] = useState(false);
+  const [markTool, setMarkTool] = useState<"square" | "arrow">("square");
+  const [markColor, setMarkColor] = useState<MarkColor>("G");
+  // First click of an arrow; remembers the position it belongs to so moving away cancels it.
+  const [arrowStart, setArrowStart] = useState<{ square: string; at: number } | null>(null);
 
   const savedLine = course.lines.find((l) => l.id === draft.lineId);
   const fens = useMemo(() => lineFens(draft), [draft]);
@@ -73,7 +78,8 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
     ? !sameMoves(savedLine.moves, draft.moves) ||
       savedLine.intro !== draft.intro ||
       savedLine.startFen !== draft.startFen ||
-      savedLine.moves.some((m, i) => m.comment !== draft.moves[i]?.comment)
+      savedLine.moves.some((m, i) => m.comment !== draft.moves[i]?.comment || !sameMarks(m.marks, draft.moves[i]?.marks)) ||
+      !sameMarks(savedLine.introMarks, draft.introMarks)
     : draft.moves.length > 0 || draft.intro.trim() !== "";
 
   useEffect(() => {
@@ -112,6 +118,29 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
     });
     setCursor(cursor + 1);
     return true;
+  }
+
+  /** Applies a change to the marks of the position on screen (the start, or after the current move). */
+  function updateCursorMarks(fn: (m: Marks | undefined) => Marks | undefined) {
+    setJustSaved(false);
+    setDraft((d) =>
+      cursor === 0
+        ? { ...d, introMarks: fn(d.introMarks) }
+        : { ...d, moves: d.moves.map((m, i) => (i === cursor - 1 ? { ...m, marks: fn(m.marks) } : m)) },
+    );
+  }
+
+  function onMarkClick(square: string) {
+    if (markTool === "square") {
+      updateCursorMarks((m) => toggleSquareMark(m, square, markColor));
+      return;
+    }
+    const start = arrowStart?.at === cursor ? arrowStart.square : null;
+    if (!start) setArrowStart({ square, at: cursor });
+    else {
+      if (start !== square) updateCursorMarks((m) => toggleArrowMark(m, start, square, markColor));
+      setArrowStart(null);
+    }
   }
 
   function setComment(text: string) {
@@ -244,6 +273,12 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
           lastMove={lastMove}
           highlights={cursorMarks?.squares}
           arrows={marksToArrows(cursorMarks)}
+          onMarkClick={markMode ? onMarkClick : undefined}
+          markSquares={
+            markMode && arrowStart?.at === cursor
+              ? { [arrowStart.square]: { boxShadow: `inset 0 0 0 4px ${MARK_TINT[markColor].ring}` } }
+              : {}
+          }
         />
         <Material fen={fen} side={orientation} />
       </div>
@@ -331,6 +366,75 @@ export default function Builder({ course, updateCourse, initialLineId, initialTa
               value={commentValue}
               onChange={(e) => setComment(e.target.value)}
             />
+
+            <div className={`mark-tools${markMode ? " on" : ""}`}>
+              <div className="row wrap">
+                <button
+                  className={`btn small${markMode ? " primary" : ""}`}
+                  onClick={() => {
+                    setMarkMode((v) => !v);
+                    setArrowStart(null);
+                  }}
+                  title="Colour squares and draw arrows for this position (shown in Learn mode)"
+                >
+                  🎨 {markMode ? "Done marking" : "Mark the board"}
+                </button>
+                {markMode && (
+                  <>
+                    <div className="mini-seg" role="group" aria-label="Mark type">
+                      {(["square", "arrow"] as const).map((t) => (
+                        <button
+                          key={t}
+                          className={markTool === t ? "active" : ""}
+                          onClick={() => {
+                            setMarkTool(t);
+                            setArrowStart(null);
+                          }}
+                        >
+                          {t === "square" ? "■ Squares" : "➚ Arrows"}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="swatches" role="group" aria-label="Colour">
+                      {(["G", "R", "Y", "B"] as const).map((c) => (
+                        <button
+                          key={c}
+                          className={`swatch${markColor === c ? " active" : ""}`}
+                          style={{ background: MARK_TINT[c].ring }}
+                          title={MARK_COLOR_NAMES[c]}
+                          aria-label={MARK_COLOR_NAMES[c]}
+                          aria-pressed={markColor === c}
+                          onClick={() => setMarkColor(c)}
+                        />
+                      ))}
+                    </div>
+                    <button
+                      className="btn small ghost"
+                      disabled={!hasMarks(cursorMarks)}
+                      onClick={() => updateCursorMarks(() => undefined)}
+                    >
+                      Clear
+                    </button>
+                  </>
+                )}
+              </div>
+              {markMode ? (
+                <p className="small muted">
+                  {markTool === "square"
+                    ? "Click squares to colour them. Click again to remove."
+                    : arrowStart?.at === cursor
+                      ? `Now click where the arrow from ${arrowStart.square} should point.`
+                      : "Click the start square, then the end square."}{" "}
+                  Marks belong to this position and show in Learn mode only.
+                </p>
+              ) : (
+                hasMarks(cursorMarks) && (
+                  <p className="small muted">
+                    {(cursorMarks?.squares.length ?? 0) + (cursorMarks?.arrows.length ?? 0)} mark(s) on this position.
+                  </p>
+                )
+              )}
+            </div>
 
             {saveForm ? (
               <div className="save-form">

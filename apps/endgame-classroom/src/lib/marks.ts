@@ -78,3 +78,30 @@ const ARROW_COLOR: Record<MarkColor, string> = {
 export function marksToArrows(marks?: Marks): Arrow[] {
   return (marks?.arrows ?? []).map((a) => ({ startSquare: a.from, endSquare: a.to, color: ARROW_COLOR[a.color] }));
 }
+
+const emptyToUndefined = (m: Marks): Marks | undefined => (m.squares.length || m.arrows.length ? m : undefined);
+
+/** Click behaviour of the builder's mark tool: same colour removes, another colour replaces, new square adds. */
+export function toggleSquareMark(marks: Marks | undefined, square: string, color: MarkColor): Marks | undefined {
+  const squares = [...(marks?.squares ?? [])];
+  const i = squares.findIndex((s) => s.square === square);
+  if (i >= 0 && squares[i].color === color) squares.splice(i, 1);
+  else if (i >= 0) squares[i] = { square, color };
+  else squares.push({ square, color });
+  return emptyToUndefined({ squares, arrows: [...(marks?.arrows ?? [])] });
+}
+
+export function toggleArrowMark(marks: Marks | undefined, from: string, to: string, color: MarkColor): Marks | undefined {
+  const arrows = [...(marks?.arrows ?? [])];
+  const i = arrows.findIndex((a) => a.from === from && a.to === to);
+  if (i >= 0 && arrows[i].color === color) arrows.splice(i, 1);
+  else if (i >= 0) arrows[i] = { from, to, color };
+  else arrows.push({ from, to, color });
+  return emptyToUndefined({ squares: [...(marks?.squares ?? [])], arrows });
+}
+
+export function sameMarks(a?: Marks, b?: Marks) {
+  return JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+}
+
+export const MARK_COLOR_NAMES: Record<MarkColor, string> = { G: "Green", R: "Red", Y: "Yellow", B: "Blue" };

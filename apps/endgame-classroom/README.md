@@ -44,6 +44,10 @@ B = blue). The app reads them on import, shows them in **Learn** mode (never in 
 would give the answer away), in the builder and in Chess TV, and writes them back on export. Other
 `[%…]` codes such as Lichess clock times are removed from the comment text.
 
+To mark a position yourself, open it in the builder and press **🎨 Mark the board**: pick a colour,
+then click squares to colour them (click again to remove), or switch to **Arrows** and click a start
+and an end square. Marks belong to the position on screen and are saved with the line.
+
 ## Ready-made course
 
 `courses/king-and-pawn-course.pgn` – *King & Pawn: Opposition and Key Squares*: 50 positions in
