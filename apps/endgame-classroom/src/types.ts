@@ -2,10 +2,19 @@ export type Side = "white" | "black";
 
 export type Category = "opening" | "middlegame" | "endgame";
 
+export type MarkColor = "G" | "R" | "Y" | "B";
+
+/** Coloured squares and arrows for the position after a move (PGN [%csl]/[%cal]). */
+export interface Marks {
+  squares: { square: string; color: MarkColor }[];
+  arrows: { from: string; to: string; color: MarkColor }[];
+}
+
 export interface LineMove {
   san: string;
   /** Coach note shown after this move is played. */
   comment: string;
+  marks?: Marks;
 }
 
 export interface Line {
@@ -15,6 +24,8 @@ export interface Line {
   startFen: string;
   /** Note shown before the first move. */
   intro: string;
+  /** Marks for the starting position. */
+  introMarks?: Marks;
   moves: LineMove[];
 }
 
@@ -46,6 +57,7 @@ export interface TvGame {
   startFen: string;
   /** Comment before the first move. */
   intro: string;
+  introMarks?: Marks;
   moves: LineMove[];
 }
 

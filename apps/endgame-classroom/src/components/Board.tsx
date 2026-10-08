@@ -4,7 +4,8 @@ import { Chess } from "chess.js";
 import type { Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import type { Arrow, PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
-import type { Side } from "../types";
+import type { MarkColor, Side } from "../types";
+import { MARK_TINT } from "../lib/marks";
 
 export interface BoardProps {
   fen: string;
@@ -19,6 +20,10 @@ export interface BoardProps {
   movableColor?: "w" | "b";
   /** When false, promotions default to a queen instead of asking. */
   askPromotion?: boolean;
+  /** Teaching highlights (e.g. key squares) drawn as a soft tint over the square. */
+  highlights?: { square: string; color: MarkColor }[];
+  /** When set, square clicks go here (the builder's mark tool) and pieces can't be moved. */
+  onMarkClick?: (square: string) => void;
 }
 
 const LAST_MOVE: CSSProperties = { backgroundColor: "rgba(235, 215, 80, 0.55)" };
@@ -40,8 +45,11 @@ export default function Board({
   markSquares = {},
   movableColor,
   askPromotion = true,
+  highlights = [],
+  onMarkClick,
 }: BoardProps) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [picked, setSelected] = useState<string | null>(null);
+  const selected = onMarkClick ? null : picked;
   const [pending, setPending] = useState<{ from: string; to: string; color: "w" | "b" } | null>(null);
   const [selectedFen, setSelectedFen] = useState(fen);
 
@@ -81,6 +89,10 @@ export default function Board({
   }
 
   function onSquareClick({ square }: SquareHandlerArgs) {
+    if (onMarkClick) {
+      onMarkClick(square);
+      return;
+    }
     if (!interactive || pending) return;
     if (selected && selected !== square && targets.some((t) => t.to === square)) {
       attempt(selected, square);
@@ -100,9 +112,20 @@ export default function Board({
     squareStyles[lastMove.to] = LAST_MOVE;
   }
   for (const [sq, st] of Object.entries(markSquares)) squareStyles[sq] = { ...squareStyles[sq], ...st };
-  if (selected) {
-    squareStyles[selected] = { ...squareStyles[selected], ...SELECTED };
-    for (const t of targets) squareStyles[t.to] = { ...squareStyles[t.to], ...(t.captured ? RING : DOT) };
+  if (selected) squareStyles[selected] = { ...squareStyles[selected], ...SELECTED };
+  // Layer background images so a highlight tint and a legal-move dot can share a square.
+  const layers: Record<string, string[]> = {};
+  const rings: Record<string, string> = {};
+  if (selected) for (const t of targets) (layers[t.to] ??= []).push(String((t.captured ? RING : DOT).backgroundImage));
+  for (const h of highlights) {
+    const c = MARK_TINT[h.color];
+    (layers[h.square] ??= []).push(`linear-gradient(${c.tint}, ${c.tint})`);
+    rings[h.square] = `inset 0 0 0 2px ${c.ring}`;
+  }
+  for (const [sq, imgs] of Object.entries(layers)) squareStyles[sq] = { ...squareStyles[sq], backgroundImage: imgs.join(", ") };
+  for (const [sq, ring] of Object.entries(rings)) {
+    const prev = squareStyles[sq]?.boxShadow;
+    squareStyles[sq] = { ...squareStyles[sq], boxShadow: prev ? `${prev}, ${ring}` : ring };
   }
 
   return (
@@ -113,9 +136,10 @@ export default function Board({
           boardOrientation: orientation,
           onPieceDrop,
           onSquareClick,
-          canDragPiece: ({ square }) => interactive && !pending && !!square && ownPiece(square),
+          canDragPiece: ({ square }) => !onMarkClick && interactive && !pending && !!square && ownPiece(square),
           squareStyles,
-          arrows,
+          // One arrow per from/to pair: a PGN arrow can coincide with the trainer's move arrow (the later one wins).
+          arrows: [...new Map(arrows.map((a) => [`${a.startSquare}-${a.endSquare}`, a])).values()],
           allowDrawingArrows: true,
           animationDurationInMs: 200,
           darkSquareStyle: { backgroundColor: "#b58863" },

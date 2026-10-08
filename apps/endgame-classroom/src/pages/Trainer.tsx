@@ -11,6 +11,7 @@ import { progressOf } from "../lib/storage";
 import { navigate } from "../lib/router";
 import { setSoundEnabled, soundEnabled, sounds } from "../lib/sound";
 import { courseStats } from "../lib/stats";
+import { marksToArrows } from "../lib/marks";
 
 type Mode = "learn" | "practice";
 
@@ -279,7 +280,10 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
   const expected = traineeTurn ? verbose[run.ply] : null;
   const live = run.viewPly === null;
 
-  const arrows: Arrow[] = [];
+  // Teaching marks from the PGN ([%csl]/[%cal]) for the position on screen. Learn mode only:
+  // in Practice they would give the answer away.
+  const positionMarks = mode === "learn" && line ? (viewing === 0 ? line.introMarks : line.moves[viewing - 1]?.marks) : undefined;
+  const arrows: Arrow[] = marksToArrows(positionMarks);
   const marks: Record<string, CSSProperties> = {};
   if (expected && live && run.status === "playing") {
     if (mode === "learn" || run.hintLevel >= 2) {
@@ -346,6 +350,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
               lastMove={lastMove}
               arrows={arrows}
               markSquares={marks}
+              highlights={positionMarks?.squares}
             />
             {run.celebrate > 0 && run.status === "done" && <Confetti key={`${run.idx}-${run.celebrate}`} />}
           </div>

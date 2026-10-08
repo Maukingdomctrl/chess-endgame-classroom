@@ -1,0 +1,886 @@
+[Event "01. Key squares: pawn on the 4th rank (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/8/8/2KP4/8/8/8 w - - 0 1"]
+[LineName "01. Key squares: pawn on the 4th rank (1/3)"]
+[LineDescription "Key squares of a pawn on the 2nd-4th rank: the three squares two ranks ahead of it."]
+
+{[%csl Gc6,Gd6,Ge6] Welcome! This course masters ONE idea: king and pawn against
+king. Rule 1: every pawn has KEY SQUARES. If your king reaches one of them, the
+pawn will queen whatever Black does. For a pawn on the 4th rank they are the
+three squares two ranks in front of it. Pawn on d4: the key squares (green) are
+c6, d6, e6.} 1. Kc5 {Diagonal opposition: next move it turns into a key square
+or the direct opposition.} 1... Ke6 {[%csl Gc6,Gd6,Ge6]} 2. Kc6 {[%csl
+Gc6,Gd6,Ge6] Key square c6! With your king here the pawn will queen, whoever is
+to move.} *
+
+[Event "01. Key squares: pawn on the 4th rank (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/3k4/8/8/4PK2/8/8/8 w - - 0 1"]
+[LineName "01. Key squares: pawn on the 4th rank (2/3)"]
+[LineDescription "Key squares of a pawn on the 2nd-4th rank: the three squares two ranks ahead of it."]
+
+{[%csl Gd6,Ge6,Gf6] Same rule: walk your king to a key square. Black may stand
+in the way, so go around him. Pawn on e4: the key squares (green) are d6, e6,
+f6.} 1. Kf5 {Diagonal opposition: next move it turns into a key square or the
+direct opposition.} 1... Kd6 {[%csl Gd6,Ge6,Gf6]} 2. Kf6 {[%csl Gd6,Ge6,Gf6] Key
+square f6! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "01. Key squares: pawn on the 4th rank (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/k1P5/8/1K6/8 w - - 0 1"]
+[LineName "01. Key squares: pawn on the 4th rank (3/3)"]
+[LineDescription "Key squares of a pawn on the 2nd-4th rank: the three squares two ranks ahead of it."]
+
+{[%csl Gb6,Gc6,Gd6] Same rule: walk your king to a key square. Black may stand
+in the way, so go around him. Pawn on c4: the key squares (green) are b6, c6,
+d6.} 1. Kc3 Ka5 {[%csl Gb6,Gc6,Gd6]} 2. Kd4 Kb6 {[%csl Gb6,Gc6,Gd6]} 3. Kd5 Kc7
+{[%csl Gb6,Gc6,Gd6]} 4. Kc5 {Opposition! The kings face each other with one
+square between them, and Black must give way.} 4... Kd7 {[%csl Gb6,Gc6,Gd6]} 5.
+Kb6 {[%csl Gb6,Gc6,Gd6] Key square b6! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "02. Key squares: pawn on the 2nd or 3rd rank (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/1k1P4/8/2K5 w - - 0 1"]
+[LineName "02. Key squares: pawn on the 2nd or 3rd rank (1/3)"]
+[LineDescription "Pawn on the 2nd or 3rd rank: the key squares are two ranks in front. The king goes first."]
+
+{[%csl Gc5,Gd5,Ge5] For a pawn on the 2nd or 3rd rank the key squares are still
+two ranks ahead of the pawn. The pawn does not need to move at all yet: bring
+the king up first. Pawn on d3: the key squares (green) are c5, d5, e5.} 1. Kd2
+Kb4 {[%csl Gc5,Gd5,Ge5]} 2. Ke3 Kc5 {[%csl Gc5,Gd5,Ge5]} 3. Ke4 Kd6 {[%csl
+Gc5,Gd5,Ge5]} 4. Kd4 {Opposition! The kings face each other with one square
+between them, and Black must give way.} 4... Kc6 {[%csl Gc5,Gd5,Ge5]} 5. Ke5
+{[%csl Gc5,Gd5,Ge5] Key square e5! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "02. Key squares: pawn on the 2nd or 3rd rank (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/4P1k1/8/5K2 w - - 0 1"]
+[LineName "02. Key squares: pawn on the 2nd or 3rd rank (2/3)"]
+[LineDescription "Pawn on the 2nd or 3rd rank: the key squares are two ranks in front. The king goes first."]
+
+{[%csl Gd5,Ge5,Gf5] The pawn stays at home. Your king does the walking. Pawn on
+e3: the key squares (green) are d5, e5, f5.} 1. Ke2 Kg4 {[%csl Gd5,Ge5,Gf5]} 2.
+Kd3 Kf5 {[%csl Gd5,Ge5,Gf5]} 3. Kd4 Ke6 {[%csl Gd5,Ge5,Gf5]} 4. Ke4 {Opposition!
+The kings face each other with one square between them, and Black must give
+way.} 4... Kd6 {[%csl Gd5,Ge5,Gf5]} 5. Kf5 {[%csl Gd5,Ge5,Gf5] Key square f5!
+With your king here the pawn will queen, whoever is to move.} *
+
+[Event "02. Key squares: pawn on the 2nd or 3rd rank (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/2P2k2/8/3K4 w - - 0 1"]
+[LineName "02. Key squares: pawn on the 2nd or 3rd rank (3/3)"]
+[LineDescription "Pawn on the 2nd or 3rd rank: the key squares are two ranks in front. The king goes first."]
+
+{[%csl Gb5,Gc5,Gd5] The pawn stays at home. Your king does the walking. Pawn on
+c3: the key squares (green) are b5, c5, d5.} 1. Kc2 Ke4 {[%csl Gb5,Gc5,Gd5]} 2.
+Kb3 Kd5 {[%csl Gb5,Gc5,Gd5]} 3. Kb4 Kc6 {[%csl Gb5,Gc5,Gd5]} 4. Kc4 {Opposition!
+The kings face each other with one square between them, and Black must give
+way.} 4... Kb6 {[%csl Gb5,Gc5,Gd5]} 5. Kd5 {[%csl Gb5,Gc5,Gd5] Key square d5!
+With your king here the pawn will queen, whoever is to move.} *
+
+[Event "03. Key squares: pawn on the 5th rank (1/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/1k1P4/8/2K5/8/8 w - - 0 1"]
+[LineName "03. Key squares: pawn on the 5th rank (1/2)"]
+[LineDescription "Pawn on the 5th rank: six key squares, on the 6th and 7th ranks."]
+
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7] Once the pawn reaches the 5th rank it has SIX
+key squares: the three squares on the 6th rank in front of it and the three on
+the 7th. That makes the win much easier. Pawn on d5: the key squares (green) are
+c6, d6, e6, c7, d7, e7.} 1. Kd4 Kb6 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 2. Ke5 Kc7
+{[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7]} 3. Ke6 {[%csl Gc6,Gd6,Ge6,Gc7,Gd7,Ge7] Key
+square e6! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "03. Key squares: pawn on the 5th rank (2/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4P1k1/8/5K2/8/8 w - - 0 1"]
+[LineName "03. Key squares: pawn on the 5th rank (2/2)"]
+[LineDescription "Pawn on the 5th rank: six key squares, on the 6th and 7th ranks."]
+
+{[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7] Six key squares this time. Find the quickest way
+onto one of them. Pawn on e5: the key squares (green) are d6, e6, f6, d7, e7,
+f7.} 1. Ke4 Kg6 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 2. Kd5 Kf7 {[%csl
+Gd6,Ge6,Gf6,Gd7,Ge7,Gf7]} 3. Kd6 {[%csl Gd6,Ge6,Gf6,Gd7,Ge7,Gf7] Key square d6!
+With your king here the pawn will queen, whoever is to move.} *
+
+[Event "04. Finishing: pawn on the 6th rank (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/3P4/2K5/8/8/8/8 w - - 0 1"]
+[LineName "04. Finishing: pawn on the 6th rank (1/3)"]
+[LineDescription "King next to a 6th-rank pawn: escort it in, and promote only when the queening square is safe."]
+
+{[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8] A pawn on the 6th rank with your king beside it
+wins against any defence. Watch how king and pawn work together all the way to
+the queening square. Pawn on d6: the key squares (green) are c7, d7, e7, c8, d8,
+e8.} 1. Kc6 {Opposition! The kings face each other with one square between them,
+and Black must give way.} 1... Kd8 {[%csl Gc7,Gd7,Ge7,Gc8,Gd8,Ge8]} 2. d7 {Now
+the pawn advances, with the king clearing the way.} 2... Ke7 3. Kc7 {Opposition
+again.} 3... Ke6 4. d8=Q {Queen! The pawn promotes safely.} *
+
+[Event "04. Finishing: pawn on the 6th rank (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/4P3/3K4/8/8/8/8 w - - 0 1"]
+[LineName "04. Finishing: pawn on the 6th rank (2/3)"]
+[LineDescription "King next to a 6th-rank pawn: escort it in, and promote only when the queening square is safe."]
+
+{[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8] Escort the pawn home. Keep your king close to
+it. Pawn on e6: the key squares (green) are d7, e7, f7, d8, e8, f8.} 1. Kd6
+{Diagonal opposition: next move it turns into a key square or the direct
+opposition.} 1... Ke8 {[%csl Gd7,Ge7,Gf7,Gd8,Ge8,Gf8]} 2. e7 {Now the pawn
+advances, with the king clearing the way.} 2... Kf7 3. Kd7 {Opposition! The
+kings face each other with one square between them, and Black must give way.}
+3... Kf6 4. e8=Q {Queen! The pawn promotes safely.} *
+
+[Event "04. Finishing: pawn on the 6th rank (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/2P5/3K4/8/8/8/8 w - - 0 1"]
+[LineName "04. Finishing: pawn on the 6th rank (3/3)"]
+[LineDescription "King next to a 6th-rank pawn: escort it in, and promote only when the queening square is safe."]
+
+{[%csl Gb7,Gc7,Gd7,Gb8,Gc8,Gd8] Escort the pawn home. Keep your king close to
+it. Pawn on c6: the key squares (green) are b7, c7, d7, b8, c8, d8.} 1. Kd6
+{Diagonal opposition: next move it turns into a key square or the direct
+opposition.} 1... Kc8 {[%csl Gb7,Gc7,Gd7,Gb8,Gc8,Gd8]} 2. c7 {Now the pawn
+advances, with the king clearing the way.} 2... Kb7 3. Kd7 {Opposition! The
+kings face each other with one square between them, and Black must give way.}
+3... Kb6 4. c8=Q {Queen! The pawn promotes safely.} *
+
+[Event "05. The opposition (1/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/1k6/8/8/1K1P4/8 w - - 0 1"]
+[LineName "05. The opposition (1/5)"]
+[LineDescription "Opposition: kings face to face, one square apart, and the opponent has to move."]
+
+{[%csl Gc4,Gd4,Ge4] Rule 2: when the kings stand on the same file with ONE
+square between them, the side that does NOT have to move has the OPPOSITION. The
+other king must step aside and let yours through. Take the opposition, then walk
+forward to a key square. Pawn on d2: the key squares (green) are c4, d4, e4.} 1.
+Kb3 {Opposition! The kings face each other with one square between them, and
+Black must give way.} 1... Kc5 {[%csl Gc4,Gd4,Ge4]} 2. Kc3 {Opposition again.}
+2... Kd5 {[%csl Gc4,Gd4,Ge4]} 3. Kd3 {Opposition again.} 3... Kc5 {[%csl
+Gc4,Gd4,Ge4]} 4. Ke4 {[%csl Gc4,Gd4,Ge4] Key square e4! With your king here the
+pawn will queen, whoever is to move.} *
+
+[Event "05. The opposition (2/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/6k1/8/8/4P1K1/8 w - - 0 1"]
+[LineName "05. The opposition (2/5)"]
+[LineDescription "Opposition: kings face to face, one square apart, and the opponent has to move."]
+
+{[%csl Gd4,Ge4,Gf4] Take the opposition, then march to a key square. Pawn on e2:
+the key squares (green) are d4, e4, f4.} 1. Kg3 {Opposition! The kings face each
+other with one square between them, and Black must give way.} 1... Kf5 {[%csl
+Gd4,Ge4,Gf4]} 2. Kf3 {Opposition again.} 2... Ke5 {[%csl Gd4,Ge4,Gf4]} 3. Ke3
+{Opposition again.} 3... Kd5 {[%csl Gd4,Ge4,Gf4]} 4. Kf4 {[%csl Gd4,Ge4,Gf4] Key
+square f4! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "05. The opposition (3/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/8/2KP4/8/8 w - - 0 1"]
+[LineName "05. The opposition (3/5)"]
+[LineDescription "Opposition: kings face to face, one square apart, and the opponent has to move."]
+
+{[%csl Gc5,Gd5,Ge5] Take the opposition, then march to a key square. Pawn on d3:
+the key squares (green) are c5, d5, e5.} 1. Kc4 {Opposition! The kings face each
+other with one square between them, and Black must give way.} 1... Kd6 {[%csl
+Gc5,Gd5,Ge5]} 2. Kd4 {Opposition again.} 2... Kc6 {[%csl Gc5,Gd5,Ge5]} 3. Ke5
+{[%csl Gc5,Gd5,Ge5] Key square e5! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "05. The opposition (4/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/5k2/8/8/4PK2/8/8 w - - 0 1"]
+[LineName "05. The opposition (4/5)"]
+[LineDescription "Opposition: kings face to face, one square apart, and the opponent has to move."]
+
+{[%csl Gd5,Ge5,Gf5] Take the opposition, then march to a key square. Pawn on e3:
+the key squares (green) are d5, e5, f5.} 1. Kf4 {Opposition! The kings face each
+other with one square between them, and Black must give way.} 1... Ke6 {[%csl
+Gd5,Ge5,Gf5]} 2. Ke4 {Opposition again.} 2... Kd6 {[%csl Gd5,Ge5,Gf5]} 3. Kf5
+{[%csl Gd5,Ge5,Gf5] Key square f5! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "05. The opposition (5/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/8/8/1K1P4/8/8/8 w - - 0 1"]
+[LineName "05. The opposition (5/5)"]
+[LineDescription "Opposition: kings face to face, one square apart, and the opponent has to move."]
+
+{[%csl Gc6,Gd6,Ge6] Take the opposition, then march to a key square. Pawn on d4:
+the key squares (green) are c6, d6, e6.} 1. Kc5 {Opposition! The kings face each
+other with one square between them, and Black must give way.} 1... Kd7 {[%csl
+Gc6,Gd6,Ge6]} 2. Kd5 {Opposition again.} 2... Kc7 {[%csl Gc6,Gd6,Ge6]} 3. Ke6
+{[%csl Gc6,Gd6,Ge6] Key square e6! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "06. With the opposition, Black must give way (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1k6/8/1K6/8/3P4/8 b - - 0 1"]
+[LineName "06. With the opposition, Black must give way (1/3)"]
+[LineDescription "When the defender gives way, step past him on the side he left."]
+
+{Here you already have the opposition and it is Black to move. Whichever way
+Black steps, your king walks past on the side he has just left open. Pawn on d2:
+the key squares (green) are c4, d4, e4. Black moves first.} 1... Kc6 {[%csl
+Gc4,Gd4,Ge4]} 2. Kc4 {[%csl Gc4,Gd4,Ge4] Key square c4! With your king here the
+pawn will queen, whoever is to move.} *
+
+[Event "06. With the opposition, Black must give way (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/6k1/8/6K1/8/4P3/8 b - - 0 1"]
+[LineName "06. With the opposition, Black must give way (2/3)"]
+[LineDescription "When the defender gives way, step past him on the side he left."]
+
+{Black must step aside. Go past on the other side. Pawn on e2: the key squares
+(green) are d4, e4, f4. Black moves first.} 1... Kf6 {[%csl Gd4,Ge4,Gf4]} 2. Kf4
+{[%csl Gd4,Ge4,Gf4] Key square f4! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "06. With the opposition, Black must give way (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1k6/8/1K6/3P4/8/8 b - - 0 1"]
+[LineName "06. With the opposition, Black must give way (3/3)"]
+[LineDescription "When the defender gives way, step past him on the side he left."]
+
+{Black must step aside. Go past on the other side. Pawn on d3: the key squares
+(green) are c5, d5, e5. Black moves first.} 1... Kc6 {[%csl Gc5,Gd5,Ge5]} 2. Kc4
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 2... Kd6 {[%csl Gc5,Gd5,Ge5]} 3. Kd4 {Opposition again.} 3...
+Kc6 {[%csl Gc5,Gd5,Ge5]} 4. Ke5 {[%csl Gc5,Gd5,Ge5] Key square e5! With your
+king here the pawn will queen, whoever is to move.} *
+
+[Event "07. Distant opposition (1/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/8/8/K2P4/8/8 w - - 0 1"]
+[LineName "07. Distant opposition (1/2)"]
+[LineDescription "Distant opposition: same file, an odd number of squares between the kings."]
+
+{[%csl Gc5,Gd5,Ge5] Opposition also works from far away: the same file with
+three (or five) squares between the kings. Take it at a distance and it turns
+into the direct opposition as the kings come closer. Pawn on d3: the key squares
+(green) are c5, d5, e5.} 1. Kb4 {Distant opposition: same file, three squares
+apart. Keep it and it becomes the direct opposition.} 1... Kc7 {[%csl
+Gc5,Gd5,Ge5]} 2. Kc5 {[%csl Gc5,Gd5,Ge5] Key square c5! With your king here the
+pawn will queen, whoever is to move.} *
+
+[Event "07. Distant opposition (2/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/8/8/8/4P2K/8/8 w - - 0 1"]
+[LineName "07. Distant opposition (2/2)"]
+[LineDescription "Distant opposition: same file, an odd number of squares between the kings."]
+
+{[%csl Gd5,Ge5,Gf5] Take the opposition from a distance. Pawn on e3: the key
+squares (green) are d5, e5, f5.} 1. Kg4 {Distant opposition: same file, three
+squares apart. Keep it and it becomes the direct opposition.} 1... Kf7 {[%csl
+Gd5,Ge5,Gf5]} 2. Kf5 {[%csl Gd5,Ge5,Gf5] Key square f5! With your king here the
+pawn will queen, whoever is to move.} *
+
+[Event "08. Diagonal opposition (1/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5k2/8/8/3KP3/8/8/8 w - - 0 1"]
+[LineName "08. Diagonal opposition (1/2)"]
+[LineDescription "Diagonal opposition turns into direct opposition or a key square."]
+
+{[%csl Gd6,Ge6,Gf6] Kings on the same diagonal with one square between them are
+also in opposition. Use it to shadow the defending king and step onto a key
+square. Pawn on e4: the key squares (green) are d6, e6, f6.} 1. Kd5 {Diagonal
+opposition: next move it turns into a key square or the direct opposition.} 1...
+Kf6 {[%csl Gd6,Ge6,Gf6]} 2. Kd6 {[%csl Gd6,Ge6,Gf6] Key square d6! With your
+king here the pawn will queen, whoever is to move.} *
+
+[Event "08. Diagonal opposition (2/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/8/8/3PK3/8/8/8 w - - 0 1"]
+[LineName "08. Diagonal opposition (2/2)"]
+[LineDescription "Diagonal opposition turns into direct opposition or a key square."]
+
+{[%csl Gc6,Gd6,Ge6] The diagonal opposition again. Pawn on d4: the key squares
+(green) are c6, d6, e6.} 1. Ke5 {Diagonal opposition: next move it turns into a
+key square or the direct opposition.} 1... Kc6 {[%csl Gc6,Gd6,Ge6]} 2. Ke6
+{[%csl Gc6,Gd6,Ge6] Key square e6! With your king here the pawn will queen,
+whoever is to move.} *
+
+[Event "09. King first, pawn later (1/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/1k6/3P4/3K4 w - - 0 1"]
+[LineName "09. King first, pawn later (1/4)"]
+[LineDescription "Lead with the king; the pawn follows later."]
+
+{[%csl Gc4,Gd4,Ge4] The most common mistake in these endings is pushing the pawn
+too early. A pawn that runs ahead of its king gives the defender time to block
+it. Bring the king in front first, and only then push. Pawn on d2: the key
+squares (green) are c4, d4, e4.} 1. Ke2 {(d3 would only draw: king first, pawn
+later.)} 1... Kc4 {[%csl Gc4,Gd4,Ge4]} 2. Ke3 Kd5 {[%csl Gc4,Gd4,Ge4]} 3. Kd3
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 3... Kc5 {[%csl Gc4,Gd4,Ge4]} 4. Ke4 {[%csl Gc4,Gd4,Ge4] Key
+square e4! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "09. King first, pawn later (2/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/6k1/4P3/4K3 w - - 0 1"]
+[LineName "09. King first, pawn later (2/4)"]
+[LineDescription "Lead with the king; the pawn follows later."]
+
+{[%csl Gd4,Ge4,Gf4] Resist the pawn move. King first! Pawn on e2: the key
+squares (green) are d4, e4, f4.} 1. Kd2 {(e3 would only draw: king first, pawn
+later.)} 1... Kf4 {[%csl Gd4,Ge4,Gf4]} 2. Kd3 Ke5 {[%csl Gd4,Ge4,Gf4]} 3. Ke3
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 3... Kd5 {[%csl Gd4,Ge4,Gf4]} 4. Kf4 {[%csl Gd4,Ge4,Gf4] Key
+square f4! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "09. King first, pawn later (3/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/1k6/8/3P4/3K4/8 w - - 0 1"]
+[LineName "09. King first, pawn later (3/4)"]
+[LineDescription "Lead with the king; the pawn follows later."]
+
+{[%csl Gc5,Gd5,Ge5] Resist the pawn move. King first! Pawn on d3: the key
+squares (green) are c5, d5, e5.} 1. Ke3 {(d4 would only draw: king first, pawn
+later.)} 1... Kc5 {[%csl Gc5,Gd5,Ge5]} 2. Ke4 Kd6 {[%csl Gc5,Gd5,Ge5]} 3. Kd4
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 3... Kc6 {[%csl Gc5,Gd5,Ge5]} 4. Ke5 {[%csl Gc5,Gd5,Ge5] Key
+square e5! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "09. King first, pawn later (4/4)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/6k1/8/4P3/4K3/8 w - - 0 1"]
+[LineName "09. King first, pawn later (4/4)"]
+[LineDescription "Lead with the king; the pawn follows later."]
+
+{[%csl Gd5,Ge5,Gf5] Resist the pawn move. King first! Pawn on e3: the key
+squares (green) are d5, e5, f5.} 1. Kd3 {(e4 would only draw: king first, pawn
+later.)} 1... Kf5 {[%csl Gd5,Ge5,Gf5]} 2. Kd4 Ke6 {[%csl Gd5,Ge5,Gf5]} 3. Ke4
+{Opposition! The kings face each other with one square between them, and Black
+must give way.} 3... Kd6 {[%csl Gd5,Ge5,Gf5]} 4. Kf5 {[%csl Gd5,Ge5,Gf5] Key
+square f5! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "10. Defending: keep the opposition (1/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/3p4/2k5/8/1K6/8/8/8 w - - 0 1"]
+[LineName "10. Defending: keep the opposition (1/5)"]
+[LineDescription "Defender's rule: stay in front of the pawn and keep the opposition."]
+
+{[%csl Rc5,Rd5,Re5] Now YOU defend: Black has the pawn. If you keep the
+opposition in front of the pawn, the black king can never reach a key square and
+the game is a draw. Black's pawn is on d7. You are White: hold the draw. Red
+squares: the key squares Black's king must never reach.} 1. Kc4 {Opposition!
+Black's king cannot advance.} 1... Kd6 {[%csl Rc5,Rd5,Re5]} 2. Kd4 {Opposition
+again.} 2... Kc6 {[%csl Rc5,Rd5,Re5]} 3. Kc4 {Opposition again.} 3... Kd6 {[%csl
+Rc5,Rd5,Re5]} 4. Kd4 {Opposition again.} 4... Kc6 {[%csl Rc5,Rd5,Re5] Black is
+getting nowhere. Keep this up and it is a draw.} *
+
+[Event "10. Defending: keep the opposition (2/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4p3/3k4/8/4K3/8/8/8 w - - 0 1"]
+[LineName "10. Defending: keep the opposition (2/5)"]
+[LineDescription "Defender's rule: stay in front of the pawn and keep the opposition."]
+
+{[%csl Rd5,Re5,Rf5] Hold the opposition and Black gets nowhere. Black's pawn is
+on e7. You are White: hold the draw. Red squares: the key squares Black's king
+must never reach.} 1. Kd4 {Opposition! Black's king cannot advance.} 1... Ke6
+{[%csl Rd5,Re5,Rf5]} 2. Ke4 {Opposition again.} 2... Kd6 {[%csl Rd5,Re5,Rf5]} 3.
+Kd4 {Opposition again.} 3... Ke6 {[%csl Rd5,Re5,Rf5]} 4. Ke4 {Opposition again.}
+4... Kd6 {[%csl Rd5,Re5,Rf5] Black is getting nowhere. Keep this up and it is a
+draw.} *
+
+[Event "10. Defending: keep the opposition (3/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3p4/3k4/8/2K5/8/8 w - - 0 1"]
+[LineName "10. Defending: keep the opposition (3/5)"]
+[LineDescription "Defender's rule: stay in front of the pawn and keep the opposition."]
+
+{[%csl Rc4,Rd4,Re4] Hold the opposition and Black gets nowhere. Black's pawn is
+on d6. You are White: hold the draw. Red squares: the key squares Black's king
+must never reach.} 1. Kd3 {Opposition! Black's king cannot advance.} 1... Kc5
+{[%csl Rc4,Rd4,Re4]} 2. Kc3 {Opposition again.} 2... Kd5 {[%csl Rc4,Rd4,Re4]} 3.
+Kd3 {Opposition again.} 3... Kc5 {[%csl Rc4,Rd4,Re4]} 4. Kc3 {Opposition again.}
+4... Kd5 {[%csl Rc4,Rd4,Re4] Black is getting nowhere. Keep this up and it is a
+draw.} *
+
+[Event "10. Defending: keep the opposition (4/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4p3/4k3/8/5K2/8/8 w - - 0 1"]
+[LineName "10. Defending: keep the opposition (4/5)"]
+[LineDescription "Defender's rule: stay in front of the pawn and keep the opposition."]
+
+{[%csl Rd4,Re4,Rf4] Hold the opposition and Black gets nowhere. Black's pawn is
+on e6. You are White: hold the draw. Red squares: the key squares Black's king
+must never reach.} 1. Ke3 {Opposition! Black's king cannot advance.} 1... Kd5
+{[%csl Rd4,Re4,Rf4]} 2. Kd3 {Opposition again.} 2... Ke5 {[%csl Rd4,Re4,Rf4]} 3.
+Ke3 {Opposition again.} 3... Kd5 {[%csl Rd4,Re4,Rf4]} 4. Kd3 {Opposition again.}
+4... Ke5 {[%csl Rd4,Re4,Rf4] Black is getting nowhere. Keep this up and it is a
+draw.} *
+
+[Event "10. Defending: keep the opposition (5/5)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/3p4/4k3/8/3K4/8 w - - 0 1"]
+[LineName "10. Defending: keep the opposition (5/5)"]
+[LineDescription "Defender's rule: stay in front of the pawn and keep the opposition."]
+
+{[%csl Rc3,Rd3,Re3] Hold the opposition and Black gets nowhere. Black's pawn is
+on d5. You are White: hold the draw. Red squares: the key squares Black's king
+must never reach.} 1. Ke2 {Opposition! Black's king cannot advance.} 1... Kd4
+{[%csl Rc3,Rd3,Re3]} 2. Kd2 {Opposition again.} 2... Kc4 {[%csl Rc3,Rd3,Re3]} 3.
+Kc2 {Opposition again.} 3... Kd4 {[%csl Rc3,Rd3,Re3]} 4. Kd2 {Opposition again.}
+4... Kc4 {[%csl Rc3,Rd3,Re3] Black is getting nowhere. Keep this up and it is a
+draw.} *
+
+[Event "11. Defending: retreat straight back (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/4k3/3p4/3K4/8 w - - 0 1"]
+[LineName "11. Defending: retreat straight back (1/3)"]
+[LineDescription "Retreat straight back, so you can take the opposition when the pawn moves."]
+
+{[%csl Rc2,Rd2,Re2,Rc1,Rd1,Re1] When you have to retreat, go STRAIGHT BACK in
+front of the pawn, never to the side. Then, as soon as the pawn advances, you
+can take the opposition again. Black's pawn is on d3. You are White: hold the
+draw. Red squares: the key squares Black's king must never reach.} 1. Kd1
+{Straight back, in front of the pawn. Now you can take the opposition after the
+pawn moves.} 1... Kf3 {[%csl Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 2. Kd2 Ke4 {[%csl
+Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 3. Kd1 {Straight back, in front of the pawn. Now you
+can take the opposition after the pawn moves.} 3... Kf3 {[%csl
+Rc2,Rd2,Re2,Rc1,Rd1,Re1]} 4. Kd2 Ke4 {[%csl Rc2,Rd2,Re2,Rc1,Rd1,Re1] Black is
+getting nowhere. Keep this up and it is a draw.} *
+
+[Event "11. Defending: retreat straight back (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/3k4/4p3/4K3/8 w - - 0 1"]
+[LineName "11. Defending: retreat straight back (2/3)"]
+[LineDescription "Retreat straight back, so you can take the opposition when the pawn moves."]
+
+{[%csl Rd2,Re2,Rf2,Rd1,Re1,Rf1] Straight back, in front of the pawn. Black's
+pawn is on e3. You are White: hold the draw. Red squares: the key squares
+Black's king must never reach.} 1. Ke1 {Straight back, in front of the pawn. Now
+you can take the opposition after the pawn moves.} 1... Kc3 {[%csl
+Rd2,Re2,Rf2,Rd1,Re1,Rf1]} 2. Ke2 Kc4 {[%csl Rd2,Re2,Rf2,Rd1,Re1,Rf1]} 3. Kxe3
+{You win the pawn: draw!} *
+
+[Event "11. Defending: retreat straight back (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/2k5/2p5/2K5/8 w - - 0 1"]
+[LineName "11. Defending: retreat straight back (3/3)"]
+[LineDescription "Retreat straight back, so you can take the opposition when the pawn moves."]
+
+{[%csl Rb2,Rc2,Rd2,Rb1,Rc1,Rd1] Straight back, in front of the pawn. Black's
+pawn is on c3. You are White: hold the draw. Red squares: the key squares
+Black's king must never reach.} 1. Kc1 {Straight back, in front of the pawn. Now
+you can take the opposition after the pawn moves.} 1... Kb4 {[%csl
+Rb2,Rc2,Rd2,Rb1,Rc1,Rd1]} 2. Kc2 Ka3 {[%csl Rb2,Rc2,Rd2,Rb1,Rc1,Rd1]} 3. Kxc3
+{You win the pawn: draw!} *
+
+[Event "12. Defending: the stalemate trap (1/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/2k5/3pK3/8 w - - 0 1"]
+[LineName "12. Defending: the stalemate trap (1/2)"]
+[LineDescription "Blocking the queening square often ends in stalemate."]
+
+{[%csl Gd1] With the pawn already on the 2nd rank, step in front of it. If Black
+protects the pawn, it is stalemate! Black's pawn is on d2. You are White: hold
+the draw. Green: the queening square you must block.} 1. Kd1 {Step in front of
+the pawn: the queening square is blocked.} 1... Kd3 {[%csl Gd1] Stalemate! White
+has no legal move: the game is drawn.} *
+
+[Event "12. Defending: the stalemate trap (2/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/5k2/3Kp3/8 w - - 0 1"]
+[LineName "12. Defending: the stalemate trap (2/2)"]
+[LineDescription "Blocking the queening square often ends in stalemate."]
+
+{[%csl Ge1] Block the queening square and look for stalemate. Black's pawn is on
+e2. You are White: hold the draw. Green: the queening square you must block.} 1.
+Ke1 {Step in front of the pawn: the queening square is blocked.} 1... Ke3 {[%csl
+Ge1] Stalemate! White has no legal move: the game is drawn.} *
+
+[Event "13. Rook pawn: the key square next to the corner (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/3k4/PK6/8/8/8 w - - 0 1"]
+[LineName "13. Rook pawn: the key square next to the corner (1/3)"]
+[LineDescription "Rook pawn: the key squares are b7/b8 (a-pawn) or g7/g8 (h-pawn)."]
+
+{[%csl Gb7,Gb8] Rook pawns are special: the defender draws if his king reaches
+the corner in front of the pawn. To win, your king must reach the key square
+next to the queening corner (b7/b8 for an a-pawn, g7/g8 for an h-pawn). Pawn on
+a4: the key squares (green) are b7, b8.} 1. Kb5 {Opposition! The kings face each
+other with one square between them, and Black must give way.} 1... Kd6 {[%csl
+Gb7,Gb8]} 2. Kb6 {Opposition again.} 2... Kd7 {[%csl Gb7,Gb8]} 3. Kb7 {[%csl
+Gb7,Gb8] Key square b7! With your king here the pawn will queen, whoever is to
+move.} *
+
+[Event "13. Rook pawn: the key square next to the corner (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4k3/6KP/8/8/8 w - - 0 1"]
+[LineName "13. Rook pawn: the key square next to the corner (2/3)"]
+[LineDescription "Rook pawn: the key squares are b7/b8 (a-pawn) or g7/g8 (h-pawn)."]
+
+{[%csl Gg7,Gg8] Head for the key square beside the corner. Pawn on h4: the key
+squares (green) are g7, g8.} 1. Kg5 {Opposition! The kings face each other with
+one square between them, and Black must give way.} 1... Ke6 {[%csl Gg7,Gg8]} 2.
+Kg6 {Opposition again.} 2... Ke7 {[%csl Gg7,Gg8]} 3. Kg7 {[%csl Gg7,Gg8] Key
+square g7! With your king here the pawn will queen, whoever is to move.} *
+
+[Event "13. Rook pawn: the key square next to the corner (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/K7/8/Pk6/8/8/8/8 w - - 0 1"]
+[LineName "13. Rook pawn: the key square next to the corner (3/3)"]
+[LineDescription "Rook pawn: the key squares are b7/b8 (a-pawn) or g7/g8 (h-pawn)."]
+
+{[%csl Gb7,Gb8] Head for the key square beside the corner. Pawn on a5: the key
+squares (green) are b7, b8.} 1. a6 {Now the pawn advances, with the king
+clearing the way.} 1... Ka5 {[%csl Gb7,Gb8] Black takes the opposition, so you
+go around him: outflanking.} 2. Kb7 {[%csl Gb7,Gb8] Key square b7! With your
+king here the pawn will queen, whoever is to move.} *
+
+[Event "14. Rook pawn: run to the corner (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/7p/6k1/3K4/8/8 w - - 0 1"]
+[LineName "14. Rook pawn: run to the corner (1/3)"]
+[LineDescription "Against a rook pawn, the corner in front of it is a fortress."]
+
+{[%csl Gh1,Gg1] Defending against a rook pawn: get your king to the corner in
+front of it. From there it can never be driven out, and Black can only stalemate
+you. Black's pawn is on h5. You are White: hold the draw. Green: the corner
+squares your king is heading for.} 1. Ke2 {Towards the corner: against a rook
+pawn, a king in the corner cannot be driven out.} 1... Kg3 {[%csl Gh1,Gg1]} 2.
+Kf1 h4 {[%csl Gh1,Gg1] Black pushes. Keep your king in front of the pawn.} 3.
+Kg1 {In the corner! Now Black can never drive you out.} 3... h3 {[%csl Gh1,Gg1]}
+4. Kh1 h2 {[%csl Gh1,Gg1] Stalemate! White has no legal move: the game is
+drawn.} *
+
+[Event "14. Rook pawn: run to the corner (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/p7/2k5/4K3/8/8 w - - 0 1"]
+[LineName "14. Rook pawn: run to the corner (2/3)"]
+[LineDescription "Against a rook pawn, the corner in front of it is a fortress."]
+
+{[%csl Ga1,Gb1] Into the corner! Black's pawn is on a5. You are White: hold the
+draw. Green: the corner squares your king is heading for.} 1. Kd2 {Towards the
+corner: against a rook pawn, a king in the corner cannot be driven out.} 1...
+Kb3 {[%csl Ga1,Gb1]} 2. Kc1 a4 {[%csl Ga1,Gb1] Black pushes. Keep your king in
+front of the pawn.} 3. Kb1 {In the corner! Now Black can never drive you out.}
+3... a3 {[%csl Ga1,Gb1]} 4. Ka1 a2 {[%csl Ga1,Gb1] Stalemate! White has no legal
+move: the game is drawn.} *
+
+[Event "14. Rook pawn: run to the corner (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/p1k5/4K3/8/8 w - - 0 1"]
+[LineName "14. Rook pawn: run to the corner (3/3)"]
+[LineDescription "Against a rook pawn, the corner in front of it is a fortress."]
+
+{[%csl Ga1,Gb1] Into the corner! Black's pawn is on a4. You are White: hold the
+draw. Green: the corner squares your king is heading for.} 1. Kd2 {Towards the
+corner: against a rook pawn, a king in the corner cannot be driven out.} 1...
+Kb3 {[%csl Ga1,Gb1]} 2. Kc1 a3 {[%csl Ga1,Gb1] Black pushes. Keep your king in
+front of the pawn.} 3. Kb1 {In the corner! Now Black can never drive you out.}
+3... a2+ {[%csl Ga1,Gb1]} 4. Ka1 Ka3 {[%csl Ga1,Gb1] Stalemate! White has no
+legal move: the game is drawn.} *
+
+[Event "15. The rule of the square (1/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/4P3/3k4/8/K7 w - - 0 1"]
+[LineName "15. The rule of the square (1/3)"]
+[LineDescription "Defending king outside the square: the pawn runs on its own."]
+
+{[%csl Bb5,Bc5,Bd5,Be5,Bb6,Bc6,Bd6,Be6,Bb7,Bc7,Bd7,Be7,Bb8,Bc8,Bd8,Be8] When the
+kings are far apart, count! Imagine a square from the pawn to the queening rank.
+If the enemy king is outside that square after your move, the pawn simply runs
+and queens. The blue zone is the square of the pawn once it moves: if the black
+king is outside it, the pawn queens.} 1. e5 {Run! After this push the black king
+is outside the pawn's square.} 1... Kd4 {[%csl
+Bc6,Bd6,Be6,Bc7,Bd7,Be7,Bc8,Bd8,Be8]} 2. e6 {Keep running.} 2... Kd5 {[%csl
+Bd7,Be7,Bd8,Be8]} 3. e7 {Keep running.} 3... Kd6 {[%csl Be8]} 4. e8=Q {Queen!
+The pawn promotes safely.} *
+
+[Event "15. The rule of the square (2/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/3P4/2k5/8/7K w - - 0 1"]
+[LineName "15. The rule of the square (2/3)"]
+[LineDescription "Defending king outside the square: the pawn runs on its own."]
+
+{[%csl Ba5,Bb5,Bc5,Bd5,Ba6,Bb6,Bc6,Bd6,Ba7,Bb7,Bc7,Bd7,Ba8,Bb8,Bc8,Bd8] Is the
+king outside the square? Then run! The blue zone is the square of the pawn once
+it moves: if the black king is outside it, the pawn queens.} 1. d5 {Run! After
+this push the black king is outside the pawn's square.} 1... Kc4 {[%csl
+Bb6,Bc6,Bd6,Bb7,Bc7,Bd7,Bb8,Bc8,Bd8]} 2. d6 {Keep running.} 2... Kc5 {[%csl
+Bc7,Bd7,Bc8,Bd8]} 3. d7 {Keep running.} 3... Kc6 {[%csl Bd8]} 4. d8=Q {Queen!
+The pawn promotes safely.} *
+
+[Event "15. The rule of the square (3/3)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/5P2/5k2/8/1K6 w - - 0 1"]
+[LineName "15. The rule of the square (3/3)"]
+[LineDescription "Defending king outside the square: the pawn runs on its own."]
+
+{[%csl Bf5,Bg5,Bh5,Bf6,Bg6,Bh6,Bf7,Bg7,Bh7,Bf8,Bg8,Bh8] Is the king outside the
+square? Then run! The blue zone is the square of the pawn once it moves: if the
+black king is outside it, the pawn queens.} 1. f5 {Run! After this push the
+black king is outside the pawn's square.} 1... Ke4 {[%csl
+Bd6,Be6,Bf6,Bd7,Be7,Bf7,Bd8,Be8,Bf8]} 2. f6 {Keep running.} 2... Ke5 {[%csl
+Be7,Bf7,Be8,Bf8]} 3. f7 {Keep running.} 3... Ke6 {[%csl Bf8]} 4. f8=Q {Queen!
+The pawn promotes safely.} *
+
+[Event "16. Defending: catch the pawn (1/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/K4p2/8/8/1k6/8/8 w - - 0 1"]
+[LineName "16. Defending: catch the pawn (1/2)"]
+[LineDescription "A king inside the square catches the pawn."]
+
+{[%csl
+Ba6,Bb6,Bc6,Bd6,Be6,Bf6,Ba5,Bb5,Bc5,Bd5,Be5,Bf5,Ba4,Bb4,Bc4,Bd4,Be4,Bf4,Ba3,Bb3,Bc3,Bd3,Be3,Bf3,Ba2,Bb2,Bc2,Bd2,Be2,Bf2,Ba1,Bb1,Bc1,Bd1,Be1,Bf1]
+Now you are the one chasing. Step into the pawn's square and your king will
+catch it in time. Black's pawn is on f6. You are White: hold the draw. Blue: the
+pawn's square. Step into it.} 1. Kb5 {Into the pawn's square: your king will
+catch it.} 1... Kc3 {[%csl
+Ba6,Bb6,Bc6,Bd6,Be6,Bf6,Ba5,Bb5,Bc5,Bd5,Be5,Bf5,Ba4,Bb4,Bc4,Bd4,Be4,Bf4,Ba3,Bb3,Bc3,Bd3,Be3,Bf3,Ba2,Bb2,Bc2,Bd2,Be2,Bf2,Ba1,Bb1,Bc1,Bd1,Be1,Bf1]}
+2. Kc5 {Opposition! Black's king cannot advance.} 2... Kd3 {[%csl
+Ba6,Bb6,Bc6,Bd6,Be6,Bf6,Ba5,Bb5,Bc5,Bd5,Be5,Bf5,Ba4,Bb4,Bc4,Bd4,Be4,Bf4,Ba3,Bb3,Bc3,Bd3,Be3,Bf3,Ba2,Bb2,Bc2,Bd2,Be2,Bf2,Ba1,Bb1,Bc1,Bd1,Be1,Bf1]}
+3. Kd5 {Opposition again.} 3... f5 {[%csl
+Bb5,Bc5,Bd5,Be5,Bf5,Bb4,Bc4,Bd4,Be4,Bf4,Bb3,Bc3,Bd3,Be3,Bf3,Bb2,Bc2,Bd2,Be2,Bf2,Bb1,Bc1,Bd1,Be1,Bf1]
+Black pushes. Keep your king in front of the pawn.} 4. Ke5 f4 {[%csl
+Bc4,Bd4,Be4,Bf4,Bc3,Bd3,Be3,Bf3,Bc2,Bd2,Be2,Bf2,Bc1,Bd1,Be1,Bf1]} 5. Kxf4 {You
+win the pawn: draw!} *
+
+[Event "16. Defending: catch the pawn (2/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2p4K/8/8/6k1/8/8 w - - 0 1"]
+[LineName "16. Defending: catch the pawn (2/2)"]
+[LineDescription "A king inside the square catches the pawn."]
+
+{[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc5,Bd5,Be5,Bf5,Bg5,Bh5,Bc4,Bd4,Be4,Bf4,Bg4,Bh4,Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bc2,Bd2,Be2,Bf2,Bg2,Bh2,Bc1,Bd1,Be1,Bf1,Bg1,Bh1]
+Into the square, then catch the pawn. Black's pawn is on c6. You are White: hold
+the draw. Blue: the pawn's square. Step into it.} 1. Kg5 {Into the pawn's
+square: your king will catch it.} 1... Kf3 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc5,Bd5,Be5,Bf5,Bg5,Bh5,Bc4,Bd4,Be4,Bf4,Bg4,Bh4,Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bc2,Bd2,Be2,Bf2,Bg2,Bh2,Bc1,Bd1,Be1,Bf1,Bg1,Bh1]}
+2. Kf5 {Opposition! Black's king cannot advance.} 2... Ke3 {[%csl
+Bc6,Bd6,Be6,Bf6,Bg6,Bh6,Bc5,Bd5,Be5,Bf5,Bg5,Bh5,Bc4,Bd4,Be4,Bf4,Bg4,Bh4,Bc3,Bd3,Be3,Bf3,Bg3,Bh3,Bc2,Bd2,Be2,Bf2,Bg2,Bh2,Bc1,Bd1,Be1,Bf1,Bg1,Bh1]}
+3. Ke5 {Opposition again.} 3... c5 {[%csl
+Bc5,Bd5,Be5,Bf5,Bg5,Bc4,Bd4,Be4,Bf4,Bg4,Bc3,Bd3,Be3,Bf3,Bg3,Bc2,Bd2,Be2,Bf2,Bg2,Bc1,Bd1,Be1,Bf1,Bg1]
+Black pushes. Keep your king in front of the pawn.} 4. Kd5 c4 {[%csl
+Bc4,Bd4,Be4,Bf4,Bc3,Bd3,Be3,Bf3,Bc2,Bd2,Be2,Bf2,Bc1,Bd1,Be1,Bf1]} 5. Kxc4 {You
+win the pawn: draw!} *
+
+[Event "17. Final exam (1/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/2k1P3/8/3K4 w - - 0 1"]
+[LineName "17. Final exam (1/2)"]
+[LineDescription "Key squares + opposition = won king and pawn endings. Well done!"]
+
+{Put it all together. Which squares are key? Who has the opposition? When should
+the pawn move? Try this one in Practice mode without hints.} 1. Ke2 Kc4 2. Kf3
+Kd5 3. Kf4 Ke6 4. Ke4 {Opposition! The kings face each other with one square
+between them, and Black must give way.} 4... Kd6 5. Kf5 {Key square f5! With
+your king here the pawn will queen, whoever is to move.} *
+
+[Event "17. Final exam (2/2)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/3P1k2/8/4K3 w - - 0 1"]
+[LineName "17. Final exam (2/2)"]
+[LineDescription "Key squares + opposition = won king and pawn endings. Well done!"]
+
+{Put it all together. Which squares are key? Who has the opposition? When should
+the pawn move? Try this one in Practice mode without hints.} 1. Kd2 Kf4 2. Kc3
+Ke5 3. Kc4 Kd6 4. Kd4 {Opposition! The kings face each other with one square
+between them, and Black must give way.} 4... Kc6 5. Ke5 {Key square e5! With
+your king here the pawn will queen, whoever is to move.} *

@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 import type { TvCollection, TvGame } from "../types";
 import { newId } from "./storage";
+import { cleanMarks } from "./marks";
 
 const KEY = "endgame-classroom.tv.v1";
 
@@ -30,7 +31,8 @@ export function normalizeCollection(input: unknown): TvCollection {
             headers: g.headers && typeof g.headers === "object" ? g.headers : {},
             startFen: String(g.startFen ?? ""),
             intro: String(g.intro ?? ""),
-            moves: g.moves.map((m) => ({ san: String(m?.san ?? ""), comment: String(m?.comment ?? "") })),
+            introMarks: cleanMarks(g.introMarks),
+            moves: g.moves.map((m) => ({ san: String(m?.san ?? ""), comment: String(m?.comment ?? ""), marks: cleanMarks(m?.marks) })),
           }))
       : [],
   };

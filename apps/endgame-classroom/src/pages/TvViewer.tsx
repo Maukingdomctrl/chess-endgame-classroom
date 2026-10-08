@@ -7,6 +7,7 @@ import { lineFens, lineVerboseMoves } from "../lib/chess";
 import { navigate } from "../lib/router";
 import { gameSubtitle, gameTitle } from "../lib/tvStore";
 import { setSoundEnabled, soundEnabled, sounds } from "../lib/sound";
+import { marksToArrows } from "../lib/marks";
 
 interface Props {
   collection: TvCollection;
@@ -115,6 +116,7 @@ export default function TvViewer({ collection, game, autoplay }: Props) {
   const elo = (side: Side) => clean(side === "white" ? h.WhiteElo : h.BlackElo);
   const lastMove = ply > 0 ? verbose[ply - 1] : null;
   const note = ply === 0 ? game.intro : game.moves[ply - 1]?.comment;
+  const plyMarks = ply === 0 ? game.introMarks : game.moves[ply - 1]?.marks;
   const result = clean(h.Result) && h.Result !== "*" ? h.Result : "";
   const details = [
     ["Event", clean(h.Event)],
@@ -142,7 +144,14 @@ export default function TvViewer({ collection, game, autoplay }: Props) {
       <div className="workspace">
         <div className="board-col">
           {bar(top)}
-          <Board fen={fens[ply]} orientation={orientation} interactive={false} lastMove={lastMove} />
+          <Board
+            fen={fens[ply]}
+            orientation={orientation}
+            interactive={false}
+            lastMove={lastMove}
+            highlights={plyMarks?.squares}
+            arrows={marksToArrows(plyMarks)}
+          />
           {bar(orientation)}
           <div className="tv-timer" aria-hidden="true">
             {playing && !atEnd && <span key={`${ply}-${speed}`} style={{ animationDuration: `${speed}s` }} />}
