@@ -24,9 +24,11 @@
 //   the opponent cannot win, by the same measure), its [%also] must be exactly the other moves that keep it
 //   (a draw is a draw: they are all equally good), every opponent move must be the opponent's best play (it
 //   never lets the learner win), and the line must end in a draw on the board: stalemate, insufficient
-//   material or threefold repetition.
+//   material, threefold repetition, or the last pawn taken with a draw left by the measure (K+R vs K+R
+//   after the pawn: the same as insufficient material when only kings and pawns are on the board).
 //   'auto': 'win' when the learner can win from the start position, 'hold' when it is a draw (either side to
-//   move); a lost start position is a problem. For a course with both kinds of line.
+//   move); a lost start position is a problem. For a course with both kinds of line. With goal 'conversion'
+//   (White's wins only) a holding line is measured by the mate tables (opts.probe).
 const { Chess } = require('chess.js');
 
 let kpk; // loaded on first use: the King & Pawn solver
@@ -115,16 +117,26 @@ function objectiveOf(line, opts, learner) {
   return r === 'win' ? 'win' : r === 'draw' ? 'hold' : null;
 }
 const drawnOnBoard = (g) => g.isStalemate() || g.isInsufficientMaterial() || g.isThreefoldRepetition();
+/**
+ * A holding line's end: a draw on the board, or the last pawn taken with a draw left by the tables (rook
+ * endings: K+R vs K+R is no dead position, but the pawn is gone and nothing is left to defend). With only
+ * kings and pawns the two are the same: taking the last pawn leaves the bare kings.
+ */
+function holdEnded(g, opts, learner, startPawns) {
+  if (drawnOnBoard(g)) return true;
+  return startPawns && !hasPawn(g.fen()) && !g.isCheckmate() && resultFor(g.fen(), opts, learner) === 'draw';
+}
 
 /** The 'hold' objective (see the header): the learner keeps the draw against the opponent's best play. */
 function verifyHold(line, opts, g, learner) {
+  const startPawns = hasPawn(line.fen);
   const problems = [];
   const unique = [];
   const start = resultFor(line.fen, opts, learner);
   if (start !== 'draw') problems.push(`${line.fen}: not a draw with best play (the learner ${start === 'win' ? 'wins' : 'loses'})`);
   for (const m of line.moves) {
     const fen = g.fen();
-    if (drawnOnBoard(g)) { problems.push(`${fen}: the game is already drawn on the board before ${m.san}`); return { problems, unique }; }
+    if (holdEnded(g, opts, learner, startPawns)) { problems.push(`${fen}: the game is already drawn on the board before ${m.san}`); return { problems, unique }; }
     if (g.turn() === learner) {
       const holding = holdingMoves(fen, opts);
       if (!holding.includes(m.san)) problems.push(`${fen}: ${m.san} does not hold the draw (holding: ${holding.join(',') || 'none'})`);
@@ -141,7 +153,7 @@ function verifyHold(line, opts, g, learner) {
     }
     try { g.move(m.san); } catch { problems.push(`${fen}: illegal move ${m.san}`); return { problems, unique }; }
   }
-  if (!drawnOnBoard(g)) problems.push(`does not end in a draw on the board (stalemate, insufficient material or repetition): ${g.fen()}`);
+  if (!holdEnded(g, opts, learner, startPawns)) problems.push(`does not end in a draw on the board (stalemate, insufficient material, repetition, or the last pawn taken into a draw): ${g.fen()}`);
   return { problems, unique };
 }
 
@@ -171,7 +183,8 @@ function verifyLineMoves(line, opts) {
   const learner = opts.learner ?? g.turn();
   const objective = objectiveOf(line, opts, learner);
   if (!objective) return { problems: [`${line.fen}: lost for the learner with best play: neither a win nor a draw to hold`], unique };
-  if (objective === 'hold') return verifyHold(line, opts, g, learner);
+  // the conversion goal measures White's wins only: a draw to hold is measured by the mate tables
+  if (objective === 'hold') return verifyHold(line, opts.goal === 'conversion' ? { ...opts, goal: 'mate' } : opts, g, learner);
   const pawnLine = hasPawn(line.fen);
   let converted = false;
   for (const m of line.moves) {
@@ -213,4 +226,4 @@ function summary(results) {
   return { learnerMoves: n, unique: u, pct: n ? Math.round((100 * u) / n) : 0 };
 }
 
-module.exports = { afterLearner, afterOpponent, cmp, fastestMoves, holdingMoves, resultFor, verifyLine, summary };
+module.exports = { afterLearner, afterOpponent, cmp, fastestMoves, holdingMoves, resultFor, holdEnded, verifyLine, summary };

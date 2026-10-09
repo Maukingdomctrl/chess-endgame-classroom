@@ -12,8 +12,8 @@
 //      bishops against knight 66 moves, rook and bishop against rook 59; the egtb conversion goal measures the
 //      same thing in these endings), and positions whose result is known from endgame theory.
 //   4. Lines played by line.cjs on five pieces pass verify.cjs (mate, conversion and holding objectives).
-// Arguments: --quick (skip the slowest tables), --heavy (add the full check of K+R+P vs K+R, ~20 minutes more),
-// --all (every four-piece material in part 1, not a representative set).
+// Arguments: --quick (skip the slowest tables), --heavy (add the full check of K+R+P vs K+R, ~30 minutes more),
+// --all (every four-piece material in part 1, not a representative set), --parts 3,4 (only those parts).
 'use strict';
 const solver = require('./solver.cjs');
 const egtb = require('./egtb/index.cjs');
@@ -23,6 +23,8 @@ const { verifyLine } = require('./verify.cjs');
 
 const args = process.argv.slice(2);
 const quick = args.includes('--quick'), heavy = args.includes('--heavy'), all = args.includes('--all');
+const partsArg = args.includes('--parts') ? args[args.indexOf('--parts') + 1].split(',').map(Number) : [1, 2, 3, 4];
+const part = (n) => partsArg.includes(n);
 let failures = 0;
 const check = (ok, msg) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${msg}`); if (!ok) failures++; };
 const secs = (t0) => `${((Date.now() - t0) / 1000).toFixed(0)} s`;
@@ -51,10 +53,12 @@ for (const a of PIECES) for (const b of PIECES) {
   if (!(a === 'P' && b === 'P')) FOUR.push(`K${a}K${b}`);
 }
 const SET = ['KQKR', 'KRKP', 'KPKQ', 'KBNK', 'KBBK', 'KNNK', 'KQPK', 'KRPK', 'KPPK', 'KNKP', 'KBKN', 'KKRP', 'KRKB', 'KQQK'];
-for (const name of ['KQK', 'KRK', 'KBK', 'KNK', 'KPK', 'KKP']) sameAsSolver(name, 'mate');
-for (const name of all ? FOUR : quick ? SET.slice(0, 6) : SET) sameAsSolver(name, 'mate');
-sameAsSolver('KPK', 'promotion');
-if (!quick) sameAsSolver('KPPK', 'promotion');
+if (part(1)) {
+  for (const name of ['KQK', 'KRK', 'KBK', 'KNK', 'KPK', 'KKP']) sameAsSolver(name, 'mate');
+  for (const name of all ? FOUR : quick ? SET.slice(0, 6) : SET) sameAsSolver(name, 'mate');
+  sameAsSolver('KPK', 'promotion');
+  if (!quick) sameAsSolver('KPPK', 'promotion');
+}
 
 // ---- 2. the independent checker on every position ----
 function checked(name, goal = 'mate') {
@@ -65,16 +69,19 @@ function checked(name, goal = 'mate') {
   check(!r.wrong && !r.symmetry, `checker: ${name}${goal === 'mate' ? '' : `:${goal}`}, every position (${r.checked}) follows from its moves: ${r.wrong} wrong, ${r.symmetry} index errors${r.examples.length ? ` e.g. ${JSON.stringify(r.examples[0])}` : ''} (built ${built}, checked in ${secs(t0)})`);
   return T;
 }
-checked('KPKP'); // pawns on both sides: en passant
-checked('KQKR', 'conversion');
-checked('KPKP', 'conversion');
-checked('KNNNK');
-if (!quick) {
-  checked('KQQKR');
-  checked('KBBKN');
-  checked('KRBKR');
+if (part(2)) {
+  checked('KPKP'); // pawns on both sides: en passant
+  checked('KQKR', 'conversion');
+  checked('KPKP', 'conversion');
+  checked('KNNNK');
+  checked('KPPPK', 'promotion'); // three pawns against the lone king (the pawn oracle covers one or two)
+  if (!quick) {
+    checked('KQQKR');
+    checked('KBBKN');
+    checked('KRBKR');
+  }
+  if (heavy) checked('KRPKR');
 }
-if (heavy) checked('KRPKR');
 
 // ---- 3. published longest wins, and positions known from theory ----
 function longest(T) {
@@ -82,7 +89,7 @@ function longest(T) {
   for (let i = 0; i < T.size; i++) { const v = T.valueAt(i); if (v > best) best = v; }
   return (best + 1) / 2;
 }
-if (!quick) {
+if (part(3) && !quick) {
   for (const [name, moves] of [['KBBKN', 66], ['KRBKR', 59]]) {
     const t0 = Date.now();
     const m = longest(egtb.table(name, { goal: 'conversion' }));
@@ -95,14 +102,14 @@ const theory = [
   ['3k4/7R/r7/3PK3/8/8/8/8 b - - 0 1', 'draw', 'Philidor: the rook on the sixth rank holds the draw, Black to move'],
   ['8/8/5k2/8/8/8/1K6/QQ5r b - - 0 1', 'loss', 'two queens against a rook: lost for the rook'],
 ];
-for (const [fen, want, what] of theory) {
+for (const [fen, want, what] of part(3) ? theory : []) {
   let r;
   try { r = solver.probe(fen); } catch (e) { r = { result: `error ${e.message}` }; }
   check(r.result === want, `theory: ${what}: ${r.result}${r.dtm >= 0 ? ` (${r.dtm} plies)` : ''}`);
 }
 
 // ---- 4. lines with best play on five pieces pass verify.cjs ----
-for (const [fen, opts, what] of [
+for (const [fen, opts, what] of !part(4) ? [] : [
   ['8/8/8/3k4/8/8/2NNN3/4K3 w - - 0 1', { goal: 'mate' }, 'three knights mate'],
   ['8/8/8/8/3k4/8/1K6/QQ5r w - - 0 1', { goal: 'mate' }, 'two queens against a rook'],
   ...(quick ? [] : [['1K6/1P1k4/8/8/8/8/r7/2R5 w - - 0 1', { goal: 'conversion' }, 'Lucena to the conversion']]),

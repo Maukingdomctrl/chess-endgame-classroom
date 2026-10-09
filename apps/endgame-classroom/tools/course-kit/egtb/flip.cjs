@@ -34,7 +34,6 @@ class Flipped {
     this.back = new Int8Array(this.n);
     this.perm.forEach((j, k) => { this.back[j] = k; });
     this.size = T.size;
-    this.layout = T.layout;
     this.t = new Int8Array(this.n);
     if (nameOf(mine.map((p) => ({ c: 1 - p.c, t: p.t }))) !== T.name) throw new Error(`flip: ${this.name} is not ${T.name} turned`);
   }

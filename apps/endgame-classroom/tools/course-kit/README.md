@@ -51,8 +51,8 @@ promotion opens another 4-piece table (KRKP builds KRKQ, KRKR, KRKB and KRKN too
 memory for the run (10-35 MB for a 4-piece table).
 
 This engine covers up to 4 pieces with pawns on one side; the other materials (five pieces, pawns on both
-sides with en passant) go to the egtb engine (`egtb/README.md`), which is faster (K+Q vs K+R in 2 s on four
-threads) and is checked against this one on every position of every table both build. Not covered by
+sides with en passant) go to the egtb engine (`egtb/README.md`), which is faster (K+Q vs K+R in about 3.5 s
+instead of 14 s) and is checked against this one on every position of every table both build. Not covered by
 either: castling, the fifty-move rule (`verify.cjs` reports a line that runs into it).
 
 **Goal 'promotion'** (`table('KPPK', { goal: 'promotion' })`, `probePromotion(fen)` → `{ result, dtc }`): for

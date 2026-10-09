@@ -2,6 +2,9 @@
 // engine's and the independent checker's), en passant, the goals, the solver.cjs routing, lines with best
 // play on five pieces, and the egtb values against solver.cjs and the checker on small tables. Fails loudly.
 'use strict';
+// every table of this test is solved on the worker threads (when there are several), small ones included, so
+// that the parallel code is what the tests exercise; section 4c compares it with the one-thread solve
+process.env.EGTB_PARALLEL_FROM ??= '1';
 const { Chess } = require('chess.js');
 const egtb = require('./index.cjs');
 const solver = require('../solver.cjs');
@@ -161,6 +164,19 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
     }
   }
   check(tried >= 12 && !missed, `checker: ${tried} corrupted values (a win, a loss, a draw, a mate, each changed), ${missed} not found`);
+}
+
+// ---- 4c. threads change nothing: the tables solved on the worker threads equal a one-thread solve, byte for byte ----
+{
+  const { EgtbTable } = require('./engine.cjs');
+  const { threads } = require('./parallel.cjs');
+  for (const name of ['KQKR', 'KPKP']) { // pawnless: levels shared out with atomics; pawns: slices per worker
+    const P = egtb.table(name);
+    const S = new EgtbTable(name, 'mate', (n, goal) => (n.length === 2 ? egtb.BARE : egtb.table(n, { goal })));
+    S.prepareExits(); S.solve();
+    check(Buffer.compare(Buffer.from(P.val.buffer, P.val.byteOffset, P.val.byteLength), Buffer.from(S.val.buffer)) === 0,
+      `threads: ${name} solved on ${threads()} thread(s) (${P.stats?.threads ?? 'cache'}) equals the one-thread solve byte for byte`);
+  }
 }
 
 // ---- 5. en passant ----

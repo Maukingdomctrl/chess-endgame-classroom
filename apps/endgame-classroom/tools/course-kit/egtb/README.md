@@ -6,7 +6,7 @@ tools work unchanged: `probe(fen)`, `table(name)`, `line.cjs`, `verify.cjs`, the
 
 ```js
 const { probe, probeConversion, table } = require('../solver.cjs');
-probe('1K6/1P1k4/8/8/8/8/r7/2R5 w - - 0 1');           // Lucena: { result: 'win', dtm: 33 }
+probe('1K6/1P1k4/8/8/8/8/r7/2R5 w - - 0 1');           // Lucena: { result: 'win', dtm: 41 }
 probeConversion('1K6/1P1k4/8/8/8/8/r7/2R5 w - - 0 1'); // plies until White captures or promotes into a won position
 const T = table('KRPKR');  // value(sqs, stm), options(sqs, stm, ep), moves(), legal(), inCheck(), size, decode(), valueAt()
 table('KRKRP');            // the same table seen with the colours swapped (flip.cjs): defending lessons share it
@@ -138,6 +138,19 @@ The course regression (`npm run kit:regress`) shows the built-in courses unchang
 - `survey.cjs`: what an ending offers before a lesson list is proposed: wins by depth, the share with a
   single fastest move and its kind, tempting moves that fail; or, with `--objective hold`, the draws with a
   single holding move.
+
+### What K+R+P vs K+R offers a course (surveys of a 0.2% sample, seeded)
+
+| | |
+|---|---|
+| White to move, White wins (measured to the conversion) | about 159 M positions; a single fastest move in 70-81% of every depth band (1-5 plies 70%, 21-40 plies 77%, more than 40: 81%) |
+| that single move | a capture 52%, a pawn move 19%, a king move 11%, a check 9%, a quiet rook move 8%, a promotion 1%, an underpromotion about 9 000 positions (a8=R where a8=Q stalemates or loses the queen) |
+| with a tempting check, capture or promotion that does not win | 50% of them: traps worth a lesson |
+| White to move, a draw White must hold (K+R vs K+R+P) | about 133 M positions; exactly one move holds in 19% (about 25 M defensive resources): a capture 55%, a quiet rook move 18%, a king move 17%, a check 11%; a tempting move that loses next to it in 71% |
+
+The prototypes in `../curricula/rook-endings/` run real positions of three kinds (Lucena, the skewer behind the
+pawn, the Philidor defence) through the whole pipeline, and show what a course still has to decide (a
+rook-endings domain for the explanations; method filters where the fastest conversion is not the textbook one).
 
 ## Limits, and what six pieces would need
 
