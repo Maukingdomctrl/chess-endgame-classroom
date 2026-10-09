@@ -6,7 +6,7 @@ method behind it (what to choose and why) is in the skill `.claude/skills/pawn-e
 folder holds the code.
 
 ```bash
-npm run kit:test                                  # unit tests of this folder (under a minute)
+npm run kit:test                                  # unit tests of this folder, then of ../teach/ (about a minute)
 npm run kit:check -- courses/connected-pawns-course.pgn --lines tools/pawns-course/.out/lines.json
 npm run kit:selftest -- promotion                 # solver goal 'promotion' against the oracle, every position
 npm run kit:regress                               # every built-in course regenerates byte for byte
@@ -25,14 +25,15 @@ KIT_CACHE=1 npm run course:pawns                  # keep solved tables on disk (
 
 | Module | Interface |
 |---|---|
-| `geometry.cjs` | Square lists `[wk, bk, p1, p2]` (-1 = taken): `pawns`, `front`, `queenSq`, `hangs`, `kingToPawns`, `connected`, `sideBySide`, `blocks` (black king in front), `kingNear`, `kingAway` (white king off the pawns' way), `catches` (rule of the square), `mirror`. |
+| `geometry.cjs` | Square lists `[wk, bk, p1, p2]` (-1 = taken): `pawns`, `front`, `queenSq`, `hangs`, `kingToPawns`, `connected`, `sideBySide`, `blocks` (black king in front), `kingNear`, `kingAway` (white king off the pawns' way), `catches` (rule of the square, White to move), `keySquares` (also used by the King & Pawn course), `mirror`. |
 | `structure.cjs` | Variety keys, all mirror- and pawn-order-invariant: `posKey`, `setupKey` (white king + pawns), `pawnSetKey`, `kingsKey`, `pathKey` (a walk of the black king), `wingKey` (pair of files), `shapeKey` (the coarse pattern), `describe` (the pattern in words). |
 | `player.cjs` | `createPlayer({ verify, whiteOrder?, blackOrder? })` → `{ whiteMoves, playLine, stalemates, tab, view, fenOf }`. White: the quickest safe promotion; Black: the longest defence; after a capture the line goes on with one pawn. |
 | `promotion.cjs` | `bestFinishes` (among moves that reach the goal now, the fastest mate afterwards, as `verify.cjs` ranks them), `safeByRule` (queen or rook, not stalemate, not takeable: no solver needed), `failedQueens` (the other pawn's queen: stalemate or taken). |
 | `enumerate.cjs` | `enumerate(player, material, { maxV, accept })` → every White-to-move win once (canonical index), with a single fastest first move; `firstMove(player, c)` decides the one-move finishes lazily. |
 | `select.cjs` | `pickLines(groups, cands, { lineOf, firstMove, sample, sampler, share, overlap, short })` → the chosen lines; `sampleEvenly`, `sampleStratified`, `alternateMirror`, `evaluate`. |
 | `realize.cjs` | `realize(picked, verify)` → real lines (FEN, SAN, `[%also]`), each checked by `verify.cjs`. |
-| `teach.cjs` | Facts for notes and marks from a FEN: `pos`, `protectedBy`, `catches`, `kingSquares`, `stalemateMoves`, `failedQueenNotes`, `oneColourPerSquare`, `withoutHiddenArrows`, `orList`, `sq`. |
+| `teach.cjs` | Facts for notes and marks from a FEN: `pos`, `protectedBy`, `catches`, `kingSquares`, `stalemateMoves`, `failedQueenNotes`, `oneColourPerSquare`, `withoutHiddenArrows`, `orList`, `sq`; for the teaching layer `pawnFacts` (the opposition while the kings fight for the pawn's way, key squares, blockade, a pawn attacked or protected, the rule of the square with the side to move counted, safe promotion now, stalemate traps) and `plausibleMoves` (pawn pushes and king moves that do not retreat: a heuristic, never for correctness). |
+| `domain.cjs` | The pawn endings for `../teach/`: `facts` (pawnFacts, only for White's pawns against the lone king), `plausible`, the phrases (gain / keep / give / lose), the concepts (`opposition`, `keySquare`, `ruleOfSquare`) and the exceptions (`rookPawn`). |
 | `oracle.cjs` | An independent solver for the same measure (1 or 2 pawns): `value(sqs, stm)`, `probe(fen)`, `safePromotion`. Shares no code with `../solver.cjs`. |
 | `checker.cjs` | `checkPgn(text, { lines })` / CLI: the independent check of a written course (see below). |
 | `test.cjs` | Unit tests, including broken lines the checker must catch. |

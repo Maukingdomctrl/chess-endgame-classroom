@@ -41,6 +41,12 @@ const isCorner = (s) => (file(s) === 0 || file(s) === 7) && (rank(s) === 0 || ra
 /** Kings on the same file or rank with one square between them. */
 const directOpp = (a, b) =>
   (file(a) === file(b) && Math.abs(rank(a) - rank(b)) === 2) || (rank(a) === rank(b) && Math.abs(file(a) - file(b)) === 2);
+/** Kings on the same file or rank with three or five squares between them. */
+const distantOpp = (a, b) =>
+  (file(a) === file(b) && [4, 6].includes(Math.abs(rank(a) - rank(b)))) ||
+  (rank(a) === rank(b) && [4, 6].includes(Math.abs(file(a) - file(b))));
+/** Kings on the same diagonal with one square between them. */
+const diagOpp = (a, b) => Math.abs(file(a) - file(b)) === 2 && Math.abs(rank(a) - rank(b)) === 2;
 const knightJump = (a, b) => {
   const df = Math.abs(file(a) - file(b)), dr = Math.abs(rank(a) - rank(b));
   return (df === 1 && dr === 2) || (df === 2 && dr === 1);
@@ -89,5 +95,5 @@ function boardFen(list) {
 
 module.exports = {
   file, rank, dist, sqName, sqIdx, kingAdj, knightAdj, ROOK_DIRS, BISHOP_DIRS, QUEEN_DIRS, rays,
-  ring, onEdge, isCorner, directOpp, knightJump, SYM8, canon8, canon2, parseFen, boardFen,
+  ring, onEdge, isCorner, directOpp, distantOpp, diagOpp, knightJump, SYM8, canon8, canon2, parseFen, boardFen,
 };

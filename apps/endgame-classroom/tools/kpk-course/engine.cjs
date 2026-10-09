@@ -1,24 +1,12 @@
 // Line generation + geometry on top of the KPK solver (normalised coords: attacker = white pawn moving up).
 const K = require('./kpk.cjs');
-const { dtc, idx, whiteMoves, blackMoves, pawnAttacks, dist, file, rank } = K;
+const { dtc, idx, whiteMoves, blackMoves, pawnAttacks, dist } = K;
 
 const val = (wk, bk, p, stm) => dtc[idx(wk, bk, p, stm)];
 
-function keySquares(p) {
-  const f = file(p), r = rank(p), out = [];
-  if (f === 0) return [6 * 8 + 1, 7 * 8 + 1];          // a-pawn: b7, b8
-  if (f === 7) return [6 * 8 + 6, 7 * 8 + 6];          // h-pawn: g7, g8
-  const rows = r <= 3 ? [r + 2] : r <= 5 ? [r + 1, r + 2] : [];
-  for (const rr of rows) for (let ff = f - 1; ff <= f + 1; ff++) if (rr < 8) out.push(rr * 8 + ff);
-  return out;
-}
-const directOpp = (a, b) =>
-  (file(a) === file(b) && Math.abs(rank(a) - rank(b)) === 2) || (rank(a) === rank(b) && Math.abs(file(a) - file(b)) === 2);
-const distantOpp = (a, b) =>
-  (file(a) === file(b) && [4, 6].includes(Math.abs(rank(a) - rank(b)))) ||
-  (rank(a) === rank(b) && [4, 6].includes(Math.abs(file(a) - file(b))));
-const diagOpp = (a, b) => Math.abs(file(a) - file(b)) === 2 && Math.abs(rank(a) - rank(b)) === 2;
-const promoSq = (p) => 56 + file(p);
+// the geometry lives in the shared toolkit (the same definitions, used by the teaching layer too)
+const { directOpp, distantOpp, diagOpp } = require('../course-kit/board.cjs');
+const { keySquares, queenSq: promoSq } = require('../course-kit/pawn/geometry.cjs');
 
 /** Attacker (stm 0) options with outcome. */
 function attackerOptions(s) {

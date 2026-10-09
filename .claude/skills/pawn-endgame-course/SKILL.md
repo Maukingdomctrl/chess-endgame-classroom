@@ -112,6 +112,26 @@ first and wait for the OK, never moves from memory, verify twice and fail loudly
   blue = the black king's squares, red = the pawn the king will take or the stalemating move. Exam: no
   marks, closing note only. Practice: no notes but "Queen!".
 
+## The teaching layer for pawn endings
+
+`tools/course-kit/pawn/domain.cjs` gives `../teach/` the pawn facts (`teach.pawnFacts`), their words, the
+concepts and the exceptions. What to keep in mind:
+
+- **Opposition** is reported only while the black king stands in front of a pawn and inside its square
+  (the kings fight for the pawn's way). Without that rule every pawn push "took the opposition", because
+  the side to move changes with every move.
+- **Rule of the square**: count the side to move (White to move: the pawn steps first; Black to move: one
+  step more for the king) and the double step. `teach.catches` / `geometry.catches` assume White to move.
+- **Key squares**: `geometry.keySquares` (the King & Pawn course uses the same function); a rook pawn has
+  b7/b8 (g7/g8) and is flagged `rookPawn` wherever a reason relies on the opposition or the key squares.
+- **Likely moves** (`plausibleMoves`): pawn pushes and king moves that do not retreat. Judgement, not data;
+  used for "!", traps and difficulty, never for correctness.
+- About a third of the important King & Pawn moves have no fact that explains them (the king shoulders the
+  other one away, the walk round). They are flagged `no-grounded-reason`, not given a made-up reason. A
+  new fact (with a test against the oracle) is the way to explain more.
+- Defending lessons (the learner without the pawn) get the solver's outcomes and zugzwang, not the pawn
+  facts: the vocabulary is written for the side with the pawn.
+
 ## Caching
 
 - **Use** `KIT_CACHE=1` while iterating on a generator, and for repeated self-tests and regressions: the
@@ -139,7 +159,7 @@ All of these pass, none is weakened to make a change pass:
 | Lines verified on real FENs, twice | inside `course:<name>` | same solver, separate code path |
 | Independent course check | `course:<name>` (`check.cjs`) / `kit:check` | yes: oracle + chess.js |
 | Solver against the oracle, every position | `kit:selftest -- promotion` | yes |
-| Unit tests, incl. broken lines the checker must catch | `kit:test` | - |
+| Unit tests, incl. broken lines the checker must catch, and the teaching layer's claims against the oracle | `kit:test` | the teaching claims: yes (oracle) |
 | Every course byte for byte, twice | `kit:regress -- --twice` | - |
 | Build, lint, browser | `npm run build`, `npm run lint`, `course:e2e -- <id> --all` | - |
 
@@ -156,6 +176,8 @@ The checker takes one thing on trust: among several safe promotions at once, whi
 | "White king far away" but next to the queening square | `kingAway` on every ply |
 | Notes claiming what the line does not show | derive from board and solver |
 | Red arrow hidden by the app's move arrow; committed before the browser test ended | `withoutHiddenArrows`, checker rule, wait for e2e |
+| A pawn push in a race "took the opposition" (the side to move flips every move) | opposition only while the black king contests the pawn's way |
+| Rule of the square off by one with Black to move | count the side to move and the double step (`pawnFacts`) |
 | 5:40 per run | cache (identity-checked) + capped sampling |
 
 ## Adding a lesson to a pawn course
