@@ -11,10 +11,11 @@
 // (egtb/flip.cjs), so defending and attacking lessons share it.
 //
 //   const { probe, table } = require('./solver.cjs');
-//   probe('8/8/8/8/8/2k5/8/K1R1R3 w - - 0 1')  // { result: 'win', dtm: 7 }  dtm = plies to mate
-//   probe('8/8/8/8/1k6/8/1KRP4/7r w - - 0 1')  // five pieces: the egtb engine
+//   probe('8/8/8/8/8/2k5/8/K2R1R2 w - - 0 1')  // { result: 'win', dtm: 7 }  dtm = plies to mate
+//   probe('8/8/8/8/1k6/8/1KRP4/7r w - - 0 1')  // { result: 'draw', dtm: -1 }  five pieces: the egtb engine
 //   probePromotion('8/8/8/4k3/8/8/3PP3/4K3 w - - 0 1')  // { result: 'win', dtc: 27 }  plies to a safe promotion
-//   probeConversion('1K1k4/1P6/8/8/8/8/r7/5R2 w - - 0 1')  // plies until White captures or promotes into a won position
+//   probeConversion('1K1k4/1P6/8/8/8/8/r7/5R2 w - - 0 1')  // { result: 'win', dtc: 15 }  plies to a capture or
+//                                                          // promotion that keeps the win
 //
 // Goal 'conversion' (any material, egtb engine; table(name, { goal: 'conversion' })): plies until White makes a
 // capture or a promotion after which the position is still won for White (by the mate table of the material
@@ -127,7 +128,10 @@ function classic(name) {
 }
 
 const tables = new Map();
-/** The solved table for a material (built on first use, then kept). opts.goal: 'mate' (default) or 'promotion'. */
+/**
+ * The solved table for a material (built on first use, then kept). opts.goal: 'mate' (default), 'promotion' or
+ * 'conversion' (the egtb engine).
+ */
 function table(name, opts = {}) {
   name = normalise(name);
   if (!classic(name) || opts.goal === 'conversion') {

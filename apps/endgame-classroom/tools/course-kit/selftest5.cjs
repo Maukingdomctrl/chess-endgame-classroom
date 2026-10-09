@@ -10,7 +10,8 @@
 //      built here; their move generation with en passant is checked against chess.js in egtb/test.cjs.)
 //   3. The longest wins of five-piece endings against the published values (Thompson's distance to conversion:
 //      bishops against knight 66 moves, rook and bishop against rook 59; the egtb conversion goal measures the
-//      same thing in these endings), and positions whose result is known from endgame theory.
+//      same thing in these endings; the longest mate of two knights against a pawn, 115 moves), and positions
+//      whose result is known from endgame theory.
 //   4. Lines played by line.cjs on five pieces pass verify.cjs (mate, conversion and holding objectives).
 // Arguments: --quick (skip the slowest tables), --heavy (add the full check of K+R+P vs K+R, ~30 minutes more),
 // --all (every four-piece material in part 1, not a representative set), --parts 3,4 (only those parts).
@@ -95,6 +96,10 @@ if (part(3) && !quick) {
     const m = longest(egtb.table(name, { goal: 'conversion' }));
     check(m === moves, `published: ${name} longest win ${m} moves to the conversion = Thompson's ${moves} (${secs(t0)})`);
   }
+  // the longest mate of two knights against a pawn (the Troitzky ending), the figure cited for it
+  const t0 = Date.now();
+  const m = longest(egtb.table('KNNKP'));
+  check(m === 115, `published: KNNKP longest mate ${m} moves = the 115 cited for two knights against a pawn (${secs(t0)})`);
 }
 const theory = [
   // [fen, expected result for the side to move, what it is]
@@ -112,7 +117,8 @@ for (const [fen, want, what] of part(3) ? theory : []) {
 for (const [fen, opts, what] of !part(4) ? [] : [
   ['8/8/8/3k4/8/8/2NNN3/4K3 w - - 0 1', { goal: 'mate' }, 'three knights mate'],
   ['8/8/8/8/3k4/8/1K6/QQ5r w - - 0 1', { goal: 'mate' }, 'two queens against a rook'],
-  ...(quick ? [] : [['1K6/1P1k4/8/8/8/8/r7/2R5 w - - 0 1', { goal: 'conversion' }, 'Lucena to the conversion']]),
+  ...(quick ? [] : [['1K6/1P1k4/8/8/8/8/r7/2R5 w - - 0 1', { goal: 'conversion' }, 'Lucena to the conversion'],
+    ['5r2/8/8/8/1kp5/6R1/2K5/8 w - - 0 1', { goal: 'conversion', objective: 'hold' }, 'the Philidor defence held (White, K+R vs K+R+P)']]),
 ]) {
   const t0 = Date.now();
   const l = playLine(fen, opts);

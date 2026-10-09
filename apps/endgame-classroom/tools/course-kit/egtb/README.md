@@ -14,7 +14,7 @@ table('KRKRP');            // the same table seen with the colours swapped (flip
 
 ```bash
 npm run kit:test5                                   # unit tests (a minute with the cache, a few without)
-npm run kit:selftest5                               # the full check, see "How it is checked" (-- --quick, --heavy)
+npm run kit:selftest5                               # the full check, see "How it is checked" (-- --quick, --heavy, --all, --parts 2,3)
 npm run kit:check5 -- KRBKR                         # the independent checker on every position of a table
 npm run kit:bench5 -- KRPKR                         # build a table and its sub-tables: time, memory, contents
 npm run kit:positions -- KRPKR --goal conversion --result win --plies 7-15 --unique --limit 20
@@ -52,9 +52,15 @@ capture or promotion leads to. Longest = the longest win in moves (to mate, or t
 
 | Table(s) | Positions | Time | Peak memory | Longest |
 |---|---|---|---|---|
-| K+R+P vs K+R (with K+Q+R, K+R+R, K+R+B, K+R+N vs K+R) | 483 M (1.56 G with the others) | 430 s | 3.2 GB | 74 (mate) |
-| K+B+B vs K+N, K+R+B vs K+R, goal conversion | 85 M, 153 M | 76 s | 1.7 GB | 66, 59 |
-| K+Q+Q vs K+R | 63 M | 42 s | | 35 |
+| K+R+P vs K+R, with K+Q+R, K+R+R, K+R+B, K+R+N vs K+R and every smaller table | 483 M (1.56 G with the others) | 334 s (K+R+P vs K+R itself 130 s) | 3.2 GB | 74 (mate) |
+| K+N+N vs K+P, with its four promotion tables | 279 M (0.83 G) | 131 s | 2.2 GB | 115 (mate) |
+| K+Q+Q vs K+R | 63 M | 42 s; 102 s on one thread | 1.0 GB; 0.6 GB | 35 (mate) |
+| K+B+B vs K+N, K+R+B vs K+R, goal conversion | 85 M, 153 M | 68-76 s for both | 1.7 GB | 66, 59 (to the conversion) |
+
+For comparison, `solver.cjs`'s engine builds K+Q vs K+R in 13-15 s (the egtb engine: about 3 s on one thread)
+and K+P+P vs K with the promotion goal in 135-160 s (egtb: 1-3 s, without the mate tables it does not need).
+Checking a table on every position with `check.cjs` takes five to nine times as long as building it (K+R+P vs
+K+R: 18.6 minutes on four threads).
 
 A pawnless table is solved in one piece; a table with pawns slice by slice (one slice per placement of the
 pawns, the most advanced first), so its working memory is one slice per thread. On disk (`KIT_CACHE`) a table
@@ -109,22 +115,28 @@ the disk when needed. Without the cache every table stays in memory.
 `npm run kit:selftest5` (and `kit:test5`), results in the last run:
 
 1. **Against `solver.cjs`**, a separate implementation (another index and symmetry handling, another move
-   generator, another algorithm): every position of every three- and four-piece table of both engines has the
-   same value (`--all`: every four-piece material), goal `'promotion'` included.
+   generator, another algorithm): every position of the three-piece tables and of fourteen four-piece tables
+   chosen to cover every kind of piece on both sides (`--all`: all 54 four-piece materials) has the same value,
+   goal `'promotion'` included.
 2. **The independent checker** (`check.cjs`): its own 8x8 board, move generation, attack test (scanning out
    from the king), en passant and goal rules; it uses only what a table stores. Every stored value must follow
    from the values of its moves (win = 1 + the fastest losing reply, loss = 1 + the slowest winning reply,
    else a draw; mate and stalemate when there is no move), and every mirror image of a position must find it.
    By induction on the distance to mate, a table that passes on every position holds exactly the true values.
    Checked on every position: K+P vs K+P (en passant, 7.4 M), the conversion goal (K+Q vs K+R, K+R vs K+P,
-   K+P vs K+P), K+N+N+N vs K (30 M), K+Q+Q vs K+R (63 M), K+B+B vs K+N, K+R+B vs K+R, and with `--heavy` K+R+P
-   vs K+R (483 M). A deliberately corrupted value is always found (mutation test).
+   K+P vs K+P), K+N+N+N vs K (30 M), K+P+P+P vs K with the promotion goal (54 M), K+Q+Q vs K+R (63 M), K+B+B vs
+   K+N (85 M), K+R+B vs K+R (153 M), and with `--heavy` K+R+P vs K+R (483 M): no value wrong, no index error.
+   Each of 14 deliberately corrupted values (a win, a loss, a draw, a mate, each changed) is found (mutation
+   test).
 3. **Published values**: Thompson's longest wins to the conversion, two bishops against a knight 66 moves and
-   rook and bishop against rook 59, come out exactly; so do the longest mates K+Q vs K+R 35, K+R vs K+N 40,
-   K+R vs K+B 29, K+R vs K+R 19 and K+R+B vs K+R 65. Lucena wins, Philidor draws.
+   rook and bishop against rook 59, come out exactly; so do the longest mates two knights against a pawn 115,
+   K+Q vs K+R 35, K+R vs K+N 40, K+R vs K+B 29, K+R vs K+R 19 and K+R+B vs K+R 65. Lucena wins, Philidor
+   draws.
 4. **Move generation against chess.js**, the engine's and the checker's, on random five-piece positions,
    en passant ones included (and a pinned pawn that may not take en passant).
-5. **Lines** played by `line.cjs` on five pieces pass `verify.cjs` (mate and conversion).
+5. **Lines** played by `line.cjs` on five pieces pass `verify.cjs` (mate, conversion, and a Philidor draw held).
+6. **Threads change nothing**: a table solved on the worker threads equals the one-thread solve byte for byte
+   (a pawnless table, whose levels are shared out with atomics, and a pawn table, solved slice by slice).
 
 The course regression (`npm run kit:regress`) shows the built-in courses unchanged byte for byte.
 
@@ -154,7 +166,7 @@ rook-endings domain for the explanations; method filters where the fastest conve
 
 ## Limits, and what six pieces would need
 
-- Five pieces at most; a table index must fit in 2^32 (six pieces: K+R+P vs K+R+P is about 34 G positions).
+- Five pieces at most; a table index must fit in 2^32 (six pieces: K+R+P vs K+R+P is about 33 G positions).
   Six pieces would need an index split into parts (slices of slices), tables kept on disk while solving
   (they no longer fit in memory), two-byte values for the deepest endings, and much more time: the layout
   (groups of identical pieces, pawn slices, any number of pieces) and the algorithm carry over.
