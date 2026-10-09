@@ -5,7 +5,7 @@ engine (`../../egtb/`) gives a rook-endings course and what such a course would 
 needs the owner's OK first (the endgame-course skill); this folder is the evidence for proposing one.
 
 ```bash
-node tools/course-kit/curricula/rook-endings/prototypes.cjs     # KIT_CACHE=1 keeps the tables (7 minutes to build)
+node tools/course-kit/curricula/rook-endings/prototypes.cjs     # KIT_CACHE=1 keeps the tables (about 6 minutes to build)
 node tools/course-kit/egtb/survey.cjs KRPKR --goal conversion  # what the attacking side offers
 node tools/course-kit/egtb/survey.cjs KRKRP --objective hold   # what the defending side offers
 ```

@@ -67,7 +67,7 @@ Read `egtb/README.md`. `solver.cjs` routes five-piece materials (and pawns on bo
 with the same API, so `line.cjs`, `verify.cjs` and the course pipeline work unchanged.
 
 - **Check the cost first** (`egtb/README.md`, "What it costs"): a pawnless ending is one table (about a
-  minute); piece and pawn against a piece is five (K+R+P vs K+R: 7 minutes, 3.2 GB, 1.5 GB on disk); pawns
+  minute); piece and pawn against a piece is five (K+R+P vs K+R: about 6 minutes on four cores, 3.2 GB, 1.5 GB on disk); pawns
   against pawns need 75 five-piece tables (28 GB): do not promise such a course without the owner's OK on that.
 - `KIT_CACHE=1` while iterating (a five-piece family takes minutes to build); the final run without it, as for
   the pawn courses, or with it if the owner agrees to the disk space.

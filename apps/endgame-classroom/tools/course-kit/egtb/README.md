@@ -60,7 +60,7 @@ capture or promotion leads to. Longest = the longest win in moves (to mate, or t
 For comparison, `solver.cjs`'s engine builds K+Q vs K+R in 13-15 s (the egtb engine: about 3 s on one thread)
 and K+P+P vs K with the promotion goal in 135-160 s (egtb: 1-3 s, without the mate tables it does not need).
 Checking a table on every position with `check.cjs` takes five to nine times as long as building it (K+R+P vs
-K+R: 18.6 minutes on four threads).
+K+R: 13 to 19 minutes on four threads, depending on what else runs).
 
 A pawnless table is solved in one piece; a table with pawns slice by slice (one slice per placement of the
 pawns, the most advanced first), so its working memory is one slice per thread. On disk (`KIT_CACHE`) a table
