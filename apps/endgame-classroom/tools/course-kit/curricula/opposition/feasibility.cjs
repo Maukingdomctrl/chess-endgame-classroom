@@ -3,8 +3,10 @@
 // course) is classified (tasks.cjs); each candidate's line is played with best play (../../line.cjs) and
 // analysed (../../teach/difficulty.cjs), so the counts per task and per difficulty band are real.
 //
-//   npm run curriculum:opposition            # about 4 minutes; prints the table the blueprint relies on
-//   npm run curriculum:opposition -- --json  # also writes .out/feasibility.json (every candidate)
+//   npm run curriculum:opposition                  # about 8 minutes; prints the table the blueprint relies on
+//   npm run curriculum:opposition -- --json        # also writes .out/feasibility.json (every candidate)
+//   npm run curriculum:opposition -- --from-json   # the counts and the fill check again from that file
+//                                                  # (after a change to the slots only)
 //
 // Defending candidates are counted without a line: the line player and verify.cjs play winning lines
 // only (holding lines are Prompt 3's to add, see direct-opposition.md).
@@ -94,7 +96,8 @@ function fillCheck(list, slots, exclude = new Set()) {
 
 if (require.main === module) {
   const t0 = Date.now();
-  const list = candidates({ log: (m) => process.stderr.write(`${m}\n`) });
+  const saved = path.join(__dirname, '.out/feasibility.json');
+  const list = process.argv.includes('--from-json') ? JSON.parse(fs.readFileSync(saved, 'utf8')) : candidates({ log: (m) => process.stderr.write(`${m}\n`) });
   console.log(`Direct Opposition candidates (pawn on b-d, mirror images e-g alike), ${Math.round((Date.now() - t0) / 1000)} s`);
   for (const r of summarise(list)) {
     console.log(`\n${r.task}: ${r.count}  (${TASKS[r.task]})`);
@@ -110,7 +113,7 @@ if (require.main === module) {
   if (f.unfilled.length) process.exitCode = 1;
   if (process.argv.includes('--json')) {
     fs.mkdirSync(path.join(__dirname, '.out'), { recursive: true });
-    fs.writeFileSync(path.join(__dirname, '.out/feasibility.json'), JSON.stringify(list, null, 1));
+    fs.writeFileSync(saved, JSON.stringify(list, null, 1));
   }
 }
 

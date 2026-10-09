@@ -98,7 +98,23 @@ bands are an ordering aid inside a phase, not a rating. Defending lines have no 
 d-file (mirror images alike), plays each candidate's line and analyses it, then checks that each of the
 100 slots can get its own position:
 
-(the measured counts and the fill check follow from the run in progress; `npm run curriculum:opposition` prints them)
+| Task | Candidates | Bands of their lines | Notes |
+|---|---|---|---|
+| `take` | 735 | Intermediate 294, Around 1500 405, Around 1800 36 | vertical 514, horizontal 221; "Black must give way" 198; pawn on rank 2: 305, 3: 209, 4: 133, 5: 52, 6: 36 |
+| `retake` | 58 | Intermediate 4, Around 1500 44, Around 1800 10 | all vertical, pawn on rank 2-4 |
+| `either` | 188 | Intermediate 131, Around 1500 57 | |
+| `defend` | 444 | not measured yet (no holding lines) | vertical 371, horizontal 73; "Black must give way" 218 |
+| `protect` | 6 | Intermediate 6 | the scarcest task: four slots share these six |
+| `push` | 114 | Intermediate 50, Around 1500 64 | |
+
+No candidate line is Foundational and none reaches Difficult (approaching 2000). The fill check finds a
+position of its own for **all 100 slots** (10 candidates are excluded as starts of other built-in courses;
+fewest candidates: the protect slots, 6 each). It also corrected the blueprint: slot 97 first asked for a
+protect position at Around 1500 (there is none) and slot 2 had a single candidate; both were widened
+(97: Intermediate to Around 1500; 2: pawn on rank 4-6), and a few slots got a little more room in line
+length, so every slot leaves the generator a choice (at least 11 candidates outside the protect slots).
+The run takes about 8 minutes; `-- --json` saves the candidates and `-- --from-json` repeats the counts and
+the fill check from them after a change to the slots.
 
 ## Prototypes
 
@@ -157,29 +173,29 @@ pawn's rank from its own side), `files` (b = the b- or g-file), `moves` (learner
 <!-- slots:start -->
 | # | Phase / purpose | Task | Objective | Skill or misconception | Help | Band | Constraints | After slots |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Introduction / introduce | retake | See the problem it solves: the kings face each other, Black has to move and must give way, so your king gets forward. | The side to move must give way (with White to move it would only be a draw). | 3 | Intermediate, Around 1500 | orientation vertical, moves 7-10 | - |
-| 2 | Introduction / introduce | take | Obtain it: step straight forward so the kings face each other with Black to move. | Choose the square that leaves Black to move; misconception: any step towards the black king will do. | 3 | Intermediate | orientation vertical, shape straight, ranks 5-6, moves 1-6 | 1 |
+| 1 | Introduction / introduce | retake | See the problem it solves: the kings face each other, Black has to move and must give way, so your king gets forward. | The side to move must give way (with White to move it would only be a draw). | 3 | Intermediate, Around 1500 | orientation vertical, moves 7-12 | - |
+| 2 | Introduction / introduce | take | Obtain it: step straight forward so the kings face each other with Black to move. | Choose the square that leaves Black to move; misconception: any step towards the black king will do. | 3 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 4-6, moves 1-6 | 1 |
 | 3 | Introduction / introduce | take | Obtain it with a diagonal step. | The opposition square is not always straight ahead. | 3 | Intermediate, Around 1500 | orientation vertical, shape diagonal, ranks 4-6, moves 1-6 | 2 |
-| 4 | Introduction / introduce | retake | Keep it: when Black steps aside, take the opposition again. | Follow the black king; one opposition is rarely enough. | 3 | Intermediate, Around 1500 | orientation vertical, moves 7-10 | 1, 2 |
+| 4 | Introduction / introduce | retake | Keep it: when Black steps aside, take the opposition again. | Follow the black king; one opposition is rarely enough. | 3 | Intermediate, Around 1500 | orientation vertical, moves 7-12 | 1, 2 |
 | 5 | Introduction / introduce | take | Black must give way: after your move every Black move lets your king forward. | Look at the position after your move from Black's side. | 3 | Intermediate, Around 1500 | orientation vertical, givesWay true, ranks 4-6, moves 1-8 | 2 |
 | 6 | Introduction / introduce | take | Compare the right step with the wrong one: the wrong one hands Black the opposition, and it is only a draw. | Misconception: close to the black king is good enough. | 3 | Intermediate, Around 1500 | orientation vertical, trapGivesOpposition true, ranks 3-5, moves 1-10 | 2, 5 |
 | 7 | Introduction / introduce | take | King first: the opposition gets the king in front of the pawn; pushing the pawn now only draws. | Misconception: push the pawn as soon as possible. | 3 | Intermediate, Around 1500 | orientation vertical, trapIsPush true, ranks 3-5, moves 1-10 | 2 |
 | 8 | Introduction / introduce | retake | Black has to move again and again: walk forward, keeping the opposition each time. | Take it, Black gives way, take it again. | 3 | Intermediate, Around 1500 | orientation vertical, moves 7-12 | 4 |
 | 9 | Introduction / introduce | take | The classic start: the pawn far back, the kings in front of it; take the opposition at once. | Misconception: with the pawn far back there is time to wait. | 3 | Intermediate, Around 1500 | orientation vertical, ranks 2-3, moves 1-12 | 6 |
 | 10 | Introduction / introduce | take | The whole picture: take the opposition, Black gives way, your king goes in front, the pawn queens. | Putting the steps together. | 3 | Intermediate, Around 1500 | orientation vertical, givesWay true, ranks 2-4, moves 1-12 | 1, 2, 3, 4, 5, 6, 7, 8, 9 |
-| 11 | Guided acquisition / reinforce | take | Take it straight ahead with the pawn on its 2nd or 3rd rank. | Find the square in front of the black king with one square between. | 3 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 2-3, moves 1-10 | 2, 9 |
+| 11 | Guided acquisition / reinforce | take | Take it straight ahead with the pawn on its 2nd or 3rd rank. | Find the square in front of the black king with one square between. | 3 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 2-3, moves 1-12 | 2, 9 |
 | 12 | Guided acquisition / reinforce | take | Take it with a diagonal step when the straight square is wrong. | Misconception: always step straight. | 3 | Intermediate, Around 1500 | orientation vertical, shape diagonal, ranks 2-3, moves 1-10 | 3 |
 | 13 | Guided acquisition / reinforce | take | Take it with a sideways step: the right king move does not always go forward. | Misconception: every good king move goes forward. | 3 | Intermediate, Around 1500 | orientation vertical, shape sideways, ranks 3-4, moves 1-10 | 11 |
 | 14 | Guided acquisition / reinforce | retake | Black gives way to one side: answer on the same side. | Mirror Black's step to keep the opposition. | 3 | Intermediate, Around 1500 | orientation vertical, moves 7-12 | 4 |
-| 15 | Guided acquisition / reinforce | take | A diagonal step, and Black must give way. | The step and its consequence together. | 3 | Intermediate, Around 1500 | orientation vertical, shape diagonal, givesWay true, ranks 4-5, moves 1-8 | 12 |
-| 16 | Guided acquisition / reinforce | take | Find the opposition square with the cue and the marks only. | The idea is no longer named. | 2 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 3-4, moves 1-8 | 11 |
+| 15 | Guided acquisition / reinforce | take | A diagonal step, and Black must give way. | The step and its consequence together. | 3 | Intermediate, Around 1500 | orientation vertical, shape diagonal, givesWay true, ranks 4-5, moves 1-10 | 12 |
+| 16 | Guided acquisition / reinforce | take | Find the opposition square with the cue and the marks only. | The idea is no longer named. | 2 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 3-4, moves 1-10 | 11 |
 | 17 | Guided acquisition / reinforce | take | A sideways step with the pawn far back. | Sideways is right when the black king is to the side. | 2 | Intermediate, Around 1500 | orientation vertical, shape sideways, ranks 2-3, moves 1-10 | 13 |
 | 18 | Guided acquisition / reinforce | take | A diagonal step with the pawn far back. | Diagonal from further away. | 2 | Intermediate, Around 1500 | orientation vertical, shape diagonal, ranks 2-3, moves 1-10 | 12 |
 | 19 | Guided acquisition / reinforce | retake | Black moves first: keep the opposition without the idea being named. | Keeping it is part of obtaining it. | 2 | Intermediate, Around 1500 | orientation vertical, moves 7-12 | 14 |
 | 20 | Guided acquisition / reinforce | take | King before pawn again: the push draws. | Misconception: push the pawn first. | 2 | Intermediate, Around 1500 | orientation vertical, trapIsPush true, ranks 3-5, moves 1-10 | 7 |
 | 21 | Guided acquisition / reinforce | take | A diagonal step that leaves Black to give way, pawn on the 3rd or 4th rank. | The consequence without being told. | 2 | Intermediate, Around 1500 | orientation vertical, shape diagonal, givesWay true, ranks 3-4, moves 1-10 | 15 |
 | 22 | Guided acquisition / reinforce | take | Close to promotion the opposition still decides. | Misconception: near the queening square anything wins. | 2 | Intermediate, Around 1500 | orientation vertical, shape sideways, ranks 4-6, moves 1-6 | 13 |
-| 23 | Guided acquisition / reinforce | take | Straight ahead, pawn far back, and Black must give way. | The classic picture without the idea named. | 2 | Intermediate, Around 1500 | orientation vertical, shape straight, givesWay true, ranks 2-3, moves 1-12 | 16 |
+| 23 | Guided acquisition / reinforce | take | Straight ahead, pawn far back, and Black must give way. | The classic picture without the idea named. | 2 | Intermediate, Around 1500 | orientation vertical, shape straight, givesWay true, ranks 2-4, moves 1-12 | 16 |
 | 24 | Guided acquisition / reinforce | retake | Keep the opposition again after Black's step aside. | Repetition with a new placement. | 2 | Intermediate, Around 1500 | orientation vertical, moves 7-12 | 19 |
 | 25 | Guided acquisition / reinforce | take | Consolidation: the wrong step hands Black the opposition; find the right one. | Misconception: close enough is good enough. | 2 | Intermediate, Around 1500 | orientation vertical, trapGivesOpposition true, ranks 2-5, moves 1-10 | 6 |
 | 26 | Reinforcement / reinforce | take | The black king on the pawn's file: take the opposition in front of it. | Read where the black king stands. | 2 | Intermediate, Around 1500 | orientation vertical, defender onFile, ranks 2-4, moves 1-12 | 11 |
@@ -192,7 +208,7 @@ pawn's rank from its own side), `files` (b = the b- or g-file), `moves` (learner
 | 33 | Reinforcement / reinforce | take | The black king beside the pawn's file, with the cue only. | Marks are gone: see the squares yourself. | 1 | Intermediate, Around 1500 | orientation vertical, defender besideFile, ranks 3-5, moves 1-12 | 27 |
 | 34 | Reinforcement / reinforce | retake | A long walk: keep the opposition all the way. | Patience: the same step many times. | 1 | Around 1500 | orientation vertical, moves 11-30 | 28 |
 | 35 | Reinforcement / reinforce | take | A diagonal step with the pawn far back, cue only. | Diagonal without marks. | 1 | Intermediate, Around 1500 | orientation vertical, shape diagonal, ranks 2-3, moves 1-12 | 18 |
-| 36 | Reinforcement / reinforce | take | Straight ahead with the pawn far advanced, cue only. | Short line without marks. | 1 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 4-6, moves 1-8 | 16 |
+| 36 | Reinforcement / reinforce | take | Straight ahead with the pawn far advanced, cue only. | Short line without marks. | 1 | Intermediate, Around 1500 | orientation vertical, shape straight, ranks 4-6, moves 1-10 | 16 |
 | 37 | Reinforcement / reinforce | either | Equal moves again, cue only: either is right. | Do not look for the one magic move when several win. | 1 | Intermediate, Around 1500 | moves 1-12 | 30 |
 | 38 | Reinforcement / reinforce | take | Black must give way, pawn on the 2nd-4th rank, cue only. | The consequence without marks. | 1 | Intermediate, Around 1500 | orientation vertical, givesWay true, ranks 2-4, moves 1-12 | 31 |
 | 39 | Reinforcement / reinforce | take | A sideways step, pawn on the 3rd-5th rank, cue only. | Sideways without marks. | 1 | Intermediate, Around 1500 | orientation vertical, shape sideways, ranks 3-5, moves 1-12 | 32 |
@@ -240,12 +256,12 @@ pawn's rank from its own side), `files` (b = the b- or g-file), `moves` (learner
 | 81 | Independent recognition / independent_application | take | Along a rank with the pawn far back, without help. | Sideways on a long walk. | 0 | Intermediate, Around 1500 | orientation horizontal, ranks 2-3, moves 1-16 | 76 |
 | 82 | Independent recognition / independent_application | defend | Defending: Black must give way, without help. | The defender's zugzwang unannounced. | 0 | Intermediate, Around 1500 | givesWay true | 78 |
 | 83 | Calculation challenges / calculation | take | A long line with tempting moves at several moments. | Accuracy over many moves. | 0 | Around 1800 | orientation vertical, moves 11-30 | 71 |
-| 84 | Calculation challenges / calculation | retake | Black moves first; keep the opposition through a long line. | Keeping it under pressure. | 0 | Around 1800 | orientation vertical, moves 11-30 | 74 |
+| 84 | Calculation challenges / calculation | retake | Black moves first; keep the opposition through a long line. | Keeping it under pressure. | 0 | Around 1500, Around 1800 | orientation vertical, moves 11-30 | 74 |
 | 85 | Calculation challenges / calculation | take | Three or more zugzwangs on the way. | Every opposition counts. | 0 | Around 1800 | orientation vertical, moves 11-30, minZugzwangs 3 | 54 |
 | 86 | Calculation challenges / calculation | take | Along a rank on a long line. | Sideways opposition under pressure. | 0 | Around 1500, Around 1800 | orientation horizontal, moves 9-30 | 81 |
 | 87 | Calculation challenges / calculation | defend | A long defence. | Holding over many moves. | 0 | Around 1500, Around 1800 | orientation vertical | 82 |
 | 88 | Calculation challenges / calculation | take | The wrong step hands Black the opposition, deep in a long line. | Spot the decisive moment. | 0 | Around 1800 | orientation vertical, trapGivesOpposition true, moves 11-30 | 83 |
-| 89 | Calculation challenges / calculation | retake | Black moves first, the longest lines. | Endurance. | 0 | Around 1800 | orientation vertical, moves 11-30 | 84 |
+| 89 | Calculation challenges / calculation | retake | Black moves first, the longest lines. | Endurance. | 0 | Around 1500, Around 1800 | orientation vertical, moves 11-30 | 84 |
 | 90 | Calculation challenges / calculation | take | The pawn on its 2nd or 3rd rank, the longest walk. | From far back to the queen. | 0 | Around 1500, Around 1800 | orientation vertical, ranks 2-3, moves 13-30 | 85 |
 | 91 | Calculation challenges / calculation | defend | Defending: Black must give way, the hardest cases. | The defender under pressure. | 0 | Around 1500, Around 1800 | givesWay true | 87 |
 | 92 | Calculation challenges / calculation | take | The hardest direct-opposition line of the course. | Everything at once. | 0 | Around 1800 | orientation vertical, moves 11-30 | 90 |
@@ -253,7 +269,7 @@ pawn's rank from its own side), `files` (b = the b- or g-file), `moves` (learner
 | 94 | Mixed assessment / mixed_review | defend | Assessment: hold the draw. | Unannounced. | 0 (closing note only) | Around 1500 | - | 91 |
 | 95 | Mixed assessment / mixed_review | push | Assessment: the pawn runs. | Unannounced. | 0 (closing note only) | Around 1500 | - | 80 |
 | 96 | Mixed assessment / mixed_review | retake | Assessment: Black moves first. | Unannounced. | 0 (closing note only) | Around 1500 | orientation vertical, moves 7-30 | 89 |
-| 97 | Mixed assessment / mixed_review | protect | Assessment: the pawn hangs. | Unannounced. | 0 (closing note only) | Around 1500 | - | 75 |
+| 97 | Mixed assessment / mixed_review | protect | Assessment: the pawn hangs. | Unannounced. | 0 (closing note only) | Intermediate, Around 1500 | - | 75 |
 | 98 | Mixed assessment / mixed_review | take | Assessment: along a rank. | Unannounced. | 0 (closing note only) | Around 1500 | orientation horizontal, moves 1-14 | 86 |
 | 99 | Mixed assessment / mixed_review | either | Assessment: equal moves. | Unannounced. | 0 (closing note only) | Around 1500 | moves 1-14 | 77 |
 | 100 | Mixed assessment / mixed_review | take | Assessment: a long line with the opposition at several moments. | Unannounced, the final position of the course. | 0 (closing note only) | Around 1800 | orientation vertical, moves 11-30 | 92 |
