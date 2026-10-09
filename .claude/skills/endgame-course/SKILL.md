@@ -57,6 +57,37 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
   R = danger (the move that only draws or stalemates, the mated king), B = zones (the box the king is
   trapped in, or the squares it can step to). No marks in the exam.
 
+## Teaching, difficulty and progression (`tools/course-kit/teach/`)
+
+Read `teach/README.md`. The layer explains moves, tags difficulty and orders lines for learning, on the
+same solver as the course. Its rules are owner rules too:
+
+- **Never invent a reason.** A note says why a move works only with a fact the move leaves that no
+  failing move leaves (contrast), or a zugzwang the solver shows; why a move fails, only with an event on
+  the board or what the solver's refutation gains. Otherwise say only what the solver proves ("Black
+  answers Kc6 and holds the draw.") and flag the move for review. Never claim a forced continuation the
+  solver has not checked.
+- **Teaching never changes the accepted moves.** `[%also]` stays exactly `verify.fastestMoves`; equal moves
+  are named ("Kd5 and Kf5 win just as fast."), not explained away. `analyze.cjs` checks it.
+- **Short**: one sentence, two at most, 12 words each, 20 in all (`readable()`), read in 4-5 seconds.
+  "Kf4! — Take the opposition. Black is in zugzwang: every move loses." Not every mistake is a blunder:
+  `?!` still wins but slower, `?` the win is gone, `??` only when it is gone at once.
+- **Cues** come from the concept that explains the move, are questions, and name no square and no move.
+  No concept, no cue.
+- **Difficulty** is signals (traps a learner would consider, counter-intuitive moves, zugzwangs, length,
+  narrowness); the composite and its label (Foundational ... Difficult, approaching 2000) are a sorting
+  aid, not an Elo. Report the signals with any label.
+- **Progression is not difficulty.** Stages (introduce, reinforce, variation, independent application,
+  misconception, calculation, exception, mixed review) and their help levels are the course's plan;
+  difficulty only orders positions within a step. A course passes its own plan; `checkSequence` checks it.
+- **Where things go**: generic mechanisms in `teach/`; the ideas of one kind of ending (facts, words,
+  concepts, exceptions) in a domain (`pawn/domain.cjs`); one course's plan, stages and texts in its own
+  `tools/<course>/`. A rule for one course never goes into the toolkit.
+- **Cheap first**: the analysis is the expensive step; run it on the lines that survive the filters and
+  the selection, never on every candidate. Measure the generator before and after.
+- `npm run teach:report` shows what the layer finds in the built-in courses (read only); `npm run kit:test`
+  includes its tests.
+
 ## Steps
 
 1. Read `tools/course-kit/README.md` and the example generator. Run `npm ci` in `apps/endgame-classroom`.
@@ -119,5 +150,11 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
 - **Check a solver against a second, independent implementation** where you can (`kpk.cjs`,
   `pawn/oracle.cjs`): the pawn oracle found a wrong goal definition in 3,816 positions that every other
   check had passed.
+- **A fact can be true and still not be the reason.** The opposition flips with every move, so a pawn
+  push in a pure race "took the opposition"; it now counts only while the black king is in front of the
+  pawn and inside its square. Check every reason against the moves that fail (contrast), and test the
+  claims on thousands of positions against the independent oracle (`teach/test.cjs`).
+- **Some losing move almost always exists** in a pawn ending: "important" and difficulty count only the
+  moves a learner is likely to consider (the domain's heuristic), and say "unknown" where there is none.
 - The browser test needs Playwright and a Chromium (`CHROMIUM_PATH`; in the cloud container it is
   `/opt/pw-browsers/chromium` with Playwright installed globally).

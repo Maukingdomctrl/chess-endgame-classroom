@@ -25,9 +25,22 @@ const blocks = (s) => rank(s[1]) > Math.max(rank(s[2]), rank(s[3])) &&
 const kingNear = (s, d = 2) => pawns(s).some((p) => dist(s[1], p) <= d);
 /** The white king takes no part: it controls no square on the pawns' way to the 8th rank. */
 const kingAway = (s) => pawns(s).every((p) => { for (let t = p + 8; t < 64; t += 8) if (dist(s[0], t) < 2) return false; return true; });
-/** The rule of the square: can the black king (to move) still catch a lone pawn on p? */
+/** The rule of the square with White to move (the pawn steps first): can the black king still catch a lone pawn on p? */
 const catches = (bk, p) => dist(bk, queenSq(p)) <= 7 - rank(p);
+/**
+ * Key squares of a white pawn on p: if the white king stands on one, the pawn promotes whatever Black does
+ * (rook pawns aside: the two squares on the next file at the edge). A pawn on rank 2-4: the three squares
+ * two ranks ahead; rank 5-6: the three squares one and two ranks ahead.
+ */
+function keySquares(p) {
+  const f = file(p), r = rank(p), out = [];
+  if (f === 0) return [6 * 8 + 1, 7 * 8 + 1]; // a-pawn: b7, b8
+  if (f === 7) return [6 * 8 + 6, 7 * 8 + 6]; // h-pawn: g7, g8
+  const rows = r <= 3 ? [r + 2] : r <= 5 ? [r + 1, r + 2] : [];
+  for (const rr of rows) for (let ff = f - 1; ff <= f + 1; ff++) if (rr < 8) out.push(rr * 8 + ff);
+  return out;
+}
 /** The same position with files a <-> h exchanged. */
 const mirror = (s) => s.map((q) => (q < 0 ? q : q ^ 7));
 
-module.exports = { pawns, front, queenSq, pawnGuards, hangs, kingToPawns, connected, sideBySide, blocks, kingNear, kingAway, catches, mirror };
+module.exports = { pawns, front, queenSq, pawnGuards, hangs, kingToPawns, connected, sideBySide, blocks, kingNear, kingAway, catches, keySquares, mirror };

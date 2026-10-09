@@ -4,11 +4,14 @@ Shared tools for the built-in course generators (`tools/<course>/`): an exact en
 four pieces, a line player, the checker, the PGN writer, a table cache, a regression check and a browser
 test. A course generator only adds its lesson list, the search for teaching positions, and its texts.
 Pawn courses (White's pawns against the lone king, lines to the promotion) have their own toolkit in
-`pawn/` (see its README), with an independent second solver for checking.
+`pawn/` (see its README), with an independent second solver for checking. The teaching and difficulty
+layer (explanations grounded in the solver, concepts and cues, difficulty signals, learning progression)
+is in `teach/` (see its README).
 
 ```bash
 npm run kit:selftest                     # checks the solver (a few minutes; "-- promotion" for the pawn part)
-npm run kit:test                         # unit tests of the pawn toolkit, incl. the checker and the cache
+npm run kit:test                         # unit tests of the pawn toolkit (checker, cache) and of teach/
+npm run teach:report                     # difficulty and explanations of the built-in courses (read only)
 npm run kit:regress                      # every built-in course regenerates byte for byte (-- --twice)
 npm run kit:check -- <course.pgn>        # independent check of a pawn course
 KIT_CACHE=1 npm run course:pawns         # keep solved tables on disk between runs (npm run kit:cache)
@@ -21,12 +24,13 @@ npm run course:e2e -- <builtin id>        # browser test of a built-in course (a
 | `line.cjs` | `playLine(fen, opts)` → a line with best play: the learner (side to move) a fastest move, the opponent the most stubborn defence; equally fast learner moves become `also`. Tie-breaks via `opts.learnerOrder` / `opts.opponentOrder`. |
 | `verify.cjs` | `verifyLine(line, opts)`: on the real FENs with chess.js and the solver, every learner move is a fastest win, its `[%also]` list is exactly the other equally fast moves, every opponent move is the most stubborn defence, and the line ends in mate (or a safe promotion with `goal: 'promotion'`; the measure to the promotion is `opts.promotionProbe`, by default the King & Pawn solver). |
 | `pgn.cjs` | `writePgn(file, games)` in the app's format (tags, intro comment, `[%csl]`/`[%cal]` marks, `[%also]`, notes, 80-column rows); `checkCourse(file, opts)` reads the file back and checks it all again. |
-| `board.cjs` | Squares, FEN helpers, symmetry keys (`canon8`, `canon2`), and the geometry lessons talk about (`ring`, `onEdge`, `isCorner`, `directOpp`, `knightJump`). |
+| `board.cjs` | Squares, FEN helpers, symmetry keys (`canon8`, `canon2`), and the geometry lessons talk about (`ring`, `onEdge`, `isCorner`, `directOpp`, `distantOpp`, `diagOpp`, `knightJump`). |
 | `e2e.cjs` | The browser test (Playwright + Chromium): the course appears on a fresh device and on a device that never had it, lines played to the end in Learn (every promotion via the picker), board marks drawn as in the PGN, an `[%also]` move accepted in Practice, no console errors. |
 | `selftest.cjs` | Solver checks, see below. |
 | `cache.cjs` | The disk cache for solved tables (`KIT_CACHE`): every file records its producer and a checksum of the producer's code, and is used only while that code is unchanged. `npm run kit:cache [-- prune\|clear]`. |
 | `regress.cjs` | Regenerates the built-in courses and compares every PGN byte for byte with the working tree (`--twice`: runs each generator twice). New courses are added to its list. |
-| `pawn/` | The pawn toolkit: enumeration, line player, promotion choice, structural keys, sampling and selection, teaching facts, an independent solver (`oracle.cjs`) and checker (`checker.cjs`). |
+| `pawn/` | The pawn toolkit: enumeration, line player, promotion choice, structural keys, sampling and selection, teaching facts, an independent solver (`oracle.cjs`) and checker (`checker.cjs`), and the pawn endings' vocabulary for `teach/` (`domain.cjs`). |
+| `teach/` | The teaching and difficulty layer: exact move outcomes, short explanations built only from verified facts, concepts and cues, difficulty signals, learning progression, the analyze step of a pipeline, a report over the courses. Generic; a domain brings the chess ideas. |
 
 ## The solver
 
