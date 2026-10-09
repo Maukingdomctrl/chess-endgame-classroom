@@ -10,11 +10,13 @@
 //   purposeHints(analysis)                      // which stages a position could serve
 //
 // plan:  [{ stage, concept (or concepts: [...] for mixed review), count, maxScore?, minScore? }]
-// pool:  [{ id, concepts: [ids], purposes: [stages], difficulty: { score, label }, variety (a key: the same
-//          key twice in a row is repetition) }]
+// pool:  [{ id, concepts: [ids], purposes: [stages], difficulty: { score, sortScore?, label }, variety (a key:
+//          the same key twice in a row is repetition) }]. Ordering uses sortScore when given (difficulty.cjs:
+//          the top of the range when a signal is unknown), else score.
 // hints: how much help a stage gives: 3 = note + cue + marks, 2 = cue + marks, 1 = cue, 0 = nothing.
 
 /** The default stages, in their usual order. requires: a stage of the same concept that must come earlier. */
+const rankOf = (x) => x.difficulty.sortScore ?? x.difficulty.score;
 const STAGES = {
   introduce: { order: 0, hints: 3, requires: [] },
   reinforce: { order: 1, hints: 2, requires: ['introduce'] },
@@ -30,7 +32,7 @@ const STAGES = {
  * The stages a position could serve, from its analysis (facts and solver outcomes, not wording):
  * { concepts (reason concepts of the line's learner moves, in order), firstConcept (the reason of the first
  * move), critical (learner moves where a move lets the win go), firstCritical, traps (plausible first moves
- * that fail), exception (bool), learnerMoves, zugzwangs }.
+ * that fail), exception (bool), learnerMoves, zugzwangsSet }.
  */
 function purposeHints(a) {
   const out = [];
@@ -39,7 +41,7 @@ function purposeHints(a) {
   if (a.firstConcept && a.firstCritical && !a.exception) out.push('reinforce', 'variation');
   if (distinct.length && !a.firstConcept && a.critical > 0) out.push('independent_application');
   if (a.firstConcept && a.traps > 0) out.push('misconception');
-  if (a.critical >= 3 || a.zugzwangs >= 2) out.push('calculation');
+  if (a.critical >= 3 || a.zugzwangsSet >= 2) out.push('calculation');
   if (a.exception) out.push('exception');
   if (distinct.length >= 2) out.push('mixed_review');
   return out;
@@ -63,12 +65,12 @@ function createProgression({ stages = STAGES, recent = 1 } = {}) {
       const want = conceptsOf(step);
       const fits = pool.filter((x) => !used.has(x.id) && x.purposes.includes(step.stage) &&
         want.every((c) => x.concepts.includes(c)) &&
-        (step.maxScore === undefined || x.difficulty.score <= step.maxScore) && (step.minScore === undefined || x.difficulty.score >= step.minScore))
-        .sort((a, b) => a.difficulty.score - b.difficulty.score || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        (step.maxScore === undefined || rankOf(x) <= step.maxScore) && (step.minScore === undefined || rankOf(x) >= step.minScore))
+        .sort((a, b) => rankOf(a) - rankOf(b) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
       let n = 0;
       while (n < step.count) {
         const last = out.slice(-recent).map((x) => x.variety);
-        const pick = fits.find((x) => !used.has(x.id) && !last.includes(x.variety));
+        const pick = fits.find((x) => !used.has(x.id) && !(x.variety !== undefined && last.includes(x.variety)));
         if (!pick) break;
         used.add(pick.id);
         out.push({ ...pick, stage: step.stage, concepts: want.length ? want : pick.concepts, hints: stages[step.stage].hints });
@@ -105,8 +107,8 @@ function createProgression({ stages = STAGES, recent = 1 } = {}) {
       }
       if (st.minConcepts && introduced.size < st.minConcepts) problems.push(`${i}: ${x.stage} with only ${introduced.size} concept(s) introduced`);
       const prev = seq[i - 1];
-      if (prev && prev.stage === x.stage && prev.concepts.join() === x.concepts.join() && x.difficulty.score + tolerance < prev.difficulty.score) {
-        problems.push(`${i}: easier than the position before in the same ${x.stage} run (${prev.difficulty.score} -> ${x.difficulty.score})`);
+      if (prev && prev.stage === x.stage && prev.concepts.join() === x.concepts.join() && rankOf(x) + tolerance < rankOf(prev)) {
+        problems.push(`${i}: easier than the position before in the same ${x.stage} run (${rankOf(prev)} -> ${rankOf(x)})`);
       }
       if (prev && x.variety !== undefined && prev.variety === x.variety) problems.push(`${i}: same variety key as the position before (${x.variety})`);
     });

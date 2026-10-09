@@ -119,14 +119,16 @@ function pawnFacts(fen) {
 }
 
 /**
- * The moves a learner is likely to consider in a pawn ending (a heuristic, never used for correctness):
+ * The moves a player is likely to consider in a pawn ending (a heuristic, never used for correctness):
  * pawn pushes, and king moves that do not retreat (no further from the front pawn's queening square:
- * forward, or sideways round the black king). Used to find tempting mistakes and as a difficulty signal.
+ * forward, or sideways round the other king). The same rule for either side: White with the pawns heads
+ * for the queening square, the black king defends it. Used to find tempting mistakes and as a
+ * difficulty signal.
  */
 function plausibleMoves(fen) {
   const g = new Chess(fen);
   const s = pos(fen);
-  if (g.turn() !== 'w' || !s.pawns.length) return g.moves();
+  if (!s.pawns.length) return g.moves();
   const goal = queenSq(s.pawns.reduce((a, b) => (rank(b) > rank(a) ? b : a)));
   return g.moves({ verbose: true }).filter((m) => m.piece === 'p' || dist(sqIdx(m.to), goal) <= dist(sqIdx(m.from), goal)).map((m) => m.san);
 }

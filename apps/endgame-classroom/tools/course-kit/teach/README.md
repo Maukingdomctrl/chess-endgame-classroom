@@ -20,9 +20,9 @@ npm run teach:report -- kpk --lines      # one course, with the first explanatio
 | Module | What it does |
 |---|---|
 | `outcome.cjs` | Exact outcome of every move from the course's measure: `moveOutcomes` (best / slower by n plies / draws / loses / notGoal; a "hold" mode when the learner defends), `replyOutcomes` (the opponent's replies: stubborn, shorter, escapes), `resultFor` (win / draw / loss for the learner, either side to move), `zugzwang` (the side to move would rather pass: the solver compares both sides to move). |
-| `explain.cjs` | `createExplainer({ verify, domain })` → `explainMove(fen, san)`, `explainPosition(fen)`, `acceptedMoves(fen)`. Short text plus structured parts: why, what changes, the natural alternative and the opponent's answer to it, a cue, a takeaway, review flags. `readable()` checks the length rules. |
+| `explain.cjs` | `createExplainer({ verify, domain, vocabulary })` → `explainMove(fen, san)`, `explainPosition(fen)` (every move, and the learner's own zugzwang), `acceptedMoves(fen)`. Short text plus structured parts: why, what changes, the natural alternative and the opponent's answer to it, a cue, a takeaway, review flags. `readable()` checks the length rules. `vocabulary`: the facts a course may name. |
 | `concepts.cjs` | `createConcepts([...])`: a concept is tied to one fact; its notes per stage, its cues (questions, progressively more specific) and its takeaway. A note is only returned where the fact is on the board. Bad texts and cues throw when the set is created. |
-| `difficulty.cjs` | `analyzeLine(line, ex, { learner })` → visible signals, a composite score 0-100, a broad label, the signals that weigh most, the signals that are unknown. |
+| `difficulty.cjs` | `analyzeLine(line, ex, { learner })` → visible signals, a composite score 0-100 (a range when a signal is unknown), a broad label (none when the range spans bands), the signals that weigh most, the signals that are unknown. |
 | `progression.cjs` | `STAGES` (configurable), `purposeHints(analysis)` (which stages a position can serve), `createProgression().sequence(plan, pool)` (fill a plan, easiest first, no repeated variety) and `checkSequence(seq)` (the order rules). |
 | `analyze.cjs` | The pipeline's analyze step for one line: correctness (`verify.cjs`), difficulty, purpose, teaching quality (grounded share, review flags, `[%also]` check), all kept apart. |
 | `report.cjs` | `npm run teach:report`: the layer over the built-in courses; writes `.out/<course>.json`. Reads only. |
@@ -38,6 +38,13 @@ npm run teach:report -- kpk --lines      # one course, with the first explanatio
   move gives up itself (contrast with the fastest moves), or what the opponent's **refutation** gains.
   The refutation is a reply the solver proves escapes (or wins, when the learner is defending).
 - **A slower win** gets only its delta ("Still wins, but 2 moves slower."). No cause is claimed.
+- **Nothing to contrast with** (every move equally good): no fact is a reason ("Every move keeps the
+  draw."); `explainPosition` says when the learner to move is in zugzwang ("If Black had to move, you
+  would win."), apart from a zugzwang the learner's move puts the opponent in (a reason of that move).
+- **A course's words:** `vocabulary(fact)` says what a course may name (course 1 of the Opposition
+  curriculum: no key squares yet, no distant or diagonal opposition, no opposition won by a pawn move; a
+  reason carries its move, `fact.move`). A reason outside it is not used; with none left the move is
+  flagged `outside-vocabulary`.
 - **No fact explains it:** the text says only what the solver proves ("The quickest way: it promotes in 9
   moves.", "Black answers Kc6 and holds the draw.") and the move is flagged `no-grounded-reason` for
   review. A wrong reason is worse than none.
@@ -79,10 +86,15 @@ are `null` and listed in `partial`, never guessed as 0):
 | `failShare`, `rejectShare` | average share of legal moves that lose the result / that the app rejects |
 | `critical`, `traps`, `trapsInLine`, `trapRate` | likely moves that lose the result: per position, first move, whole line, per move |
 | `counterIntuitive`, `counterIntuitiveShare` | learner moves where no accepted move is a likely one |
-| `zugzwangs` | positions of the line in zugzwang (tempo play) |
+| `zugzwangsSet`, `zugzwangsFaced` | positions where the opponent to move is in zugzwang (the learner's move made it; scored) / where the learner to move is (reported) |
 | `concepts`, `firstConcept` | the concepts that explain the critical moves |
 
-The composite (`WEIGHTS`: trap rate 25, counter-intuitive share 25, zugzwangs 15, length 15, narrowness 10,
+**Unknown is not easy.** A signal that cannot be known is `null`: `score` counts the known signals,
+`scoreMax` adds the unknown ones at their cap, `label` is given only when both fall in one band (else
+`labelRange`), and ordering (`sortScore`, used by `progression.sequence`) takes the top of the range, so a
+line is never scheduled earlier than the evidence allows. Length alone gives at most 15 points.
+
+The composite (`WEIGHTS`: trap rate 25, counter-intuitive share 25, zugzwangs set 15, length 15, narrowness 10,
 unique share 10) is a sorting aid set by judgement on the built-in courses, **not** a calibration against
 learners and **not** an Elo. Labels are broad bands: Foundational (<20), Intermediate (<40), Around 1500
 (<60), Around 1800 (<80), Difficult (approaching 2000). Pass `weights` to change them per course; keep the
@@ -137,8 +149,9 @@ existing generators do not call this layer: their output and speed are unchanged
 
 ## Limitations
 
-- The pawn domain is written for White's pawns against the lone king. Defending lessons (the learner
-  without the pawn) get the solver's outcomes and zugzwang, not the pawn facts, and are flagged.
+- The pawn domain covers one side's pawns against the lone king, either side (Black's pawns are read on
+  the board turned round). `line.cjs` and `verify.cjs` play and check winning lines only: holding lines
+  (defending lessons) are analysed position by position, their difficulty is not measured yet.
 - Mating material (K+Q, K+R, two rooks) has no domain yet: explanations are the solver's (mate in n,
   stalemate, the piece taken), the likely-move signals are unknown.
 - The weights and the plausible-move heuristic are judgement, not data from learners.

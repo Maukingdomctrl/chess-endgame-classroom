@@ -12,9 +12,10 @@ const { fastestMoves } = require('../verify.cjs');
 const { readPgn } = require('../pgn.cjs');
 const domain = require('../pawn/domain.cjs');
 const { createExplainer, readable, equalPhrase } = require('./explain.cjs');
+const { verifyLine } = require('../verify.cjs');
 const { moveOutcomes, zugzwang, resultFor } = require('./outcome.cjs');
 const { createConcepts, cueProblems } = require('./concepts.cjs');
-const { analyzeLine: difficultyOf, label, BANDS } = require('./difficulty.cjs');
+const { analyzeLine: difficultyOf, label, BANDS, composite } = require('./difficulty.cjs');
 const { analyzeLine, explainLine } = require('./analyze.cjs');
 const { STAGES, createProgression, purposeHints } = require('./progression.cjs');
 
@@ -27,6 +28,7 @@ const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].s
 const verify = { goal: 'promotion', probe: solver.probe };
 const ex = createExplainer({ verify, domain });
 const after = (fen, san) => { const g = new Chess(fen); g.move(san); return g.fen(); };
+const after2 = after;
 // ---- written again here, on purpose: geometry and results that do not come from the code under test ----
 const at = (fen, type, color) => { for (const row of new Chess(fen).board()) for (const p of row) if (p && p.type === type && p.color === color) return [p.square.charCodeAt(0) - 97, +p.square[1]]; return null; };
 function oppositionKind(fen) {
@@ -37,7 +39,10 @@ function oppositionKind(fen) {
   if (df === 2 && dr === 2) return 'diagonal';
   return null;
 }
-const oracleResult = (fen) => oracle.probe(fen); // { result for the side to move, dtc }
+// the oracle covers White's pawns; Black's pawns are read on the board turned round (written again here):
+// the side to move stays the same player, so the result for the side to move is unchanged
+const turnRound = (fen) => { const [b, stm] = fen.split(' '); return `${b.split('/').reverse().map((r) => [...r].map((c) => (/[a-z]/.test(c) ? c.toUpperCase() : c.toLowerCase())).join('')).join('/')} ${stm === 'w' ? 'b' : 'w'} - - 0 1`; };
+const oracleResult = (fen) => oracle.probe(/p/.test(fen.split(' ')[0]) ? turnRound(fen) : fen); // { result for the side to move, dtc }
 const whiteWins = (fen) => { const r = oracleResult(fen); return new Chess(fen).turn() === 'w' ? r.result === 'win' : r.result === 'loss'; };
 
 // ---- outcomes: the same moves as verify.cjs, classified by the oracle's numbers too ----
@@ -56,7 +61,7 @@ const whiteWins = (fen) => { const r = oracleResult(fen); return new Chess(fen).
   const fen = '8/4k3/8/8/3KP3/8/8/8 w - - 0 1'; // Kd4, e4 against Ke7: Ke5 is the only win
   const e = ex.explainMove(fen, 'Ke5');
   check(same(ex.acceptedMoves(fen), ['Ke5']) && same(fastestMoves(fen, verify), ['Ke5']), 'opposition: Ke5 is the only fastest win (solver and verify.cjs)');
-  check(e.text === 'Ke5! — Take the opposition. Black is in zugzwang: every move loses.', `opposition: "${e.text}"`);
+  check(e.text === 'Ke5! — Take the opposition. Black must give way.', `opposition: "${e.text}"`);
   const a = after(fen, 'Ke5');
   check(oppositionKind(a) === 'direct' && new Chess(a).turn() === 'b', 'opposition: true on the board (kings on one file, one square between, Black to move)');
   const failing = moveOutcomes(fen, verify).moves.filter((m) => m.kind === 'draws');
@@ -159,7 +164,8 @@ const whiteWins = (fen) => { const r = oracleResult(fen); return new Chess(fen).
       const a = after(fen, m.san);
       if (/Take the .*opposition/.test(e.text) && !(oppositionKind(a) && whiteWins(a))) bad.push(`${fen} ${e.text}`);
       if (/Black gets the .*opposition/.test(e.text) && !(e.reply && oppositionKind(after(a, e.reply)) && !whiteWins(after(a, e.reply)))) bad.push(`${fen} ${e.text}`);
-      if (/zugzwang: every move loses/.test(e.text) && !(whiteWins(a) && !whiteWins(a.replace(' b ', ' w ')))) bad.push(`${fen} ${e.text}`);
+      if (/zugzwang: every move loses|Black must give way/.test(e.text) && !(whiteWins(a) && !whiteWins(a.replace(' b ', ' w ')))) bad.push(`${fen} ${e.text}`);
+      if (/Black must give way/.test(e.text) && oppositionKind(a) !== 'direct') bad.push(`${fen} ${e.text}`);
       if (/Only a draw now/.test(e.text) && whiteWins(a)) bad.push(`${fen} ${e.text}`);
       if (/^\S+! /.test(e.text) && !whiteWins(a)) bad.push(`${fen} ${e.text}`);
       if (readable(e.text).length) bad.push(`${fen} too long: ${e.text}`);
@@ -172,7 +178,7 @@ const whiteWins = (fen) => { const r = oracleResult(fen); return new Chess(fen).
 
 // ---- 9. short text ----
 {
-  check(readable('Kf4! — Take the opposition. Black must move first.').length === 0, 'readable: the owner\'s example passes');
+  check(readable('Kf4! — Take the opposition. Black must move first.').length === 0 && readable('Kf4! — Take the opposition. Black must give way.').length === 0, 'readable: the owner\'s examples pass');
   check(readable('Kf4! — One. Two. Three.').length > 0 && readable('Kf4! — This sentence is far too long for a learner to take in at one quick glance.').length > 0, 'readable: three sentences or a long sentence fail');
   for (const c of domain.concepts.list) for (const t of [...Object.values(c.notes), c.remember]) check(readable(t).length === 0, `concept text is short: "${t}"`);
 }
@@ -231,7 +237,62 @@ const kpkLines = readPgn(fs.readFileSync(path.join(APP, 'courses/king-and-pawn-c
   const rule = kpkLines.find((gm) => /rule of the square/.test(gm.tags.LineName));
   const a = analyzeLine({ fen: rule.tags.FEN, moves: rule.moves }, { ex, verify, learner: 'w', correctness: false });
   check(a.difficulty.signals.firstConcept === 'ruleOfSquare' && a.purpose.includes('introduce'), `purpose from facts: "${rule.tags.LineName}" can introduce the rule of the square (${a.purpose.join(', ')})`);
-  check(purposeHints({ concepts: ['opposition'], firstConcept: 'opposition', firstCritical: true, critical: 1, traps: 1, exception: true, learnerMoves: 3, zugzwangs: 0 }).includes('exception'), 'purpose: an exception position is offered for the exception stage');
+  check(purposeHints({ concepts: ['opposition'], firstConcept: 'opposition', firstCritical: true, critical: 1, traps: 1, exception: true, learnerMoves: 3, zugzwangsSet: 0 }).includes('exception'), 'purpose: an exception position is offered for the exception stage');
+}
+
+// ---- 12. Prompt 2 fixes, found on real opposition positions ----
+{
+  // Black's pawns: the board turned round gives the same facts with the sides swapped back
+  const def = '8/8/8/1p6/2k5/8/3K4/8 w - - 0 1'; // White defends against Black's b-pawn
+  const turned = domain.flipFen(def);
+  check(turned === '8/3k4/8/2K5/1P6/8/8/8 b - - 0 1', `flipFen: ranks reversed, colours swapped (${turned})`);
+  const after = after2(def, 'Kc2');
+  const f = domain.facts(after);
+  check(f.some((x) => x.id === 'opposition' && x.kind === 'direct' && x.side === 'w') && oppositionKind(after) === 'direct' && new Chess(after).turn() === 'b',
+    'Black\'s pawn: after Kc2 the facts give White the direct opposition, as the board shows (kings c2/c4, Black to move)');
+  const held = after2('8/8/3p4/8/8/1k6/3K4/8 w - - 0 1', 'Kd3');
+  check(domain.facts(held).some((x) => x.id === 'blockade' && x.side === 'w' && x.pawn === 'd6') && !f.some((x) => x.id === 'blockade' && x.side === 'w'),
+    'Black\'s pawn: the white king in front of it on its file (Kd3 against d6) is a blockade for White, named on the real board; Kc2 against b5 is not');
+  check(Array.isArray(domain.plausible(def)) && domain.plausible(def).includes('Kc2') && !domain.plausible(def).includes('Ke1'), 'Black\'s pawn: likely moves for the defender (towards the pawn\'s queening square, not away)');
+  const e = ex.explainMove(def, 'Kc2');
+  check(e.text === 'Kc2! — Take the opposition. Black must give way.' && e.mode === 'hold', `defending: "${e.text}"`);
+  check(oracleResult(after).result === 'draw' && oracleResult(after.replace(' b ', ' w ')).result === 'loss', 'defending: the oracle agrees (Black to move cannot win; if White had to move, Black would win)');
+  // nothing to contrast with: no fact is a reason
+  const mutual = '8/8/4k3/8/4K3/4P3/8/8 w - - 0 1';
+  const p = ex.explainPosition(mutual);
+  check(p.best.length === 4 && p.best.every((x) => x.text.endsWith('Every move keeps the draw.') && x.facts.length === 0), 'every move equally good: no fact is given as a reason');
+  check(p.zugzwang && p.zugzwang.who === 'learner' && p.zugzwang.text === 'If Black had to move, you would win.' && !whiteWins(mutual) && whiteWins(mutual.replace(' w ', ' b ')),
+    'the learner to move in zugzwang is said as such (and the oracle agrees)');
+  check(ex.explainPosition('8/8/4k3/8/8/4K3/4P3/8 w - - 0 1').zugzwang === null, 'no zugzwang claimed where there is none');
+  // a vocabulary: a reason outside it is not used
+  const v1 = createExplainer({ verify, domain, vocabulary: (x) => x.id !== 'keySquare' });
+  const plain = ex.explainMove('8/8/4k3/8/8/4K3/4P3/8 w - - 0 1', 'Ke4'), limited = v1.explainMove('8/8/4k3/8/8/4K3/4P3/8 w - - 0 1', 'Ke4');
+  check(plain.facts[0] === 'keySquare' && limited.text === 'Ke4! — Take the opposition.', `vocabulary: without key squares, Ke4 is explained by the opposition ("${limited.text}")`);
+  const v2 = createExplainer({ verify, domain, vocabulary: (x) => x.id !== 'opposition' && x.id !== 'keySquare' && x.id !== 'zugzwang' });
+  const none = v2.explainMove('8/8/4k3/8/8/4K3/4P3/8 w - - 0 1', 'Ke4');
+  check(none.facts.length === 0 && none.review.includes('outside-vocabulary') && !/opposition|key/.test(none.text), 'vocabulary: with no reason left, the solver\'s words and a review flag');
+  check(ex.explainMove('8/8/4k3/8/8/4K3/4P3/8 w - - 0 1', 'Kf3').text === 'Kf3? — Black gets the opposition. Only a draw now.' && v2.explainMove('8/8/4k3/8/8/4K3/4P3/8 w - - 0 1', 'Kf3').review.includes('outside-vocabulary'), 'vocabulary: also for the reason a move fails');
+  // difficulty: an unknown signal is a range, not zero
+  const known = { learnerMoves: 10, uniqueShare: 1, failShare: 0.5, trapRate: 1, counterIntuitiveShare: 0, zugzwangsSet: 1 };
+  const k = composite(known), u = composite({ ...known, trapRate: null, counterIntuitiveShare: null });
+  check(k.label && k.partial.length === 0 && k.sortScore === k.score, 'difficulty: all signals known, one label');
+  check(u.score < k.score && u.scoreMax >= k.score && u.sortScore === u.scoreMax && u.partial.join() === 'trapRate,counterIntuitiveShare' && (u.label === null) === (u.labelRange[0] !== u.labelRange[1]),
+    `difficulty: unknown signals give a range ${u.score}-${u.scoreMax}, ordered by its top, no single label across bands`);
+  check(composite({ learnerMoves: 30, uniqueShare: 0, failShare: 0, trapRate: 0, counterIntuitiveShare: 0, zugzwangsSet: 0 }).label === 'Foundational', 'difficulty: length alone keeps a line Foundational');
+  const seq = createProgression().sequence([{ stage: 'introduce', concept: 'x', count: 2 }], [
+    { id: 'p', concepts: ['x'], purposes: ['introduce'], difficulty: { score: 10, sortScore: 60 } },
+    { id: 'q', concepts: ['x'], purposes: ['introduce'], difficulty: { score: 30, sortScore: 30 } }]);
+  check(seq.map((x) => x.id).join() === 'q,p', 'progression: a line with unknown signals is ordered by the top of its range, never earlier (and items without a variety key are not taken as repeats)');
+  // zugzwangs set by the learner, kept apart from those the learner faces
+  const zline = { fen: '8/8/4k3/8/8/2P1K3/8/8 w - - 0 1', moves: ['Ke4', 'Kd6', 'Kd4', 'Kc6', 'Kc4', 'Kd6', 'Kb5'].map((san) => ({ san })) };
+  const zs = difficultyOf(zline, ex, { learner: 'w' }).signals;
+  check(zs.zugzwangsSet === 3 && zs.zugzwangsFaced === 0, `difficulty: three zugzwangs set by the learner, none faced (${zs.zugzwangsSet}/${zs.zugzwangsFaced})`);
+  // verify.cjs: a line that starts with the opponent's move
+  const giveWay = { fen: '8/3k4/8/3K4/2P5/8/8/8 b - - 0 1', moves: ['Kc7', 'Kc5', 'Kd7', 'Kb6', 'Kc8', 'Kc6', 'Kb8', 'Kd7', 'Kb7', 'c5', 'Ka6', 'c6', 'Kb5', 'c7', 'Kc4', 'c8=Q+'].map((san) => ({ san, also: [] })) };
+  giveWay.moves[5].also = ['c5']; // Kc6: c5 wins just as fast
+  const vr = verifyLine(giveWay, { ...verify, learner: 'w' });
+  check(vr.problems.length === 0 && vr.unique.length === 8, `verify.cjs: a line starting with Black's move passes with learner 'w' (${vr.problems.join('; ')})`);
+  check(verifyLine(giveWay, verify).problems.length > 0, 'verify.cjs: without the option the learner is the side to move, as before');
 }
 
 console.log(failures ? `teaching layer tests: ${failures} FAILED` : 'teaching layer tests: all passed');

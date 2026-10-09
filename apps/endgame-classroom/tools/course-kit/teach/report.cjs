@@ -58,15 +58,17 @@ for (const name of names.length ? names : Object.keys(COURSES)) {
   console.log(`\n== ${name}: ${lines.length} lines, ${sum((l) => l.teaching.learnerMoves)} learner moves, ${ms} ms (${Math.round(ms / lines.length)} ms per line)`);
   console.log(`   ${c.correctness === false ? '(lines checked by the course itself) ' : 'verify.cjs and '}[%also] = equal moves: ${lines.length - wrong.length}/${lines.length}${wrong.length ? `  PROBLEMS: ${wrong.map((l) => `${l.name} ${l.explanations.filter((e) => !e.alsoMatches).map((e) => `${e.san}: also ${e.equal.join(',') || '-'}`).join(' ')}`).join('; ')}` : ''}`);
   console.log(`   important moves (a likely move lets the result go): ${important}, with a grounded reason: ${grounded} (${pct(grounded, important)}), flagged for review: ${review.length - tooLong.length}, too long: ${tooLong.length}`);
-  console.log(`   labels: ${BANDS.map(([, l]) => `${l} ${lines.filter((x) => x.difficulty.label === l).length}`).join(', ')}`);
+  const uncertain = lines.filter((x) => x.difficulty.label === null).length;
+  console.log(`   labels: ${BANDS.map(([, l]) => `${l} ${lines.filter((x) => x.difficulty.label === l).length}`).join(', ')}${uncertain ? `, uncertain (signals unknown) ${uncertain}` : ''}`);
   const lessons = [...new Set(lines.map((l) => l.lesson))];
   for (const ls of lessons) {
     const own = lines.filter((l) => l.lesson === ls);
-    const scores = own.map((l) => l.difficulty.score);
+    const scores = own.map((l) => l.difficulty.sortScore);
     const purposes = [...new Set(own.flatMap((l) => l.purpose))];
     console.log(`   ${ls.padEnd(52).slice(0, 52)} ${String(own.length).padStart(3)} lines  score ${Math.min(...scores)}-${Math.max(...scores)} (mean ${Math.round(scores.reduce((a, b) => a + b, 0) / scores.length)})  ${purposes.join(' ')}`);
   }
-  if (showLines) for (const l of lines) console.log(`   ${l.name}: ${l.difficulty.score} ${l.difficulty.label} [${l.difficulty.why.join(', ')}]  ${l.explanations[0].text}`);
+  const shown = (d) => (d.label ? `${d.score} ${d.label}` : `${d.score}-${d.scoreMax} ${d.labelRange.join(' to ')} (unknown: ${d.partial.join(', ')})`);
+  if (showLines) for (const l of lines) console.log(`   ${l.name}: ${shown(l.difficulty)} [${l.difficulty.why.join(', ')}]  ${l.explanations[0].text}`);
   for (const r of tooLong) console.log(`   TOO LONG ${r}`);
   fs.writeFileSync(path.join(OUT, `${name}.json`), JSON.stringify(lines, null, 1));
 }
