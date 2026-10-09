@@ -12,6 +12,14 @@
 //   means the quickest safe promotion, then the piece that mates fastest.
 // opts.promotionProbe(fen) -> { result, dtc }: the measure for goal 'promotion' (dtc = plies to a safe
 //   promotion). Default: ../kpk-course/kpk.cjs (K+P vs K); solver.cjs's probePromotion covers two pawns.
+// opts.objective: 'win' (default, all of the above), 'hold' or 'auto'.
+//   'hold' (a drawn position, e.g. defending against a pawn): every learner move must keep the draw (after it
+//   the opponent cannot win, by the same measure), its [%also] must be exactly the other moves that keep it
+//   (a draw is a draw: they are all equally good), every opponent move must be the opponent's best play (it
+//   never lets the learner win), and the line must end in a draw on the board: stalemate, insufficient
+//   material or threefold repetition.
+//   'auto': 'win' when the learner can win from the start position, 'hold' when it is a draw (either side to
+//   move); a lost start position is a problem. For a course with both kinds of line.
 const { Chess } = require('chess.js');
 
 let kpk; // loaded on first use: the King & Pawn solver
@@ -61,6 +69,61 @@ function fastestMoves(fen, opts) {
   return vals.length ? vals.filter((x) => cmp(x.v, vals[0].v) === 0).map((x) => x.san) : [];
 }
 
+/** The side to move wins by the measure (opponent or learner alike: afterOpponent reads the side to move). */
+const stmWins = (fen, opts) => afterOpponent(fen, opts) !== null;
+/**
+ * All learner moves that keep the draw (SAN): after them the opponent cannot win. In a drawn position a
+ * holding line's move and its [%also] must be exactly these.
+ */
+function holdingMoves(fen, opts) {
+  return new Chess(fen).moves().filter((san) => { const t = new Chess(fen); t.move(san); return !stmWins(t.fen(), opts); });
+}
+/** The result of fen for the learner with best play: 'win' | 'draw' | 'loss'. */
+function resultFor(fen, opts, learner) {
+  const g = new Chess(fen);
+  if (g.isCheckmate()) return g.turn() === learner ? 'loss' : 'win';
+  if (g.isStalemate() || g.isInsufficientMaterial()) return 'draw';
+  if (stmWins(fen, opts)) return g.turn() === learner ? 'win' : 'loss';
+  if (afterLearner(fen, opts)) return g.turn() === learner ? 'loss' : 'win'; // the side that just moved wins
+  return 'draw';
+}
+/** The objective of a line from its start: 'win' or 'hold' (opts.objective 'auto'), or null when it is lost. */
+function objectiveOf(line, opts, learner) {
+  if (opts.objective !== 'auto') return opts.objective ?? 'win';
+  const r = resultFor(line.fen, opts, learner);
+  return r === 'win' ? 'win' : r === 'draw' ? 'hold' : null;
+}
+const drawnOnBoard = (g) => g.isStalemate() || g.isInsufficientMaterial() || g.isThreefoldRepetition();
+
+/** The 'hold' objective (see the header): the learner keeps the draw against the opponent's best play. */
+function verifyHold(line, opts, g, learner) {
+  const problems = [];
+  const unique = [];
+  const start = resultFor(line.fen, opts, learner);
+  if (start !== 'draw') problems.push(`${line.fen}: not a draw with best play (the learner ${start === 'win' ? 'wins' : 'loses'})`);
+  for (const m of line.moves) {
+    const fen = g.fen();
+    if (drawnOnBoard(g)) { problems.push(`${fen}: the game is already drawn on the board before ${m.san}`); return { problems, unique }; }
+    if (g.turn() === learner) {
+      const holding = holdingMoves(fen, opts);
+      if (!holding.includes(m.san)) problems.push(`${fen}: ${m.san} does not hold the draw (holding: ${holding.join(',') || 'none'})`);
+      for (const a of m.also ?? []) if (!holding.includes(a)) problems.push(`${fen}: [%also] ${a} does not hold the draw`);
+      const missing = holding.filter((s) => s !== m.san && !(m.also ?? []).includes(s));
+      if (missing.length) problems.push(`${fen}: [%also] for ${m.san} misses ${missing.join(',')}`);
+      unique.push(holding.length === 1);
+    } else {
+      // the opponent's best play: whatever it tries, it never lets the learner win
+      const t = new Chess(fen);
+      try { t.move(m.san); } catch { /* reported below */ }
+      if (t.fen() !== fen && resultFor(t.fen(), opts, learner) === 'win') problems.push(`${fen}: ${m.san} lets the learner win: not the opponent's best play`);
+      if (m.also?.length) problems.push(`${fen}: [%also] on a move of the opponent`);
+    }
+    try { g.move(m.san); } catch { problems.push(`${fen}: illegal move ${m.san}`); return { problems, unique }; }
+  }
+  if (!drawnOnBoard(g)) problems.push(`does not end in a draw on the board (stalemate, insufficient material or repetition): ${g.fen()}`);
+  return { problems, unique };
+}
+
 /** line: { fen, moves: [{ san, also }] }. Returns { problems: [...], unique: [bool per learner move] }. */
 function verifyLine(line, opts) {
   const problems = [];
@@ -68,6 +131,9 @@ function verifyLine(line, opts) {
   let g;
   try { g = new Chess(line.fen); } catch (e) { return { problems: [`bad FEN ${line.fen}: ${e.message}`], unique }; }
   const learner = opts.learner ?? g.turn();
+  const objective = objectiveOf(line, opts, learner);
+  if (!objective) return { problems: [`${line.fen}: lost for the learner with best play: neither a win nor a draw to hold`], unique };
+  if (objective === 'hold') return verifyHold(line, opts, g, learner);
   const pawnLine = hasPawn(line.fen);
   for (const m of line.moves) {
     const fen = g.fen();
@@ -103,4 +169,4 @@ function summary(results) {
   return { learnerMoves: n, unique: u, pct: n ? Math.round((100 * u) / n) : 0 };
 }
 
-module.exports = { afterLearner, afterOpponent, cmp, fastestMoves, verifyLine, summary };
+module.exports = { afterLearner, afterOpponent, cmp, fastestMoves, holdingMoves, resultFor, verifyLine, summary };

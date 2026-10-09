@@ -131,9 +131,10 @@ concepts and the exceptions. What to keep in mind:
   new fact (with a test against the oracle) is the way to explain more.
 - **Defending** (the learner without the pawn, against Black's pawns): `domain.cjs` reads the position on
   the board turned round (`flipFen`) and swaps the sides back, so the same facts and phrases work ("Kc2! —
-  Take the opposition. Black must give way."). `line.cjs` and `verify.cjs` still play and check winning lines
-  only: add a holding mode (every learner move keeps the draw, `[%also]` exactly the other holding moves)
-  before generating defending lines.
+  Take the opposition. Black must give way."). Defending lines are played and checked with `objective:
+  'hold'` (`line.cjs`, `verify.cjs`; `'auto'` in a course with both kinds): every learner move keeps the
+  draw, `[%also]` exactly the other moves that keep it, the attacker never lets White win, and the line ends
+  in a draw on the board.
 - **"Black must give way"** is said only when the solver's zugzwang follows the direct opposition; the
   word "zugzwang" belongs to the course that teaches it.
 - **Opposition by a pawn move** is a tempo idea: a course before it leaves it out through its vocabulary

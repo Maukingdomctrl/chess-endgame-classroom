@@ -32,7 +32,7 @@
 // either an event on the board (stalemate, the new piece can be taken) or what the opponent's refutation
 // creates; the refutation is a reply the solver proves escapes. A slower win gets only its delta, never a
 // made-up cause.
-const { fastestMoves } = require('../verify.cjs');
+const { fastestMoves, holdingMoves } = require('../verify.cjs');
 const { moveOutcomes, replyOutcomes, resultFor, zugzwang } = require('./outcome.cjs');
 
 const PIECE = { q: 'queen', r: 'rook', b: 'bishop', n: 'knight', p: 'pawn', k: 'king' };
@@ -292,10 +292,10 @@ function createExplainer({ verify, domain = {}, vocabulary = () => true }) {
     return e;
   }
   /**
-   * The moves a line may play here: the fastest wins, exactly as verify.cjs accepts them (holding a draw:
-   * every move that keeps it). The explanations' equal moves are always these minus the move itself.
+   * The moves a line may play here, exactly as verify.cjs accepts them: the fastest wins, or, holding a draw,
+   * every move that keeps it (verify.holdingMoves). The explanations' equal moves are these minus the move.
    */
-  const acceptedMoves = (fen) => (outcomes(fen).mode === 'win' ? fastestMoves(fen, verify) : outcomes(fen).moves.filter((x) => x.kind === 'best').map((x) => x.san));
+  const acceptedMoves = (fen) => { const mode = outcomes(fen).mode; return mode === 'win' ? fastestMoves(fen, verify) : mode === 'hold' ? holdingMoves(fen, verify) : outcomes(fen).moves.filter((x) => x.kind === 'best').map((x) => x.san); };
   /**
    * Every move of the position explained, best first: { best: [...], wrong: [...], zugzwang }. zugzwang: the
    * learner to move is in zugzwang (the solver: handing over the move would be better), with its words;

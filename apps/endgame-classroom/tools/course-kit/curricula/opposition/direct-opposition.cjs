@@ -256,7 +256,7 @@ function matches(s, c) {
   if (k.files && !k.files.includes(c.pawn[0])) return false;
   if (c.learnerMoves !== undefined && k.moves && (c.learnerMoves < k.moves[0] || c.learnerMoves > k.moves[1])) return false;
   if (k.minZugzwangs && (c.difficulty?.signals.zugzwangsSet ?? 0) < k.minZugzwangs) return false;
-  // a defending line has no measured band yet (no holding lines before Prompt 3): the band is checked then
+  // every candidate carries its line's analysis (defending lines too: line.cjs objective 'hold')
   if (c.difficulty && !s.band.includes(c.difficulty.label)) return false;
   return true;
 }

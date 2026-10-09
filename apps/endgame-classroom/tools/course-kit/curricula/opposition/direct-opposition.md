@@ -85,12 +85,13 @@ generator's duplicate checks (`pawn/structure.cjs` keys) apply as in the other p
 
 ## Difficulty
 
-By `teach/difficulty.cjs` on the real lines (every line played to the promotion): course 1 spans
-**Intermediate to Around 1500**, with Around 1800 lines for the calculation phase. No line is Foundational
-(King & Pawn endings are full of tempting moves that draw, and each line goes to the queen), and none
-reaches Difficult (approaching 2000): the blueprint does not promise bands the solver does not offer. The
-bands are an ordering aid inside a phase, not a rating. Defending lines have no measured band yet
-(holding lines are not played by `line.cjs` today; see the rules).
+By `teach/difficulty.cjs` on the real lines (every attacking line played to the promotion, every defending
+line to a draw on the board): course 1 spans **Intermediate to Around 1500**, with Around 1800 lines for the
+calculation phase. No attacking line is Foundational (King & Pawn endings are full of tempting moves that
+draw, and each line goes to the queen), and none reaches Difficult (approaching 2000): the blueprint does
+not promise bands the solver does not offer. Defending lines (`line.cjs` objective `'hold'`) are measured
+the same way; only 3 of them are Foundational and 1 Difficult, so the defending slots keep their bands. The
+bands are an ordering aid inside a phase, not a rating.
 
 ## Feasibility (measured)
 
@@ -103,13 +104,14 @@ d-file (mirror images alike), plays each candidate's line and analyses it, then 
 | `take` | 735 | Intermediate 294, Around 1500 405, Around 1800 36 | vertical 514, horizontal 221; "Black must give way" 198; pawn on rank 2: 305, 3: 209, 4: 133, 5: 52, 6: 36 |
 | `retake` | 58 | Intermediate 4, Around 1500 44, Around 1800 10 | all vertical, pawn on rank 2-4 |
 | `either` | 188 | Intermediate 131, Around 1500 57 | |
-| `defend` | 444 | not measured yet (no holding lines) | vertical 371, horizontal 73; "Black must give way" 218 |
+| `defend` | 444 | Foundational 3, Intermediate 82, Around 1500 174, Around 1800 184, Difficult 1 | holding lines (`objective: 'hold'`), each ends in a draw on the board; vertical 371, horizontal 73; "Black must give way" 218; Black's pawn on rank 7: 156, 6: 134, 5: 108, 4: 46 |
 | `protect` | 6 | Intermediate 6 | the scarcest task: four slots share these six |
 | `push` | 114 | Intermediate 50, Around 1500 64 | |
 
-No candidate line is Foundational and none reaches Difficult (approaching 2000). The fill check finds a
-position of its own for **all 100 slots** (10 candidates are excluded as starts of other built-in courses;
-fewest candidates: the protect slots, 6 each). It also corrected the blueprint: slot 97 first asked for a
+No attacking line is Foundational and none reaches Difficult (approaching 2000); of the defending lines, 3
+are Foundational and 1 is Difficult, bands no slot asks for. The fill check finds a position of its own for
+**all 100 slots** (10 candidates are excluded as starts of other built-in courses; fewest candidates: the
+protect slots, 6 each; the twelve defending slots, with their bands unchanged, have 30 to 285 each). It also corrected the blueprint: slot 97 first asked for a
 protect position at Around 1500 (there is none) and slot 2 had a single candidate; both were widened
 (97: Intermediate to Around 1500; 2: pawn on rank 4-6), and a few slots got a little more room in line
 length, so every slot leaves the generator a choice (at least 11 candidates outside the protect slots).
@@ -146,11 +148,12 @@ teaching layer, now fixed and tested (`teach/test.cjs` section 12, `test.cjs` he
    important learner move of the line explained within the vocabulary, then the slot's band (lower first in
    introduction and guided phases), then fewer learner moves in phases 1-2, then a fixed key.
 2. **Lines.** White's lines with `line.cjs` and `learnerOrder(ex)`; `retake` lines start with Black's most
-   stubborn move (the one `classify` used) and are verified with `verifyLine(line, { ...VERIFY, learner:
-   'w' })`. `defend` lines need a holding mode first: in `line.cjs` (the learner keeps the draw, the
-   attacker plays its most testing try, the line ends when the pawn is taken or stalemate) and in
-   `verify.cjs` (every learner move holds; `[%also]` exactly the other holding moves). Add both, with tests,
-   before generating; then measure their bands.
+   stubborn move (the one `classify` used). `defend` lines with `playLine(fen, { ...VERIFY, objective:
+   'hold', learnerOrder })`: the learner keeps the draw (`[%also]` exactly the other moves that keep it), the
+   attacker never lets White win and plays its most testing try, and the line ends in a draw on the board
+   (the pawn taken, stalemate or repetition). Verify every line, both kinds, with `verifyLine(line, {
+   ...VERIFY, objective: 'auto', learner: 'w' })`: a winning start is checked as a win, a drawn one as a
+   hold.
 3. **Words.** Notes from `createCourseExplainer()`: a note on the first learner move always (the task's
    point), on later moves only when grounded within the vocabulary and important; a closing note on the
    last move; nothing flagged `outside-vocabulary` or `no-grounded-reason` is shown. Intro texts state only

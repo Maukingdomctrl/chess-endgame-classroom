@@ -8,8 +8,9 @@
 //   npm run curriculum:opposition -- --from-json   # the counts and the fill check again from that file
 //                                                  # (after a change to the slots only)
 //
-// Defending candidates are counted without a line: the line player and verify.cjs play winning lines
-// only (holding lines are Prompt 3's to add, see direct-opposition.md).
+// Defending candidates get a holding line (line.cjs objective 'hold': the learner keeps the draw, the
+// opponent tries hardest, the line ends in a draw on the board); a candidate whose line does not end
+// that way is left out.
 const fs = require('fs');
 const path = require('path');
 const { Chess } = require('chess.js');
@@ -41,14 +42,18 @@ function candidates({ log = () => {} } = {}) {
     if (++n % 3000 === 0) { ex = createCourseExplainer(); log(`${n} positions, ${out.length} candidates`); }
     const c = classify(fen, ex);
     if (!c) return;
-    let line = null;
-    if (c.task !== 'defend') {
+    let line;
+    if (c.task === 'defend') {
+      const played = playLine(fen, { ...VERIFY, objective: 'hold', learnerOrder: learnerOrder(ex) });
+      if (played.end !== 'draw') return;
+      line = { fen, moves: played.plies.map((p) => ({ san: p.san, also: p.also })) };
+    } else {
       const start = c.task === 'retake' ? new Chess(fen) : null;
       if (start) start.move(c.reply);
       const played = playLine(start ? start.fen() : fen, { ...VERIFY, learnerOrder: learnerOrder(ex) });
       line = { fen, moves: [...(start ? [{ san: c.reply }] : []), ...played.plies.map((p) => ({ san: p.san, also: p.also }))] };
     }
-    out.push({ fen, ...c, ...(line && { learnerMoves: line.moves.filter((_, i) => (c.task === 'retake' ? i % 2 === 1 : i % 2 === 0)).length, difficulty: analyzeLine(line, ex, { learner: 'w' }) }) });
+    out.push({ fen, ...c, learnerMoves: line.moves.filter((_, i) => (c.task === 'retake' ? i % 2 === 1 : i % 2 === 0)).length, difficulty: analyzeLine(line, ex, { learner: 'w' }) });
   };
   for (const f of [1, 2, 3]) for (let r = 1; r <= 5; r++) for (let wk = 0; wk < 64; wk++) for (let bk = 0; bk < 64; bk++) {
     if (wk === bk || dist(wk, bk) < 2) continue;
@@ -69,8 +74,8 @@ function summarise(list) {
       orientation: count((c) => c.orientation ?? '-'),
       pawnRank: count((c) => c.pawn?.[1] ?? '-'),
       givesWay: own.filter((c) => c.givesWay).length,
-      band: count((c) => (c.difficulty ? c.difficulty.label ?? 'uncertain' : 'no line')),
-      learnerMoves: count((c) => (c.learnerMoves === undefined ? '-' : c.learnerMoves <= 6 ? '<=6' : c.learnerMoves <= 10 ? '7-10' : '11+')),
+      band: count((c) => c.difficulty.label ?? 'uncertain'),
+      learnerMoves: count((c) => (c.learnerMoves <= 6 ? '<=6' : c.learnerMoves <= 10 ? '7-10' : '11+')),
     });
   }
   return rows;
