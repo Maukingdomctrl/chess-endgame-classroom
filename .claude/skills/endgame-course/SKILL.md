@@ -24,8 +24,10 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
 3. **Best play.** Every learner move keeps the win and is a fastest one (lowest distance to mate, or
    quickest safe promotion in K+P lessons). The opponent always plays the most stubborn defence
    (longest DTM).
-4. **Every line to its real end**: checkmate in mating lessons, the promotion in K+P lessons. Never stop
-   halfway.
+4. **Every line to its real end**: checkmate in mating lessons, the promotion in K+P lessons, a draw on the
+   board (the pawn taken, stalemate, repetition) in a defending line. Never stop halfway. A defending line
+   (`objective: 'hold'` in `line.cjs` and `verify.cjs`) accepts only moves that keep the draw against the
+   opponent's best play; its `[%also]` lists exactly the other moves that keep it.
 5. **The idea should be the only correct move.** Prefer positions where it is. Where other moves are
    exactly as good (same DTM; for a defence, also holds), list them as `[%also Kd6,Ke7]` in that
    move's comment. Never list slower moves. Report the share of unique learner moves and how many have

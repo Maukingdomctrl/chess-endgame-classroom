@@ -150,8 +150,8 @@ existing generators do not call this layer: their output and speed are unchanged
 ## Limitations
 
 - The pawn domain covers one side's pawns against the lone king, either side (Black's pawns are read on
-  the board turned round). `line.cjs` and `verify.cjs` play and check winning lines only: holding lines
-  (defending lessons) are analysed position by position, their difficulty is not measured yet.
+  the board turned round). Holding lines are played and checked with `objective: 'hold'` in `line.cjs`
+  and `verify.cjs`; their difficulty is measured like any other line's.
 - Mating material (K+Q, K+R, two rooks) has no domain yet: explanations are the solver's (mate in n,
   stalemate, the piece taken), the likely-move signals are unknown.
 - The weights and the plausible-move heuristic are judgement, not data from learners.

@@ -146,6 +146,19 @@ for (const p of PROTOTYPES) {
     `vocabulary: a pawn move that takes the opposition (a tempo move, course 6) is not called that in course 1 ("${c5.text}", flagged)`);
   for (const q of domain.concepts.get('opposition').cues) check(cueProblems(q).length === 0, `cue "${q}" names no square and no move`);
 }
+{ // a defending slot's real line: played holding the draw, verified, explained, and fitting the slot
+  const p = P['defend-give-way'];
+  const played = playLine(p.fen, { ...B.VERIFY, objective: 'hold', learnerOrder: B.learnerOrder(ex) });
+  const line = { fen: p.fen, moves: played.plies.map((x) => ({ san: x.san, also: x.also })) };
+  const end = new Chess(p.fen); for (const m of line.moves) end.move(m.san);
+  check(played.end === 'draw' && line.moves[0].san === p.first && (end.isInsufficientMaterial() || end.isStalemate()), `defend-give-way: the holding line starts with ${p.first} and ends in a draw on the board (${line.moves.map((m) => m.san).join(' ')})`);
+  check(verifyLine(line, { ...B.VERIFY, objective: 'auto', learner: 'w' }).problems.length === 0, 'defend-give-way: the line passes verify.cjs (objective auto: a drawn start is checked as holding)');
+  check(line.moves.every((m, i) => i % 2 === 1 || white(after(p.fen, ...line.moves.slice(0, i + 1).map((x) => x.san))) === 'draw'), 'defend-give-way: every learner move keeps the draw (oracle)');
+  const notes = explainLine(line, ex, { learner: 'w' });
+  check(notes[0].text === p.text && notes.every((n) => n.alsoMatches && n.mode === 'hold'), 'defend-give-way: explained as a holding line; every [%also] exactly the other holding moves');
+  const cand = { fen: p.fen, ...classify(p.fen, ex), learnerMoves: notes.length, difficulty: analyzeLine(line, ex, { learner: 'w' }) };
+  check(cand.difficulty.label !== undefined && B.SLOTS.filter((s) => s.task === 'defend').some((s) => B.matches(s, cand)), `defend-give-way: a measured band (${cand.difficulty.score} ${cand.difficulty.label ?? cand.difficulty.labelRange.join('-')}) and a defending slot it fits`);
+}
 { // matches(): a prototype's real line fits the slots it was meant for
   const p = P['long-approach'];
   const c = classify(p.fen, ex);

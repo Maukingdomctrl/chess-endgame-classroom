@@ -146,11 +146,12 @@ teaching layer, now fixed and tested (`teach/test.cjs` section 12, `test.cjs` he
    important learner move of the line explained within the vocabulary, then the slot's band (lower first in
    introduction and guided phases), then fewer learner moves in phases 1-2, then a fixed key.
 2. **Lines.** White's lines with `line.cjs` and `learnerOrder(ex)`; `retake` lines start with Black's most
-   stubborn move (the one `classify` used) and are verified with `verifyLine(line, { ...VERIFY, learner:
-   'w' })`. `defend` lines need a holding mode first: in `line.cjs` (the learner keeps the draw, the
-   attacker plays its most testing try, the line ends when the pawn is taken or stalemate) and in
-   `verify.cjs` (every learner move holds; `[%also]` exactly the other holding moves). Add both, with tests,
-   before generating; then measure their bands.
+   stubborn move (the one `classify` used). `defend` lines with `playLine(fen, { ...VERIFY, objective:
+   'hold', learnerOrder })`: the learner keeps the draw (`[%also]` exactly the other moves that keep it), the
+   attacker never lets White win and plays its most testing try, and the line ends in a draw on the board
+   (the pawn taken, stalemate or repetition). Verify every line, both kinds, with `verifyLine(line, {
+   ...VERIFY, objective: 'auto', learner: 'w' })`: a winning start is checked as a win, a drawn one as a
+   hold.
 3. **Words.** Notes from `createCourseExplainer()`: a note on the first learner move always (the task's
    point), on later moves only when grounded within the vocabulary and important; a closing note on the
    last move; nothing flagged `outside-vocabulary` or `no-grounded-reason` is shown. Intro texts state only
