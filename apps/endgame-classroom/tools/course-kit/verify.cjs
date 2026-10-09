@@ -1,7 +1,8 @@
 // Checks a course line move by move on its real FENs with chess.js and an exact solver. A course runs it
 // twice: on the generated lines, and on the PGN file read back from disk.
 //
-// The learner is the side to move in the line's start position. A learner move must be a fastest win,
+// The learner is the side to move in the line's start position (or opts.learner: 'w' | 'b', for a line
+// that starts with the opponent's move, e.g. "Black must move and give way"). A learner move must be a fastest win,
 // its [%also] list must be exactly the other equally fast moves, every opponent move must be the most
 // stubborn defence, and the line must end in checkmate (or, with goal 'promotion', a safe promotion).
 //
@@ -66,7 +67,7 @@ function verifyLine(line, opts) {
   const unique = [];
   let g;
   try { g = new Chess(line.fen); } catch (e) { return { problems: [`bad FEN ${line.fen}: ${e.message}`], unique }; }
-  const learner = g.turn();
+  const learner = opts.learner ?? g.turn();
   const pawnLine = hasPawn(line.fen);
   for (const m of line.moves) {
     const fen = g.fen();

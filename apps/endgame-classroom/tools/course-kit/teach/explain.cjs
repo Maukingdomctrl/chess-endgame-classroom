@@ -3,7 +3,7 @@
 // memory and nothing is guessed; when no fact explains a move, the text falls back to what the solver
 // says (the quickest win, still wins but slower, only a draw now) and the move is flagged for review.
 //
-//   const ex = createExplainer({ verify, domain });
+//   const ex = createExplainer({ verify, domain, vocabulary });
 //   ex.explainMove(fen, 'Kf4')   // { san, kind, mark, text: 'Kf4! — Take the opposition.', parts, facts, review }
 //   ex.acceptedMoves(fen)        // exactly verify.fastestMoves: teaching never changes which moves are accepted
 //
@@ -11,18 +11,27 @@
 //   facts(fen)      -> [{ id, key, side ('w' | 'b': whom it helps), ... }] read from the board
 //   plausible(fen)  -> [san] | null: the moves a learner is likely to consider (a heuristic, for the
 //                      "natural alternative", "!" and difficulty only; never for correctness). null: unknown
-//   phrases         -> { priority: [fact ids], gain: {id: (fact) => text}, keep, give, lose: {...} }
+//   phrases         -> { priority: [fact ids], gain: {id: (fact, ctx) => text}, keep, give, lose: {...} }
 //                      gain: the learner's move creates the fact; keep: it was there and stays (falls
-//                      back to gain); give: the opponent gets it; lose: a fact of the learner's disappears
+//                      back to gain); give: the opponent gets it; lose: a fact of the learner's disappears.
+//                      ctx.facts: every fact of the position the fact belongs to. A phrase returning
+//                      undefined falls back to the generic one.
 //   concepts        -> a createConcepts(...) set (./concepts.cjs): cues and takeaways for reason facts
 //   exceptions(fen) -> [{ id, concepts: [concept ids], text }]: where a usual rule does not hold
+// vocabulary (optional): (fact) => bool, the facts a course may name (e.g. not "key squares" before the
+//   course that teaches them). A reason outside it is not used; if that leaves none, the text says only
+//   what the solver proves and the move is flagged 'outside-vocabulary'. A reason of the learner's move
+//   carries that move (fact.move: { san, piece }), so a course can also leave out, say, a pawn move that
+//   takes the opposition (a tempo idea).
 //
 // Why a move works (the reason) is a fact the learner has after the move that NONE of the moves that fail
 // leaves: if a losing move gives the same fact, the fact cannot be why the move wins (contrast). Facts the
-// move creates come before facts it keeps. A zugzwang counts only when the solver shows it. A move is
-// important (marked "!") when a move the learner is likely to consider (domain.plausible) lets the win go. Why a move fails is either an event on the board
-// (stalemate, the new piece can be taken) or what the opponent's refutation creates; the refutation is a
-// reply the solver proves escapes. A slower win gets only its delta, never a made-up cause.
+// move creates come before facts it keeps. With nothing to contrast with (every move equally good) no
+// fact is a reason. A zugzwang counts only when the solver shows it. A move is important (marked "!")
+// when a move the learner is likely to consider (domain.plausible) lets the win go. Why a move fails is
+// either an event on the board (stalemate, the new piece can be taken) or what the opponent's refutation
+// creates; the refutation is a reply the solver proves escapes. A slower win gets only its delta, never a
+// made-up cause.
 const { fastestMoves } = require('../verify.cjs');
 const { moveOutcomes, replyOutcomes, resultFor, zugzwang } = require('./outcome.cjs');
 
@@ -51,6 +60,9 @@ const DEFAULT_PHRASES = {
     notGoal: () => '',
     holds: (reply, kind) => (kind === 'loses' ? `Black answers ${reply} and wins.` : `Black answers ${reply} and holds the draw.`),
     hold: () => 'This holds the draw.',
+    allEqual: (mode) => (mode === 'win' ? 'Every move wins just as fast.' : 'Every move keeps the draw.'),
+    // the learner to move is in zugzwang (z: outcome.zugzwang, results for the learner)
+    zugzwangHere: (z) => (z.ifPassed === 'win' ? 'If Black had to move, you would win.' : z.ifPassed === 'draw' ? 'If Black had to move, it would be a draw.' : null),
     resist: () => 'The longest resistance.',
     // v: the measure after the move ([0, plies to mate] or [1, plies to a safe promotion]); m: the move
     best: (v, m) => (v[0] === 0 && v[1] === 0 ? 'Checkmate!'
@@ -85,6 +97,7 @@ function readable(text, limits = LIMITS) {
 function mergePhrases(domain) {
   const d = domain ?? {};
   return {
+    base: { gain: DEFAULT_PHRASES.gain, keep: DEFAULT_PHRASES.gain, give: DEFAULT_PHRASES.give, lose: DEFAULT_PHRASES.lose },
     priority: [...DEFAULT_PHRASES.priority.slice(0, -1), ...(d.priority ?? []), 'zugzwang'],
     gain: { ...DEFAULT_PHRASES.gain, ...d.gain },
     keep: { ...DEFAULT_PHRASES.gain, ...d.gain, ...d.keep },
@@ -94,7 +107,7 @@ function mergePhrases(domain) {
   };
 }
 
-function createExplainer({ verify, domain = {} }) {
+function createExplainer({ verify, domain = {}, vocabulary = () => true }) {
   const P = mergePhrases(domain.phrases);
   const factsOf = domain.facts ?? (() => []);
   const plausibleOf = domain.plausible ?? (() => null);
@@ -109,15 +122,23 @@ function createExplainer({ verify, domain = {} }) {
   const has = (list, key) => list.some((f) => f.key === key);
   const other = (c) => (c === 'w' ? 'b' : 'w');
 
-  /** The learner's facts after the move (gained: not there before), with the solver's zugzwang on the opponent. */
-  function learnerFacts(learner, before, afterFen) {
-    const list = facts(afterFen).filter((f) => f.side === learner).map((f) => ({ ...f, gained: !has(before, f.key) }));
-    const z = zz(afterFen, learner);
-    if (z && z.side === other(learner)) list.push({ id: 'zugzwang', side: learner, key: 'zugzwang', solver: z, gained: true });
+  /**
+   * The learner's facts after move m (gained: not there before), with the solver's zugzwang on the opponent.
+   * Each carries the move that led to it ({ san, piece }), for a vocabulary or a phrase that depends on it.
+   */
+  function learnerFacts(learner, before, m) {
+    const move = { san: m.san, piece: m.piece };
+    const list = facts(m.fen).filter((f) => f.side === learner).map((f) => ({ ...f, gained: !has(before, f.key), at: m.fen, move }));
+    const z = zz(m.fen, learner);
+    if (z && z.side === other(learner)) list.push({ id: 'zugzwang', side: learner, key: 'zugzwang', solver: z, gained: true, at: m.fen, move });
     return list;
   }
-  const phrase = (table, f) => (table[f.id] ? table[f.id](f) : null);
-  const sayReason = (f) => phrase(f.gained ? P.gain : P.keep, f);
+  /** The words for a fact in a role (gain, keep, give, lose): the domain's, else the generic ones; null if none. */
+  const phrase = (role, f) => {
+    const ctx = { facts: f.at ? facts(f.at) : [] };
+    return P[role][f.id]?.(f, ctx) ?? P.base[role][f.id]?.(f, ctx) ?? null;
+  };
+  const sayReason = (f) => phrase(f.gained ? 'gain' : 'keep', f);
 
   /**
    * What a move that lets the win go does by itself: learner facts it gives up that every fastest move keeps,
@@ -127,9 +148,9 @@ function createExplainer({ verify, domain = {} }) {
     const before = facts(fen), after = facts(m.fen);
     const bests = out.moves.filter((x) => x.kind === 'best').map((x) => facts(x.fen));
     const list = [];
-    for (const f of before) if (f.side === learner && !has(after, f.key) && P.lose[f.id] && bests.every((b) => has(b, f.key))) list.push({ ...f, lost: true });
-    for (const f of after) if (f.side !== learner && !has(before, f.key) && P.give[f.id] && bests.every((b) => !has(b, f.key))) list.push(f);
-    return list.sort(byPriority);
+    for (const f of before) if (f.side === learner && !has(after, f.key) && bests.every((b) => has(b, f.key))) list.push({ ...f, lost: true, at: fen });
+    for (const f of after) if (f.side !== learner && !has(before, f.key) && bests.every((b) => !has(b, f.key))) list.push({ ...f, at: m.fen });
+    return list.filter((f) => textOf(f)).sort(byPriority);
   }
   /**
    * The opponent's way to punish a mistake: among the replies the solver proves escape (or, holding a draw, win),
@@ -142,18 +163,18 @@ function createExplainer({ verify, domain = {} }) {
     const punishes = (r) => (mode === 'win' ? r.kind === 'escapes' : cached('R', r.fen, () => resultFor(r.fen, verify, learner)).result === 'loss');
     const options = replies(afterFen).filter(punishes).map((r) => {
       // a stalemate after the reply is the learner stalemated by it, not a stalemate the learner made
-      const why = facts(r.fen).map((f) => (f.id === 'stalemate' ? { ...f, id: 'stalemated', reply: r.san } : f))
-        .filter((f) => f.side === opp && !has(base, f.key) && P.give[f.id]);
+      const why = facts(r.fen).map((f) => ({ ...(f.id === 'stalemate' ? { ...f, id: 'stalemated', reply: r.san } : f), at: r.fen }))
+        .filter((f) => f.side === opp && !has(base, f.key) && phrase('give', f));
       if (r.captured) why.push({ id: 'capture', side: opp, key: `capture:${r.to}`, piece: r.captured, square: r.to });
       const z = zz(r.fen, learner);
-      if (z && z.side === learner) why.push({ id: 'zugzwang', side: opp, key: 'zugzwang', solver: z });
+      if (z && z.side === learner) why.push({ id: 'zugzwang', side: opp, key: 'zugzwang', solver: z, at: r.fen });
       return { san: r.san, why: why.sort(byPriority) };
     });
     const top = (o) => (o.why.length ? rank(o.why[0].id) : 1e9);
     options.sort((a, b) => top(a) - top(b));
     return options[0] ?? null;
   }
-  const textOf = (f) => (f.lost ? phrase(P.lose, f) : phrase(P.give, f));
+  function textOf(f) { return f.lost ? phrase('lose', f) : phrase('give', f); }
 
   /** Exceptions the domain reports in this position for the concepts a text relies on. */
   const exceptionsFor = (fen, ids) => (domain.exceptions ? domain.exceptions(fen).filter((e) => e.concepts.some((c) => ids.includes(c))) : []);
@@ -170,9 +191,10 @@ function createExplainer({ verify, domain = {} }) {
       // what the move gives up itself, or what the opponent's refutation gains: whichever the domain ranks first
       const r = refutation(m.fen, learner, out.mode);
       reply = r?.san ?? null;
-      reason = [directEffects(fen, m, out, learner)[0], r?.why[0]].filter(Boolean).sort(byPriority)[0] ?? null;
+      const candidates = [...directEffects(fen, m, out, learner), ...(r?.why ?? [])].sort(byPriority);
+      reason = candidates.find(vocabulary) ?? null;
       immediate = reason?.id === 'capture';
-      if (!reason) review.push('no-grounded-reason');
+      if (!reason) review.push(candidates.length ? 'outside-vocabulary' : 'no-grounded-reason');
     }
     const moves = m.kind === 'slower' && m.delta !== null ? Math.ceil(m.delta / 2) : null;
     let first = reason ? textOf(reason) : null;
@@ -203,13 +225,15 @@ function createExplainer({ verify, domain = {} }) {
     const learner = out.learner;
     const review = [];
     const before = facts(fen);
-    const mine = learnerFacts(learner, before, m.fen).filter((f) => phrase(P.gain, f));
+    const mine = learnerFacts(learner, before, m).filter((f) => sayReason(f));
     const failing = out.moves.filter((x) => x.kind === 'draws' || x.kind === 'loses' || x.kind === 'notGoal');
     const slower = out.moves.filter((x) => x.kind === 'slower');
-    // contrast: a reason must separate this move from every move that fails (or, if none fails, from the slower ones)
+    // contrast: a reason must separate this move from every move that fails (or, if none fails, from the
+    // slower ones); when every move is as good, nothing separates and no fact is a reason
     const against = failing.length ? failing : slower;
-    const reasons = mine.filter((f) => against.every((a) => (f.id === 'zugzwang' ? zz(a.fen, learner)?.side !== other(learner) : !has(facts(a.fen), f.key))))
+    const separating = !against.length ? [] : mine.filter((f) => against.every((a) => (f.id === 'zugzwang' ? zz(a.fen, learner)?.side !== other(learner) : !has(facts(a.fen), f.key))))
       .sort((a, b) => b.gained - a.gained || byPriority(a, b));
+    const reasons = separating.filter(vocabulary);
     const gained = mine.filter((f) => f.gained);
     const equal = out.moves.filter((x) => x.kind === 'best' && x.san !== m.san).map((x) => x.san);
     // important: a move the learner is likely to consider lets the win go (only slower moves, or only
@@ -220,14 +244,16 @@ function createExplainer({ verify, domain = {} }) {
     const mark = important ? '!' : '';
     const sentences = [];
     const used = [];
+    const allEqual = !against.length;
     if (reasons.length) { sentences.push(sayReason(reasons[0])); used.push(reasons[0]); }
+    else if (allEqual) sentences.push(P.outcome.allEqual(out.mode));
     else {
       sentences.push(out.mode === 'hold' ? P.outcome.hold() : out.mode === 'resist' ? P.outcome.resist() : P.outcome.best(m.value, m));
-      if (important) review.push('no-grounded-reason');
+      if (important) review.push(separating.length ? 'outside-vocabulary' : 'no-grounded-reason');
     }
     // a second sentence only for the equal moves, or for the solver's zugzwang behind the reason
     const zzReason = reasons.find((f, i) => i > 0 && f.id === 'zugzwang');
-    if (equal.length) sentences.push(equalPhrase(equal, out.mode));
+    if (equal.length && !allEqual) sentences.push(equalPhrase(equal, out.mode));
     else if (zzReason) { sentences.push(sayReason(zzReason)); used.push(zzReason); }
     let text = `${m.san}${mark} — ${sentences.filter(Boolean).join(' ')}`;
     if (readable(text).length && sentences.length > 1) { text = `${m.san}${mark} — ${sentences[0]}`; used.splice(1); }
@@ -270,11 +296,20 @@ function createExplainer({ verify, domain = {} }) {
    * every move that keeps it). The explanations' equal moves are always these minus the move itself.
    */
   const acceptedMoves = (fen) => (outcomes(fen).mode === 'win' ? fastestMoves(fen, verify) : outcomes(fen).moves.filter((x) => x.kind === 'best').map((x) => x.san));
-  /** Every move of the position explained, best first: { best: [...], wrong: [...] }. */
+  /**
+   * Every move of the position explained, best first: { best: [...], wrong: [...], zugzwang }. zugzwang: the
+   * learner to move is in zugzwang (the solver: handing over the move would be better), with its words;
+   * null otherwise. (A zugzwang the learner's move puts the opponent in is a reason of that move.)
+   */
   function explainPosition(fen) {
     const out = outcomes(fen);
     const all = out.moves.map((m) => explainMove(fen, m.san));
-    return { best: all.filter((e) => e.kind === 'best'), wrong: all.filter((e) => e.kind !== 'best').sort((a, b) => SEVERITY[a.kind] - SEVERITY[b.kind]) };
+    const z = zz(fen, out.learner);
+    return {
+      best: all.filter((e) => e.kind === 'best'),
+      wrong: all.filter((e) => e.kind !== 'best').sort((a, b) => SEVERITY[a.kind] - SEVERITY[b.kind]),
+      zugzwang: z && z.side === out.learner ? { ...z, who: 'learner', text: P.outcome.zugzwangHere(z) } : null,
+    };
   }
   return { explainMove, explainPosition, acceptedMoves, outcomes, replies, facts, zugzwang: zz, plausible: (fen) => cached('p', fen, () => plausibleOf(fen)) };
 }

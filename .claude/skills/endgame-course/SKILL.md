@@ -87,6 +87,19 @@ same solver as the course. Its rules are owner rules too:
   the selection, never on every candidate. Measure the generator before and after.
 - `npm run teach:report` shows what the layer finds in the built-in courses (read only); `npm run kit:test`
   includes its tests.
+- **A course's words**: pass the course's `vocabulary` to `createExplainer` so explanations name only what
+  the course (and the ones before it) has taught; a move whose only reason is outside it gets no note.
+
+## Curricula: designing a series of courses (`tools/course-kit/curricula/`)
+
+For a series (the Opposition curriculum: `curricula/opposition/README.md`), design before generating:
+the courses and what each excludes; then, per course, a blueprint as data (phases, slots with task,
+objective, misconception, help level, target band, prerequisites, solver-checkable constraints), a task
+classifier built on the solver and the board, real prototypes run through the whole pipeline with every
+claim checked against the oracle, and a feasibility check that counts candidates per task and band and
+proves every slot can get its own position (`npm run curriculum:opposition`). Promise only bands and tasks
+the solver offers (the Direct Opposition lines are Intermediate to Around 1800; none Foundational, none
+Difficult). The blueprint is the lesson list the owner approves; the generator reads it.
 
 ## Steps
 
@@ -154,6 +167,10 @@ same solver as the course. Its rules are owner rules too:
   push in a pure race "took the opposition"; it now counts only while the black king is in front of the
   pawn and inside its square. Check every reason against the moves that fail (contrast), and test the
   claims on thousands of positions against the independent oracle (`teach/test.cjs`).
+- **Prototypes find what a design misses.** Running a dozen real positions through the pipeline before
+  generating showed a course naming ideas it had not taught, defending positions with no facts, "reasons"
+  where every move was equal, unknown difficulty read as easy, and a progression check that took items
+  without a variety key as repeats. Fix the general mechanism (with a test), not the one position.
 - **Some losing move almost always exists** in a pawn ending: "important" and difficulty count only the
   moves a learner is likely to consider (the domain's heuristic), and say "unknown" where there is none.
 - The browser test needs Playwright and a Chromium (`CHROMIUM_PATH`; in the cloud container it is
