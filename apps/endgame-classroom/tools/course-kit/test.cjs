@@ -120,5 +120,14 @@ const TWO = '8/3k4/8/3p4/8/8/8/K7 w - - 0 1'; // Kb2 and Kb1 both reach the pawn
   check(JSON.stringify(verifyLine(line, HOLD)) === JSON.stringify(verifyLine(line, HOLD)), 'deterministic: the same verification twice');
 }
 
+// ---- the fifty-move rule (the tables ignore it; a line that runs into it is a problem) ----
+{
+  const opts = { goal: 'mate', probe: solver.probe };
+  const moves = [{ san: 'Rc2' }, { san: 'Kb8' }];
+  const near = verifyLine({ fen: 'k7/8/8/8/8/8/8/K1R5 w - - 98 50', moves }, opts).problems.filter((p) => /fifty-move rule/.test(p));
+  const fresh = verifyLine({ fen: 'k7/8/8/8/8/8/8/K1R5 w - - 0 1', moves }, opts).problems.filter((p) => /fifty-move rule/.test(p));
+  check(near.length === 1 && fresh.length === 0, 'fifty-move rule: 50 moves without a capture or a pawn move are reported (the halfmove clock counts), fewer are not');
+}
+
 console.log(failures ? `line and verifier tests: ${failures} FAILED` : 'line and verifier tests: all passed');
 process.exit(failures ? 1 : 0);

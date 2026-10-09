@@ -1,12 +1,26 @@
-// Exact endgame solver for any material with up to 4 pieces (the two kings and up to two more, either
+// Exact endgame solver for any material with up to 5 pieces (the two kings and up to three more, either
 // colour, pawns included), by retrograde analysis. Builds a table of distance to mate (DTM) for every
 // position; a capture or a promotion leads into another table (fewer pieces, or the promoted piece),
-// which is built on first use. Not covered: positions where en passant could matter (pawns on both
-// sides), castling, and the fifty-move rule.
+// which is built on first use. Not covered: castling and the fifty-move rule.
+//
+// This file builds the tables with up to 4 pieces and pawns on one side at most, exactly as it always has
+// (the courses depend on these tables and their order). Every other material (five pieces, and pawns on
+// both sides, where en passant matters) is built by the egtb engine (egtb/, see its README), which has the
+// same API; table(), probe() and probePromotion() choose the engine by the material. Such a mate table is
+// built once for a material and its colour-swapped twin: table('KRKRP') is a view of table('KRPKR')
+// (egtb/flip.cjs), so defending and attacking lessons share it.
 //
 //   const { probe, table } = require('./solver.cjs');
 //   probe('8/8/8/8/8/2k5/8/K1R1R3 w - - 0 1')  // { result: 'win', dtm: 7 }  dtm = plies to mate
+//   probe('8/8/8/8/1k6/8/1KRP4/7r w - - 0 1')  // five pieces: the egtb engine
 //   probePromotion('8/8/8/4k3/8/8/3PP3/4K3 w - - 0 1')  // { result: 'win', dtc: 27 }  plies to a safe promotion
+//   probeConversion('1K1k4/1P6/8/8/8/8/r7/5R2 w - - 0 1')  // plies until White captures or promotes into a won position
+//
+// Goal 'conversion' (any material, egtb engine; table(name, { goal: 'conversion' })): plies until White makes a
+// capture or a promotion after which the position is still won for White (by the mate table of the material
+// left), or mates. Black's captures and promotions do not end the count: it goes on in the material left.
+// White is never lost and Black never wins in these tables: a position is won for White or it is not.
+// For lines that end when the stronger side converts (Lucena: the safe promotion, a skewer: the rook won).
 //
 // Goal 'promotion' (table(name, { goal: 'promotion' }), for White's pawns against the lone king): the
 // values count plies to a safe promotion instead of mate. A promotion ends the game when it makes a queen
@@ -85,9 +99,12 @@ function normalise(name) {
   const side = (s) => 'K' + [...s.slice(1)].sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b)).join('');
   return side(name.slice(0, i)) + side(name.slice(i));
 }
-/** Material name and pieces (in table order: white king, black king, White's others, Black's others) of a FEN. */
+/**
+ * Material name and pieces (in table order: white king, black king, White's others, Black's others) of a FEN,
+ * the side to move, and the en passant square (-1 when the FEN has none).
+ */
 function fenPieces(fen) {
-  const [board, turn] = fen.split(' ');
+  const [board, turn, , epField] = fen.split(' ');
   const found = [];
   board.split('/').forEach((row, ri) => {
     let f = 0;
@@ -99,13 +116,26 @@ function fenPieces(fen) {
   const key = (p) => (p.t === K ? (p.c === 0 ? 0 : 1) : 2 + p.c * 10 + ORDER.indexOf(LETTER[p.t]));
   found.sort((a, b) => key(a) - key(b) || a.sq - b.sq);
   const name = found.filter((p) => p.c === 0).map((p) => LETTER[p.t]).join('') + found.filter((p) => p.c === 1).map((p) => LETTER[p.t]).join('');
-  return { name, pieces: found, stm: turn === 'b' ? 1 : 0 };
+  const ep = epField && epField !== '-' ? (epField.charCodeAt(1) - 49) * 8 + (epField.charCodeAt(0) - 97) : -1;
+  return { name, pieces: found, stm: turn === 'b' ? 1 : 0, ep };
+}
+
+/** Is the material built here (up to 4 pieces, pawns on one side at most)? Else the egtb engine builds it. */
+function classic(name) {
+  const i = name.indexOf('K', 1);
+  return name.length <= 4 && !(name.slice(1, i).includes('P') && name.slice(i + 1).includes('P'));
 }
 
 const tables = new Map();
 /** The solved table for a material (built on first use, then kept). opts.goal: 'mate' (default) or 'promotion'. */
 function table(name, opts = {}) {
   name = normalise(name);
+  if (!classic(name) || opts.goal === 'conversion') {
+    // a mate table is built once for a material and its colour-swapped twin (K+R vs K+R+P from K+R+P vs K+R)
+    const flip = require('./egtb/flip.cjs');
+    if ((opts.goal ?? 'mate') === 'mate' && !flip.stored(name)) return flip.flipped(require('./egtb/index.cjs').table(flip.flipName(name), opts));
+    return require('./egtb/index.cjs').table(name, opts);
+  }
   const goal = opts.goal ?? 'mate';
   const key = goal === 'mate' ? name : `${name}:${goal}`;
   let T = tables.get(key);
@@ -452,12 +482,12 @@ class Table {
 
 /** Exact value of a FEN position for the side to move: { result: 'win' | 'loss' | 'draw', dtm } (dtm in plies, -1 for a draw). */
 function probe(fen) {
-  const { name, pieces, stm } = fenPieces(fen);
-  if (pieces.length > 4) throw new Error(`${fen}: more than 4 pieces`);
+  const { name, pieces, stm, ep } = fenPieces(fen);
+  if (pieces.length > 5) throw new Error(`${fen}: more than 5 pieces`);
   const T = table(name);
   const sqs = Int8Array.from(pieces.map((p) => p.sq));
   if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);
-  const v = T.value(sqs, stm);
+  const v = T.valueEp ? T.valueEp(sqs, stm, ep) : T.value(sqs, stm); // en passant only matters with pawns on both sides
   if (v > 0) return { result: 'win', dtm: v };
   if (v < 0) return { result: 'loss', dtm: -v - 1 };
   return { result: 'draw', dtm: -1 };
@@ -469,7 +499,7 @@ function probe(fen) {
  */
 function probePromotion(fen) {
   const { name, pieces, stm } = fenPieces(fen);
-  if (pieces.length > 4) throw new Error(`${fen}: more than 4 pieces`);
+  if (pieces.length > 5) throw new Error(`${fen}: more than 5 pieces`);
   const T = table(name, { goal: 'promotion' });
   const sqs = Int8Array.from(pieces.map((p) => p.sq));
   if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);
@@ -479,4 +509,20 @@ function probePromotion(fen) {
   return { result: 'draw', dtc: 0 };
 }
 
-module.exports = { table, probe, probePromotion, fenPieces, normalise };
+/**
+ * Goal 'conversion' (any material up to 5 pieces): { result: 'win' | 'loss' | 'draw', dtc } for the side to
+ * move, dtc = plies until White converts (see the top of the file); 'draw' means White does not win.
+ */
+function probeConversion(fen) {
+  const { name, pieces, stm, ep } = fenPieces(fen);
+  if (pieces.length > 5) throw new Error(`${fen}: more than 5 pieces`);
+  const T = table(name, { goal: 'conversion' });
+  const sqs = Int8Array.from(pieces.map((p) => p.sq));
+  if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);
+  const v = T.valueEp(sqs, stm, ep);
+  if (v > 0) return { result: 'win', dtc: v };
+  if (v < 0) return { result: 'loss', dtc: -v - 1 };
+  return { result: 'draw', dtc: 0 };
+}
+
+module.exports = { table, probe, probePromotion, probeConversion, fenPieces, normalise, classic };

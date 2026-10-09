@@ -12,6 +12,13 @@
 //   means the quickest safe promotion, then the piece that mates fastest.
 // opts.promotionProbe(fen) -> { result, dtc }: the measure for goal 'promotion' (dtc = plies to a safe
 //   promotion). Default: ../kpk-course/kpk.cjs (K+P vs K); solver.cjs's probePromotion covers two pawns.
+// opts.goal 'conversion' (any material up to five pieces, the learner is White): "fastest" means the quickest
+//   capture or promotion after which the position is still won (by opts.probe, the mate measure), or mate;
+//   the line ends with that move. opts.conversionProbe(fen) -> { result, dtc } (dtc = plies until White
+//   converts; default: solver.cjs's probeConversion). Black's captures do not end the line.
+// The fifty-move rule is not part of the measures (the tables ignore it): a line in which 100 plies pass
+// without a capture or a pawn move (counted from the FEN's halfmove clock) is a problem, because the
+// defender could claim a draw there (five-piece wins can need more, e.g. two bishops against a knight).
 // opts.objective: 'win' (default, all of the above), 'hold' or 'auto'.
 //   'hold' (a drawn position, e.g. defending against a pawn): every learner move must keep the draw (after it
 //   the opponent cannot win, by the same measure), its [%also] must be exactly the other moves that keep it
@@ -29,6 +36,9 @@ const pawnPhase = (fen) => hasPawn(fen) && !/[qrbn]/i.test(fen.split(' ')[0]);
 /** After a promotion (the opponent to move): can the new piece (the only one besides kings and pawns) be taken? */
 const newPieceTaken = (g) => g.moves({ verbose: true }).some((m) => m.captured && m.captured !== 'p');
 const promotionProbe = (opts) => opts.promotionProbe ?? (kpk ??= require('../kpk-course/kpk.cjs')).probe;
+const conversionProbe = (opts) => opts.conversionProbe ?? require('./solver.cjs').probeConversion;
+/** Goal 'conversion': is the learner's move (chess.js move) a capture or promotion that keeps the win? fen: after it. */
+const converts = (fen, opts, move) => !!move && !!(move.captured || move.promotion) && opts.probe(fen).result === 'loss';
 const cmp = (a, b) => a[0] - b[0] || a[1] - b[1];
 
 /**
@@ -36,10 +46,17 @@ const cmp = (a, b) => a[0] - b[0] || a[1] - b[1];
  * [0, plies] mate or a won position (plies to mate), [1, plies] a K+P win measured to the promotion
  * (goal 'promotion'), null = no longer a win (stalemate, draw, loss).
  */
-function afterLearner(fen, opts) {
+function afterLearner(fen, opts, move) {
   const g = new Chess(fen);
   if (g.isCheckmate()) return [0, 0];
   if (g.isStalemate() || g.isInsufficientMaterial()) return null;
+  if (opts.goal === 'conversion') {
+    // a capture or promotion ends the line when it keeps the win (a losing one is no win); without the move
+    // (the position alone) it is measured from here on
+    if (move && (move.captured || move.promotion)) return converts(fen, opts, move) ? [0, 0] : null;
+    const r = conversionProbe(opts)(fen);
+    return r.result === 'loss' ? [0, r.dtc] : null;
+  }
   // goal 'promotion' with a pawn left: a promotion only counts when it makes a queen or a rook that cannot
   // be taken at once (a bishop or a knight is not the goal; without a pawn left they never win anyway)
   if (opts.goal === 'promotion' && hasPawn(fen) && !pawnPhase(fen) && (/[BN]/.test(fen.split(' ')[0]) || newPieceTaken(g))) return null;
@@ -54,6 +71,10 @@ function afterLearner(fen, opts) {
 function afterOpponent(fen, opts) {
   const g = new Chess(fen);
   if (g.isInsufficientMaterial()) return null;
+  if (opts.goal === 'conversion') {
+    const r = conversionProbe(opts)(fen);
+    return r.result === 'win' ? r.dtc : null;
+  }
   if (opts.goal === 'promotion' && pawnPhase(fen)) {
     const r = promotionProbe(opts)(fen);
     return r.result === 'win' ? r.dtc : null;
@@ -64,7 +85,7 @@ function afterOpponent(fen, opts) {
 
 /** All fastest learner moves in a position (SAN). The line's move and its [%also] must be exactly these. */
 function fastestMoves(fen, opts) {
-  const vals = new Chess(fen).moves().map((san) => { const t = new Chess(fen); t.move(san); return { san, v: afterLearner(t.fen(), opts) }; }).filter((x) => x.v);
+  const vals = new Chess(fen).moves().map((san) => { const t = new Chess(fen); const mv = t.move(san); return { san, v: afterLearner(t.fen(), opts, mv) }; }).filter((x) => x.v);
   vals.sort((a, b) => cmp(a.v, b.v));
   return vals.length ? vals.filter((x) => cmp(x.v, vals[0].v) === 0).map((x) => x.san) : [];
 }
@@ -124,8 +145,25 @@ function verifyHold(line, opts, g, learner) {
   return { problems, unique };
 }
 
+/** The fifty-move rule along a line: a problem when 100 plies pass without a capture or a pawn move. */
+function fiftyMoves(line) {
+  let g;
+  try { g = new Chess(line.fen); } catch { return null; }
+  for (const m of line.moves) {
+    try { g.move(m.san); } catch { return null; } // illegal moves are reported by the line check
+    if (Number(g.fen().split(' ')[4]) >= 100) return `${g.fen()}: 50 moves without a capture or a pawn move (the fifty-move rule: a draw can be claimed)`;
+  }
+  return null;
+}
+
 /** line: { fen, moves: [{ san, also }] }. Returns { problems: [...], unique: [bool per learner move] }. */
 function verifyLine(line, opts) {
+  const r = verifyLineMoves(line, opts);
+  const fifty = fiftyMoves(line);
+  if (fifty) r.problems.push(fifty);
+  return r;
+}
+function verifyLineMoves(line, opts) {
   const problems = [];
   const unique = [];
   let g;
@@ -135,8 +173,10 @@ function verifyLine(line, opts) {
   if (!objective) return { problems: [`${line.fen}: lost for the learner with best play: neither a win nor a draw to hold`], unique };
   if (objective === 'hold') return verifyHold(line, opts, g, learner);
   const pawnLine = hasPawn(line.fen);
+  let converted = false;
   for (const m of line.moves) {
     const fen = g.fen();
+    if (converted) { problems.push(`${fen}: the line goes on after the learner's conversion`); break; }
     if (g.turn() === learner) {
       const fastest = fastestMoves(fen, opts);
       if (!fastest.includes(m.san)) problems.push(`${fen}: ${m.san} is not a fastest win (fastest: ${fastest.join(',') || 'none'})`);
@@ -152,10 +192,14 @@ function verifyLine(line, opts) {
       if (!mine || mine.v !== longest) problems.push(`${fen}: ${m.san} is not the most stubborn defence`);
       if (m.also?.length) problems.push(`${fen}: [%also] on a move of the opponent`);
     }
-    try { g.move(m.san); } catch { problems.push(`${fen}: illegal move ${m.san}`); return { problems, unique }; }
+    let mv;
+    try { mv = g.move(m.san); } catch { problems.push(`${fen}: illegal move ${m.san}`); return { problems, unique }; }
+    if (opts.goal === 'conversion' && mv.color === learner && converts(g.fen(), opts, mv)) converted = true;
   }
   const last = line.moves[line.moves.length - 1];
-  if (opts.goal === 'promotion' && pawnLine) {
+  if (opts.goal === 'conversion') {
+    if (!g.isCheckmate() && !converted) problems.push(`does not end in checkmate or a capture or promotion that keeps the win: ${g.fen()}`);
+  } else if (opts.goal === 'promotion' && pawnLine) {
     // a pawn can also mate before it promotes: that ends the line too
     if (!g.isCheckmate() && (!last || !/=[QR]/.test(last.san) || afterLearner(g.fen(), opts)?.[0] !== 0)) problems.push(`does not end in a safe promotion: ${g.fen()}`);
   } else if (!g.isCheckmate()) problems.push(`does not end in checkmate: ${g.fen()}`);

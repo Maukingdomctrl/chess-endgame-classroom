@@ -23,6 +23,7 @@ const DEFAULT_DIR = path.join(__dirname, '..', '.kit-cache');
 const PRODUCERS = {
   solver: ['solver.cjs', 'board.cjs'],
   oracle: ['pawn/oracle.cjs'],
+  egtb: ['egtb/geometry.cjs', 'egtb/layout.cjs', 'egtb/engine.cjs', 'egtb/index.cjs', 'egtb/parallel.cjs'],
 };
 const HEAD = 4 + 4 + 16 + 16 + 32 + 4 + 4;
 
@@ -53,18 +54,30 @@ function header(buf) {
   return { format: buf.readUInt32LE(4), producer: str(8, 16), id: str(24, 16), key: str(40, 32), bytes: buf.readUInt32LE(72), count: buf.readUInt32LE(76) };
 }
 
-/** The cached values (a new typed array of the given type), or null if there is no matching entry. */
-function load(producer, key, count, Type) {
+const CHUNK = 1 << 26; // large tables (five pieces: up to 710 MB) are read and written in pieces
+/**
+ * The cached values (a new typed array of the given type, or of opts.make(count) e.g. one on shared memory),
+ * or null if there is no matching entry.
+ */
+function load(producer, key, count, Type, opts = {}) {
   if (!dir()) return null;
   const file = fileOf(producer, key);
   if (!fs.existsSync(file)) return null;
-  const buf = fs.readFileSync(file);
-  const h = header(buf);
-  if (!h || h.format !== FORMAT || h.producer !== producer || h.id !== identity(producer) || h.key !== key.slice(0, 32) ||
-    h.bytes !== Type.BYTES_PER_ELEMENT || h.count !== count || buf.length !== HEAD + count * h.bytes) return null;
-  const out = new Type(count);
-  new Uint8Array(out.buffer).set(buf.subarray(HEAD));
-  return out;
+  const fd = fs.openSync(file, 'r');
+  try {
+    const head = Buffer.alloc(HEAD);
+    fs.readSync(fd, head, 0, HEAD, 0);
+    const h = header(head);
+    if (!h || h.format !== FORMAT || h.producer !== producer || h.id !== identity(producer) || h.key !== key.slice(0, 32) ||
+      h.bytes !== Type.BYTES_PER_ELEMENT || h.count !== count || fs.fstatSync(fd).size !== HEAD + count * h.bytes) return null;
+    const out = opts.make ? opts.make(count) : new Type(count);
+    const bytes = new Uint8Array(out.buffer, out.byteOffset, out.byteLength);
+    for (let at = 0; at < bytes.length; at += CHUNK) {
+      const len = Math.min(CHUNK, bytes.length - at);
+      if (fs.readSync(fd, bytes, at, len, HEAD + at) !== len) return null;
+    }
+    return out;
+  } finally { fs.closeSync(fd); }
 }
 /** Stores the values (atomically: written to a temporary file, then renamed). No-op when caching is off. */
 function save(producer, key, values) {
@@ -75,7 +88,12 @@ function save(producer, key, values) {
   h.writeUInt32LE(values.length, 76);
   const file = fileOf(producer, key);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(`${file}.tmp`, Buffer.concat([h, Buffer.from(values.buffer, values.byteOffset, values.byteLength)]));
+  const fd = fs.openSync(`${file}.tmp`, 'w');
+  try {
+    fs.writeSync(fd, h, 0, h.length, 0);
+    const bytes = new Uint8Array(values.buffer, values.byteOffset, values.byteLength);
+    for (let at = 0; at < bytes.length; at += CHUNK) fs.writeSync(fd, bytes, at, Math.min(CHUNK, bytes.length - at), HEAD + at);
+  } finally { fs.closeSync(fd); }
   fs.renameSync(`${file}.tmp`, file);
 }
 

@@ -6,7 +6,9 @@
 //   playLine('8/8/8/4k3/8/8/8/R3K2R w - - 0 1')
 //   // { plies: [{ fen, san, learner: true, also: [...], unique, move }, ...], end: 'mate' }
 //
-// opts.goal / opts.probe / opts.promotionProbe: as for verify.cjs ('mate' by default, the toolkit's solver).
+// opts.goal / opts.probe / opts.promotionProbe / opts.conversionProbe: as for verify.cjs ('mate' by default,
+// the toolkit's solver). Goal 'conversion': the line ends with the learner's capture or promotion that keeps
+// the win ({ end: 'conversion' }), or mate.
 // opts.learnerOrder(a, b, ctx) / opts.opponentOrder(a, b, ctx): order among equally good moves (the first
 // one is played; for the learner the others become [%also]). a and b are chess.js verbose moves; ctx is
 // { fen, chess } before the move. By default the opponent's king stays nearest the centre.
@@ -75,7 +77,7 @@ function playHold(fen, opts, vopts) {
 }
 
 function playLine(fen, opts = {}) {
-  const vopts = { goal: opts.goal ?? 'mate', probe: opts.probe ?? require('./solver.cjs').probe, promotionProbe: opts.promotionProbe };
+  const vopts = { goal: opts.goal ?? 'mate', probe: opts.probe ?? require('./solver.cjs').probe, promotionProbe: opts.promotionProbe, conversionProbe: opts.conversionProbe };
   if (opts.objective === 'hold') return playHold(fen, opts, vopts);
   const g = new Chess(fen);
   const learner = opts.learner ?? g.turn();
@@ -86,7 +88,7 @@ function playLine(fen, opts = {}) {
     const ctx = { fen: before, chess: g };
     const moves = g.moves({ verbose: true });
     if (g.turn() === learner) {
-      const vals = moves.map((m) => ({ m, v: afterLearner(fenAfter(before, m.san), vopts) })).filter((x) => x.v);
+      const vals = moves.map((m) => ({ m, v: afterLearner(fenAfter(before, m.san), vopts, m) })).filter((x) => x.v);
       if (!vals.length) return { plies, end: 'error: the learner has no winning move' };
       vals.sort((a, b) => cmp(a.v, b.v));
       const best = vals.filter((x) => cmp(x.v, vals[0].v) === 0).map((x) => x.m);
@@ -94,6 +96,7 @@ function playLine(fen, opts = {}) {
       plies.push({ fen: before, san: best[0].san, learner: true, also: best.slice(1).map((m) => m.san), unique: best.length === 1, move: best[0] });
       g.move(best[0].san);
       if (vopts.goal === 'promotion' && best[0].promotion) return { plies, end: 'promotion' };
+      if (vopts.goal === 'conversion' && (best[0].captured || best[0].promotion)) return { plies, end: 'conversion' };
     } else {
       const vals = moves.map((m) => ({ m, v: afterOpponent(fenAfter(before, m.san), vopts) }));
       if (vals.some((x) => x.v === null)) return { plies, end: 'error: the opponent can escape' };

@@ -1,6 +1,6 @@
 ---
 name: endgame-course
-description: Build, extend or regenerate a built-in endgame course for the Endgame Classroom app (apps/endgame-classroom) the provably-correct way - exact solver, search for teaching positions, independent verification, PGN with notes and board marks, registration, browser test. Use when asked for a new course (e.g. two-rook mate, rook vs pawn, bishop + knight), to add or change lessons in a generated course, or to check or regenerate one.
+description: Build, extend or regenerate a built-in endgame course for the Endgame Classroom app (apps/endgame-classroom) the provably-correct way - exact solver, search for teaching positions, independent verification, PGN with notes and board marks, registration, browser test. Use when asked for a new course (e.g. two-rook mate, rook vs pawn, bishop + knight, five-piece endings such as rook and pawn vs rook with the Lucena and Philidor positions), to add or change lessons in a generated course, or to check or regenerate one.
 ---
 
 # Building an endgame course
@@ -19,12 +19,14 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
 1. **Lesson list first.** Before writing any position, show the proposed lessons (title, number of
    lines, what the learner must find, the marks) and wait for the owner's OK. Suggest changes if
    something is missing or out of order, and check feasibility with the solver before proposing.
-2. **No moves from memory.** Use the exact solver (`course-kit/solver.cjs`, any material up to 4
-   pieces; `kpk-course/kpk.cjs` for K+P lines measured to the promotion).
+2. **No moves from memory.** Use the exact solver (`course-kit/solver.cjs`, any material up to 5
+   pieces, en passant included; `kpk-course/kpk.cjs` for K+P lines measured to the promotion).
 3. **Best play.** Every learner move keeps the win and is a fastest one (lowest distance to mate, or
    quickest safe promotion in K+P lessons). The opponent always plays the most stubborn defence
    (longest DTM).
-4. **Every line to its real end**: checkmate in mating lessons, the promotion in K+P lessons, a draw on the
+4. **Every line to its real end**: checkmate in mating lessons, the promotion in K+P lessons, the capture or
+   promotion that keeps the win in five-piece lessons whose mate belongs to another ending (goal
+   `'conversion'`: the Lucena ends with the safe promotion, not 30 moves later in K+Q vs K+R), a draw on the
    board (the pawn taken, stalemate, repetition) in a defending line. Never stop halfway. A defending line
    (`objective: 'hold'` in `line.cjs` and `verify.cjs`) accepts only moves that keep the draw against the
    opponent's best play; its `[%also]` lists exactly the other moves that keep it.
@@ -58,6 +60,27 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
   when it is the learner's move): `[%csl Gd6,Re6]` squares, `[%cal Ge2e4]` arrows. G = target squares,
   R = danger (the move that only draws or stalemates, the mated king), B = zones (the box the king is
   trapped in, or the squares it can step to). No marks in the exam.
+
+## Five-piece endings (`tools/course-kit/egtb/`)
+
+Read `egtb/README.md`. `solver.cjs` routes five-piece materials (and pawns on both sides) to the egtb engine
+with the same API, so `line.cjs`, `verify.cjs` and the course pipeline work unchanged.
+
+- **Check the cost first** (`egtb/README.md`, "What it costs"): a pawnless ending is one table (about a
+  minute); piece and pawn against a piece is five (K+R+P vs K+R: 7 minutes, 3.2 GB, 1.5 GB on disk); pawns
+  against pawns need 75 five-piece tables (28 GB): do not promise such a course without the owner's OK on that.
+- `KIT_CACHE=1` while iterating (a five-piece family takes minutes to build); the final run without it, as for
+  the pawn courses, or with it if the owner agrees to the disk space.
+- **Goal `'conversion'`** for winning lines (`verify-opts`: `{ goal: 'conversion', probe }`): the learner's
+  fastest way to a capture or promotion that keeps the win. `[%also]` is exactly the equally fast moves, as
+  always. Defending lines: `objective: 'hold'` with goal `'mate'`.
+- **The learner plays White**: a defending lesson is the colour-swapped material (Philidor: K+R vs K+R+P);
+  `table('KRKRP')` is a view of `table('KRPKR')`, nothing is built twice.
+- **Feasibility**: `node tools/course-kit/egtb/survey.cjs KRPKR --goal conversion` (or `KRKRP --objective
+  hold`) counts what a lesson can use (a single fastest move, its kind, tempting moves that fail) before the
+  lesson list is proposed; `npm run kit:positions` lists candidates with their traps.
+- **The fifty-move rule** is not in the tables; `verify.cjs` rejects a line with 50 moves without a capture or
+  a pawn move (two bishops against a knight can need 66).
 
 ## Teaching, difficulty and progression (`tools/course-kit/teach/`)
 
@@ -126,8 +149,9 @@ Difficult). The blueprint is the lesson list the owner approves; the generator r
    changes (`builtinHash`); a new course is added on the next start.
 6. Check: add the course to `tools/course-kit/regress.cjs`; `npm run kit:regress -- --twice` (every course
    byte for byte, twice), `npm run build`, `npm run lint`, `npm run course:e2e -- <builtin id> --all`.
-   If the solver or the toolkit was changed: `npm run kit:selftest` and `npm run kit:test`. Wait for the
-   browser test to finish before committing.
+   If the solver or the toolkit was changed: `npm run kit:selftest` and `npm run kit:test` (and for the egtb
+   engine `npm run kit:test5` and `npm run kit:selftest5`). Wait for the browser test to finish before
+   committing.
 7. Commit, push, report: lessons, line counts, unique share, `[%also]` counts, what was verified, and
    any judgement calls the owner should know about.
 
@@ -146,7 +170,15 @@ Difficult). The blueprint is the lesson list the owner approves; the generator r
   stalemate traps show only the squares the king can step to.
 - **Exclude positions of other built-in courses** (read their FENs) so courses don't repeat each other.
 - **Solver pitfalls already fixed** (the self-test guards them): a pawn's double step can block a check
-  when the single step cannot; JavaScript integer overflow in a random generator (use `Math.imul`).
+  when the single step cannot; JavaScript integer overflow in a random generator (use `Math.imul`); an LCG's
+  low bits repeat with a short period (`seed % n` correlated the random positions of a test until none of
+  the wanted kind came up: take the high bits, or mulberry32); en passant can be illegal because both pawns
+  leave the rank (a pinned pawn); chess.js writes a FEN's en passant square only when the capture is legal,
+  and `probe()` uses it.
+- **An independent checker that passes every position is a proof**: by induction on the distance to mate, a
+  table whose every value follows from its moves is exact. The egtb checker (`egtb/check.cjs`) found a wrong
+  symmetry assumption of its own (two pawns placed symmetrically: the slice is stored in full) and nothing
+  in the engine; a mutation test shows it finds a corrupted value. Run it on a new kind of table.
 - **Pawn endings are measured to the promotion** (solver goal `'promotion'`, `probePromotion`; pass it to
   verify as `promotionProbe`): a promotion counts only when it makes a queen or a rook that cannot be taken
   at once, without stalemate, and the position stays won. Lines end in a queen (a rook when the queen would

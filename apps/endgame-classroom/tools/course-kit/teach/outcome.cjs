@@ -53,7 +53,7 @@ function moveOutcomes(fen, opts) {
   const g = new Chess(fen);
   const moves = g.moves({ verbose: true }).map((m) => {
     const after = fenAfter(fen, m.san);
-    return { san: m.san, from: m.from, to: m.to, piece: m.piece, captured: m.captured ?? null, promotion: m.promotion ?? null, fen: after, value: afterLearner(after, opts) };
+    return { san: m.san, from: m.from, to: m.to, piece: m.piece, captured: m.captured ?? null, promotion: m.promotion ?? null, fen: after, value: afterLearner(after, opts, m) };
   });
   const wins = moves.filter((x) => x.value).sort((a, b) => cmp(a.value, b.value));
   if (!wins.length) return holdOutcomes(g.turn(), moves, opts);

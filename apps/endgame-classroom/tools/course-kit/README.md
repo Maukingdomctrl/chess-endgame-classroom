@@ -1,8 +1,11 @@
 # Course toolkit
 
 Shared tools for the built-in course generators (`tools/<course>/`): an exact endgame solver for up to
-four pieces, a line player, the checker, the PGN writer, a table cache, a regression check and a browser
+five pieces, a line player, the checker, the PGN writer, a table cache, a regression check and a browser
 test. A course generator only adds its lesson list, the search for teaching positions, and its texts.
+Five-piece endings (and four pieces with pawns on both sides) are solved by the egtb engine in `egtb/` (see
+its README): `solver.cjs` hands them over with the same API, and adds the goal `'conversion'` (lines that
+end when White captures or promotes into a won position).
 Pawn courses (White's pawns against the lone king, lines to the promotion) have their own toolkit in
 `pawn/` (see its README), with an independent second solver for checking. The teaching and difficulty
 layer (explanations grounded in the solver, concepts and cues, difficulty signals, learning progression)
@@ -10,7 +13,10 @@ is in `teach/` (see its README).
 
 ```bash
 npm run kit:selftest                     # checks the solver (a few minutes; "-- promotion" for the pawn part)
+npm run kit:selftest5                    # checks the five-piece engine (about half an hour; -- --quick / --heavy)
 npm run kit:test                         # unit tests: line.cjs/verify.cjs (test.cjs), pawn/, teach/, curricula/
+npm run kit:test5                        # unit tests of the five-piece engine (egtb/test.cjs)
+npm run kit:positions -- KRPKR --goal conversion --result win --unique   # teaching positions (egtb/positions.cjs)
 npm run teach:report                     # difficulty and explanations of the built-in courses (read only)
 npm run kit:regress                      # every built-in course regenerates byte for byte (-- --twice)
 npm run kit:check -- <course.pgn>        # independent check of a pawn course
@@ -20,16 +26,18 @@ npm run course:e2e -- <builtin id>        # browser test of a built-in course (a
 
 | File | What it gives a course |
 |---|---|
-| `solver.cjs` | `probe(fen)` → `{ result: 'win' \| 'loss' \| 'draw', dtm }` for the side to move (dtm = plies to mate). `table('KRRK')` → the solved table: `value(sqs, stm)`, `options(sqs, stm)` (every legal move with what it leads to, for fast searches), `legal`, `inCheck`, `moves`. Any material with up to 4 pieces: the two kings and two more, either colour, pawns included (captures and promotions lead into other tables, built on first use). |
-| `line.cjs` | `playLine(fen, opts)` → a line with best play: the learner (side to move, or `opts.learner`) a fastest move, the opponent the most stubborn defence; equally fast learner moves become `also`. Tie-breaks via `opts.learnerOrder` / `opts.opponentOrder`. `objective: 'hold'` (a drawn position): the learner keeps the draw, all other moves that keep it become `also`, the opponent never lets the learner win and plays its most testing try (no repetition, deterministic), and the line ends in a draw on the board. |
-| `verify.cjs` | `verifyLine(line, opts)` (`opts.learner` for a line that starts with the opponent's move): on the real FENs with chess.js and the solver, every learner move is a fastest win, its `[%also]` list is exactly the other equally fast moves, every opponent move is the most stubborn defence, and the line ends in mate (or a safe promotion with `goal: 'promotion'`; the measure to the promotion is `opts.promotionProbe`, by default the King & Pawn solver). `objective: 'hold'`: every learner move keeps the draw, `[%also]` exactly the other moves that keep it, no opponent move lets the learner win, the line ends in a draw on the board (stalemate, insufficient material, repetition); `'auto'` picks win or hold from the start position. `holdingMoves(fen, opts)`, `resultFor(fen, opts, learner)`. |
+| `solver.cjs` | `probe(fen)` → `{ result: 'win' \| 'loss' \| 'draw', dtm }` for the side to move (dtm = plies to mate; the FEN's en passant square counts). `table('KRRK')` → the solved table: `value(sqs, stm)`, `options(sqs, stm)` (every legal move with what it leads to, for fast searches), `legal`, `inCheck`, `moves`. Any material with up to 5 pieces, either colour, pawns included (captures and promotions lead into other tables, built on first use). Up to 4 pieces with pawns on one side it builds the tables itself, as always; the rest goes to `egtb/`. `probeConversion(fen)` → `{ result, dtc }`: plies until White captures or promotes into a won position. |
+| `line.cjs` | `playLine(fen, opts)` → a line with best play: the learner (side to move, or `opts.learner`) a fastest move, the opponent the most stubborn defence; equally fast learner moves become `also`. Tie-breaks via `opts.learnerOrder` / `opts.opponentOrder`. `goal: 'conversion'`: the line ends with the learner's capture or promotion that keeps the win. `objective: 'hold'` (a drawn position): the learner keeps the draw, all other moves that keep it become `also`, the opponent never lets the learner win and plays its most testing try (no repetition, deterministic), and the line ends in a draw on the board. |
+| `verify.cjs` | `verifyLine(line, opts)` (`opts.learner` for a line that starts with the opponent's move): on the real FENs with chess.js and the solver, every learner move is a fastest win, its `[%also]` list is exactly the other equally fast moves, every opponent move is the most stubborn defence, and the line ends in mate (or a safe promotion with `goal: 'promotion'`; the measure to the promotion is `opts.promotionProbe`, by default the King & Pawn solver; or the learner's capture or promotion that keeps the win with `goal: 'conversion'`). A line in which 50 moves pass without a capture or a pawn move is a problem (the fifty-move rule, which the tables ignore). `objective: 'hold'`: every learner move keeps the draw, `[%also]` exactly the other moves that keep it, no opponent move lets the learner win, the line ends in a draw on the board (stalemate, insufficient material, repetition); `'auto'` picks win or hold from the start position. `holdingMoves(fen, opts)`, `resultFor(fen, opts, learner)`. |
 | `test.cjs` | Tests of `line.cjs` and `verify.cjs` (part of `npm run kit:test`), above all the holding objective, every claim checked against the independent oracle. |
 | `pgn.cjs` | `writePgn(file, games)` in the app's format (tags, intro comment, `[%csl]`/`[%cal]` marks, `[%also]`, notes, 80-column rows); `checkCourse(file, opts)` reads the file back and checks it all again. |
 | `board.cjs` | Squares, FEN helpers, symmetry keys (`canon8`, `canon2`), and the geometry lessons talk about (`ring`, `onEdge`, `isCorner`, `directOpp`, `distantOpp`, `diagOpp`, `knightJump`). |
 | `e2e.cjs` | The browser test (Playwright + Chromium): the course appears on a fresh device and on a device that never had it, lines played to the end in Learn (every promotion via the picker), board marks drawn as in the PGN, an `[%also]` move accepted in Practice, no console errors. |
 | `selftest.cjs` | Solver checks, see below. |
-| `cache.cjs` | The disk cache for solved tables (`KIT_CACHE`): every file records its producer and a checksum of the producer's code, and is used only while that code is unchanged. `npm run kit:cache [-- prune\|clear]`. |
+| `cache.cjs` | The disk cache for solved tables (`KIT_CACHE`): every file records its producer and a checksum of the producer's code, and is used only while that code is unchanged. `npm run kit:cache [-- prune\|clear]`. Large tables (five pieces: up to 677 MB) are read and written in pieces. |
 | `regress.cjs` | Regenerates the built-in courses and compares every PGN byte for byte with the working tree (`--twice`: runs each generator twice). New courses are added to its list. |
+| `egtb/` | The five-piece engine: tables for any material up to five pieces (en passant included), goals mate / promotion / conversion, worker threads, an independent checker (`check.cjs`), teaching-position search (`positions.cjs`, `survey.cjs`), benchmark (`bench.cjs`). See its README. |
+| `selftest5.cjs` | The five-piece checks (`npm run kit:selftest5`), see `egtb/README.md`. |
 | `pawn/` | The pawn toolkit: enumeration, line player, promotion choice, structural keys, sampling and selection, teaching facts, an independent solver (`oracle.cjs`) and checker (`checker.cjs`), and the pawn endings' vocabulary for `teach/` (`domain.cjs`). |
 | `teach/` | The teaching and difficulty layer: exact move outcomes, short explanations built only from verified facts, concepts and cues, difficulty signals, learning progression, the analyze step of a pipeline, a report over the courses. Generic; a domain brings the chess ideas. |
 | `curricula/` | Course designs before their generators: `opposition/` holds the ten-course Opposition curriculum, the 100-slot blueprint of *Direct Opposition*, its task classifier, prototypes and feasibility check (`npm run curriculum:opposition`). |
@@ -42,8 +50,10 @@ without pawns, 2 with pawns). Times measured on a 4-core cloud machine: 3 pieces
 promotion opens another 4-piece table (KRKP builds KRKQ, KRKR, KRKB and KRKN too). Tables stay in
 memory for the run (10-35 MB for a 4-piece table).
 
-Not covered: en passant (materials with pawns on both sides are refused), castling, the fifty-move
-rule.
+This engine covers up to 4 pieces with pawns on one side; the other materials (five pieces, pawns on both
+sides with en passant) go to the egtb engine (`egtb/README.md`), which is faster (K+Q vs K+R in 2 s on four
+threads) and is checked against this one on every position of every table both build. Not covered by
+either: castling, the fifty-move rule (`verify.cjs` reports a line that runs into it).
 
 **Goal 'promotion'** (`table('KPPK', { goal: 'promotion' })`, `probePromotion(fen)` → `{ result, dtc }`): for
 White's pawns against the lone king, the values count plies to a safe promotion instead of mate, as the
