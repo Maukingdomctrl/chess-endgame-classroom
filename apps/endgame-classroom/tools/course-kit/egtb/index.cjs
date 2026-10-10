@@ -20,16 +20,23 @@ const PARALLEL_FROM = +(process.env.EGTB_PARALLEL_FROM || 4e6);
 
 // Memory: with the disk cache on (KIT_CACHE), the tables kept in memory stay under a budget (EGTB_MEMORY in MB,
 // default 60% of the machine's memory): the least recently used ones that no build in progress needs are
-// dropped and read back from the disk when they are needed again. Without the cache every table stays.
+// dropped and read back from the disk when they are needed again. The table just asked for and the tables its
+// captures and promotions lead to always stay, even over the budget (dropping them would read them back on
+// every probe). Without the cache every table stays.
 const BUDGET = (+process.env.EGTB_MEMORY || Math.max(2048, (0.6 * os.totalmem()) / 1048576)) * 1048576;
 
 const tables = new Map(); // key -> table, in order of last use (the most recent last)
-const building = []; // the tables being built (their exits must stay)
+const busy = []; // the tables being built or fetching a table they lead to (they and their exits must stay)
+let dropped = 0; // tables dropped under the budget so far (tests)
 /** The table of two bare kings: always a draw. */
 const BARE = { name: 'KK', n: 2, value: () => 0 };
 
-/** The table a capture or a promotion leads to. */
-const resolve = (name, goal) => (piecesOf(name).length === 2 ? BARE : table(name, { goal }));
+/** The table a capture or a promotion of table `from` leads to; `from` and its exits stay in memory meanwhile. */
+function resolveFor(from, name, goal) {
+  if (piecesOf(name).length === 2) return BARE;
+  busy.push(from);
+  try { return table(name, { goal }); } finally { busy.pop(); }
+}
 
 /** The solved table of a material. opts.goal: 'mate' (default), 'promotion' or 'conversion'. */
 function table(name, opts = {}) {
@@ -38,32 +45,36 @@ function table(name, opts = {}) {
   const key = `${name}:${goal}`;
   let T = tables.get(key);
   if (T) { tables.delete(key); tables.set(key, T); return T; } // most recently used
-  T = new EgtbTable(name, goal, resolve);
+  T = new EgtbTable(name, goal, (n, g) => resolveFor(T, n, g));
   // big tables are solved by worker threads (on shared memory); small ones are not worth starting them
   const pool = T.size >= PARALLEL_FROM ? parallel.getPool() : null;
   const make = pool ? (n) => parallel.sharedZeros(Uint8Array, n) : undefined;
   T.val = cache.load('egtb', key, T.size, Uint8Array, { make });
   if (!T.val) {
-    building.push(T);
+    busy.push(T);
     try {
       T.prepareExits(); // every table a capture or promotion leads to, built first
       if (pool) { T.val = make(T.size); parallel.solveParallel(T, pool); } else T.solve();
-    } finally { building.pop(); }
+    } finally { busy.pop(); }
     cache.save('egtb', key, T.val);
   } else T.stats = { cached: true };
   tables.set(key, T);
-  trim();
+  trim(T);
   return T;
 }
 
-/** Drops the least recently used tables while the ones in memory are over the budget (disk cache on only). */
-function trim() {
+/**
+ * Drops the least recently used tables while the ones in memory are over the budget (disk cache on only), but
+ * never a busy table (being built, or fetching a table it leads to), the table just asked for (keep), or a
+ * table one of them leads to.
+ */
+function trim(keep) {
   if (!cache.dir()) return;
   let bytes = 0;
   for (const T of tables.values()) bytes += T.val.byteLength;
   if (bytes <= BUDGET) return;
   const needed = new Set();
-  for (const B of building) { needed.add(B); for (const ex of B.exits.values()) needed.add(ex.table); }
+  for (const B of [...busy, keep]) { needed.add(B); for (const ex of B.exits.values()) needed.add(ex.table); }
   const gone = [];
   for (const [key, T] of tables) { // oldest first
     if (bytes <= BUDGET) break;
@@ -71,13 +82,14 @@ function trim() {
     tables.delete(key); gone.push(T); bytes -= T.val.byteLength;
   }
   if (!gone.length) return;
+  dropped += gone.length;
   // forget them everywhere: the exits that lead to them are resolved again (from the disk) when used
-  const dropped = new Set(gone);
-  for (const T of [...tables.values(), ...building]) for (const [k, ex] of T.exits) if (dropped.has(ex.table)) T.exits.delete(k);
+  const out = new Set(gone);
+  for (const T of [...tables.values(), ...busy]) for (const [k, ex] of T.exits) if (out.has(ex.table)) T.exits.delete(k);
   parallel.detach(gone);
 }
 
 /** Forget the tables built so far (tests, memory). */
 function reset() { parallel.detach([...tables.values()]); tables.clear(); }
 
-module.exports = { table, reset, tables, BARE };
+module.exports = { table, reset, tables, BARE, evictions: () => dropped };

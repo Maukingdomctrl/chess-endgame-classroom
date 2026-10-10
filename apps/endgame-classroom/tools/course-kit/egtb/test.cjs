@@ -1,10 +1,19 @@
 // Tests of the egtb engine (npm run kit:test5, a few minutes): index, move generation against chess.js (the
 // engine's and the independent checker's), en passant, the goals, the solver.cjs routing, lines with best
 // play on five pieces, and the egtb values against solver.cjs and the checker on small tables. Fails loudly.
+//   npm run kit:test5 -- --budget   the same tests with a fresh disk cache and a 1 MB memory budget, so that
+//                                   tables are dropped and read back from the disk all the time (the eviction
+//                                   path of index.cjs, which ordinary runs never reach)
 'use strict';
 // every table of this test is solved on the worker threads (when there are several), small ones included, so
 // that the parallel code is what the tests exercise; section 4c compares it with the one-thread solve
 process.env.EGTB_PARALLEL_FROM ??= '1';
+const budget = process.argv.includes('--budget');
+if (budget) {
+  const tmp = require('fs').mkdtempSync(require('path').join(require('os').tmpdir(), 'egtb-budget-'));
+  Object.assign(process.env, { KIT_CACHE: tmp, EGTB_MEMORY: '1' }); // read when index.cjs is loaded
+  process.on('exit', () => require('fs').rmSync(tmp, { recursive: true, force: true }));
+}
 const { Chess } = require('chess.js');
 const egtb = require('./index.cjs');
 const solver = require('../solver.cjs');
@@ -167,15 +176,25 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
 }
 
 // ---- 4c. threads change nothing: the tables solved on the worker threads equal a one-thread solve, byte for byte ----
+// Both are solved here from scratch, never read from the disk cache (a cached table would make the test vacuous).
+// The workers know tables by name: forget every table first, so that the new one is the one they solve into.
 {
   const { EgtbTable } = require('./engine.cjs');
-  const { threads } = require('./parallel.cjs');
+  const parallel = require('./parallel.cjs');
+  const sub = (n, goal) => (n.length === 2 ? egtb.BARE : egtb.table(n, { goal }));
   for (const name of ['KQKR', 'KPKP']) { // pawnless: levels shared out with atomics; pawns: slices per worker
-    const P = egtb.table(name);
-    const S = new EgtbTable(name, 'mate', (n, goal) => (n.length === 2 ? egtb.BARE : egtb.table(n, { goal })));
+    egtb.reset();
+    const pool = parallel.getPool();
+    if (!pool) { console.log(`skip threads: ${name}: one thread only (EGTB_THREADS), nothing to compare`); continue; }
+    const P = new EgtbTable(name, 'mate', sub);
+    P.prepareExits();
+    P.val = parallel.sharedZeros(Uint8Array, P.size);
+    parallel.solveParallel(P, pool);
+    const S = new EgtbTable(name, 'mate', sub);
     S.prepareExits(); S.solve();
+    parallel.detach([P]);
     check(Buffer.compare(Buffer.from(P.val.buffer, P.val.byteOffset, P.val.byteLength), Buffer.from(S.val.buffer)) === 0,
-      `threads: ${name} solved on ${threads()} thread(s) (${P.stats?.threads ?? 'cache'}) equals the one-thread solve byte for byte`);
+      `threads: ${name} solved on ${pool.size} worker threads equals the one-thread solve byte for byte`);
   }
 }
 
@@ -237,5 +256,6 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
   check(short.problems.some((p) => /does not end in checkmate or a capture or promotion that keeps the win/.test(p)), 'conversion line: stopped before the conversion it is rejected');
 }
 
+if (budget) check(egtb.evictions() > 0, `memory budget: ${egtb.evictions()} tables dropped and read back from the disk (budget 1 MB), every test above still passed`);
 console.log(failures ? `egtb tests: ${failures} FAILED` : 'egtb tests: all passed');
 process.exit(failures ? 1 : 0);

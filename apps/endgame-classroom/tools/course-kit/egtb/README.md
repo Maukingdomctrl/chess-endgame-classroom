@@ -14,6 +14,7 @@ table('KRKRP');            // the same table seen with the colours swapped (flip
 
 ```bash
 npm run kit:test5                                   # unit tests (a minute with the cache, a few without)
+npm run kit:test5 -- --budget                       # the same with a 1 MB memory budget: tables dropped and read back
 npm run kit:selftest5                               # the full check, see "How it is checked" (-- --quick, --heavy, --all, --parts 2,3)
 npm run kit:check5 -- KRBKR                         # the independent checker on every position of a table
 npm run kit:bench5 -- KRPKR                         # build a table and its sub-tables: time, memory, contents
@@ -79,8 +80,9 @@ What a family of tables needs, for planning (five-piece tables in it, their inde
 Every promotion leads to an ending with a queen that has to be solved too (exact values after a promotion
 need it), which is what makes the last rows big. The goal `'promotion'` (pawns against the lone king) needs
 none of that. With `KIT_CACHE` on, the tables in memory stay under a budget (`EGTB_MEMORY` in MB, default 60%
-of the machine): the least recently used ones that no build in progress needs are dropped and read back from
-the disk when needed. Without the cache every table stays in memory.
+of the machine): the least recently used ones are dropped and read back from the disk when needed. The table
+just asked for, the tables being built or fetching a table they lead to, and the tables those lead to are never
+dropped, so the budget is a soft limit. Without the cache every table stays in memory.
 
 ## How it works
 
@@ -136,7 +138,12 @@ the disk when needed. Without the cache every table stays in memory.
    en passant ones included (and a pinned pawn that may not take en passant).
 5. **Lines** played by `line.cjs` on five pieces pass `verify.cjs` (mate, conversion, and a Philidor draw held).
 6. **Threads change nothing**: a table solved on the worker threads equals the one-thread solve byte for byte
-   (a pawnless table, whose levels are shared out with atomics, and a pawn table, solved slice by slice).
+   (a pawnless table, whose levels are shared out with atomics, and a pawn table, solved slice by slice; both
+   solved from scratch, never read from the disk cache).
+7. **The memory budget**: `kit:test5 -- --budget` runs every unit test with a fresh disk cache and a 1 MB
+   budget, so tables are dropped and read back all the time: 226 tables dropped, every test passes. (Its first
+   run found a bug: the budget dropped the very table being probed, every probe read it back from the disk,
+   and the process ran out of memory. Tables in use are now kept.)
 
 The course regression (`npm run kit:regress`) shows the built-in courses unchanged byte for byte.
 

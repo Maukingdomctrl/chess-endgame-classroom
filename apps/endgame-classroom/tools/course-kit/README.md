@@ -15,7 +15,7 @@ is in `teach/` (see its README).
 npm run kit:selftest                     # checks the solver (a few minutes; "-- promotion" for the pawn part)
 npm run kit:selftest5                    # checks the five-piece engine (about half an hour; -- --quick / --heavy)
 npm run kit:test                         # unit tests: line.cjs/verify.cjs (test.cjs), pawn/, teach/, curricula/
-npm run kit:test5                        # unit tests of the five-piece engine (egtb/test.cjs)
+npm run kit:test5                        # unit tests of the five-piece engine (egtb/test.cjs; -- --budget: 1 MB memory budget)
 npm run kit:positions -- KRPKR --goal conversion --result win --unique   # teaching positions (egtb/positions.cjs)
 npm run teach:report                     # difficulty and explanations of the built-in courses (read only)
 npm run kit:regress                      # every built-in course regenerates byte for byte (-- --twice)
