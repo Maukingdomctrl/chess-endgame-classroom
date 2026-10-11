@@ -64,7 +64,8 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
 ## Five-piece endings (`tools/course-kit/egtb/`)
 
 Read `egtb/README.md`. `solver.cjs` routes five-piece materials (and pawns on both sides) to the egtb engine
-with the same API, so `line.cjs`, `verify.cjs` and the course pipeline work unchanged.
+with the same API, so `line.cjs`, `verify.cjs` and the course pipeline work unchanged. To change the solver or
+the engine itself (a new goal, six pieces, speed, memory), use the **exact-solver-engineering** skill.
 
 - **Check the cost first** (`egtb/README.md`, "What it costs"): a pawnless ending is one table (about a
   minute); piece and pawn against a piece is five (K+R+P vs K+R: about 6 minutes on four cores, 3.2 GB, 1.5 GB on disk); pawns

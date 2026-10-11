@@ -141,7 +141,7 @@ dropped, so the budget is a soft limit. Without the cache every table stays in m
    (a pawnless table, whose levels are shared out with atomics, and a pawn table, solved slice by slice; both
    solved from scratch, never read from the disk cache).
 7. **The memory budget**: `kit:test5 -- --budget` runs every unit test with a fresh disk cache and a 1 MB
-   budget, so tables are dropped and read back all the time: 226 tables dropped, every test passes. (Its first
+   budget, so tables are dropped and read back all the time: 240 tables dropped, every test passes. (Its first
    run found a bug: the budget dropped the very table being probed, every probe read it back from the disk,
    and the process ran out of memory. Tables in use are now kept.)
 

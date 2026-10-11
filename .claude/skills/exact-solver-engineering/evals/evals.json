@@ -1,0 +1,58 @@
+{
+  "skill_name": "exact-solver-engineering",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We'd like to teach rook endings with a pawn each side (K+R+P vs K+R+P) at some point. Can our egtb engine (apps/endgame-classroom/tools/course-kit/egtb) be taken to six pieces? Work out what that would take on this machine and lay out how you'd build it so the tables stay exactly right. Don't start building yet, I want the plan first.",
+      "expected_output": "A feasibility study and staged plan: inspect the current index/value/memory limits, size K+R+P vs K+R+P and its family (positions, memory, disk) against the 2^32 index, one-byte values and 16 GB, decide what fits, plan increments gated by independent checks (checker on every position, overlap comparison, mutation tests), benchmarks, caching consequences, regressions, and documented limits.",
+      "files": [],
+      "expectations": [
+        "States a concrete position count for K+R+P vs K+R+P (on the order of 10^10) and that it exceeds the engine's 2^32 index limit",
+        "Sizes what else a six-piece build needs (the tables reached by captures and promotions, or total memory and disk) with numbers before recommending to build",
+        "Checks the one-byte value range (254 plies) as a constraint for six-piece depths",
+        "Concludes with numbers what does or does not fit on this 16 GB, 4-core machine (e.g. disk-based solving or a bigger machine needed)",
+        "Plans an independent checker run on every position of the six-piece tables, not only samples or spot checks",
+        "Plans to test the checker itself with planted errors (a mutation test)",
+        "Plans increments with a gate for each (e.g. index round trips, five-piece tables unchanged under the new index, a smaller six-piece table before K+R+P vs K+R+P)",
+        "Requires existing results to stay byte-identical (the course regression and/or the five-piece tables)",
+        "Addresses caching or disk consequences (engine edits invalidating cached tables, or the disk needed for six-piece tables)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Building the K+R+P vs K+R family takes almost six minutes on this box and the course scripts feel sluggish because of it. Make table generation in the egtb engine faster, but the values must not change at all. Start by finding out where the time actually goes, then tell me what you'd change and how you'd prove nothing broke.",
+      "expected_output": "A measured diagnosis (phase timings, single-thread CPU profile of a small table, hot functions/lines), a prioritised list of optimisations, and a proof plan: byte-identical tables before/after on every table, threads = serial, the independent checker, regressions, benchmarks run alone with time and peak memory, cache-identity consequences of editing engine files.",
+      "files": [],
+      "expectations": [
+        "Reports measured timings (phase timings or a CPU profile) with concrete numbers from a run it performed",
+        "Profiles on a single thread (EGTB_THREADS=1) or explains why that isolates the algorithm",
+        "Names specific hot functions or source lines taken from the measurement",
+        "Ranks the proposed optimisations by measured cost rather than by intuition",
+        "Requires byte-identical tables before and after each change, compared on every position against the unchanged code (a pristine worktree or saved tables)",
+        "Requires the independent checker (check.cjs / kit:check5) or kit:selftest5 on the changed engine",
+        "Requires threads = serial byte identity if parallel code or scheduling is touched",
+        "Plans benchmarks with wall time and peak memory, run without competing load, and updating the README's numbers",
+        "Notes that editing egtb producer files invalidates every cached table (cache identity) and plans for the rebuild cost",
+        "Runs the course regression (kit:regress) on the final tree"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "For the Lucena lessons the fastest conversion is often winning Black's rook instead of building the bridge. I want a goal in the egtb engine that counts only plies to a safe promotion for K+R+P vs K+R (and similar endings), so lines end with the promotion. Plan it out: how it fits the engine, how you'd verify it, and what it would cost.",
+      "expected_output": "A plan that defines the goal's terminal rule precisely, places it next to the existing goals (mate, promotion, conversion), implements the rule independently in the checker, verifies with small tables first, the overlap with the existing promotion goal, mutation tests, theory positions, keeps the classic engine and course bytes unchanged, handles the cache key for the new goal, estimates build/check cost, and documents limits.",
+      "files": [],
+      "expectations": [
+        "Defines the goal's terminal rule precisely: which promotions count (queen or rook that cannot be taken at once, not stalemate, still won by the mate table) and what captures by either side do",
+        "Fits the goal into the existing goal machinery under its own goal name (beside mate, promotion, conversion) without changing the existing goals' tables",
+        "Implements the same rule independently in check.cjs and runs the checker on every position of the new tables",
+        "Validates against an existing reference where the two must agree (e.g. the existing promotion goal on pawn-only tables, the conversion goal, or theory positions)",
+        "Plans a mutation test (planted wrong values) for the new goal's checker",
+        "Makes sure cached tables of different goals cannot be confused (the goal in the cache key) and notes that engine edits invalidate cached tables",
+        "Keeps the classic engine and the built-in courses byte-identical (kit:regress)",
+        "Estimates build and check cost with numbers derived from measured figures (e.g. existing K+R+P vs K+R build and check times)",
+        "Plans verify.cjs/line.cjs integration with a test that a line stopping before the promotion is rejected",
+        "Gates the work on small tables first (e.g. K+P vs K or K+R+P vs K-type tables) before K+R+P vs K+R"
+      ]
+    }
+  ]
+}
