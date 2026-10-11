@@ -22,6 +22,7 @@ npm run kit:regress                      # every built-in course regenerates byt
 npm run kit:check -- <course.pgn>        # independent check of a pawn course
 KIT_CACHE=1 npm run course:pawns         # keep solved tables on disk between runs (npm run kit:cache)
 npm run course:e2e -- <builtin id>        # browser test of a built-in course (add --all for every line)
+npm run course:read -- <course> [--flags] # a course as a learner reads it, with what reads badly flagged
 ```
 
 | File | What it gives a course |
@@ -32,6 +33,7 @@ npm run course:e2e -- <builtin id>        # browser test of a built-in course (a
 | `test.cjs` | Tests of `line.cjs` and `verify.cjs` (part of `npm run kit:test`), above all the holding objective, every claim checked against the independent oracle. |
 | `pgn.cjs` | `writePgn(file, games)` in the app's format (tags, intro comment, `[%csl]`/`[%cal]` marks, `[%also]`, notes, 80-column rows); `checkCourse(file, opts)` reads the file back and checks it all again. |
 | `board.cjs` | Squares, FEN helpers, symmetry keys (`canon8`, `canon2`), and the geometry lessons talk about (`ring`, `onEdge`, `isCorner`, `directOpp`, `distantOpp`, `diagOpp`, `knightJump`). |
+| `read.cjs` | `npm run course:read -- <course>`: every line in plain text (intro, the comment after each move, `[%also]`, the takeaway) and flags for a human reader: intros over 60 words, notes over the 4-5 second limit (`teach/explain.cjs` `readable()`), the same note more than twice in a line, no closing note, words a course must not use yet (`--avoid`). Parses the PGN only (about a second); `--flags` prints only the flagged lines, `--strict` exits with 1 when anything is flagged. |
 | `e2e.cjs` | The browser test (Playwright + Chromium): the course appears on a fresh device and on a device that never had it, lines played to the end in Learn (every promotion via the picker), board marks drawn as in the PGN, an `[%also]` move accepted in Practice, no console errors. |
 | `selftest.cjs` | Solver checks, see below. |
 | `cache.cjs` | The disk cache for solved tables (`KIT_CACHE`): every file records its producer and a checksum of the producer's code, and is used only while that code is unchanged. `npm run kit:cache [-- prune\|clear]`. Large tables (five pieces: up to 677 MB) are read and written in pieces. |

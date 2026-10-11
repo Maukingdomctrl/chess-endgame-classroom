@@ -126,7 +126,9 @@ classifier built on the solver and the board, real prototypes run through the wh
 claim checked against the oracle, and a feasibility check that counts candidates per task and band and
 proves every slot can get its own position (`npm run curriculum:opposition`). Promise only bands and tasks
 the solver offers (the Direct Opposition lines are Intermediate to Around 1800; none Foundational, none
-Difficult). The blueprint is the lesson list the owner approves; the generator reads it.
+Difficult). The blueprint is the lesson list the owner approves; the generator reads it. For courses 2-10 of
+the Opposition curriculum use the **opposition-curriculum** skill (course 1's generator, what it found, notes
+per course).
 
 ## Steps
 
@@ -144,7 +146,8 @@ Difficult). The blueprint is the lesson list the owner approves; the generator r
      White, marks syntax, no marks in the exam, closing note on the last move, every line re-verified).
    - `run.cjs`, `verify-opts.cjs` (`{ goal: 'mate' | 'promotion', probe }`), `README.md`, `.gitignore`
      with `.out/`, and the npm script.
-4. Read the whole generated course as a learner would (texts, notes, marks) and fix what reads badly.
+4. Read the whole generated course as a learner would (texts, notes, marks) and fix what reads badly
+   (`npm run course:read -- <course>` prints it in plain text and flags long or repeated notes).
 5. Register the course in `src/lib/builtinCourses.ts` (`category: "endgame"`, `playAs: "white"`,
    `signature` = the first LineName, a description with the number of positions and lessons) and add it
    to the app README's "Built-in courses". Copies already on a device refresh themselves when the PGN
