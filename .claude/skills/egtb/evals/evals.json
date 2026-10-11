@@ -1,0 +1,41 @@
+{
+  "skill_name": "egtb",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Is 1K6/1P1k4/8/2R5/5r2/8/8/8 w - - 0 1 a win for White? What's the best move, how long does it take, and is the fastest way the textbook bridge?",
+      "expected_output": "Probes the position with the mate and the conversion measures (KIT_CACHE on), lists the best moves with exact values via analyse(), notes that the fastest conversion wins Black's rook rather than building the bridge, and reports plies correctly (dtm in plies, conversion plies).",
+      "files": [],
+      "expectations": [
+        "Uses solver.probe / probeConversion or analyse() on the egtb table rather than reasoning from memory",
+        "Reports the result and distance in plies with the measure named (mate or conversion)",
+        "Mentions that the fastest conversion here wins the rook instead of the bridge method",
+        "Sets KIT_CACHE (or warns that without it the five-piece tables are rebuilt)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We want a short course on the Philidor defence where the student holds the draw as White. Find me 5 good candidate positions and tell me what the lessons could teach.",
+      "expected_output": "Uses the colour-swapped material K+R vs K+R+P with the mate goal and objective hold, surveys the draws first, scans with precise patterns and a seeded sample, keeps positions with a single holding move where useful, plays and verifies the holding lines, and remembers that a lesson list needs the owner's approval.",
+      "files": [],
+      "expectations": [
+        "Uses the K+R vs K+R+P view (table('KRKRP')) with the mate measure and objective 'hold', not the conversion goal",
+        "Runs or plans survey.cjs --objective hold before choosing positions",
+        "Uses precise structural criteria and a seeded sample in scan()",
+        "Plays and verifies the lines with line.cjs / verify.cjs (hold objective)",
+        "Says the lesson list needs the owner's approval before a built-in course"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Could we do a course on king and two pawns against king and pawn (K+P+P vs K+P) with exact tables like the rook endings?",
+      "expected_output": "Sizes the family before anything else (75 five-piece tables, about 28 G slots, does not fit this machine), explains why (every promotion leads to a queen ending), and offers what is feasible instead without promising the course.",
+      "files": [],
+      "expectations": [
+        "Gives the size of the family (about 75 five-piece tables, about 28 G slots) or runs egtb-family.cjs",
+        "Concludes it does not fit this machine and explains why (promotions lead to queen endings that must be solved)",
+        "Does not promise the course without the owner's OK on the cost"
+      ]
+    }
+  ]
+}

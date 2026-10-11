@@ -18,7 +18,8 @@ bought only with changes that keep the evidence intact. When a check fails, the 
 check is shown wrong on a concrete case; checks are never loosened to get green.
 
 In this repository: if the work serves a course, the **endgame-course** skill's owner rules still apply (a
-new built-in course needs its lesson list approved first; moves only from the solver).
+new built-in course needs its lesson list approved first; moves only from the solver). For using the tables as
+they are (probing, measures, costs, teaching positions), the **egtb** skill is the guide.
 `references/repo-map.md` has the files, contracts, test matrix with times, measured costs, knobs and cache
 rules; read it before planning.
 
