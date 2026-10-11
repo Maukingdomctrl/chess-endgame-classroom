@@ -2,6 +2,7 @@ import kingAndPawnPgn from "../../courses/king-and-pawn-course.pgn?raw";
 import endgameBasicsPgn from "../../courses/endgame-basics-course.pgn?raw";
 import ladderMatePgn from "../../courses/ladder-mate-course.pgn?raw";
 import connectedPawnsPgn from "../../courses/connected-pawns-course.pgn?raw";
+import directOppositionPgn from "../../courses/direct-opposition-course.pgn?raw";
 import type { Category, Course, Line, Side } from "../types";
 import { importPgn } from "./pgn";
 import { createCourse } from "./storage";
@@ -58,6 +59,16 @@ export const BUILTIN_COURSES: BuiltinCourse[] = [
     playAs: "white",
     pgn: connectedPawnsPgn,
     signature: "01. Promote safely (1/8)",
+  },
+  {
+    id: "direct-opposition",
+    name: "Direct Opposition",
+    description:
+      "100 positions in 8 lessons: what the direct opposition is, how to take and keep it, using it on the way to the queen and in defence, when it is not the first thing to do, then lines without hints and a final assessment. Every move is verified with an exact endgame solver.",
+    category: "endgame",
+    playAs: "white",
+    pgn: directOppositionPgn,
+    signature: "01. What the opposition is (1/10)",
   },
 ];
 
