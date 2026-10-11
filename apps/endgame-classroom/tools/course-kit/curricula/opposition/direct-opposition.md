@@ -166,6 +166,24 @@ teaching layer, now fixed and tested (`teach/test.cjs` section 12, `test.cjs` he
 6. **Owner's rules.** Lesson list first (this blueprint) and wait for the OK; the learner plays White;
    `[%also]` exactly the equal moves; every line to its real end; deterministic.
 
+**Generated** by `tools/direct-opposition-course/` (`npm run course:opposition`, README there). What the
+generator found beyond these rules:
+
+- **Variety needs its own rules with one pawn.** The two-pawn course's (no line through another's start, at
+  most a quarter of a line shared) leave slots empty here: the 57 Black-moves-first lines are 18 families of
+  one walk each (a long walk passes the starts of the shorter ones), every long walk crosses them, and single-
+  pawn lines converge on the same promotion pictures. The course uses: no start twice, no line shifted along
+  the board, no two lines meeting after the learner's first move, and within a task no line starting in or
+  joining another's first two moves; overlap later on is reported (62% of positions appear in more than one
+  line; 4 Black-moves-first starts lie on a walk of another lesson).
+- **Protect-first has three different lines** for four slots (the fourth is reflected, in the assessment);
+  the sixth candidate protects the pawn with a pawn push and is left out.
+- **Words outside the vocabulary.** `VOCABULARY` lets a zugzwang through when it does not follow the direct
+  opposition, and the generic phrase says "zugzwang"; a pawn move can also leave Black to move in the
+  opposition ("Black must give way" after a tempo move, course 6). The generator does not show either note.
+  Changing `VOCABULARY` would change the lines' tie-breaks and so the saved candidates: a fix for the next
+  feasibility run.
+
 ## The 100 slots
 
 Constraints are checked by `matches()`: orientation, shape of the first move, `givesWay` (the solver's

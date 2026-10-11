@@ -19,6 +19,7 @@ const COURSES = [
   { name: 'basics', script: 'course:basics', pgn: 'courses/endgame-basics-course.pgn' },
   { name: 'ladder', script: 'course:ladder', pgn: 'courses/ladder-mate-course.pgn' },
   { name: 'pawns', script: 'course:pawns', pgn: 'courses/connected-pawns-course.pgn' },
+  { name: 'opposition', script: 'course:opposition', pgn: 'courses/direct-opposition-course.pgn' },
 ];
 const sha1 = (file) => crypto.createHash('sha1').update(fs.readFileSync(path.join(APP, file))).digest('hex');
 
