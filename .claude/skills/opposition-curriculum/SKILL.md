@@ -96,6 +96,12 @@ same promotion pictures). Course 1 measured it and kept what matters:
   so do it together with a new feasibility run.
 - Say a reason in full once, then "Take the opposition again." at most twice per line; long walks otherwise
   repeat it seven times. Keep the course's first intro short (it carries the welcome, the lesson and the line).
+- **Teaching written by the owner** goes in the generator's `teaching.md` (course 1: `tools/direct-opposition-course/`),
+  never into the PGN by hand: it survives regeneration, and `teaching.cjs` checks it against the line. Give the
+  owner the worksheet format of that file (moves one after another, Intro / Note / Marks / Takeaway). Owner
+  notes on lesson 1 needed fixes the checker now catches: notes shifted by one move, "rook pawn" for a
+  b-pawn, "in front of the pawn" for a king beside it, "protects the promotion square" from two squares away,
+  key squares and tempo (later courses), and "!" on every move (the course keeps the explainer's "!").
 
 ## Notes for the next courses (to check with the solver before promising)
 

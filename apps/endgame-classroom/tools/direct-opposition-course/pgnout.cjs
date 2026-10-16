@@ -2,18 +2,20 @@
 // intros by the slot's help level (3: the idea named, a cue, marks; 2: a cue and marks; 1: a cue; 0:
 // nothing before the move), the explanation of every important learner move from the course's explainer
 // (teach/explain.cjs with the course's words: nothing flagged is shown), the tempting mistake on the first
-// move, a closing note on the last move, and marks in Learn mode only. Then it reads the file back and
-// checks every line again (pgn.checkCourse with verify.cjs).
+// move, a closing note on the last move, and marks in Learn mode only. Where teaching.md has teaching written
+// by hand for a line, its intro, notes, marks and takeaway take the place of the generated ones (checked by
+// teaching.cjs). Then it reads the file back and checks every line again (pgn.checkCourse with verify.cjs).
 const path = require('path');
 const { Chess } = require('chess.js');
 const { SLOTS, PHASES } = require('../course-kit/curricula/opposition/direct-opposition.cjs');
-const { readable } = require('../course-kit/teach/explain.cjs');
+const { readable, equalPhrase } = require('../course-kit/teach/explain.cjs');
 const { cueProblems } = require('../course-kit/teach/concepts.cjs');
 const { withoutHiddenArrows } = require('../course-kit/pawn/teach.cjs');
 const { moveComment, formatMarks, writePgn, checkCourse } = require('../course-kit/pgn.cjs');
 const { F, R } = require('./keys.cjs');
 const T = require('./texts.cjs');
 const VERIFY = require('./verify-opts.cjs');
+const teaching = require('./teaching.cjs');
 const lines = require('./.out/lines.json');
 
 const OUT = path.join(__dirname, '../../courses/direct-opposition-course.pgn');
@@ -57,11 +59,11 @@ function closingNote(l) {
 }
 const sqIdx = (n) => (n.charCodeAt(1) - 49) * 8 + (n.charCodeAt(0) - 97);
 
-/** The notes of a line, one string per move ('' = none). */
-function notesFor(l) {
+/** The notes of a line, one string per move ('' = none); t: the line's teaching from teaching.md, if any. */
+function notesFor(l, t) {
   const notes = l.moves.map(() => '');
   const said = new Set();
-  let first = true, reminders = 0;
+  let first = true, reminders = 0, mistake = null;
   l.moves.forEach((m, i) => {
     if (m.side !== 'w') return;
     const e = m.note;
@@ -75,6 +77,7 @@ function notesFor(l) {
       // alternative (not a slower win, nothing in untaught words)
       const alt = l.mistake ?? (e.alternative && !/^\S+\?! /.test(e.alternative.text) && !T.UNTAUGHT.test(e.alternative.text) ? e.alternative.text : null);
       if (alt && T.UNTAUGHT.test(alt)) fail(l.n, `the mistake's note uses an untaught word: ${alt}`);
+      mistake = { i, text: alt };
       notes[i] = [e.text, alt].filter(Boolean).join(' ');
       said.add(body(e.text));
       return;
@@ -88,20 +91,32 @@ function notesFor(l) {
   // assessment comments on nothing else
   if (l.feedback === 'closing') notes.fill('');
   notes[notes.length - 1] = closingNote(l);
+  // teaching written by hand: a note replaces the generated one ("none" removes it, empty keeps it). On a
+  // White move the course adds the move in front, the equal moves and, on the first move, the mistake.
+  if (t) l.moves.forEach((m, i) => {
+    const tn = t.moves[i].note;
+    if (!tn) return;
+    if (teaching.isNone(tn)) { notes[i] = ''; return; }
+    if (i === l.moves.length - 1 || m.side !== 'w') { notes[i] = tn; return; }
+    const equal = m.also.length ? equalPhrase(m.also, l.task === 'defend' ? 'hold' : 'win') : '';
+    notes[i] = [`${m.san}${m.note.mark} — ${[teaching.noteBody(m.san, tn), equal].filter(Boolean).join(' ')}`, mistake?.i === i ? mistake.text : ''].filter(Boolean).join(' ');
+  });
   for (const t of notes) for (const part of t.split(/ (?=\S+[!?]* — )/)) if (part && readable(part).length) fail(l.n, `too long to read in 4-5 seconds: "${part}" (${readable(part).join('; ')})`);
   return notes;
 }
 
 // ---------- intros ----------
 const legendSaid = new Set();
-function introFor(l, lessonFirst, courseFirst, hasMarks) {
+function introFor(l, lessonFirst, courseFirst, hasMarks, t) {
   const parts = [];
   if (courseFirst) parts.push(T.COURSE_INTRO);
   if (lessonFirst) parts.push(T.LESSONS[l.phase].intro);
   parts.push(T.situation(l));
-  if (l.help === 3) parts.push(T.idea(l));
+  // an intro written by hand names the idea and asks the question itself
+  if (t?.intro) parts.push(t.intro);
+  else if (l.help === 3) parts.push(T.idea(l));
   const first = l.moves.find((m) => m.side === 'w');
-  if (l.help >= 1) {
+  if (l.help >= 1 && !t?.intro) {
     const q = T.cue(first.note, l.help);
     if (!q) fail(l.n, `help ${l.help}, but no concept gives a cue for ${first.san}`);
     else if (cueProblems(q).length) fail(l.n, `bad cue "${q}": ${cueProblems(q).join('; ')}`);
@@ -115,10 +130,20 @@ function introFor(l, lessonFirst, courseFirst, hasMarks) {
 
 // ---------- the games ----------
 const games = [];
+const taught = teaching.parse();
+const usedTeaching = new Set();
 PHASES.forEach((p, k) => {
   const own = lines.filter((l) => l.phase === p.id);
   own.forEach((l, j) => {
-    const notes = notesFor(l);
+    const name = `${String(k + 1).padStart(2, '0')}. ${T.LESSONS[p.id].title} (${j + 1}/${own.length})`;
+    const t = taught.get(name) ?? null;
+    if (t) {
+      usedTeaching.add(name);
+      const wrong = teaching.problems(t, l);
+      for (const w of wrong) fail(l.n, w);
+      if (wrong.length) return;
+    }
+    const notes = notesFor(l, t);
     const moveMarks = l.moves.map(() => ({ squares: [], arrows: [] }));
     let introMarks = { squares: [], arrows: [] };
     l.moves.forEach((m, i) => {
@@ -126,13 +151,16 @@ PHASES.forEach((p, k) => {
       const mk = marksBefore(l, i);
       if (i === 0) introMarks = mk; else moveMarks[i - 1] = mk;
     });
+    // marks written by hand replace the generated ones on their position (never an arrow on the move to play)
+    if (t?.introMarks) introMarks = withoutHiddenArrows(t.introMarks, l.moves[0]);
+    t?.moves.forEach((tm, i) => { if (tm.marks) moveMarks[i] = withoutHiddenArrows(tm.marks, l.moves[i + 1]); });
     const hasMarks = [introMarks, ...moveMarks].some((x) => x.squares.length || x.arrows.length);
-    const intro = introFor(l, j === 0, k === 0 && j === 0, hasMarks);
-    const description = T.takeaway(l);
-    for (const c of T.claims(l, [T.situation(l), l.help === 3 ? T.idea(l) : '', description])) fail(l.n, c);
-    for (const t of [intro, description, ...notes]) if (T.UNTAUGHT.test(t)) fail(l.n, `a word course 1 does not teach: "${t}"`);
+    const intro = introFor(l, j === 0, k === 0 && j === 0, hasMarks, t);
+    const description = t?.takeaway || T.takeaway(l);
+    for (const c of T.claims(l, [T.situation(l), t?.intro || (l.help === 3 ? T.idea(l) : ''), description])) fail(l.n, c);
+    for (const x of [intro, description, ...notes]) if (T.UNTAUGHT.test(x)) fail(l.n, `a word course 1 does not teach: "${x}"`);
     games.push({
-      name: `${String(k + 1).padStart(2, '0')}. ${T.LESSONS[p.id].title} (${j + 1}/${own.length})`,
+      name,
       description,
       fen: l.fen,
       intro: [formatMarks(introMarks), intro].filter(Boolean).join(' '),
@@ -140,6 +168,7 @@ PHASES.forEach((p, k) => {
     });
   });
 });
+for (const name of taught.keys()) if (!usedTeaching.has(name)) problems.push(`teaching.md: "${name}" is no line of the course`);
 for (const p of problems) console.log('PROBLEM', p);
 if (problems.length) {
   console.error(`pgnout: ${problems.length} problem(s), the course was not written`);
