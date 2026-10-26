@@ -210,11 +210,11 @@ wide they are:
   pages its pawn moves lead to and the tables its captures and promotions lead to. Each worker opens the file and
   writes the slices it solves; as many slices are solved at once as their working memory (values, longest exits,
   counters: 2 x width + 1 bytes per slot) fits in 60% of the memory less the page cache.
-- **Cache format 2** (`../cache.cjs`): a 64-bit count in the header, so every table cached by an older version
-  is stale (rebuilt when needed; `npm run kit:cache -- prune` deletes the old files). Temporary files carry
-  the process number: `kit:cache list` shows one left by a killed build, `prune` deletes it once that process
-  is gone. Without `KIT_CACHE` a table on disk goes to a scratch directory in the system's temporary directory
-  (`TMPDIR`), deleted when the process ends.
+- **Cache format 2** (`../cache.cjs`): a 64-bit count in the header, so every table cached by an older version is
+  stale (rebuilt when needed; `npm run kit:cache -- prune` deletes the old files). Temporary files carry the
+  process number: `kit:cache list` shows one left by a killed build, `prune` deletes it once that process is
+  gone. Without `KIT_CACHE` a table on disk goes to a scratch directory in the system's temporary directory
+  (`TMPDIR`), deleted when the process exits (a killed process leaves it: `kit-scratch-*`).
 - **Probing**: `solver.cjs` takes FENs with up to six pieces.
 
 What six-piece endings need (`node .claude/skills/exact-solver-engineering/scripts/egtb-family.cjs <material>`
