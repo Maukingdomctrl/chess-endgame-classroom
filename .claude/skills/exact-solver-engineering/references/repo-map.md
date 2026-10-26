@@ -64,7 +64,8 @@ from six; the cache directory reached 12 GB in the five-piece work.
 
 Six pieces, built here to test the engine (four threads): K+N+N+N+N vs K 587 M slots in 246 s (260 s with
 its sub-tables), peak 4.0 GB, check 564 s; K+P+P+P+P vs K, promotion goal, 704 M slots in 97,428 slices in
-130 s (148 s), peak 1.9 GB, check 1045 s; from disk @@KPPPPK-DISK. The 74-table reference set from disk:
+130 s (148 s), peak 1.9 GB, check 1045 s; from disk 1978 s, peak 6.2 GB, byte-identical, a 1% sample
+checked on the table on disk. The 74-table reference set from disk:
 K+R+P vs K+R 148 s instead of 135 s, peak 4.5 GB instead of 4.0 GB; the promotion tables of K+P+P and
 K+P+P+P vs K 81 s instead of 12 s (thousands of tiny slices).
 

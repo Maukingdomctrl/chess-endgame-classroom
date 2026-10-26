@@ -61,7 +61,7 @@ capture or promotion leads to. Longest = the longest win in moves (to mate, or t
 | K+Q+Q vs K+R | 63 M | 42 s; 102 s on one thread | 1.0 GB; 0.6 GB | 35 (mate) |
 | K+B+B vs K+N, K+R+B vs K+R, goal conversion | 85 M, 153 M | 68-76 s for both | 1.7 GB | 66, 59 (to the conversion) |
 | K+N+N+N+N vs K (six pieces, two-byte values) | 430 M | 260 s (the table itself 246 s) | 4.0 GB | 18 (mate) |
-| K+P+P+P+P vs K, goal promotion (six pieces) | 586 M | 148 s (the table itself 130 s); from disk @@KPPPPK-DISK | 1.9 GB | 24 (to the promotion) |
+| K+P+P+P+P vs K, goal promotion (six pieces) | 586 M | 148 s (the table itself 130 s); from disk 2062 s (1978 s) | 1.9 GB; from disk 6.2 GB (page caches) | 24 (to the promotion) |
 
 For comparison, `solver.cjs`'s engine builds K+Q vs K+R in 13-15 s (the egtb engine: about 3 s on one thread)
 and K+P+P vs K with the promotion goal in 135-160 s (egtb: 1-3 s, without the mate tables it does not need).
@@ -250,7 +250,10 @@ How the six-piece code was tested on this machine:
   (430,151,371 positions: two-byte values, a group of four identical pieces, the threaded pawnless solve;
   0 values wrong, 0 mirror images not found, 564 s on four threads; longest mate 18 moves) and K+P+P+P+P vs K
   with the promotion goal (585,501,287 positions in 97,428 slices: four pawns; 0 wrong, 0 not found, 1045 s;
-  longest 24 moves to a safe promotion). @@KPPPPK-DISKCHECK
+  longest 24 moves to a safe promotion). Built again from disk on the workers (`EGTB_STORAGE=disk`), its
+  four tables are byte for byte the same, and the checker on a 1% sample of the table on disk (5,860,024
+  positions, read through the page cache) finds nothing wrong. From disk the build took 1978 s instead of
+  130 s (see "Limits").
 - The layout of ten six-piece materials (up to 4.5 x 10^10 slots) finds every decoded position again, and
   the retrograde update of a group of four agrees with the combination index on 20,000 random unmoves.
 - Node holds typed arrays past 2^32 elements (a Uint16Array of 5 x 10^9 values, atomics at index
@@ -265,6 +268,9 @@ ran only when forced; a family on a big machine, its memory use and its time.
 - A pawnless table is solved in memory: five bytes per slot for six pieces. It cannot be cut into independent
   domains as a pawn table is (every piece move is reversible); solving it from disk would take another
   algorithm (predecessor updates collected, sorted by index, applied while streaming the values). Not done.
+- Solving from disk costs little when slices are big (K+R+P vs K+R: 148 s instead of 135 s) and a lot when
+  a table has thousands of tiny ones: K+P+P+P+P vs K (97,428 slices of 7,224 slots) took 1978 s instead of
+  130 s. @@PROFILE-README
 - The memory settings are separate fractions of the machine (tables kept in memory `EGTB_MEMORY` 60%, page
   cache `EGTB_PAGE_CACHE` 25%, slices at once 60% less the page cache), not one plan: on a big machine set
   them so that the tables a build keeps in memory, the page cache and the slices fit together.
