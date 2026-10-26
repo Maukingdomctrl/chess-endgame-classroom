@@ -15,8 +15,8 @@ table('KRKRP');            // the same table seen with the colours swapped (flip
 ```
 
 ```bash
-npm run kit:test5                                   # unit tests (a minute with the cache, a few without)
-npm run kit:test5 -- --budget                       # the same with a 1 MB memory budget: tables dropped and read back
+npm run kit:test5                                   # unit tests (about 11 minutes)
+npm run kit:test5 -- --budget                       # 1 MB memory and page budgets: tables dropped, read back, on disk
 npm run kit:selftest5                               # the full check, see "How it is checked" (-- --quick, --heavy, --all, --parts 2,3)
 npm run kit:check5 -- KRBKR                         # the independent checker on every position of a table
 npm run kit:bench5 -- KRPKR                         # build a table and its sub-tables: time, memory, contents
