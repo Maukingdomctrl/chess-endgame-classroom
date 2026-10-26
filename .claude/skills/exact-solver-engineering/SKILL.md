@@ -1,6 +1,6 @@
 ---
 name: exact-solver-engineering
-description: The workflow for extending, speeding up or re-architecting an exact solver without giving up exactness - inspect the architecture, baseline, size the target, profile, implement in gated increments, verify independently (a second implementation, a checker that shares no code, external references, mutation tests), benchmark, manage memory and caching, run regressions, document the limits. Learned growing the Endgame Classroom's four-piece solver into the five-piece egtb engine. Use it whenever a task touches tools/course-kit/solver.cjs, tools/course-kit/egtb/, the pawn oracle, cache.cjs or table generation - six pieces, a new goal or metric, new materials or rules, faster or leaner builds, threads, a new checker - and for any other computation whose answers must be exactly right (tablebases, retrograde analysis, exhaustive search, game or puzzle solvers), even when the request only says "make it faster" or "support X".
+description: The workflow for extending, speeding up or re-architecting an exact solver without giving up exactness - inspect the architecture, baseline, size the target, profile, implement in gated increments, verify independently (a second implementation, a checker that shares no code, external references, mutation tests), benchmark, manage memory and caching, run regressions, document the limits. Learned growing the Endgame Classroom's four-piece solver into the five-piece egtb engine, then taking it to six pieces. Use it whenever a task touches tools/course-kit/solver.cjs, tools/course-kit/egtb/, the pawn oracle, cache.cjs or table generation - six pieces, a new goal or metric, new materials or rules, faster or leaner builds, threads, a new checker - and for any other computation whose answers must be exactly right (tablebases, retrograde analysis, exhaustive search, game or puzzle solvers), even when the request only says "make it faster" or "support X".
 ---
 
 # Extending an exact solver without losing exactness
@@ -8,9 +8,10 @@ description: The workflow for extending, speeding up or re-architecting an exact
 This is how the course-kit's four-piece endgame solver became the five-piece `egtb` engine: K+Q vs K+R built in
 3 s instead of 13-15 s, K+Q+Q vs K+R taken from 265 s to 42 s in five measured rounds, families of 1.5 G
 positions in under six minutes on four cores, every value of the big tables proved by a checker that shares no
-code with the engine, and not one byte of the built-in courses changed. Follow the same order for the next
-step (six pieces, a new goal, new rules, a faster or leaner build), and for any exact computation where a
-wrong answer is worse than a slow one.
+code with the engine, and not one byte of the built-in courses changed. The same order then took the engine to
+six pieces (an index past 2^32, two-byte values, solving from disk) without changing a byte of its five-piece
+tables. Follow it for the next step (a new goal, new rules, a faster or leaner build, bigger tables), and for
+any exact computation where a wrong answer is worse than a slow one.
 
 The idea behind every step: **a result is exactly as trustworthy as the evidence that it is right**, and that
 evidence has to come from something that cannot share the code's mistakes. Speed, memory and convenience are
@@ -52,9 +53,9 @@ checked against them:
   (`grep -rn "\.val\b\|\.size\b\|\.decode(\|\.index(" tools/`). Here two course generators walk `T.val` in
   index order, so the classic tables had to keep their layout and order, not just their values; the course
   regression compares the generated PGNs byte for byte.
-- **Hard limits.** Index width (2^32), value range (one byte: 254 plies), RAM and cores (`free -g`,
-  `nproc`), the disk allowance, the platform's array limits (probe them: `node -e "new Uint8Array(3e9)"`),
-  the environment's time limits for commands.
+- **Hard limits.** Index width (the five-piece engine's: 2^32), value range (one byte: 254 plies), RAM and
+  cores (`free -g`, `nproc`), the disk allowance, the platform's array limits (probe them: `node -e "new
+  Uint16Array(5e9)"` works in Node 22), the environment's time limits for commands.
 - **Existing independent references.** Anything that computes the same thing another way (chess.js, the K+P
   solver, the pawn oracle, published maxima). They become verification layers.
 - **The seam.** The five-piece work kept `solver.cjs` byte-for-byte for the materials it already served and
@@ -63,7 +64,8 @@ checked against them:
   implementations that share no code. Prefer such a seam to a rewrite.
 
 Generalise the core data structures (the index takes any number of pieces, groups of identical pieces,
-pawn slices) but not the features: nothing was built for six pieces, and nothing blocks them.
+pawn slices) but not the features: nothing was built for six pieces in the five-piece work, and the six-piece
+step then changed where values live and how wide they are, not the layout or the algorithm.
 
 ### 2. Baseline
 
@@ -126,6 +128,22 @@ order used for the five-piece engine:
    families (K+R+P vs K+R); published maxima.
 7. Unit tests of everything, the course regression, lint and a read-through of the engine; freeze the producer
    files (step 9); then tools, views and documentation in other files.
+
+The six-piece step, the same way (each gate against tables built by a pristine worktree of the base commit,
+74 of them, compared byte for byte by a scratch script):
+
+1. Each domain (a pawnless table, one slice) solved on its own values with local indexes: byte-identical.
+2. Two-byte values (`EGTB_WIDTH=2`): the same values (compared by value, the files differ in width).
+3. Indexes past 2^32, cache format 2 (64-bit count): six-piece layouts find every decoded position again,
+   up to 4.5 x 10^10 slots.
+4. Four identical pieces: the group's retrograde update agrees with the combination index on 20,000 random
+   unmoves; K+N+N+N+N vs K built and checked on every position.
+5. Solving from disk, slice by slice, on one thread and on the workers, and 64-bit position lists: byte-identical
+   to the in-memory build.
+6. Review, lint, freeze; then the whole reference set again by default and from disk, two real six-piece
+   tables built and checked, every suite. A six-piece ending worth a lesson does not fit the 16 GB machine
+   (K+R+P vs K+R+P's family: 559 G slots, 1.1 TB), so the engine was the deliverable and the smallest
+   six-piece tables the real test: say so rather than implying more.
 
 Keep the new engine self-contained: at first it borrowed the old engine's sub-tables, which made the
 comparison partly circular and made K+P vs K+P take 251 s; building its own took it to 54 s and made the
@@ -267,6 +285,9 @@ skipped is reported as skipped.
 | Background check killed at 30 minutes | missing results | `--parts`, explicit timeouts |
 | Engine edits after the big builds (memory budget, overflow fix, a lint fix) invalidated gigabytes of cached tables | an unexpectedly long rerun | lint and review first, then freeze the producer files |
 | Illegal FEN in a header; wrong depth, ratio, speed and size in the README | running every example, re-measuring | examples run, numbers from the final runs |
+| A per-call value width: the workers know tables by material and goal, so two widths of one table would have shared one worker table | reviewing the six-piece diff before freezing | one width per material per run |
+| Two processes saving one table shared one temporary file | review | per-process names; `kit:cache prune` deletes those of dead processes |
+| A pawnless table put on disk would be solved into a scratch array and never written (all draws) | review: `solve()` threw, the threaded solve did not | both throw (no rule puts one there yet) |
 
 ## Files of this skill
 
@@ -274,12 +295,13 @@ skipped is reported as skipped.
 `../../.claude/skills/exact-solver-engineering` from `apps/endgame-classroom`, where the npm scripts run.
 
 - `references/repo-map.md`: this repository's engines, contracts, test matrix and times, measured costs,
-  knobs, cache identity, and what six pieces would change. Read it before planning work here.
+  knobs, cache identity, and the six-piece design with what is left to do. Read it before planning work here.
 - `references/verification.md`: designing the independent checker, the induction argument, mutation tests,
   what each layer caught, how to word verification claims. Read it when adding a goal, rule or table kind.
 - `references/performance.md`: the profiling recipe, the optimisation rounds with their measured gains, the
   parallel design, memory and benchmarks. Read it before optimising.
-- `scripts/egtb-family.cjs`: every table a build needs, with sizes and totals, without solving anything.
+- `scripts/egtb-family.cjs`: every table a build needs, with sizes, bytes, memory or disk and the memory each
+  solve needs, and totals, without solving anything.
 - `scripts/egtb-phases.cjs`: phase times and per-unit costs of a build, per table (one thread, no cache).
 - `scripts/measure.py`: wall time, CPU time and peak memory of any command, optionally logged as JSON lines.
 - `scripts/cpuprofile-top.cjs`: summarises `node --cpu-prof` output by function and line (`--under fn`).

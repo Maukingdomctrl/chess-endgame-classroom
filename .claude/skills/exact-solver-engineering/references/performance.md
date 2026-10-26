@@ -102,9 +102,14 @@ without sharing any code with the engine. Plan for checks of five to nine times 
 
 ## 6. Memory
 
-- One byte per position (depth + 1, 0 = draw); overflow throws. K+R+P vs K+R: 710 M slots, 677 MB.
-- Probe the platform's limits before designing storage: `Uint8Array(3e9)` and `SharedArrayBuffer(2.5e9)`
-  work in Node 22 here; the index is limited to 2^32 by its `Uint32Array` frontiers.
+- One byte per position up to five pieces, two from six (depth + 1, 0 = draw); overflow throws. K+R+P vs
+  K+R: 710 M slots, 677 MB.
+- Probe the platform's limits before designing storage: `Uint8Array(3e9)`, `SharedArrayBuffer(2.5e9)` and
+  `Uint16Array(5e9)` (atomics at index 4,999,999,999 included) work in Node 22 here. The five-piece index was
+  limited to 2^32 by its `Uint32Array` frontiers; the six-piece engine keeps them per domain with local
+  indexes, 32-bit unless a domain passes 2^32 slots (then `Float64Array`), and the index itself in plain
+  numbers. 64-bit lists cost about a quarter more time on the small tables tried (forced with
+  `EGTB_LIST64=1`).
 - Working state only where it is needed: counters and frontiers per domain (one slice for pawn tables), per
   thread. Tables and counters on `SharedArrayBuffer`, attached to workers once.
 - A budget for the tables kept in memory (`EGTB_MEMORY`, default 60% of RAM, at least 2 GB) with

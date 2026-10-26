@@ -1,8 +1,8 @@
 // Exact endgame solver for any material with up to 6 pieces (the two kings and up to four more, either
-// colour, pawns included), by retrograde analysis. Six pieces need a big machine: a six-piece table is solved
-// slice by slice from disk (egtb/README.md, "Six pieces"), and its family takes hundreds of gigabytes. Builds a table of distance to mate (DTM) for every
-// position; a capture or a promotion leads into another table (fewer pieces, or the promoted piece),
-// which is built on first use. Not covered: castling and the fifty-move rule.
+// colour, pawns included), by retrograde analysis. A six-piece ending worth a lesson needs a big machine: its
+// family takes hundreds of gigabytes (egtb/README.md, "Six pieces"). Builds a table of distance to mate (DTM)
+// for every position; a capture or a promotion leads into another table (fewer pieces, or the promoted
+// piece), which is built on first use. Not covered: castling and the fifty-move rule.
 //
 // This file builds the tables with up to 4 pieces and pawns on one side at most, exactly as it always has
 // (the courses depend on these tables and their order). Every other material (five and six pieces, and pawns

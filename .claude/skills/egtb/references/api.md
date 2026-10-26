@@ -124,3 +124,7 @@ uses all of this end to end.
 | `EGTB_THREADS=n` | worker threads (default: cores, at most 8); `1` = none |
 | `EGTB_PARALLEL_FROM=n` | index size from which workers are used (default 4 M slots) |
 | `EGTB_MEMORY=MB` | with the cache on, a soft cap on the tables kept in memory (default 60% of RAM, at least 2 GB); tables in use always stay |
+| `EGTB_STORAGE=disk\|memory` | where pawn tables are kept while solved and probed (default: on disk only when their values take more than half of `EGTB_MEMORY`, i.e. six pieces); pawnless tables are always in memory |
+| `EGTB_PAGE_CACHE=MB` | pages of tables on disk kept in memory (default a quarter of RAM, shared out among the worker threads) |
+| `EGTB_WIDTH=1\|2` | bytes per stored value for every table (default 1 up to five pieces, 2 from six; tests) |
+| `EGTB_LIST64=1` | 64-bit position lists even for small domains (tests; they are used anyway past 2^32 slots) |
