@@ -11,7 +11,8 @@ process.env.EGTB_PARALLEL_FROM ??= '1';
 const budget = process.argv.includes('--budget');
 if (budget) {
   const tmp = require('fs').mkdtempSync(require('path').join(require('os').tmpdir(), 'egtb-budget-'));
-  Object.assign(process.env, { KIT_CACHE: tmp, EGTB_MEMORY: '1' }); // read when index.cjs is loaded
+  // read when index.cjs is loaded; the page cache of tables on disk (store.cjs) gets 1 MB too
+  Object.assign(process.env, { KIT_CACHE: tmp, EGTB_MEMORY: '1', EGTB_PAGE_CACHE: '1' });
   process.on('exit', () => require('fs').rmSync(tmp, { recursive: true, force: true }));
 }
 const { Chess } = require('chess.js');

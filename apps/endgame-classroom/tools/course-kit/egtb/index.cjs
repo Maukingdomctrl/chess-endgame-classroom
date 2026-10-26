@@ -51,12 +51,13 @@ function resolveFor(from, name, goal) {
 }
 
 /**
- * The solved table of a material. opts.goal: 'mate' (default), 'promotion' or 'conversion'; opts.width: bytes
- * per value (default: 1 up to five pieces, 2 from six).
+ * The solved table of a material. opts.goal: 'mate' (default), 'promotion' or 'conversion'. Its values take
+ * widthOf(name) bytes, the same for every table of the material in a run (the worker threads know a table by
+ * its material and goal).
  */
 function table(name, opts = {}) {
   name = normalise(name);
-  const goal = opts.goal ?? 'mate', width = opts.width ?? widthOf(name);
+  const goal = opts.goal ?? 'mate', width = widthOf(name);
   const key = `${name}:${goal}${width === 2 ? ':w2' : ''}`;
   let T = tables.get(key);
   if (T) { tables.delete(key); tables.set(key, T); return T; } // most recently used

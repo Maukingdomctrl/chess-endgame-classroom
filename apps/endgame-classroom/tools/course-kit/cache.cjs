@@ -90,13 +90,14 @@ function save(producer, key, values) {
   h.writeUInt32LE(Math.floor(values.length / 2 ** 32), 80);
   const file = fileOf(producer, key);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  const fd = fs.openSync(`${file}.tmp`, 'w');
+  const tmp = `${file}.${process.pid}.tmp`; // per process: two processes saving one table never share a file
+  const fd = fs.openSync(tmp, 'w');
   try {
     fs.writeSync(fd, h, 0, h.length, 0);
     const bytes = new Uint8Array(values.buffer, values.byteOffset, values.byteLength);
     for (let at = 0; at < bytes.length; at += CHUNK) fs.writeSync(fd, bytes, at, Math.min(CHUNK, bytes.length - at), HEAD + at);
   } finally { fs.closeSync(fd); }
-  fs.renameSync(`${file}.tmp`, file);
+  fs.renameSync(tmp, file);
 }
 
 /**
@@ -122,7 +123,7 @@ let scratch = null;
 function scratchDir() {
   if (!scratch) {
     scratch = fs.mkdtempSync(path.join(require('os').tmpdir(), 'kit-scratch-'));
-    process.on('exit', () => { try { fs.rmSync(scratch, { recursive: true, force: true }); } catch (e) { /* gone */ } });
+    process.on('exit', () => { try { fs.rmSync(scratch, { recursive: true, force: true }); } catch { /* gone */ } });
   }
   return scratch;
 }
@@ -134,7 +135,7 @@ function scratchDir() {
 function createWrite(producer, key, count, bytes) {
   const final = dir() ? fileOf(producer, key) : path.join(scratchDir(), `${producer}-${key.replace(/[^\w-]/g, '-')}.bin`);
   fs.mkdirSync(path.dirname(final), { recursive: true });
-  const tmp = `${final}.tmp`;
+  const tmp = `${final}.${process.pid}.tmp`; // per process: two builds of one table never share a file
   const h = Buffer.concat([Buffer.from('KITC', 'latin1'), Buffer.alloc(4), pad(producer, 16), pad(identity(producer), 16), pad(key, 32), Buffer.alloc(16)]);
   h.writeUInt32LE(FORMAT, 4);
   h.writeUInt32LE(bytes, 72);
@@ -145,7 +146,7 @@ function createWrite(producer, key, count, bytes) {
   return {
     file: tmp, offset: HEAD,
     commit() { fs.renameSync(tmp, final); return final; },
-    abort() { try { fs.unlinkSync(tmp); } catch (e) { /* gone */ } },
+    abort() { try { fs.unlinkSync(tmp); } catch { /* gone */ } },
   };
 }
 
@@ -165,18 +166,37 @@ function entries() {
   });
 }
 
-module.exports = { load, save, openRead, createWrite, scratchDir, identity, entries, dir, FORMAT, PRODUCERS };
+/**
+ * Temporary files in the cache directory ("<entry>.<pid>.tmp": a save or a build on disk in progress, or left
+ * by a process that died): { file, size, pid, alive }. A six-piece build killed midway leaves one of tens of
+ * gigabytes.
+ */
+function leftovers() {
+  const d = dir();
+  if (!d || !fs.existsSync(d)) return [];
+  return fs.readdirSync(d).filter((f) => /\.\d+\.tmp$/.test(f)).map((f) => {
+    const file = path.join(d, f), pid = +f.match(/\.(\d+)\.tmp$/)[1];
+    let alive = true;
+    try { process.kill(pid, 0); } catch (e) { alive = e.code !== 'ESRCH'; }
+    return { file, size: fs.statSync(file).size, pid, alive };
+  });
+}
+
+module.exports = { load, save, openRead, createWrite, scratchDir, identity, entries, leftovers, dir, FORMAT, PRODUCERS };
 
 if (require.main === module) {
   const cmd = process.argv[2] ?? 'list';
   if (!dir()) { console.log('KIT_CACHE is not set: caching is off (KIT_CACHE=1 uses tools/.kit-cache).'); process.exit(0); }
-  const all = entries();
+  const all = entries(), tmp = leftovers();
   const mb = (n) => `${(n / 1048576).toFixed(1)} MB`;
   if (cmd === 'list') {
     for (const e of all) console.log(`${e.current ? 'current' : 'STALE  '}  ${e.producer.padEnd(7)} ${e.key.padEnd(20)} ${mb(e.size).padStart(9)}  ${path.basename(e.file)}`);
-    console.log(`${all.length} file(s), ${mb(all.reduce((s, e) => s + e.size, 0))} in ${dir()}; ${all.filter((e) => !e.current).length} stale`);
+    for (const t of tmp) console.log(`${t.alive ? 'writing' : 'LEFT   '}  (process ${t.pid}${t.alive ? '' : ', gone'}) ${mb(t.size).padStart(9)}  ${path.basename(t.file)}`);
+    console.log(`${all.length} file(s), ${mb(all.reduce((s, e) => s + e.size, 0))} in ${dir()}; ${all.filter((e) => !e.current).length} stale` +
+      (tmp.length ? `; ${tmp.length} temporary, ${tmp.filter((t) => !t.alive).length} left by a process that is gone` : ''));
   } else if (cmd === 'prune' || cmd === 'clear') {
-    const gone = all.filter((e) => cmd === 'clear' || !e.current);
+    // temporary files only of processes that are gone: a live one is still writing
+    const gone = [...all.filter((e) => cmd === 'clear' || !e.current), ...tmp.filter((t) => !t.alive)];
     for (const e of gone) fs.unlinkSync(e.file);
     console.log(`removed ${gone.length} file(s), ${mb(gone.reduce((s, e) => s + e.size, 0))}`);
   } else { console.error('usage: node tools/course-kit/cache.cjs [list|prune|clear]'); process.exit(2); }

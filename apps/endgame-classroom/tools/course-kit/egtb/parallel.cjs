@@ -39,7 +39,9 @@ class Pool {
     this.signal = new Int32Array(new SharedArrayBuffer(4));
     this.workers = [];
     this.attached = new Set();
-    const pageBudget = (+process.env.EGTB_PAGE_CACHE || os.totalmem() / 4 / 1048576) * 1048576 / n;
+    // the page cache of tables on disk (store.cjs), shared out among the workers
+    this.pageBudget = (+process.env.EGTB_PAGE_CACHE || os.totalmem() / 4 / 1048576) * 1048576;
+    const pageBudget = this.pageBudget / n;
     for (let i = 0; i < n; i++) {
       const { port1, port2 } = new MessageChannel();
       const w = new Worker(__filename, { workerData: { egtbWorker: true, port: port2, signal: this.signal, pageBudget }, transferList: [port2] });
@@ -118,9 +120,10 @@ function solveParallel(T, P) {
   const add = (r) => { T.stats.positions += r.positions; T.stats.unmoves += r.unmoves; if (r.maxLevel > T.stats.maxLevel) T.stats.maxLevel = r.maxLevel; T.stats.domains += r.domains ?? 0; T.stats.forwardMs += r.forwardMs ?? 0; T.stats.retroMs += r.retroMs ?? 0; };
   if (T.pawns) {
     // waves of slices with the same advancement, most advanced first; as many slices at once as their working
-    // memory allows (values, counters, longest exits: a six-piece slice can take gigabytes)
+    // memory (values, counters, longest exits: a six-piece slice can take gigabytes) fits in 60% of the memory
+    // less the workers' page cache
     const sliceBytes = 2 * T.layout.local * (2 * T.width + 1);
-    const cap = Math.max(1, Math.floor((0.6 * os.totalmem()) / sliceBytes));
+    const cap = Math.max(1, Math.floor((0.6 * os.totalmem() - P.pageBudget) / sliceBytes));
     for (let a = 0; a < ds.length;) {
       let b = a;
       while (b < ds.length && ds[b].adv === ds[a].adv) b++;
@@ -129,6 +132,7 @@ function solveParallel(T, P) {
     }
   } else {
     // one domain (d.lo = 0): the lists hold local indexes, typed by the domain size
+    if (T.store) throw new Error(`${T.name}: a pawnless table is solved in memory (one domain)`);
     const d = ds[0], size = d.hi - d.lo, L = T.layout;
     const { Schedule, List, listType } = require('./engine.cjs');
     const LT = listType(size);
