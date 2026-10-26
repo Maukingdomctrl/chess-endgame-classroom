@@ -264,6 +264,42 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
   }
 }
 
+// ---- 4e. the page cache (store.cjs) gives back every value as stored, with a budget of five pages: pages are
+// dropped and read back all the time (the clock eviction, its second chances), and a page written by a builder
+// replaces the cached one. ----
+{
+  const fs = require('fs'), os = require('os'), path = require('path');
+  const store = require('./store.cjs');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'egtb-pages-')), file = path.join(dir, 'values.bin');
+  const count = 100003, page = 1000, offset = 88;
+  const want = Uint16Array.from({ length: count }, (_, i) => (i * 2654435761) % 65521);
+  fs.writeFileSync(file, Buffer.concat([Buffer.alloc(offset), Buffer.from(want.buffer)]));
+  store.setBudget(5 * page * 2);
+  const v = new store.PagedValues({ file, offset, count, width: 2, page });
+  const dropped0 = store.stats.dropped, hits0 = store.stats.hits;
+  let bad = 0;
+  const hot = [7, 50, 99];
+  for (let t = 0; t < 300000; t++) {
+    const i = t % 10 < 7 ? hot[rnd(3)] * page + rnd(page) : rnd(count); // mostly three hot pages, else anywhere
+    if (v.get(i) !== want[i]) bad++;
+  }
+  for (const [base, a] of v.pageList()) for (let j = 0; j < a.length; j++) if (a[j] !== want[base + j]) bad++;
+  const dropped = store.stats.dropped - dropped0, hits = store.stats.hits - hits0;
+  // a builder's page replaces the one in the cache; a new reader sees it on disk
+  const w = new store.PagedValues({ file, offset, count, width: 2, page, writable: true });
+  w.get(3 * page); // page 3 now in the cache
+  const fresh = Uint16Array.from({ length: page }, (_, j) => j + 1);
+  w.putPage(3, fresh);
+  const r = new store.PagedValues({ file, offset, count, width: 2, page });
+  const written = w.get(3 * page + 10) === 11 && r.get(3 * page + 10) === 11 && r.get(4 * page) === want[4 * page];
+  v.close(); w.close(); r.close();
+  const released = [v, w, r].every((s) => s.cached.every((a) => a === null));
+  store.setBudget((+process.env.EGTB_PAGE_CACHE || os.totalmem() / 4 / 1048576) * 1048576);
+  fs.rmSync(dir, { recursive: true, force: true });
+  check(!bad && dropped > 1000 && hits > 1000 && written && released,
+    `page cache: 300,000 reads and a full scan under a five-page budget give the stored values (${bad} wrong; ${dropped} pages dropped, ${hits} hits); a written page replaces the cached one`);
+}
+
 // ---- 5. en passant ----
 {
   // the first position (search order) after White's double step where the capture en passant changes Black's

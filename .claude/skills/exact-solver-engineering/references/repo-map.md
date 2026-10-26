@@ -126,7 +126,7 @@ Changed (the egtb README, "Six pieces", has the details):
   and schedules stay `Uint32Array` unless a domain passes 2^32 slots (`Float64Array`, exact to 2^53). A
   predecessor outside the domain throws.
 - Storage: a pawn table bigger than half the memory budget lives in its cache file, built slice by slice
-  (`store.cjs`: one page = one slice, a global least-recently-used page cache); workers open the file and
+  (`store.cjs`: one page = one slice, a global page cache with clock eviction); workers open the file and
   write their slices; pawnless tables stay in memory (one domain).
 - Cache format 2 (64-bit count), per-process temporary files.
 

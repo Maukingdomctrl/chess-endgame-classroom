@@ -288,6 +288,7 @@ skipped is reported as skipped.
 | A per-call value width: the workers know tables by material and goal, so two widths of one table would have shared one worker table | reviewing the six-piece diff before freezing | one width per material per run |
 | Two processes saving one table shared one temporary file | review | per-process names; `kit:cache prune` deletes those of dead processes |
 | A pawnless table put on disk would be solved into a scratch array and never written (all draws) | review: `solve()` threw, the threaded solve did not | both throw (no rule puts one there yet) |
+| Building from disk was 15 times slower than in memory for a table of 97,428 tiny slices | profiling (86% on the page cache's exact-LRU line), then a micro-benchmark of `Map` re-insertion against map size | clock eviction, a page table per store: 376 s down to 36 s on one thread (33 s in memory) |
 
 ## Files of this skill
 

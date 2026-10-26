@@ -202,7 +202,7 @@ wide they are:
 - **Solving from disk** (`store.cjs`): a pawn table whose values take more than half the memory budget
   (`EGTB_MEMORY`; `EGTB_STORAGE=disk|memory` forces the choice) is built slice by slice into a temporary file
   in the cache directory, each solved slice written as one page, and renamed into place when complete. It is
-  read in pages through a least-recently-used page cache (`EGTB_PAGE_CACHE` in MB, default a quarter of the
+  read in pages through a page cache (clock eviction, close to least recently used; `EGTB_PAGE_CACHE` in MB, default a quarter of the
   memory, shared out among the worker threads). A solve holds the slice it works on, the pages its pawn moves
   lead to and the tables its captures and promotions lead to. Each worker opens the file and writes the
   slices it solves; as many slices are solved at once as their working memory (values, longest exits,
