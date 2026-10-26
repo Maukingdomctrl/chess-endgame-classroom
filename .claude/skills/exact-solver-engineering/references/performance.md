@@ -121,6 +121,13 @@ without sharing any code with the engine. Plan for checks of five to nine times 
 - Measure the peak, not the average: `VmHWM` in `/proc/self/status` at the end of a run (`bench.cjs`), or
   `scripts/measure.py` for any command. K+R+P vs K+R with its family: 3.2 GB; K+N+N vs K+P with its family:
   2.2 GB; K+Q+Q vs K+R: 1.0 GB on four threads, 0.6 GB on one.
+- When the values outgrow the memory (six pieces), keep the unit of work the unit of storage: a pawn slice is
+  solved alone (its pawn moves lead to slices already solved), so it is one page of the file, written once
+  when solved and read through a least-recently-used page cache afterwards. Measured on the 74-table
+  reference set solved from disk on four threads: K+R+P vs K+R 148 s instead of 135 s in memory, peak
+  memory 4.5 GB instead of 4.0 GB; but tables of thousands of tiny slices (K+P+P+P vs K: 7,224 slots per
+  slice) pay a per-lookup cost when moves alternate between pages: the promotion tables of K+P+P and
+  K+P+P+P vs K took 81 s instead of 12 s. @@PROFILE
 
 ## 7. Caching
 

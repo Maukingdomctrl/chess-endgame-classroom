@@ -234,7 +234,13 @@ These are estimates: nothing of that size was built.
 
 How the six-piece code was tested on this machine:
 
-- @@GATES
+- The reference set, 74 tables (the families of K+R+P vs K+R, K+N+N vs K+P, K+Q+Q vs K+R, K+N+N+N vs K,
+  K+B+N vs K, the conversion tables of K+Q vs K+R, K+R vs K+P and K+P vs K+P, the promotion tables of
+  K+P+P and K+P+P+P vs K, and every table they lead to), built by this engine with the default settings and
+  again solved from disk on the worker threads (`EGTB_STORAGE=disk`), is byte for byte what the five-piece
+  engine before the six-piece changes builds (a pristine copy of that commit built the reference). From
+  disk K+R+P vs K+R took 148 s instead of 135 s, peak memory 4.5 GB instead of 4.0 GB; tables of many tiny
+  slices pay more (the promotion tables of K+P+P and K+P+P+P vs K: 81 s instead of 12 s).
 - `kit:test5`, "storage and widths change nothing": six tables (mate, conversion and promotion goals, with
   and without pawns) built in memory on one thread, on disk on one thread and on the workers, with two-byte
   values and with 64-bit lists, each in a fresh process, hold the same values.
