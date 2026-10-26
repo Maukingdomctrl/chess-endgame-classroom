@@ -60,6 +60,8 @@ capture or promotion leads to. Longest = the longest win in moves (to mate, or t
 | K+N+N vs K+P, with its four promotion tables | 279 M (0.83 G) | 131 s | 2.2 GB | 115 (mate) |
 | K+Q+Q vs K+R | 63 M | 42 s; 102 s on one thread | 1.0 GB; 0.6 GB | 35 (mate) |
 | K+B+B vs K+N, K+R+B vs K+R, goal conversion | 85 M, 153 M | 68-76 s for both | 1.7 GB | 66, 59 (to the conversion) |
+| K+N+N+N+N vs K (six pieces, two-byte values) | 430 M | 260 s (the table itself 246 s) | 4.0 GB | 18 (mate) |
+| K+P+P+P+P vs K, goal promotion (six pieces) | 586 M | 148 s (the table itself 130 s); from disk @@KPPPPK-DISK | 1.9 GB | 24 (to the promotion) |
 
 For comparison, `solver.cjs`'s engine builds K+Q vs K+R in 13-15 s (the egtb engine: about 3 s on one thread)
 and K+P+P vs K with the promotion goal in 135-160 s (egtb: 1-3 s, without the mate tables it does not need).
@@ -222,8 +224,8 @@ lists every table of a family with its size, bytes, storage and the memory its s
 | K+N+N+N vs K+P | 7.2 G | 23 (5), 18 G | 35 GB | K+N+N+N vs K+Q: 12 GB |
 | K+R+R vs K+N+N, K+Q+Q vs K+R+R, K+B+B vs K+N+N | 3.8 G | 8 (1), 4 G | 8 GB | the table itself: 19 GB |
 | K+P+P vs K+P+P | 4.2 G | 440 (225), 4.8 T | 9.6 TB | 78 GB |
-| K+N+N+N+N vs K | 0.59 G | 4 (1), 0.63 G | 1.2 GB | 2.9 GB: built and checked here |
-| K+P+P+P+P vs K, goal promotion | 0.70 G | 4 (1), 0.77 G | 1.5 GB | 1.4 GB: built and checked here |
+| K+N+N+N+N vs K | 0.59 G | 4 (1), 0.63 G | 1.2 GB | built and checked here: 260 s, peak 4.0 GB |
+| K+P+P+P+P vs K, goal promotion | 0.70 G | 4 (1), 0.77 G | 1.5 GB | built and checked here: 148 s, peak 1.9 GB |
 
 A pawnless six-piece table is one domain and is solved in memory, at five bytes per slot (two-byte values, the
 two-byte longest exits, a counter): K+Q+R vs K+Q+R (15.5 G slots) needs 78 GB, which sets the machine for
@@ -244,7 +246,11 @@ How the six-piece code was tested on this machine:
 - `kit:test5`, "storage and widths change nothing": six tables (mate, conversion and promotion goals, with
   and without pawns) built in memory on one thread, on disk on one thread and on the workers, with two-byte
   values and with 64-bit lists, each in a fresh process, hold the same values.
-- @@SIXPIECE
+- Two six-piece tables built and checked on every position by the independent checker: K+N+N+N+N vs K
+  (430,151,371 positions: two-byte values, a group of four identical pieces, the threaded pawnless solve;
+  0 values wrong, 0 mirror images not found, 564 s on four threads; longest mate 18 moves) and K+P+P+P+P vs K
+  with the promotion goal (585,501,287 positions in 97,428 slices: four pawns; 0 wrong, 0 not found, 1045 s;
+  longest 24 moves to a safe promotion). @@KPPPPK-DISKCHECK
 - The layout of ten six-piece materials (up to 4.5 x 10^10 slots) finds every decoded position again, and
   the retrograde update of a group of four agrees with the combination index on 20,000 random unmoves.
 - Node holds typed arrays past 2^32 elements (a Uint16Array of 5 x 10^9 values, atomics at index

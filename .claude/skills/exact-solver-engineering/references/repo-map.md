@@ -62,7 +62,11 @@ Checker on every position (four threads; times vary up to 40% with other jobs ru
 On disk: one byte per index up to five pieces (KRPKR 677 MB; a pawnless five-piece table 114-231 MB), two
 from six; the cache directory reached 12 GB in the five-piece work.
 
-@@SIX-COSTS
+Six pieces, built here to test the engine (four threads): K+N+N+N+N vs K 587 M slots in 246 s (260 s with
+its sub-tables), peak 4.0 GB, check 564 s; K+P+P+P+P vs K, promotion goal, 704 M slots in 97,428 slices in
+130 s (148 s), peak 1.9 GB, check 1045 s; from disk @@KPPPPK-DISK. The 74-table reference set from disk:
+K+R+P vs K+R 148 s instead of 135 s, peak 4.5 GB instead of 4.0 GB; the promotion tables of K+P+P and
+K+P+P+P vs K 81 s instead of 12 s (thousands of tiny slices).
 
 Families that were sized and not built: K+R vs K+P+P (15 five-piece tables, 5 G positions), three pawns with
 the mate goal (35, 9.3 G), pawns against a pawn (K+P+P vs K+P: 75 tables, 28 G); with six pieces, K+R+P vs

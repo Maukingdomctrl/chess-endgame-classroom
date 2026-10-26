@@ -112,7 +112,16 @@ to build part of a table).
 
 ## 7. Six-piece tables built here
 
-@@SIX-ENDINGS
+Built and checked in October 2026 on the 16 GB machine, to test the six-piece engine (neither is an ending
+for a lesson):
+
+| Table | Slots / positions | Build (four threads) | Check, every position | Results |
+|---|---|---|---|---|
+| K+N+N+N+N vs K, mate | 587 M / 430,151,371 | 246 s (260 s with K+N+N+N vs K and smaller), peak 4.0 GB, 1.1 GB on disk | 564 s: 0 wrong, 0 mirror images not found | wins 178,275,611, draws 1,459,341, losses 250,416,419; longest mate 18 moves |
+| K+P+P+P+P vs K, promotion | 704 M in 97,428 slices / 585,501,287 | 130 s in memory (148 s with K+P+P+P vs K and smaller), peak 1.9 GB, 1.3 GB on disk; from disk @@KPPPPK-DISK | 1045 s: 0 wrong, 0 not found | wins 276,026,791, draws 253,758, losses 309,220,738; longest 24 moves to a safe promotion |
+
+K+N+N+N+N vs K checks the group of four identical pieces in the retrograde step and the threaded solve with
+two-byte values; K+P+P+P+P vs K checks four identical pawns in the slices. @@KPPPPK-DISKCHECK
 
 ## 8. Verified positions
 
