@@ -46,7 +46,8 @@ function imageOf(L, a, b) {
   const set = (sq, T) => [...sq].map((s, k) => `${L.col[k]}${L.typ[k]}@${T ? T[s] : s}`).sort().join();
   return syms.some((y) => set(a, SYM[y]) === set(b));
 }
-for (const name of ['KQKR', 'KRRK', 'KBBKN', 'KQQQK', 'KRPKR', 'KPPKP', 'KPPPK', 'KNNKP']) {
+// five pieces, and six (indexes past 2^32, four identical pieces): the layouts of tables not built here
+for (const name of ['KQKR', 'KRRK', 'KBBKN', 'KQQQK', 'KRPKR', 'KPPKP', 'KPPPK', 'KNNKP', 'KRPKRP', 'KQRPKR', 'KQRKRB', 'KRRKNN', 'KNNNNK', 'KPPPPK', 'KBPKNP']) {
   const L = new Layout(name);
   const sqs = new Int8Array(L.n), back = new Int8Array(L.n);
   let tried = 0, bad = 0;
@@ -59,6 +60,31 @@ for (const name of ['KQKR', 'KRRK', 'KBBKN', 'KQQQK', 'KRPKR', 'KPPKP', 'KPPPK',
     if (j < 0 || j >= L.size || L.decode(j, back) !== stm || !imageOf(L, sqs, back) || L.index(back, stm) !== j) bad++;
   }
   check(!bad && tried > 1000, `index ${name}: ${tried} random slots index to a slot with the same position or a mirror image (${bad} wrong); size ${L.size}, ${L.slices} slice(s)`);
+}
+// the retrograde step's index update for a group of four identical pieces (K+N+N+N+N vs K): moving a knight
+// back from t to f gives exactly the predecessor's slot (the formula of EgtbTable.retro, checked against
+// decode; no table of four identical pieces is small enough to build in the tests)
+{
+  const { c4, KNIGHT, KADJ } = require('./geometry.cjs');
+  const L = new Layout('KNNNNK');
+  const sqs = new Int8Array(L.n), dig = new Float64Array(L.mul.length), back = new Int8Array(L.n);
+  let n = 0, bad = 0;
+  for (let t = 0; t < 400000 && n < 20000; t++) {
+    const i = rnd(L.size);
+    const stm = L.decodeDigits(i, sqs, dig);
+    if (!L.valid(sqs) || KADJ[sqs[0] * 64 + sqs[1]] || L.index(sqs, stm) !== i) continue;
+    const gs = L.gStart[0], k = gs + rnd(4), to = sqs[k];
+    const fs = KNIGHT[to].filter((f) => !sqs.includes(f));
+    if (!fs.length) continue;
+    const f = fs[rnd(fs.length)];
+    const o1 = k === gs ? gs + 1 : gs, o2 = k <= gs + 1 ? gs + 2 : gs + 1, o3 = k === gs + 3 ? gs + 2 : gs + 3;
+    const pi = ((i - stm) / 2 + (c4(f, sqs[o1], sqs[o2], sqs[o3]) - dig[1]) * L.mul[1]) * 2 + (1 - stm);
+    L.decode(pi, back);
+    const want = Array.from(sqs); want[k] = f;
+    n++;
+    if (back[0] !== want[0] || back[1] !== want[1] || [...back.subarray(2, 6)].sort((x, y) => x - y).join() !== want.slice(2, 6).sort((x, y) => x - y).join()) bad++;
+  }
+  check(n > 1000 && !bad, `index KNNNNK: the group-of-four update gives the predecessor's slot in ${n} random unmoves (${bad} wrong)`);
 }
 
 // ---- 2. move generation against chess.js: the engine's and the checker's ----
@@ -188,13 +214,52 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
     if (!pool) { console.log(`skip threads: ${name}: one thread only (EGTB_THREADS), nothing to compare`); continue; }
     const P = new EgtbTable(name, 'mate', sub);
     P.prepareExits();
-    P.val = parallel.sharedZeros(Uint8Array, P.size);
+    P.val = parallel.sharedZeros(P.Values, P.size);
     parallel.solveParallel(P, pool);
     const S = new EgtbTable(name, 'mate', sub);
     S.prepareExits(); S.solve();
     parallel.detach([P]);
     check(Buffer.compare(Buffer.from(P.val.buffer, P.val.byteOffset, P.val.byteLength), Buffer.from(S.val.buffer)) === 0,
       `threads: ${name} solved on ${pool.size} worker threads equals the one-thread solve byte for byte`);
+  }
+}
+
+// ---- 4d. storage and widths change nothing: the same tables built in memory and on disk (one thread and the
+// worker threads), with two-byte values and with 64-bit lists, hold the same values. Each way is a separate
+// process (these are set when the engine loads), building from scratch (no disk cache): it prints a digest of
+// every table's values (as 16-bit numbers, so both widths compare). ----
+{
+  const { spawnSync } = require('child_process');
+  const specs = [['KPKP', 'mate'], ['KRKP', 'mate'], ['KQKR', 'mate'], ['KPKP', 'conversion'], ['KRKP', 'conversion'], ['KPPK', 'promotion']];
+  const code = `
+    const egtb = require(${JSON.stringify(require.resolve('./index.cjs'))});
+    const crypto = require('crypto'), out = {};
+    for (const [name, goal] of ${JSON.stringify(specs)}) {
+      const T = egtb.table(name, { goal }), h = crypto.createHash('sha1');
+      for (const [, v] of T.valuePages()) { const w = Uint16Array.from(v); h.update(Buffer.from(w.buffer)); }
+      out[name + ':' + goal] = h.digest('hex').slice(0, 16) + (T.store ? ' disk' : ' memory') + ' w' + T.width;
+    }
+    console.log(JSON.stringify(out));`;
+  const run = (env) => {
+    const e = { ...process.env, ...env };
+    delete e.KIT_CACHE;
+    const r = spawnSync(process.execPath, ['-e', code], { env: e, encoding: 'utf8' });
+    if (r.status !== 0) return { error: (r.stderr || '').split('\n').slice(-3).join(' ') };
+    return JSON.parse(r.stdout.trim().split('\n').pop());
+  };
+  const ways = [
+    ['in memory, one thread', { EGTB_STORAGE: 'memory', EGTB_THREADS: '1' }],
+    ['on disk, one thread', { EGTB_STORAGE: 'disk', EGTB_THREADS: '1' }],
+    ['on disk, worker threads', { EGTB_STORAGE: 'disk', EGTB_PARALLEL_FROM: '1' }],
+    ['two-byte values', { EGTB_WIDTH: '2', EGTB_THREADS: '1' }],
+    ['64-bit lists, worker threads', { EGTB_LIST64: '1', EGTB_PARALLEL_FROM: '1' }],
+  ];
+  const ref = run(ways[0][1]);
+  for (const [what, env] of ways.slice(1)) {
+    const r = run(env);
+    const diff = r.error ? [r.error] : specs.map(([n, g]) => `${n}:${g}`).filter((k) => !r[k] || !ref[k] || r[k].slice(0, 16) !== ref[k].slice(0, 16));
+    const how = r.error ? '' : ` (${[...new Set(Object.values(r).map((x) => x.slice(17)))].join(', ')})`;
+    check(!ref.error && !diff.length, `storage: ${what}${how}: the same values as in memory on one thread for ${specs.length} tables${diff.length ? `; differs: ${diff.join(', ')}` : ''}`);
   }
 }
 

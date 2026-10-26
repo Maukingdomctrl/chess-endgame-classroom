@@ -3,8 +3,9 @@
 // (five pieces, and pawns on both sides, where en passant matters).
 //
 // Values, as everywhere in the toolkit, for the side to move: v > 0 mates in v plies, v < 0 is mated in
-// -v - 1 plies (-1: checkmated now), 0 draw. Stored in one byte as level + 1 (level = plies to mate, odd when
-// the side to move mates), 0 for a draw; a deeper table throws instead of storing a wrong value.
+// -v - 1 plies (-1: checkmated now), 0 draw. Stored as level + 1 (level = plies to mate, odd when the side to
+// move mates), 0 for a draw, in one byte (width 1: up to 254 plies) or two (width 2: up to 65534 plies); a
+// deeper table throws instead of storing a wrong value.
 //
 // The solve, per domain (a pawnless table, or one pawn slice; slices most advanced first):
 //   1. every position: checkmate / stalemate; moves that stay in the domain are counted (a piece move
@@ -19,13 +20,21 @@
 // En passant: a double step next to an enemy pawn leads to a position with the en passant capture, which is
 // not stored; its value comes from its moves (a one-ply search over solved positions).
 'use strict';
-const { KING, KNIGHT, KADJ, KNJ, LINE, BLO, BHI, RAY, DIRIDX, PATT, RLO, RHI, KLO, KHI, NLO, NHI, PLO, PHI, UP, CHEB, SYM, DIAG, KK8, KK64, c2, c3, file, rank } = require('./geometry.cjs');
+const { KING, KNIGHT, KADJ, KNJ, LINE, BLO, BHI, RAY, DIRIDX, PATT, RLO, RHI, KLO, KHI, NLO, NHI, PLO, PHI, UP, CHEB, SYM, DIAG, KK8, KK64, c2, c3, c4, file, rank } = require('./geometry.cjs');
 const { Layout, piecesOf, nameOf, K, Q, R, B, N, P, LETTER } = require('./layout.cjs');
+const { PagedValues, PAGE } = require('./store.cjs');
 
 const PROMOS = [Q, R, B, N];
 const HOLD = 255; // counter value of a position that can never be lost
-const MAX_STORED = 255; // level + 1 must fit in a byte
 const DOUBLE = 1, EP = 2; // move flags
+/** The typed array of a value width (1 or 2 bytes per position). */
+const valuesType = (width) => (width === 2 ? Uint16Array : Uint8Array);
+/**
+ * The typed array of position lists for a domain of `size` slots: local indexes in 32 bits while they fit,
+ * else 64-bit floats (exact up to 2^53). EGTB_LIST64=1 takes the 64-bit lists always (tests).
+ */
+const LIST64 = process.env.EGTB_LIST64 === '1';
+const listType = (size) => (LIST64 || size > 2 ** 32 ? Float64Array : Uint32Array);
 const antiDiag = (s) => (7 - file(s)) * 8 + (7 - rank(s)); // reflection in the a8-h1 diagonal
 const ANTI_T = Int8Array.from({ length: 64 }, (_, s) => antiDiag(s));
 // scratch boards: each entry point has its own range (a search nests one board per double step)
@@ -50,46 +59,51 @@ const RAYLEN = Uint8Array.from({ length: 512 }, (_, i) => RAY[i >> 6][i & 63].le
 const bit = (lo, hi, t) => (t < 32 ? (lo >>> t) & 1 : (hi >>> (t - 32)) & 1) === 1;
 
 class List {
-  constructor() { this.chunks = []; this.a = new Uint32Array(4096); this.n = 0; this.total = 0; }
+  constructor(Type = Uint32Array) { this.Type = Type; this.chunks = []; this.a = new Type(4096); this.n = 0; this.total = 0; }
   push(x) {
-    if (this.n === this.a.length) { this.chunks.push(this.a); this.a = new Uint32Array(Math.min(this.a.length * 4, 1 << 22)); this.n = 0; }
+    if (this.n === this.a.length) { this.chunks.push(this.a); this.a = new this.Type(Math.min(this.a.length * 4, 1 << 22)); this.n = 0; }
     this.a[this.n++] = x; this.total++;
   }
   /** The stored values as arrays [typed array, length]. */
   parts() { return [...this.chunks.map((c) => [c, c.length]), [this.a, this.n]]; }
   /** All values in one typed array. */
-  flat() { const out = new Uint32Array(this.total); let at = 0; for (const [a, len] of this.parts()) { out.set(a.subarray(0, len), at); at += len; } return out; }
+  flat() { const out = new this.Type(this.total); let at = 0; for (const [a, len] of this.parts()) { out.set(a.subarray(0, len), at); at += len; } return out; }
 }
-/** Positions scheduled for later levels (a win through a capture, a loss once every move loses). */
+/**
+ * Positions of one domain scheduled for later levels (a win through a capture, a loss once every move loses),
+ * as local indexes (index - domain.lo). maxStored: the largest stored value (255 or 65535); Type: the lists'
+ * typed array (listType of the domain size).
+ */
 class Schedule {
-  constructor(name) { this.name = name; this.buckets = []; this.last = 0; }
-  add(level, i) {
-    if (level + 1 > MAX_STORED) throw new Error(`${this.name}: a mate deeper than ${MAX_STORED - 1} plies does not fit the one-byte values`);
-    (this.buckets[level] ??= new List()).push(i);
+  constructor(name, maxStored = 255, Type = Uint32Array) { this.name = name; this.maxStored = maxStored; this.Type = Type; this.buckets = []; this.last = 0; }
+  tooDeep() { return new Error(`${this.name}: a mate deeper than ${this.maxStored - 1} plies does not fit ${this.maxStored === 255 ? 'one-byte' : 'two-byte'} values`); }
+  add(level, j) {
+    if (level + 1 > this.maxStored) throw this.tooDeep();
+    (this.buckets[level] ??= new List(this.Type)).push(j);
     if (level >= this.last) this.last = level + 1;
   }
-  /** Merges another schedule (a worker's: [[level, Uint32Array], ...]) into this one. */
+  /** Merges another schedule (a worker's: [[level, typed array of local indexes], ...]) into this one. */
   merge(levels) {
     for (const [level, arr] of levels) {
       if (!arr.length) continue;
-      if (level + 1 > MAX_STORED) throw new Error(`${this.name}: a mate deeper than ${MAX_STORED - 1} plies does not fit the one-byte values`);
-      const b = (this.buckets[level] ??= new List());
-      b.chunks.push(b.a.subarray(0, b.n), arr); b.a = new Uint32Array(4096); b.n = 0; b.total += arr.length;
+      if (level + 1 > this.maxStored) throw this.tooDeep();
+      const b = (this.buckets[level] ??= new List(this.Type));
+      b.chunks.push(b.a.subarray(0, b.n), arr); b.a = new this.Type(4096); b.n = 0; b.total += arr.length;
       if (level >= this.last) this.last = level + 1;
     }
   }
   /**
    * The positions resolved at `level`, sorted (for memory locality): those scheduled for it that are not
-   * resolved yet (now stored), and `next` (already stored). null when there are none.
+   * resolved yet (now stored in vals, the domain's values), and `next` (already stored). null when none.
    */
-  take(level, val, next) {
+  take(level, vals, next) {
     const b = this.buckets[level];
     this.buckets[level] = null;
-    const fresh = new List();
-    if (b) for (const [a, len] of b.parts()) for (let y = 0; y < len; y++) { const i = a[y]; if (val[i] === 0) { val[i] = level + 1; fresh.push(i); } }
+    const fresh = new List(this.Type);
+    if (b) for (const [a, len] of b.parts()) for (let y = 0; y < len; y++) { const j = a[y]; if (vals[j] === 0) { vals[j] = level + 1; fresh.push(j); } }
     const total = fresh.total + (next ? next.total : 0);
     if (!total) return null;
-    const out = new Uint32Array(total);
+    const out = new this.Type(total);
     let at = 0;
     for (const L of next ? [fresh, next] : [fresh]) for (const [a, len] of L.parts()) { out.set(a.subarray(0, len), at); at += len; }
     return out.sort();
@@ -113,9 +127,9 @@ class EgtbTable {
    * name: material; goal 'mate' (default), 'promotion' (White's pawns against the lone king, plies to a
    * safe queen or rook promotion, as in solver.cjs) or 'conversion' (any material: plies until White
    * captures or promotes into a position that stays won, or mates; see convert()); resolve(name, goal): the
-   * table for an exit.
+   * table for an exit. opts.width: bytes per stored value (1: depths up to 254 plies, 2: up to 65534).
    */
-  constructor(name, goal, resolve) {
+  constructor(name, goal, resolve, opts = {}) {
     const L = new Layout(name);
     this.layout = L;
     this.name = L.name;
@@ -129,7 +143,12 @@ class EgtbTable {
     // White's goals: White is never lost and Black never wins in these tables (a position is won for White
     // or it is not); a checkmated White is just "not a win"
     this.whiteGoal = goal !== 'mate';
-    this.val = null;
+    this.width = opts.width ?? 1;
+    if (this.width !== 1 && this.width !== 2) throw new Error(`${this.name}: value width ${this.width} (1 or 2 bytes)`);
+    this.Values = valuesType(this.width);
+    this.maxStored = this.width === 2 ? 65535 : 255; // level + 1 must fit the stored value
+    this.val = null; // the values of every index (this.Values), when the table is in memory
+    this.store = null; // else its values on disk (store.cjs), read in pages
     this.exits = new Map();
     this.boards = []; // scratch boards by recursion depth (en passant searches)
     this.stats = null;
@@ -421,10 +440,26 @@ class EgtbTable {
   }
   index(sqs, stm) { return this.layout.index(sqs, stm); }
   decode(i, sqs) { return this.layout.decode(i, sqs); }
+  /** The stored value at index i (the only read of another domain's values). */
+  get(i) { return this.val !== null ? this.val[i] : this.store.get(i); }
+  /**
+   * Keeps the values on disk instead of in memory: ref { file, offset } of the table's file (cache.cjs), writable
+   * while the table is being built. A pawn table's page is one slice.
+   */
+  useStore(ref) {
+    if (this.store) this.store.close();
+    this.val = null;
+    this.store = new PagedValues({ file: ref.file, offset: ref.offset, count: this.size, width: this.width, page: this.pawns ? 2 * this.layout.local : PAGE, writable: !!ref.writable });
+    return this;
+  }
+  /** Bytes of values this table holds in memory (its pages on disk are counted by the page cache). */
+  memoryBytes() { return this.val ? this.val.byteLength : 0; }
+  /** Every value in index order, in pieces: [first index, values] (for scans and census of a whole table). */
+  *valuePages() { if (this.val) yield [0, this.val]; else yield* this.store.pageList(); }
   /** Value (see the top of the file) of a legal position without en passant rights; squares in table order. */
-  value(sqs, stm) { return toValue(this.val[this.layout.index(sqs, stm)]); }
+  value(sqs, stm) { return toValue(this.get(this.layout.index(sqs, stm))); }
   /** Value stored at index i. */
-  valueAt(i) { return toValue(this.val[i]); }
+  valueAt(i) { return toValue(this.get(i)); }
   /** Is index i a position this table stores (legal, and the stored image of itself)? Fills sqs. */
   stores(i, sqs) {
     const stm = this.layout.decode(i, sqs);
@@ -519,7 +554,7 @@ class EgtbTable {
       nb.sqs.set(sqs); nb.place();
       v = this.search(nb, 1 - stm, (from + to) >> 1, depth + 1);
       nb.clear();
-    } else v = toValue(this.val[this.layout.index(sqs, 1 - stm)]);
+    } else v = toValue(this.get(this.layout.index(sqs, 1 - stm)));
     sqs[k] = from;
     return v;
   }
@@ -547,10 +582,12 @@ class EgtbTable {
   }
 
   // ---------- the solve ----------
-  // A domain is a pawnless table or one pawn slice: { lo, hi (index range), slice (-1 pawnless), cnt, exm }.
-  // cnt[i - lo]: moves inside the domain not yet known to lose (HOLD: the position can never be lost);
-  // exm[i - lo]: 1 + the longest win the opponent gets by a move that leaves the domain (0: none).
-  // forward() and retro() are also run by worker threads on parts of a domain (parallel.cjs).
+  // A domain is a pawnless table or one pawn slice: { lo, hi (index range), slice (-1 pawnless), vals, cnt,
+  // exm }, worked on with local indexes j = i - lo (the lists and the schedule hold local indexes).
+  // vals[j]: the domain's stored values (a view of this.val); cnt[j]: moves inside the domain not yet known
+  // to lose (HOLD: the position can never be lost); exm[j]: 1 + the longest win the opponent gets by a move
+  // that leaves the domain (0: none). forward() and retro() are also run by worker threads on parts of a
+  // domain (parallel.cjs).
 
   /** The domains of the table, in the order they are solved. */
   domains() {
@@ -569,10 +606,16 @@ class EgtbTable {
       }
     }
   }
+  /**
+   * The values of domain d: a view of the table in memory (writing it writes the table), or on disk a fresh
+   * page that solveDomain() writes when the domain is solved.
+   */
+  domainValues(d) { return this.val !== null ? this.val.subarray(d.lo, d.hi) : new this.Values(d.hi - d.lo); }
   solve() {
     this.prepareExits();
     const t0 = Date.now();
-    this.val ??= new Uint8Array(this.size);
+    if (this.store) { if (!this.pawns) throw new Error(`${this.name}: a pawnless table is solved in memory (one domain)`); }
+    else this.val ??= new this.Values(this.size);
     this.stats = { positions: 0, domains: 0, maxLevel: 0, ms: 0, forwardMs: 0, retroMs: 0, unmoves: 0 };
     for (const d of this.domains()) this.solveDomain(d);
     this.stats.ms = Date.now() - t0;
@@ -580,20 +623,21 @@ class EgtbTable {
   }
   /** Solves one domain on this thread. */
   solveDomain(d0) {
-    const d = { ...d0 }, size = d.hi - d.lo;
-    d.cnt = new Uint8Array(size); d.exm = new Uint8Array(size);
-    const sched = new Schedule(this.name);
+    const d = { ...d0 }, size = d.hi - d.lo, LT = listType(size);
+    d.vals = this.domainValues(d); d.cnt = new Uint8Array(size); d.exm = new this.Values(size);
+    const sched = new Schedule(this.name, this.maxStored, LT);
     const tf = Date.now();
     const f = this.forward(d, 0, this.layout.local, sched);
     const tr = Date.now();
     let next = null, maxLevel = 0;
     for (let lev = 0; ; lev++) {
-      const cur = sched.take(lev, this.val, next);
+      const cur = sched.take(lev, d.vals, next);
       if (!cur) { if (lev >= sched.last) break; next = null; continue; }
       maxLevel = lev;
-      next = new List();
+      next = new List(LT);
       this.retro(d, cur, cur.length, lev, next, sched, false);
     }
+    if (this.store) this.store.putPage(d.slice, d.vals); // on disk: the solved slice is one page
     const st = this.stats;
     st.positions += f.positions; st.unmoves += this.unmoves; this.unmoves = 0;
     st.forwardMs += tr - tf; st.retroMs += Date.now() - tr; st.domains++;
@@ -613,8 +657,9 @@ class EgtbTable {
       if (z === 1) { if (T[sqs[s]] !== sqs[s]) return 1; }
       else if (z === 2) { const a = sqs[s], b = sqs[s + 1]; if (!((T[a] === a && T[b] === b) || (T[a] === b && T[b] === a))) return 1; }
       else {
-        const a = [sqs[s], sqs[s + 1], sqs[s + 2]].sort((x, y) => x - y), b = a.map((q) => T[q]).sort((x, y) => x - y);
-        if (a[0] !== b[0] || a[1] !== b[1] || a[2] !== b[2]) return 1;
+        // three or four identical pieces: the group maps onto itself as a set
+        const a = Array.from(sqs.subarray(s, s + z)).sort((x, y) => x - y), b = a.map((q) => T[q]).sort((x, y) => x - y);
+        for (let j = 0; j < z; j++) if (a[j] !== b[j]) return 1;
       }
     }
     return 2;
@@ -622,7 +667,8 @@ class EgtbTable {
 
   /**
    * Step 1 for the local indices [from, to) of domain d: checkmates, stalemates, the moves that stay in the
-   * domain (counted), the moves that leave it (valued). Writes d.cnt / d.exm, schedules wins and losses.
+   * domain (counted), the moves that leave it (valued). Writes d.cnt / d.exm, schedules wins and losses
+   * (local indexes).
    */
   forward(d, from, to, sched) {
     const L = this.layout, typ = this.typ, n = this.n, cnt = d.cnt, exm = d.exm;
@@ -657,7 +703,7 @@ class EgtbTable {
           const j = i - d.lo;
           const m = this.evaluate(bd, stm, pawnless, kingsDiag);
           if (!m) {
-            if (this.eCheck && !(this.whiteGoal && stm === 0)) sched.add(0, i); // checkmate
+            if (this.eCheck && !(this.whiteGoal && stm === 0)) sched.add(0, j); // checkmate
             else cnt[j] = HOLD; // stalemate (or White mated: no win for White)
             continue;
           }
@@ -667,11 +713,11 @@ class EgtbTable {
           if (inside % self) throw new Error(`${this.name}: symmetry weights`);
           inside /= self;
           if (inside >= HOLD) throw new Error(`${this.name}: too many moves for the counters`);
-          if (oppMax + 2 > MAX_STORED) throw new Error(`${this.name}: a mate deeper than ${MAX_STORED - 1} plies does not fit the one-byte values`);
+          if (oppMax + 2 > this.maxStored) throw sched.tooDeep();
           cnt[j] = win || holds ? HOLD : inside;
           exm[j] = oppMax >= 0 ? oppMax + 1 : 0;
-          if (win) sched.add(win, i);
-          else if (!inside && !holds) sched.add(oppMax + 1, i); // every move leaves the domain and loses
+          if (win) sched.add(win, j);
+          else if (!inside && !holds) sched.add(oppMax + 1, j); // every move leaves the domain and loses
         }
       }
       for (let k = 0; k < placed; k++) occ[sqs[k]] = -1;
@@ -685,21 +731,21 @@ class EgtbTable {
   }
 
   /**
-   * Step 2 for the positions list[0..len) of domain d, all resolved at level lev: from a lost one (lev even)
-   * every predecessor wins in lev + 1 (pushed to next); from a won one, every predecessor has one losing
-   * move more (scheduled as lost when none is left). atomic: other threads work on the same domain.
+   * Step 2 for the positions list[0..len) of domain d (local indexes), all resolved at level lev: from a lost
+   * one (lev even) every predecessor wins in lev + 1 (pushed to next); from a won one, every predecessor has
+   * one losing move more (scheduled as lost when none is left). atomic: other threads work on the same domain.
    */
   retro(d, list, len, lev, next, sched, atomic) {
-    const L = this.layout, val = this.val, typ = this.typ, col = this.col, cnt = d.cnt, exm = d.exm;
+    const L = this.layout, vals = d.vals, typ = this.typ, col = this.col, cnt = d.cnt, exm = d.exm;
     const bd = this.board(FORWARD), sqs = bd.sqs, occ = bd.occ;
-    const pawnless = !this.pawns, lost = lev % 2 === 0, win = lev + 2, dlo = d.lo;
-    if (lost && win > MAX_STORED) throw new Error(`${this.name}: a mate deeper than ${MAX_STORED - 1} plies does not fit the one-byte values`);
+    const pawnless = !this.pawns, lost = lev % 2 === 0, win = lev + 2, dlo = d.lo, dsize = d.hi - d.lo;
+    if (lost && win > this.maxStored) throw sched.tooDeep();
     const base = pawnless ? 0 : d.slice * L.local;
     const KK = pawnless ? KK8 : KK64, mul = L.mul, groupOf = L.groupOf, gStart = L.gStart, gSize = L.gSize;
     const dig = this.digBuf ??= new Float64Array(L.mul.length);
     let unmoves = 0;
     for (let y = 0; y < len; y++) {
-      const c = list[y];
+      const c = list[y] + dlo;
       const stm = L.decodeDigits(c, sqs, dig);
       const X = 1 - stm; // the side that moved into c
       const local = (c - stm) / 2 - base;
@@ -770,18 +816,24 @@ class EgtbTable {
               if (k < 2) delta = (KK.id[(k === 0 ? f : sqs[0]) * 64 + (k === 1 ? f : sqs[1])] - dig[0]) * mul[0];
               else if (z === 1) delta = (f - t) * mul[g + 1];
               else if (z === 2) delta = (c2(f, sqs[gs + (k === gs ? 1 : 0)]) - dig[g + 1]) * mul[g + 1];
-              else { const o1 = k === gs ? gs + 1 : gs, o2 = k === gs + 2 ? gs + 1 : gs + 2; delta = (c3(f, sqs[o1], sqs[o2]) - dig[g + 1]) * mul[g + 1]; }
+              else if (z === 3) { const o1 = k === gs ? gs + 1 : gs, o2 = k === gs + 2 ? gs + 1 : gs + 2; delta = (c3(f, sqs[o1], sqs[o2]) - dig[g + 1]) * mul[g + 1]; }
+              else { // four: the other three squares of the group
+                const o1 = k === gs ? gs + 1 : gs, o2 = k <= gs + 1 ? gs + 2 : gs + 1, o3 = k === gs + 3 ? gs + 2 : gs + 3;
+                delta = (c4(f, sqs[o1], sqs[o2], sqs[o3]) - dig[g + 1]) * mul[g + 1];
+              }
               pi = (base + local + delta) * 2 + X;
             }
-            if (val[pi] !== 0) continue;
+            const jj = pi - dlo;
+            if (jj < 0 || jj >= dsize) throw new Error(`${this.name}: predecessor ${pi} outside its domain [${dlo}, ${dlo + dsize})`);
+            if (vals[jj] !== 0) continue;
             if (lost) { // a move into a lost position: the predecessor wins in lev + 1
-              if (!atomic) { val[pi] = win; next.push(pi); }
-              else if (Atomics.compareExchange(val, pi, 0, win) === 0) next.push(pi);
+              if (!atomic) { vals[jj] = win; next.push(jj); }
+              else if (Atomics.compareExchange(vals, jj, 0, win) === 0) next.push(jj);
             } else {
-              const jj = pi - dlo, cj = cnt[jj];
+              const cj = cnt[jj];
               if (cj === HOLD) continue;
               const old = atomic ? Atomics.sub(cnt, jj, 1) : (cnt[jj] = cj - 1, cj);
-              if (old === 1) sched.add(Math.max(lev + 1, exm[jj]), pi); // every move loses
+              if (old === 1) sched.add(Math.max(lev + 1, exm[jj]), jj); // every move loses
               else if (old === 0) throw new Error(`${this.name}: move counter below zero at index ${pi}`);
             }
           }
@@ -830,4 +882,4 @@ class EgtbTable {
     return v;
   }
 }
-module.exports = { EgtbTable, toValue, toStored, Board, List, Schedule, HOLD, DOUBLE, EP };
+module.exports = { EgtbTable, toValue, toStored, Board, List, Schedule, HOLD, DOUBLE, EP, valuesType, listType };

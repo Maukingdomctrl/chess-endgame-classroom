@@ -10,6 +10,9 @@
 // (both kings on the diagonal), the one with the smaller index is kept.
 //   index = ((kk * R1 + g1) * R2 + g2 ...) * 2 + stm        (R = 64 for one piece, C(64, k) for k identical)
 //
+// Up to four identical pieces form a group (C(64, 4) placements for four pieces, C(48, 4) for four pawns).
+// Indexes are plain numbers: exact up to 2^53, so a table may have more than 2^32 positions (six pieces).
+//
 // Tables with pawns are cut into slices, one per placement of the pawns (a pawn move is irreversible and
 // leaves its slice). Only the a<->h mirror keeps pawns legal: of a placement and its mirror image the one
 // with the smaller key is stored; a placement that is its own mirror image is stored in full. Inside a slice
@@ -18,7 +21,7 @@
 // Slices are numbered in the order they are solved: the pawns furthest advanced first, so that every pawn
 // push leads into a slice that is already solved.
 'use strict';
-const { rank, SYM, MIRROR, CANDS8, KK8, KK64, Combos, c2, c3 } = require('./geometry.cjs');
+const { rank, SYM, MIRROR, CANDS8, KK8, KK64, Combos, c2, c3, c4 } = require('./geometry.cjs');
 
 const K = 0, Q = 1, R = 2, B = 3, N = 4, P = 5;
 const LETTER = 'KQRBNP', ORDER = 'QRBNP';
@@ -43,8 +46,10 @@ function nameOf(list) {
   return s.filter((x) => x.c === 0).map((x) => LETTER[x.t]).join('') + s.filter((x) => x.c === 1).map((x) => LETTER[x.t]).join('');
 }
 
-const COMBOS64 = [null, new Combos(64, 1), new Combos(64, 2), new Combos(64, 3)];
-const COMBOS48 = [null, new Combos(48, 1), new Combos(48, 2), new Combos(48, 3)];
+// placements of k identical pieces (64 squares) or pawns (48 squares), built on first use (four: 2.5 MB)
+const COMBOS64 = [], COMBOS48 = [];
+const combos64 = (k) => (COMBOS64[k] ??= new Combos(64, k));
+const combos48 = (k) => (COMBOS48[k] ??= new Combos(48, k));
 
 class Layout {
   constructor(name) {
@@ -62,11 +67,12 @@ class Layout {
       if (g && g.c === this.col[k] && g.t === this.typ[k]) g.size++;
       else groups.push({ start: k, size: 1, c: this.col[k], t: this.typ[k] });
     }
-    if (groups.some((g) => g.size > 3)) throw new Error(`${this.name}: at most three identical pieces`);
+    if (groups.some((g) => g.size > 4)) throw new Error(`${this.name}: at most four identical pieces`);
+    for (const g of groups) if (g.t === P) combos48(g.size); else combos64(g.size);
     this.pawns = groups.some((g) => g.t === P);
     this.pieceGroups = groups.filter((g) => g.t !== P); // indexed with 64 squares each
     this.pawnGroups = groups.filter((g) => g.t === P); // the slice (pawns on 48 squares)
-    for (const g of this.pieceGroups) g.radix = COMBOS64[g.size].count;
+    for (const g of this.pieceGroups) g.radix = combos64(g.size).count;
     this.radix = this.pieceGroups.reduce((r, g) => r * g.radix, 1);
     if (!this.pawns) {
       this.slices = 1;
@@ -76,7 +82,8 @@ class Layout {
       this.buildSlices();
     }
     this.size = this.slices * this.local * 2;
-    if (this.size > 2 ** 32) throw new Error(`${this.name}: ${this.size} positions is more than the engine indexes`);
+    // index arithmetic (local * 2 + stm, digit products) is exact below 2^53
+    if (this.size > 2 ** 52) throw new Error(`${this.name}: ${this.size} positions is more than the index addresses exactly`);
     // flat group descriptors for the hot paths
     this.gStart = Int8Array.from(this.pieceGroups.map((g) => g.start));
     this.gSize = Int8Array.from(this.pieceGroups.map((g) => g.size));
@@ -128,8 +135,8 @@ class Layout {
   // ----- pawn slices -----
   buildSlices() {
     const w = this.pawnGroups.find((g) => g.c === 0), b = this.pawnGroups.find((g) => g.c === 1);
-    this.wp = w ? { start: w.start, size: w.size, combos: COMBOS48[w.size] } : null;
-    this.bp = b ? { start: b.start, size: b.size, combos: COMBOS48[b.size] } : null;
+    this.wp = w ? { start: w.start, size: w.size, combos: combos48(w.size) } : null;
+    this.bp = b ? { start: b.start, size: b.size, combos: combos48(b.size) } : null;
     const CW = this.wp ? this.wp.combos.count : 1, CB = this.bp ? this.bp.combos.count : 1;
     this.CB = CB;
     const squares = (grp, i) => (grp ? Array.from(grp.combos.sq.subarray(i * grp.size, (i + 1) * grp.size), (s) => s + 8) : []);
@@ -174,14 +181,16 @@ class Layout {
       const s = wp.start;
       if (wp.size === 1) cw = sqs[s] - 8;
       else if (wp.size === 2) cw = c2(sqs[s] - 8, sqs[s + 1] - 8);
-      else cw = c3(sqs[s] - 8, sqs[s + 1] - 8, sqs[s + 2] - 8);
+      else if (wp.size === 3) cw = c3(sqs[s] - 8, sqs[s + 1] - 8, sqs[s + 2] - 8);
+      else cw = c4(sqs[s] - 8, sqs[s + 1] - 8, sqs[s + 2] - 8, sqs[s + 3] - 8);
       mw = this.mirW[cw];
     }
     if (bp) {
       const s = bp.start;
       if (bp.size === 1) cb = sqs[s] - 8;
       else if (bp.size === 2) cb = c2(sqs[s] - 8, sqs[s + 1] - 8);
-      else cb = c3(sqs[s] - 8, sqs[s + 1] - 8, sqs[s + 2] - 8);
+      else if (bp.size === 3) cb = c3(sqs[s] - 8, sqs[s + 1] - 8, sqs[s + 2] - 8);
+      else cb = c4(sqs[s] - 8, sqs[s + 1] - 8, sqs[s + 2] - 8, sqs[s + 3] - 8);
       mb = this.mirB[cb];
     }
     this._mkey = mw * this.CB + mb;
@@ -196,7 +205,8 @@ class Layout {
       const s = gs[g];
       if (gz[g] === 1) i = i * 64 + T[sqs[s]];
       else if (gz[g] === 2) i = i * 2016 + c2(T[sqs[s]], T[sqs[s + 1]]);
-      else i = i * gr[g] + c3(T[sqs[s]], T[sqs[s + 1]], T[sqs[s + 2]]);
+      else if (gz[g] === 3) i = i * gr[g] + c3(T[sqs[s]], T[sqs[s + 1]], T[sqs[s + 2]]);
+      else i = i * gr[g] + c4(T[sqs[s]], T[sqs[s + 1]], T[sqs[s + 2]], T[sqs[s + 3]]);
     }
     return i;
   }

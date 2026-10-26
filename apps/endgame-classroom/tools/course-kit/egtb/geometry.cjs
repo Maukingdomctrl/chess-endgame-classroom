@@ -110,7 +110,7 @@ class Combos {
   /** Index of k distinct squares given in increasing order. */
   index(s) { let i = 0; for (let j = 0; j < this.k; j++) i += binom(s[j], j + 1); return i; }
 }
-// fast versions for 2 and 3 squares (any order)
+// fast versions for 2, 3 and 4 squares (any order)
 const c2 = (a, b) => (a < b ? (b * (b - 1)) / 2 + a : (a * (a - 1)) / 2 + b);
 function c3(a, b, c) {
   let t;
@@ -119,8 +119,18 @@ function c3(a, b, c) {
   if (a > b) { t = a; a = b; b = t; }
   return (c * (c - 1) * (c - 2)) / 6 + (b * (b - 1)) / 2 + a;
 }
+function c4(a, b, c, d) {
+  let t;
+  // sorting network for four
+  if (a > b) { t = a; a = b; b = t; }
+  if (c > d) { t = c; c = d; d = t; }
+  if (a > c) { t = a; a = c; c = t; }
+  if (b > d) { t = b; b = d; d = t; }
+  if (b > c) { t = b; b = c; c = t; }
+  return (d * (d - 1) * (d - 2) * (d - 3)) / 24 + (c * (c - 1) * (c - 2)) / 6 + (b * (b - 1)) / 2 + a;
+}
 
 module.exports = {
   file, rank, KING, KNIGHT, KADJ, KNJ, LINE, BLO, BHI, DIRS, RAY, DIRIDX, PATT, RLO, RHI, KLO, KHI, NLO, NHI, PLO, PHI, UP, CHEB,
-  SYM, MIRROR, DIAG, inTriangle, CANDS8, KK8, KK64, Combos, binom, c2, c3,
+  SYM, MIRROR, DIAG, inTriangle, CANDS8, KK8, KK64, Combos, binom, c2, c3, c4,
 };

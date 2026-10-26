@@ -1,11 +1,12 @@
-// Exact endgame solver for any material with up to 5 pieces (the two kings and up to three more, either
-// colour, pawns included), by retrograde analysis. Builds a table of distance to mate (DTM) for every
+// Exact endgame solver for any material with up to 6 pieces (the two kings and up to four more, either
+// colour, pawns included), by retrograde analysis. Six pieces need a big machine: a six-piece table is solved
+// slice by slice from disk (egtb/README.md, "Six pieces"), and its family takes hundreds of gigabytes. Builds a table of distance to mate (DTM) for every
 // position; a capture or a promotion leads into another table (fewer pieces, or the promoted piece),
 // which is built on first use. Not covered: castling and the fifty-move rule.
 //
 // This file builds the tables with up to 4 pieces and pawns on one side at most, exactly as it always has
-// (the courses depend on these tables and their order). Every other material (five pieces, and pawns on
-// both sides, where en passant matters) is built by the egtb engine (egtb/, see its README), which has the
+// (the courses depend on these tables and their order). Every other material (five and six pieces, and pawns
+// on both sides, where en passant matters) is built by the egtb engine (egtb/, see its README), which has the
 // same API; table(), probe() and probePromotion() choose the engine by the material. Such a mate table is
 // built once for a material and its colour-swapped twin: table('KRKRP') is a view of table('KRPKR')
 // (egtb/flip.cjs), so defending and attacking lessons share it.
@@ -487,7 +488,7 @@ class Table {
 /** Exact value of a FEN position for the side to move: { result: 'win' | 'loss' | 'draw', dtm } (dtm in plies, -1 for a draw). */
 function probe(fen) {
   const { name, pieces, stm, ep } = fenPieces(fen);
-  if (pieces.length > 5) throw new Error(`${fen}: more than 5 pieces`);
+  if (pieces.length > 6) throw new Error(`${fen}: more than 6 pieces`);
   const T = table(name);
   const sqs = Int8Array.from(pieces.map((p) => p.sq));
   if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);
@@ -503,7 +504,7 @@ function probe(fen) {
  */
 function probePromotion(fen) {
   const { name, pieces, stm } = fenPieces(fen);
-  if (pieces.length > 5) throw new Error(`${fen}: more than 5 pieces`);
+  if (pieces.length > 6) throw new Error(`${fen}: more than 6 pieces`);
   const T = table(name, { goal: 'promotion' });
   const sqs = Int8Array.from(pieces.map((p) => p.sq));
   if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);
@@ -514,12 +515,12 @@ function probePromotion(fen) {
 }
 
 /**
- * Goal 'conversion' (any material up to 5 pieces): { result: 'win' | 'loss' | 'draw', dtc } for the side to
+ * Goal 'conversion' (any material up to 6 pieces): { result: 'win' | 'loss' | 'draw', dtc } for the side to
  * move, dtc = plies until White converts (see the top of the file); 'draw' means White does not win.
  */
 function probeConversion(fen) {
   const { name, pieces, stm, ep } = fenPieces(fen);
-  if (pieces.length > 5) throw new Error(`${fen}: more than 5 pieces`);
+  if (pieces.length > 6) throw new Error(`${fen}: more than 6 pieces`);
   const T = table(name, { goal: 'conversion' });
   const sqs = Int8Array.from(pieces.map((p) => p.sq));
   if (!T.legal(sqs, stm)) throw new Error(`illegal position ${fen}`);

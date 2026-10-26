@@ -7,6 +7,9 @@
 // out, and the workers update the values and counters with atomic operations (compare-exchange for a win,
 // atomic decrement for a counter), so every position is resolved exactly once.
 //
+// Tables on disk (store.cjs: six-piece pawn tables) are attached by file instead: each worker opens the file,
+// reads pages through its own share of the page cache, and writes the slices it solves into the file.
+//
 // EGTB_THREADS=n sets the number of threads (1: no workers); the default is the number of cores, at most 8.
 'use strict';
 const os = require('os');
@@ -36,9 +39,10 @@ class Pool {
     this.signal = new Int32Array(new SharedArrayBuffer(4));
     this.workers = [];
     this.attached = new Set();
+    const pageBudget = (+process.env.EGTB_PAGE_CACHE || os.totalmem() / 4 / 1048576) * 1048576 / n;
     for (let i = 0; i < n; i++) {
       const { port1, port2 } = new MessageChannel();
-      const w = new Worker(__filename, { workerData: { egtbWorker: true, port: port2, signal: this.signal }, transferList: [port2] });
+      const w = new Worker(__filename, { workerData: { egtbWorker: true, port: port2, signal: this.signal, pageBudget }, transferList: [port2] });
       w.unref();
       this.workers.push({ w, port: port1 });
     }
@@ -60,12 +64,15 @@ class Pool {
     for (const w of this.workers) w.port.postMessage(msg);
     for (let k = 0; k < this.workers.length; k++) this.receive();
   }
-  /** Runs the tasks on the workers (each worker takes the next one when it is free); results in task order. */
-  run(tasks, transfer = () => []) {
+  /**
+   * Runs the tasks on the workers (each worker takes the next one when it is free), at most `cap` at a time;
+   * results in task order.
+   */
+  run(tasks, transfer = () => [], cap = this.workers.length) {
     const results = new Array(tasks.length);
     let next = 0, done = 0;
     const give = (wi) => { if (next < tasks.length) { const t = tasks[next]; this.workers[wi].port.postMessage({ ...t, task: next }, transfer(t)); next++; } };
-    for (let wi = 0; wi < this.workers.length; wi++) give(wi);
+    for (let wi = 0; wi < Math.min(cap, this.workers.length); wi++) give(wi);
     while (done < tasks.length) { const { wi, msg } = this.receive(); results[msg.task] = msg.result; done++; give(wi); }
     return results;
   }
@@ -76,16 +83,17 @@ class Pool {
     for (const k of keys) this.attached.delete(k);
     this.broadcast({ kind: 'detach', keys });
   }
-  /** Makes tables available in the workers (their values on shared memory). */
+  /** Makes tables available in the workers (their values on shared memory, or their file for a table on disk). */
   attach(list) {
     const fresh = [];
     for (const T of list) {
-      if (!T || !T.val || T.n === 2) continue;
+      if (!T || T.n === 2 || (!T.val && !T.store)) continue;
       const key = keyOf(T);
       if (this.attached.has(key)) continue;
-      T.val = shared(T.val);
       this.attached.add(key);
-      fresh.push({ key, name: T.name, goal: T.goal, val: T.val });
+      if (T.store) { fresh.push({ key, name: T.name, goal: T.goal, width: T.width, file: T.store.file, offset: T.store.offset, writable: T.store.writable }); continue; }
+      T.val = shared(T.val);
+      fresh.push({ key, name: T.name, goal: T.goal, width: T.width, val: T.val });
     }
     if (fresh.length) this.broadcast({ kind: 'attach', tables: fresh });
   }
@@ -109,18 +117,24 @@ function solveParallel(T, P) {
   // (for pawn tables forwardMs / retroMs add up the workers' time)
   const add = (r) => { T.stats.positions += r.positions; T.stats.unmoves += r.unmoves; if (r.maxLevel > T.stats.maxLevel) T.stats.maxLevel = r.maxLevel; T.stats.domains += r.domains ?? 0; T.stats.forwardMs += r.forwardMs ?? 0; T.stats.retroMs += r.retroMs ?? 0; };
   if (T.pawns) {
-    // waves of slices with the same advancement, most advanced first
+    // waves of slices with the same advancement, most advanced first; as many slices at once as their working
+    // memory allows (values, counters, longest exits: a six-piece slice can take gigabytes)
+    const sliceBytes = 2 * T.layout.local * (2 * T.width + 1);
+    const cap = Math.max(1, Math.floor((0.6 * os.totalmem()) / sliceBytes));
     for (let a = 0; a < ds.length;) {
       let b = a;
       while (b < ds.length && ds[b].adv === ds[a].adv) b++;
-      for (const r of P.run(ds.slice(a, b).map((d) => ({ kind: 'slice', key, slice: d.slice })))) add(r);
+      for (const r of P.run(ds.slice(a, b).map((d) => ({ kind: 'slice', key, slice: d.slice })), undefined, cap)) add(r);
       a = b;
     }
   } else {
+    // one domain (d.lo = 0): the lists hold local indexes, typed by the domain size
     const d = ds[0], size = d.hi - d.lo, L = T.layout;
-    const cnt = sharedZeros(Uint8Array, size), exm = sharedZeros(Uint8Array, size);
-    const { Schedule, List } = require('./engine.cjs');
-    const sched = new Schedule(T.name);
+    const { Schedule, List, listType } = require('./engine.cjs');
+    const LT = listType(size);
+    const cnt = sharedZeros(Uint8Array, size), exm = sharedZeros(T.Values, size);
+    const vals = T.domainValues(d);
+    const sched = new Schedule(T.name, T.maxStored, LT);
     // step 1 in chunks
     const tf = Date.now();
     const parts = Math.min(L.local, P.size * 16), step = Math.ceil(L.local / parts), chunks = [];
@@ -131,11 +145,11 @@ function solveParallel(T, P) {
     // step 2, level by level
     let next = null;
     for (let lev = 0; ; lev++) {
-      const cur = sched.take(lev, T.val, next);
+      const cur = sched.take(lev, vals, next);
       if (!cur) { if (lev >= sched.last) break; next = null; continue; }
       T.stats.maxLevel = lev;
-      next = new List();
-      const list = new Uint32Array(new SharedArrayBuffer(cur.byteLength));
+      next = new List(LT);
+      const list = new LT(new SharedArrayBuffer(cur.byteLength));
       list.set(cur);
       const n = Math.max(1, Math.min(P.size * 4, Math.ceil(cur.length / 4096))), per = Math.ceil(cur.length / n), tasks = [];
       for (let s = 0; s < cur.length; s += per) tasks.push({ kind: 'retro', key, list, start: s, end: Math.min(cur.length, s + per), lev, cnt, exm });
@@ -183,7 +197,8 @@ module.exports = { threads, getPool, solveParallel, checkParallel, detach, share
 // ---------- the worker ----------
 if (!isMainThread && workerData && workerData.egtbWorker) {
   const { port, signal } = workerData;
-  const { EgtbTable, Schedule, List } = require('./engine.cjs');
+  require('./store.cjs').setBudget(workerData.pageBudget);
+  const { EgtbTable, Schedule, List, listType } = require('./engine.cjs');
   const { piecesOf } = require('./layout.cjs');
   const { checkTable } = require('./check.cjs');
   const BARE = { name: 'KK', n: 2, value: () => 0 };
@@ -203,14 +218,15 @@ if (!isMainThread && workerData && workerData.egtbWorker) {
     if (msg.kind === 'attach') {
       for (const t of msg.tables) {
         if (tables.has(t.key)) continue;
-        const T = new EgtbTable(t.name, t.goal, resolve);
-        T.val = t.val;
+        const T = new EgtbTable(t.name, t.goal, resolve, { width: t.width });
+        if (t.val) T.val = t.val;
+        else T.useStore({ file: t.file, offset: t.offset, writable: t.writable });
         tables.set(t.key, T);
       }
       return null;
     }
     if (msg.kind === 'detach') {
-      for (const k of msg.keys) tables.delete(k);
+      for (const k of msg.keys) { const T = tables.get(k); if (T && T.store) T.store.close(); tables.delete(k); }
       for (const T of tables.values()) T.exits.clear(); // they may lead to a dropped table: resolved again when used
       return null;
     }
@@ -223,14 +239,15 @@ if (!isMainThread && workerData && workerData.egtbWorker) {
       T.solveDomain(d);
       return { positions: T.stats.positions, unmoves: T.stats.unmoves, maxLevel: T.stats.maxLevel, domains: 1, forwardMs: T.stats.forwardMs, retroMs: T.stats.retroMs };
     }
-    const d = { ...T.domains()[0], cnt: msg.cnt, exm: msg.exm };
+    const d0 = T.domains()[0], LT = listType(d0.hi - d0.lo);
+    const d = { ...d0, vals: T.domainValues(d0), cnt: msg.cnt, exm: msg.exm };
     if (msg.kind === 'forward') {
-      const sched = new Schedule(T.name);
+      const sched = new Schedule(T.name, T.maxStored, LT);
       const r = T.forward(d, msg.from, msg.to, sched);
       return { positions: r.positions, sched: toLevels(sched) };
     }
     if (msg.kind === 'retro') {
-      const sched = new Schedule(T.name), next = new List();
+      const sched = new Schedule(T.name, T.maxStored, LT), next = new List(LT);
       T.unmoves = 0;
       T.retro(d, msg.list.subarray(msg.start, msg.end), msg.end - msg.start, msg.lev, next, sched, true);
       return { next: next.flat(), sched: toLevels(sched), unmoves: T.unmoves };
