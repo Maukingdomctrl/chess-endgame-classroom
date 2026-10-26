@@ -200,14 +200,14 @@ wide they are:
   counted from its start, so the position lists stay 32-bit unless one domain passes 2^32 slots (then 64-bit;
   `EGTB_LIST64=1` forces them). A predecessor outside its domain throws.
 - **Solving from disk** (`store.cjs`): a pawn table whose values take more than half the memory budget
-  (`EGTB_MEMORY`; `EGTB_STORAGE=disk|memory` forces the choice) is built slice by slice into a temporary file
-  in the cache directory, each solved slice written as one page, and renamed into place when complete. It is
-  read in pages through a page cache (clock eviction, close to least recently used; `EGTB_PAGE_CACHE` in MB, default a quarter of the
-  memory, shared out among the worker threads); it must hold a few slices per thread, or a solve reads a page
-  back at almost every pawn move (correct, but hours: a unit test with 1 MB for two-byte one-pawn tables, whose
-  slices are 0.9 MB, was stopped after half an hour). A solve holds the slice it works on, the pages its pawn
-  moves lead to and the tables its captures and promotions lead to. Each worker opens the file and writes the
-  slices it solves; as many slices are solved at once as their working memory (values, longest exits,
+  (`EGTB_MEMORY`; `EGTB_STORAGE=disk|memory` forces the choice) is built slice by slice into a temporary file in
+  the cache directory, each solved slice written as one page, and renamed into place when complete. It is read in
+  pages through a page cache (clock eviction, close to least recently used; `EGTB_PAGE_CACHE` in MB, default a
+  quarter of the memory, shared out among the worker threads); it must hold a few slices per thread, or a solve
+  reads a page back at almost every pawn move (correct, but slow: a unit test that gave two-byte one-pawn tables,
+  whose slices are 0.9 MB, a 1 MB cache was stopped after half an hour). A solve holds the slice it works on, the
+  pages its pawn moves lead to and the tables its captures and promotions lead to. Each worker opens the file and
+  writes the slices it solves; as many slices are solved at once as their working memory (values, longest exits,
   counters: 2 x width + 1 bytes per slot) fits in 60% of the memory less the page cache.
 - **Cache format 2** (`../cache.cjs`): a 64-bit count in the header, so every table cached by an older version
   is stale (rebuilt when needed; `npm run kit:cache -- prune` deletes the old files). Temporary files carry
@@ -257,8 +257,9 @@ How the six-piece code was tested on this machine:
   positions, read through the page cache) finds nothing wrong. From disk the build took 148 s, in memory
   128 s. (The first page cache took 1978 s: a profile found its least-recently-used bookkeeping slowing
   down with thousands of pages, and clock eviction replaced it; `kit:test5` tests the cache.)
-- The layout of ten six-piece materials (up to 4.5 x 10^10 slots) finds every decoded position again, and
-  the retrograde update of a group of four agrees with the combination index on 20,000 random unmoves.
+- The layouts of seven six-piece materials in `kit:test5` (up to K+Q+R+P vs K+R, 4.5 x 10^10 slots) find
+  every decoded position again, and the retrograde update of a group of four agrees with the combination
+  index on 20,000 random unmoves.
 - Node holds typed arrays past 2^32 elements (a Uint16Array of 5 x 10^9 values, atomics at index
   4,999,999,999).
 
