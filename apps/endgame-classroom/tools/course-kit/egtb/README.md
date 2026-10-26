@@ -203,8 +203,10 @@ wide they are:
   (`EGTB_MEMORY`; `EGTB_STORAGE=disk|memory` forces the choice) is built slice by slice into a temporary file
   in the cache directory, each solved slice written as one page, and renamed into place when complete. It is
   read in pages through a page cache (clock eviction, close to least recently used; `EGTB_PAGE_CACHE` in MB, default a quarter of the
-  memory, shared out among the worker threads). A solve holds the slice it works on, the pages its pawn moves
-  lead to and the tables its captures and promotions lead to. Each worker opens the file and writes the
+  memory, shared out among the worker threads); it must hold a few slices per thread, or a solve reads a page
+  back at almost every pawn move (correct, but hours: a unit test with 1 MB for two-byte one-pawn tables, whose
+  slices are 0.9 MB, was stopped after half an hour). A solve holds the slice it works on, the pages its pawn
+  moves lead to and the tables its captures and promotions lead to. Each worker opens the file and writes the
   slices it solves; as many slices are solved at once as their working memory (values, longest exits,
   counters: 2 x width + 1 bytes per slot) fits in 60% of the memory less the page cache.
 - **Cache format 2** (`../cache.cjs`): a 64-bit count in the header, so every table cached by an older version

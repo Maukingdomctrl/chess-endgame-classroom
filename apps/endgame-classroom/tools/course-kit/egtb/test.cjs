@@ -243,7 +243,9 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
     console.log(JSON.stringify(out));`;
   const run = (env) => {
     const e = { ...process.env, ...env };
-    delete e.KIT_CACHE;
+    // exactly the way asked: no disk cache, and not the 1 MB budgets of --budget (a page cache smaller than two
+    // slices re-reads a page at almost every pawn move: correct, but hours)
+    delete e.KIT_CACHE; delete e.EGTB_MEMORY; delete e.EGTB_PAGE_CACHE;
     const r = spawnSync(process.execPath, ['-e', code], { env: e, encoding: 'utf8' });
     if (r.status !== 0) return { error: (r.stderr || '').split('\n').slice(-3).join(' ') };
     return JSON.parse(r.stdout.trim().split('\n').pop());
