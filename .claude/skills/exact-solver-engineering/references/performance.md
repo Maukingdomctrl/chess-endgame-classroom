@@ -122,19 +122,21 @@ without sharing any code with the engine. Plan for checks of five to nine times 
   `scripts/measure.py` for any command. K+R+P vs K+R with its family: 3.2 GB; K+N+N vs K+P with its family:
   2.2 GB; K+Q+Q vs K+R: 1.0 GB on four threads, 0.6 GB on one.
 - When the values outgrow the memory (six pieces), keep the unit of work the unit of storage: a pawn slice is
-  solved alone (its pawn moves lead to slices already solved), so it is one page of the file, written once
-  when solved and read through a page cache afterwards. Measured on the 74-table
-  reference set solved from disk on four threads: K+R+P vs K+R 148 s instead of 135 s in memory, peak
-  memory 4.5 GB instead of 4.0 GB; but tables of thousands of tiny slices (K+P+P+P vs K: 7,224 slots per
-  slice) pay a per-lookup cost when moves alternate between pages: the promotion tables of K+P+P and
-  K+P+P+P vs K took 81 s instead of 12 s. Profiled on one thread (K+P+P+P vs K from disk: 376 s against 33 s
-  in memory): 86% of the time was one line of `store.cjs`, the exact least-recently-used update on a page hit
-  (`pages.delete(k); pages.set(k, hit)`), and the disk reads 0.1 s. A micro-benchmark showed why: re-inserting
-  a few hot keys into a `Map` costs 80 ns a hit with 24 entries, 339 ns with 1,000 and 6.7 microseconds with
-  10,000 (a plain `get` stays at 40-50 ns), so the cost grew with the number of pages cached: thousands of
-  tiny slices, thousands of pages. The fix: a page table per store (an array indexed by page) and clock
-  eviction, where a hit only sets a flag; the same build from disk took 35.6 s. A unit test reads a known file
-  through a five-page cache and caught each of three deliberately broken caches. @@R2-PERF
+  solved alone (its pawn moves lead to slices already solved), so it is one page of the file, written once when
+  solved and read through a page cache afterwards. With the first page cache (exact least recently used), the
+  74-table reference set solved from disk on four threads took 148 s for K+R+P vs K+R instead of 135 s in memory,
+  peak memory 4.5 GB instead of 4.0 GB, but tables of thousands of tiny slices (K+P+P+P vs K: 7,224 slots per
+  slice) paid on every switch between pages: the promotion tables of K+P+P and K+P+P+P vs K took 81 s instead of
+  12 s, K+P+P+P+P vs K 1978 s instead of 130 s. Profiled on one thread (K+P+P+P vs K from disk: 376 s against
+  33 s in memory): 86% of the time was one line of `store.cjs`, the exact least-recently-used update on a page hit
+  (`pages.delete(k); pages.set(k, hit)`), and the disk reads 0.1 s. A micro-benchmark showed why: re-inserting a
+  few hot keys into a `Map` costs 80 ns a hit with 24 entries, 339 ns with 1,000 and 6.7 microseconds with 10,000
+  (a plain `get` stays at 40-50 ns), so the cost grew with the number of pages cached: thousands of tiny slices,
+  thousands of pages. The fix: a page table per store (an array indexed by page) and clock eviction, where a hit
+  only sets a flag; the same build from disk took 35.6 s. A unit test reads a known file through a five-page
+  cache and caught each of three deliberately broken caches. With the fix the reference set from disk ran as fast
+  as in memory (K+R+P vs K+R 131 s against 135 s, the promotion tables 12.1 s against 12.2 s; the 74 tables byte
+  for byte the same again) and K+P+P+P+P vs K from disk took 148 s instead of 1978 s (128 s in memory).
 
 ## 7. Caching
 

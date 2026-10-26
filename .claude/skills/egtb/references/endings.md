@@ -118,13 +118,12 @@ for a lesson):
 | Table | Slots / positions | Build (four threads) | Check, every position | Results |
 |---|---|---|---|---|
 | K+N+N+N+N vs K, mate | 587 M / 430,151,371 | 246 s (260 s with K+N+N+N vs K and smaller), peak 4.0 GB, 1.1 GB on disk | 564 s: 0 wrong, 0 mirror images not found | wins 178,275,611, draws 1,459,341, losses 250,416,419; longest mate 18 moves |
-| K+P+P+P+P vs K, promotion | 704 M in 97,428 slices / 585,501,287 | 130 s in memory (148 s with K+P+P+P vs K and smaller), peak 1.9 GB, 1.3 GB on disk; from disk 1978 s (2062 s), peak 6.2 GB | 1045 s: 0 wrong, 0 not found | wins 276,026,791, draws 253,758, losses 309,220,738; longest 24 moves to a safe promotion |
+| K+P+P+P+P vs K, promotion | 704 M in 97,428 slices / 585,501,287 | 130 s in memory (148 s with K+P+P+P vs K and smaller), peak 1.9 GB, 1.3 GB on disk; from disk 148 s (160 s), peak 6.2 GB | 1045 s: 0 wrong, 0 not found | wins 276,026,791, draws 253,758, losses 309,220,738; longest 24 moves to a safe promotion |
 
 K+N+N+N+N vs K checks the group of four identical pieces in the retrograde step and the threaded solve with
 two-byte values; K+P+P+P+P vs K checks four identical pawns in the slices. Built again from disk, K+P+P+P+P
 vs K and its three sub-tables are byte for byte the in-memory ones, and a 1% sample checked on the table on
-disk (5,860,024 positions) found nothing wrong; from disk the build took 15 times as long (thousands of tiny
-slices).
+disk (5,860,024 positions) found nothing wrong.
 
 ## 8. Verified positions
 

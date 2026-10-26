@@ -83,7 +83,7 @@ Measured on the 4-core, 16 GB cloud machine, all threads, nothing cached (detail
 | K+R vs K+P+P | 15 five-piece tables, 5 G | not built | | |
 | Pawns against a pawn (K+P+P vs K+P) | 75 five-piece tables, 28 G | not built: does not fit here | | |
 | K+N+N+N+N vs K (six pieces) | 430 M (0.59 G slots, two bytes each) | 260 s | 4.0 GB | 9.4 min (no value wrong); mate in 18 at most |
-| K+P+P+P+P vs K, promotion goal (six pieces) | 586 M (0.70 G slots) | 148 s (from disk: 34 min) | 1.9 GB | 17.4 min (no value wrong); 24 moves to promote at most |
+| K+P+P+P+P vs K, promotion goal (six pieces) | 586 M (0.70 G slots) | 148 s (from disk: 160 s) | 1.9 GB | 17.4 min (no value wrong); 24 moves to promote at most |
 | K+R+P vs K+R+P (120 tables, 25 of them six-piece) | 559 G slots | not built: 1.1 TB of disk, 78 GB of memory for its biggest solve (K+Q+R vs K+Q+R) | | |
 
 - Size any ending first: `node ../../.claude/skills/exact-solver-engineering/scripts/egtb-family.cjs KRPKR`
