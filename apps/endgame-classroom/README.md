@@ -26,7 +26,9 @@ npm run build    # production build in dist/
 4. **See / export** – the **Lines** tab lists every line (edit, reorder, delete, copy PGN/FEN) and
    exports the whole course as PGN or a JSON backup.
 5. **Learn** – lines play one after another. The coach explains each move and an arrow shows what
-   to play; the opponent's moves are played for you. When a line ends you get 15 seconds to read the
+   to play; the opponent's moves are played for you. Each note is labelled with its move (light for
+   yours, dark for the opponent's), the line's introduction stays until your first move, and the
+   opponent waits a little longer before replying when there is more to read. When a line ends you get 15 seconds to read the
    final notes before the next one starts: press **Next line** to go on now, or **Stay** to stop the
    countdown and look at the position as long as you like.
 6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves
@@ -103,6 +105,14 @@ time the app opens on a device:
   lines. Every move of yours is a fastest win (or keeps the draw), equal moves are accepted via
   `[%also]`, and every line is checked again with an independent solver. Regenerate it with
   `npm run course:opposition` (see `tools/direct-opposition-course/`).
+- *Rook Endings: Lucena, Skewer, Philidor* (`courses/rook-endings-course.pgn`): 21 positions in 5
+  lessons, rook and pawn against rook: building the bridge in the Lucena (your rook on the 4th rank
+  shelters your king from the checks), the skewer behind a rook's pawn, the Philidor defence (you
+  defend: check from behind once the pawn has advanced), and a final exam. Every move is decided by
+  the exact five-piece tables: each of your moves wins as fast as possible (to the safe queen or the
+  rook won) or keeps the draw, equal moves are accepted via `[%also]`, and the notes say only what the
+  board shows. Blue marks the file that cuts the black king off (or the 7th rank of the skewer), green
+  where your rook goes. Regenerate it with `npm run course:rook` (see `tools/rook-endings-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
 imported by hand is adopted instead of duplicated. When a newer version of the app changes a

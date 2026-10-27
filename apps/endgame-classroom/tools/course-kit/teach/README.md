@@ -7,7 +7,7 @@ moves a line accepts: `[%also]` stays exactly `verify.fastestMoves`.
 
 Nothing in this folder knows about pawns, kings or the opposition. A **domain** brings that: facts read
 from the board, the words for them, the concepts, the exceptions. The pawn endings' domain is
-`../pawn/domain.cjs`.
+`../pawn/domain.cjs`; rook and pawn against rook (the Lucena, the skewer, the Philidor) is `../rook/domain.cjs`.
 
 ```bash
 npm run kit:test                         # pawn toolkit tests, then teach/test.cjs (about a minute)
@@ -143,7 +143,7 @@ existing generators do not call this layer: their output and speed are unchanged
 | Where | What |
 |---|---|
 | This folder | Generic mechanisms: outcomes, grounding rules, length rules, concepts, difficulty, progression. |
-| A domain (`../pawn/domain.cjs`) | The facts of one kind of ending, their words, its concepts and exceptions. |
+| A domain (`../pawn/domain.cjs`, `../rook/domain.cjs`) | The facts of one kind of ending, their words, its concepts and exceptions. |
 | The skills (`.claude/skills/`) | Judgement: which concepts, which stages, how much help, what went wrong before. |
 | A course spec (`tools/<course>/`) | Its lessons, its plan (stages per concept), its weights if they differ, its texts. Rules for one course (for example how an Opposition course is staged) belong there, not here. |
 
@@ -152,6 +152,8 @@ existing generators do not call this layer: their output and speed are unchanged
 - The pawn domain covers one side's pawns against the lone king, either side (Black's pawns are read on
   the board turned round). Holding lines are played and checked with `objective: 'hold'` in `line.cjs`
   and `verify.cjs`; their difficulty is measured like any other line's.
+- The rook domain covers K+R+P vs K+R with either side's pawn (the skewer also once the pawn is gone); it has
+  facts and words, no concepts or cues yet. Its plausible moves are all but those that hang the rook.
 - Mating material (K+Q, K+R, two rooks) has no domain yet: explanations are the solver's (mate in n,
   stalemate, the piece taken), the likely-move signals are unknown.
 - The weights and the plausible-move heuristic are judgement, not data from learners.

@@ -49,6 +49,13 @@ learner, they show what the solver gives and what a course still has to decide:
 
 Measured feasibility (seeded samples, `survey.cjs`): see the last section of `../../egtb/README.md`.
 
+## Since then
+
+The built-in course *Rook Endings: Lucena, Skewer, Philidor* (`tools/rook-endings-course/`) was built on these
+findings, with a rook-endings domain for the teaching layer (`../../rook/domain.cjs`: the cut-off, the check that
+cuts the king off, the bridge, the king out, the rook shielding it, the skewer and its trap, the rook far behind)
+and method filters on the solver's lines. The notes below are what this folder found before it.
+
 ## What a course would still need
 
 - **A rook-endings domain for the teaching layer** (`../../teach/`): the facts a note may name (the king cut
