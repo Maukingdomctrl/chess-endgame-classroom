@@ -111,13 +111,13 @@ progress is kept for every line whose moves didn't change, and lines you added y
 `courses/` and register it in `src/lib/builtinCourses.ts`.
 
 New courses are generated with the shared toolkit in `tools/course-kit/` (exact endgame solver for up
-to five pieces, line player, checker, PGN writer, browser test; see its README; the five-piece engine is
-in `tools/course-kit/egtb/`), following the project skill `.claude/skills/endgame-course/` at the
+to six pieces, line player, checker, PGN writer, browser test; see its README; the egtb engine for five and
+six pieces is in `tools/course-kit/egtb/`), following the project skill `.claude/skills/endgame-course/` at the
 repository root:
 
 ```bash
 npm run kit:selftest                    # check the solver
-npm run kit:selftest5                   # check the five-piece engine (about half an hour)
+npm run kit:selftest5                   # check the egtb engine (about half an hour)
 npm run course:e2e -- <builtin id>       # browser test of a built-in course
 ```
 

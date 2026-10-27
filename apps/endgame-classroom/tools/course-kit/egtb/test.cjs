@@ -11,7 +11,8 @@ process.env.EGTB_PARALLEL_FROM ??= '1';
 const budget = process.argv.includes('--budget');
 if (budget) {
   const tmp = require('fs').mkdtempSync(require('path').join(require('os').tmpdir(), 'egtb-budget-'));
-  Object.assign(process.env, { KIT_CACHE: tmp, EGTB_MEMORY: '1' }); // read when index.cjs is loaded
+  // read when index.cjs is loaded; the page cache of tables on disk (store.cjs) gets 1 MB too
+  Object.assign(process.env, { KIT_CACHE: tmp, EGTB_MEMORY: '1', EGTB_PAGE_CACHE: '1' });
   process.on('exit', () => require('fs').rmSync(tmp, { recursive: true, force: true }));
 }
 const { Chess } = require('chess.js');
@@ -46,7 +47,8 @@ function imageOf(L, a, b) {
   const set = (sq, T) => [...sq].map((s, k) => `${L.col[k]}${L.typ[k]}@${T ? T[s] : s}`).sort().join();
   return syms.some((y) => set(a, SYM[y]) === set(b));
 }
-for (const name of ['KQKR', 'KRRK', 'KBBKN', 'KQQQK', 'KRPKR', 'KPPKP', 'KPPPK', 'KNNKP']) {
+// five pieces, and six (indexes past 2^32, four identical pieces): the layouts of tables not built here
+for (const name of ['KQKR', 'KRRK', 'KBBKN', 'KQQQK', 'KRPKR', 'KPPKP', 'KPPPK', 'KNNKP', 'KRPKRP', 'KQRPKR', 'KQRKRB', 'KRRKNN', 'KNNNNK', 'KPPPPK', 'KBPKNP']) {
   const L = new Layout(name);
   const sqs = new Int8Array(L.n), back = new Int8Array(L.n);
   let tried = 0, bad = 0;
@@ -59,6 +61,31 @@ for (const name of ['KQKR', 'KRRK', 'KBBKN', 'KQQQK', 'KRPKR', 'KPPKP', 'KPPPK',
     if (j < 0 || j >= L.size || L.decode(j, back) !== stm || !imageOf(L, sqs, back) || L.index(back, stm) !== j) bad++;
   }
   check(!bad && tried > 1000, `index ${name}: ${tried} random slots index to a slot with the same position or a mirror image (${bad} wrong); size ${L.size}, ${L.slices} slice(s)`);
+}
+// the retrograde step's index update for a group of four identical pieces (K+N+N+N+N vs K): moving a knight
+// back from t to f gives exactly the predecessor's slot (the formula of EgtbTable.retro, checked against
+// decode; no table of four identical pieces is small enough to build in the tests)
+{
+  const { c4, KNIGHT, KADJ } = require('./geometry.cjs');
+  const L = new Layout('KNNNNK');
+  const sqs = new Int8Array(L.n), dig = new Float64Array(L.mul.length), back = new Int8Array(L.n);
+  let n = 0, bad = 0;
+  for (let t = 0; t < 400000 && n < 20000; t++) {
+    const i = rnd(L.size);
+    const stm = L.decodeDigits(i, sqs, dig);
+    if (!L.valid(sqs) || KADJ[sqs[0] * 64 + sqs[1]] || L.index(sqs, stm) !== i) continue;
+    const gs = L.gStart[0], k = gs + rnd(4), to = sqs[k];
+    const fs = KNIGHT[to].filter((f) => !sqs.includes(f));
+    if (!fs.length) continue;
+    const f = fs[rnd(fs.length)];
+    const o1 = k === gs ? gs + 1 : gs, o2 = k <= gs + 1 ? gs + 2 : gs + 1, o3 = k === gs + 3 ? gs + 2 : gs + 3;
+    const pi = ((i - stm) / 2 + (c4(f, sqs[o1], sqs[o2], sqs[o3]) - dig[1]) * L.mul[1]) * 2 + (1 - stm);
+    L.decode(pi, back);
+    const want = Array.from(sqs); want[k] = f;
+    n++;
+    if (back[0] !== want[0] || back[1] !== want[1] || [...back.subarray(2, 6)].sort((x, y) => x - y).join() !== want.slice(2, 6).sort((x, y) => x - y).join()) bad++;
+  }
+  check(n > 1000 && !bad, `index KNNNNK: the group-of-four update gives the predecessor's slot in ${n} random unmoves (${bad} wrong)`);
 }
 
 // ---- 2. move generation against chess.js: the engine's and the checker's ----
@@ -188,7 +215,7 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
     if (!pool) { console.log(`skip threads: ${name}: one thread only (EGTB_THREADS), nothing to compare`); continue; }
     const P = new EgtbTable(name, 'mate', sub);
     P.prepareExits();
-    P.val = parallel.sharedZeros(Uint8Array, P.size);
+    P.val = parallel.sharedZeros(P.Values, P.size);
     parallel.solveParallel(P, pool);
     const S = new EgtbTable(name, 'mate', sub);
     S.prepareExits(); S.solve();
@@ -196,6 +223,83 @@ for (const [name, goal] of [['KPKP', 'mate'], ['KQKR', 'conversion'], ['KRKP', '
     check(Buffer.compare(Buffer.from(P.val.buffer, P.val.byteOffset, P.val.byteLength), Buffer.from(S.val.buffer)) === 0,
       `threads: ${name} solved on ${pool.size} worker threads equals the one-thread solve byte for byte`);
   }
+}
+
+// ---- 4d. storage and widths change nothing: the same tables built in memory and on disk (one thread and the
+// worker threads), with two-byte values and with 64-bit lists, hold the same values. Each way is a separate
+// process (these are set when the engine loads), building from scratch (no disk cache): it prints a digest of
+// every table's values (as 16-bit numbers, so both widths compare). ----
+{
+  const { spawnSync } = require('child_process');
+  const specs = [['KPKP', 'mate'], ['KRKP', 'mate'], ['KQKR', 'mate'], ['KPKP', 'conversion'], ['KRKP', 'conversion'], ['KPPK', 'promotion']];
+  const code = `
+    const egtb = require(${JSON.stringify(require.resolve('./index.cjs'))});
+    const crypto = require('crypto'), out = {};
+    for (const [name, goal] of ${JSON.stringify(specs)}) {
+      const T = egtb.table(name, { goal }), h = crypto.createHash('sha1');
+      for (const [, v] of T.valuePages()) { const w = Uint16Array.from(v); h.update(Buffer.from(w.buffer)); }
+      out[name + ':' + goal] = h.digest('hex').slice(0, 16) + (T.store ? ' disk' : ' memory') + ' w' + T.width;
+    }
+    console.log(JSON.stringify(out));`;
+  const run = (env) => {
+    const e = { ...process.env, ...env };
+    // exactly the way asked: no disk cache, and not the 1 MB budgets of --budget (a page cache smaller than two
+    // slices re-reads a page at almost every pawn move: correct, but hours)
+    delete e.KIT_CACHE; delete e.EGTB_MEMORY; delete e.EGTB_PAGE_CACHE;
+    const r = spawnSync(process.execPath, ['-e', code], { env: e, encoding: 'utf8' });
+    if (r.status !== 0) return { error: (r.stderr || '').split('\n').slice(-3).join(' ') };
+    return JSON.parse(r.stdout.trim().split('\n').pop());
+  };
+  const ways = [
+    ['in memory, one thread', { EGTB_STORAGE: 'memory', EGTB_THREADS: '1' }],
+    ['on disk, one thread', { EGTB_STORAGE: 'disk', EGTB_THREADS: '1' }],
+    ['on disk, worker threads', { EGTB_STORAGE: 'disk', EGTB_PARALLEL_FROM: '1' }],
+    ['two-byte values', { EGTB_WIDTH: '2', EGTB_THREADS: '1' }],
+    ['64-bit lists, worker threads', { EGTB_LIST64: '1', EGTB_PARALLEL_FROM: '1' }],
+  ];
+  const ref = run(ways[0][1]);
+  for (const [what, env] of ways.slice(1)) {
+    const r = run(env);
+    const diff = r.error ? [r.error] : specs.map(([n, g]) => `${n}:${g}`).filter((k) => !r[k] || !ref[k] || r[k].slice(0, 16) !== ref[k].slice(0, 16));
+    const how = r.error ? '' : ` (${[...new Set(Object.values(r).map((x) => x.slice(17)))].join(', ')})`;
+    check(!ref.error && !diff.length, `storage: ${what}${how}: the same values as in memory on one thread for ${specs.length} tables${diff.length ? `; differs: ${diff.join(', ')}` : ''}`);
+  }
+}
+
+// ---- 4e. the page cache (store.cjs) gives back every value as stored, with a budget of five pages: pages are
+// dropped and read back all the time (the clock eviction, its second chances), and a page written by a builder
+// replaces the cached one. ----
+{
+  const fs = require('fs'), os = require('os'), path = require('path');
+  const store = require('./store.cjs');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'egtb-pages-')), file = path.join(dir, 'values.bin');
+  const count = 100003, page = 1000, offset = 88;
+  const want = Uint16Array.from({ length: count }, (_, i) => (i * 2654435761) % 65521);
+  fs.writeFileSync(file, Buffer.concat([Buffer.alloc(offset), Buffer.from(want.buffer)]));
+  store.setBudget(5 * page * 2);
+  const v = new store.PagedValues({ file, offset, count, width: 2, page });
+  const dropped0 = store.stats.dropped, hits0 = store.stats.hits;
+  let bad = 0;
+  const hot = [7, 50, 99];
+  for (let t = 0; t < 300000; t++) {
+    const i = t % 10 < 7 ? hot[rnd(3)] * page + rnd(page) : rnd(count); // mostly three hot pages, else anywhere
+    if (v.get(i) !== want[i]) bad++;
+  }
+  for (const [base, a] of v.pageList()) for (let j = 0; j < a.length; j++) if (a[j] !== want[base + j]) bad++;
+  const dropped = store.stats.dropped - dropped0, hits = store.stats.hits - hits0;
+  // a builder's page replaces the one in the cache; a new reader sees it on disk
+  const w = new store.PagedValues({ file, offset, count, width: 2, page, writable: true });
+  w.get(3 * page); // page 3 now in the cache
+  const fresh = Uint16Array.from({ length: page }, (_, j) => j + 1);
+  w.putPage(3, fresh);
+  const r = new store.PagedValues({ file, offset, count, width: 2, page });
+  const written = w.get(3 * page + 10) === 11 && r.get(3 * page + 10) === 11 && r.get(4 * page) === want[4 * page];
+  v.close(); w.close(); r.close();
+  const released = [v, w, r].every((s) => s.cached.every((a) => a === null));
+  store.setBudget((+process.env.EGTB_PAGE_CACHE || os.totalmem() / 4 / 1048576) * 1048576);
+  fs.rmSync(dir, { recursive: true, force: true });
+  check(!bad && dropped > 1000 && hits > 1000 && written && released,
+    `page cache: 300,000 reads and a full scan under a five-page budget give the stored values (${bad} wrong; ${dropped} pages dropped, ${hits} hits); a written page replaces the cached one`);
 }
 
 // ---- 5. en passant ----

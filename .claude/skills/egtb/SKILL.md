@@ -1,13 +1,15 @@
 ---
 name: egtb
-description: How to use the Endgame Classroom's exact five-piece endgame tables (the egtb engine in tools/course-kit/egtb/, via solver.cjs) - probe positions and get the best moves, pick the measure (mate, conversion, promotion; winning or holding), use colour-swapped views for defending lessons, plan what an ending costs before promising it, find teaching positions (survey, scan, analyse), play and verify lines to the conversion or a held draw, check tables, and avoid the known traps. Use it whenever a task needs exact values, best moves or positions for an ending with up to five pieces or with pawns on both sides - rook endings (Lucena, Philidor, the skewer), two bishops or rook and bishop against a piece, two knights against a pawn, queen endings - or asks "is this won, what is the best move, how long", whether an ending is feasible for a course, or for lesson positions in such an ending. For changing the engine itself use exact-solver-engineering; for the course rules and PGN format use endgame-course.
+description: How to use the Endgame Classroom's exact endgame tables (the egtb engine in tools/course-kit/egtb/, via solver.cjs; five pieces here, six on a big machine) - probe positions and get the best moves, pick the measure (mate, conversion, promotion; winning or holding), use colour-swapped views for defending lessons, plan what an ending costs before promising it, find teaching positions (survey, scan, analyse), play and verify lines to the conversion or a held draw, check tables, and avoid the known traps. Use it whenever a task needs exact values, best moves or positions for an ending with five or six pieces or pawns on both sides - rook endings (Lucena, Philidor, the skewer), two bishops or rook and bishop against a piece, two knights against a pawn, queen endings - or asks "is this won, what is the best move, how long", whether an ending fits a course or a machine, or for its lesson positions. For changing the engine itself use exact-solver-engineering; for the course rules and PGN format use endgame-course.
 ---
 
-# Using the five-piece endgame tables (egtb)
+# Using the endgame tables (egtb)
 
-The egtb engine solves any material with up to five pieces (the two kings and up to three more, either colour,
+The egtb engine solves any material with up to six pieces (the two kings and up to four more, either colour,
 pawns on both sides included, en passant included) by retrograde analysis, and every value of its tables is
-exact: proved position by position by a checker that shares no code with it. It sits behind `solver.cjs`, which
+exact: proved position by position by a checker that shares no code with it. Five-piece endings build here in
+minutes; a six-piece ending worth a lesson needs a machine with about 128 GB of memory and a terabyte of disk
+(see "Costs"), so on this one only the smallest six-piece tables exist. It sits behind `solver.cjs`, which
 keeps building the classic tables (up to four pieces, pawns on one side) exactly as before and hands every other
 material to egtb with the same API. So `probe()`, `table()`, `line.cjs`, `verify.cjs` and the course pipeline
 work on five pieces unchanged.
@@ -19,7 +21,7 @@ numbers, teaching notes).
 
 Three skills share this ground: **endgame-course** (the owner's rules for a course: a lesson list approved
 first, no moves from memory, the PGN format), **this one** (using the tables), **exact-solver-engineering**
-(changing the engine: a new goal, six pieces, speed, memory; it also has the scripts that size a build).
+(changing the engine: a new goal, bigger tables, speed, memory; it also has the scripts that size a build).
 
 ## Quick start
 
@@ -38,7 +40,7 @@ const a = analyse(T, Int8Array.from(f.pieces.map((p) => p.sq)), f.stm);
 ```
 
 - `probe(fen)` returns the result for the side to move: `win` with `dtm` plies to mate, `loss` with `dtm` plies
-  until mated, `draw` with `dtm: -1`. It throws on more than five pieces and on an illegal position (e.g. the
+  until mated, `draw` with `dtm: -1`. It throws on more than six pieces and on an illegal position (e.g. the
   side not to move in check).
 - Table values: `v > 0` the side to move mates in `v` plies, `v < 0` it is mated in `-v - 1`, `0` a draw.
 - En passant: a FEN's en passant square counts (chess.js writes it only when the capture is legal; `probe`
@@ -80,14 +82,21 @@ Measured on the 4-core, 16 GB cloud machine, all threads, nothing cached (detail
 | K+B+B vs K+N and K+R+B vs K+R, conversion goal | 85 M, 153 M | 68-76 s for both | 1.7 GB | 2.5 min, 5-6 min (mate tables) |
 | K+R vs K+P+P | 15 five-piece tables, 5 G | not built | | |
 | Pawns against a pawn (K+P+P vs K+P) | 75 five-piece tables, 28 G | not built: does not fit here | | |
-| Six pieces (K+R+P vs K+R+P alone: 33.4 G slots) | | impossible: past the 2^32 index | | |
+| K+N+N+N+N vs K (six pieces) | 430 M (0.59 G slots, two bytes each) | 260 s | 4.0 GB | 9.4 min (no value wrong); mate in 18 at most |
+| K+P+P+P+P vs K, promotion goal (six pieces) | 586 M (0.70 G slots) | 148 s (from disk: 160 s) | 1.9 GB | 17.4 min (no value wrong); 24 moves to promote at most |
+| K+R+P vs K+R+P (120 tables, 25 of them six-piece) | 559 G slots | not built: 1.1 TB of disk, 78 GB of memory for its biggest solve (K+Q+R vs K+Q+R) | | |
 
 - Size any ending first: `node ../../.claude/skills/exact-solver-engineering/scripts/egtb-family.cjs KRPKR`
-  lists every table the build needs, with sizes and totals, without solving anything.
-- With `KIT_CACHE=1` the tables are kept in `tools/.kit-cache` (one byte per slot: K+R+P vs K+R is 677 MB; the
-  five-piece work filled 12 GB) and load in about a second. Any edit to an engine file (`egtb/geometry`,
-  `layout`, `engine`, `index`, `parallel`) makes every cached table stale and the next use rebuilds it:
+  lists every table the build needs, with sizes, bytes, memory or disk, and the memory each solve needs,
+  without solving anything. Six-piece families: `references/endings.md`, section 6.
+- With `KIT_CACHE=1` the tables are kept in `tools/.kit-cache` (one byte per slot up to five pieces, two from
+  six: K+R+P vs K+R is 677 MB; the five-piece work filled 12 GB) and load in about a second. Any edit to an
+  engine file (`egtb/geometry`, `layout`, `engine`, `index`, `parallel`, `store`) makes every cached table
+  stale and the next use rebuilds it; so did the six-piece engine (cache format 2: every older file is stale).
   `npm run kit:cache` shows current and stale files, `npm run kit:cache -- prune` deletes the stale ones.
+- A pawn table too big for memory (six pieces) is solved and read from its cache file: give `KIT_CACHE` a
+  directory on a disk with room (without it the file goes to the system's temporary directory and is deleted
+  at exit). `EGTB_PAGE_CACHE` (MB, default a quarter of RAM) caps the pages of such tables kept in memory.
 - `EGTB_MEMORY` (MB, default 60% of RAM) caps the tables kept in memory when the cache is on; the tables in use
   always stay. `EGTB_THREADS=n` sets the worker threads (default: the cores, at most 8).
 - Do not promise a course on an ending that is not built, or whose family does not fit the machine, without
@@ -168,7 +177,9 @@ the checker, the second engine and the published values.
 | Expecting unique moves in holding lines | a draw is a draw: many equals | judge them by the line, not by uniqueness |
 | `fenOf()` / `analyse()` on an en passant position | en passant rights are not stored | `probe()` with the FEN's e.p. square, `T.options(sqs, stm, ep)` |
 | Heavy jobs side by side | times stretch, memory can run out | one five-piece build or check at a time |
-| More than five pieces | `probe()` throws | not supported (six pieces needs a new engine design) |
+| More than six pieces | `probe()` throws | not supported |
+| A six-piece family on the 16 GB machine | does not fit (K+R+P vs K+R+P: 1.1 TB, 78 GB for one solve) | size it with `egtb-family.cjs`; build on a big machine |
+| A killed six-piece build | leaves its temporary file (tens of GB) in the cache directory | `npm run kit:cache` shows it; `prune` deletes it once its process is gone |
 
 ## Files of this skill
 

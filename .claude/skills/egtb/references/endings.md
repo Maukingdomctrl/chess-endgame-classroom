@@ -12,8 +12,9 @@ current.
 3. Two knights against a pawn
 4. Pawn endings and en passant
 5. Four-piece tables
-6. Not built, and why
-7. Verified positions
+6. Not built, and why (six-piece families included)
+7. Six-piece tables built here
+8. Verified positions
 
 ## 1. Rook and pawn against rook (K+R+P vs K+R; defending: K+R vs K+R+P)
 
@@ -94,14 +95,37 @@ the built-in courses (their bytes and order must not change); egtb builds its ow
 | K+R vs K+P+P | 15 five-piece tables, 5 G slots | not built (fits, but hours of building and checking) |
 | K+P+P+P vs K, mate goal | 35 five-piece tables, 9.3 G | not built (the promotion goal covers the lessons) |
 | Pawns against a pawn (K+P+P vs K+P, K+P vs K+P+P) | 75 five-piece tables (every promotion leads to a queen ending), 28 G | not built: does not fit this machine; index and move generation tested |
-| Six pieces (K+R+P vs K+R+P) | 33.4 G slots for the one table, past the 2^32 index; planning studies put its whole family at roughly 310-560 G slots | impossible with this engine; needs a split index, solving on disk, two-byte values, a bigger machine |
+| K+R+P vs K+R+P (also K+B+P vs K+N+P, K+Q+P vs K+Q+P) | 120 tables, 25 of them six-piece, 559 G slots: 1.1 TB at two bytes per six-piece slot; its pawnless six-piece tables (K+Q+R vs K+Q+R, 15.5 G slots) are solved in memory at 5 bytes per slot, 78 GB | the engine supports it; needs about 128 GB of memory and over a terabyte of disk |
+| K+R+P+P vs K+R, K+R vs K+B+P+P | 71 tables (15 six-piece), 280 G slots, 0.55 TB; 78 GB for the biggest solve | as above |
+| K+N+N+N vs K+P | 23 tables (5 six-piece), 18 G slots, 35 GB; its own table 7.2 G slots, solved from disk; K+N+N+N vs K+Q needs 12 GB in memory | by its sizes a 32 GB machine with 50 GB of free disk; not this one |
+| K+R+R vs K+N+N, K+Q+Q vs K+R+R, K+B+B vs K+N+N | 3.76 G slots (8 GB), solved in memory: 19 GB | a 32 GB machine |
+| K+P+P vs K+P+P | 440 tables, 225 of them six-piece, 4.8 T slots, 9.6 TB | out of reach |
 
-A closed part of K+R+P vs K+R+P would fit (both pawns on one file, White's below Black's: no promotion and no
-en passant without a capture first, every capture leads to a five-piece table): about 1.8 G slots plus 9-19 G
-of five-piece exits, by two independent planning estimates. It is an idea, not built; see
-exact-solver-engineering for what six pieces would change.
+These sizes come from `exact-solver-engineering/scripts/egtb-family.cjs` (exact counts of the engine's own
+tables; the times are not measured: by the five-piece rates, 0.7-1.4 microseconds per slot and core, the
+K+R+P vs K+R+P family is 110-220 core-hours to build, and checking takes five to nine times as long).
 
-## 7. Verified positions
+A closed part of K+R+P vs K+R+P would fit here (both pawns on one file, White's below Black's: no promotion and
+no en passant without a capture first, every capture leads to a five-piece table): about 1.8 G slots plus 9-19
+G of five-piece exits, by two independent planning estimates. It is an idea, not built (the engine has no way
+to build part of a table).
+
+## 7. Six-piece tables built here
+
+Built and checked in October 2026 on the 16 GB machine, to test the six-piece engine (neither is an ending
+for a lesson):
+
+| Table | Slots / positions | Build (four threads) | Check, every position | Results |
+|---|---|---|---|---|
+| K+N+N+N+N vs K, mate | 587 M / 430,151,371 | 246 s (260 s with K+N+N+N vs K and smaller), peak 4.0 GB, 1.1 GB on disk | 564 s: 0 wrong, 0 mirror images not found | wins 178,275,611, draws 1,459,341, losses 250,416,419; longest mate 18 moves |
+| K+P+P+P+P vs K, promotion | 704 M in 97,428 slices / 585,501,287 | 130 s in memory (148 s with K+P+P+P vs K and smaller), peak 1.9 GB, 1.3 GB on disk; from disk 148 s (160 s), peak 6.2 GB | 1045 s: 0 wrong, 0 not found | wins 276,026,791, draws 253,758, losses 309,220,738; longest 24 moves to a safe promotion |
+
+K+N+N+N+N vs K checks the group of four identical pieces in the retrograde step and the threaded solve with
+two-byte values; K+P+P+P+P vs K checks four identical pawns in the slices. Built again from disk, K+P+P+P+P
+vs K and its three sub-tables are byte for byte the in-memory ones, and a 1% sample checked on the table on
+disk (5,860,024 positions) found nothing wrong.
+
+## 8. Verified positions
 
 Each value below came out of a run in this work (the solver's header examples, the self-tests, the
 prototypes). Use them as known-good examples and test fixtures.

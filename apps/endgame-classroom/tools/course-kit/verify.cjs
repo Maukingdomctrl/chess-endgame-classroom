@@ -12,7 +12,7 @@
 //   means the quickest safe promotion, then the piece that mates fastest.
 // opts.promotionProbe(fen) -> { result, dtc }: the measure for goal 'promotion' (dtc = plies to a safe
 //   promotion). Default: ../kpk-course/kpk.cjs (K+P vs K); solver.cjs's probePromotion covers two pawns.
-// opts.goal 'conversion' (any material up to five pieces, the learner is White): "fastest" means the quickest
+// opts.goal 'conversion' (any material up to six pieces, the learner is White): "fastest" means the quickest
 //   capture or promotion after which the position is still won (by opts.probe, the mate measure), or mate;
 //   the line ends with that move. opts.conversionProbe(fen) -> { result, dtc } (dtc = plies until White
 //   converts; default: solver.cjs's probeConversion). Black's captures do not end the line.

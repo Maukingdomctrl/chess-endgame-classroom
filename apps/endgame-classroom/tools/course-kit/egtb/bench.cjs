@@ -30,18 +30,20 @@ function peakMB() {
  * those (a table read from the disk cache has no count: its draws are counted slot by slot, slower).
  */
 function census(T) {
-  const val = T.val;
+  // page by page: the same for a table in memory (one page) and a table on disk (one page per slice)
   let win = 0, loss = 0, longest = 0;
-  for (let i = 0; i < val.length; i++) {
-    const s = val[i];
-    if (!s) continue;
-    if (s & 1) loss++; else { win++; if (s - 1 > longest) longest = s - 1; }
+  for (const [, val] of T.valuePages()) {
+    for (let i = 0; i < val.length; i++) {
+      const s = val[i];
+      if (!s) continue;
+      if (s & 1) loss++; else { win++; if (s - 1 > longest) longest = s - 1; }
+    }
   }
   let positions = T.stats?.positions;
   if (positions === undefined) {
     const sqs = new Int8Array(T.n);
     positions = win + loss;
-    for (let i = 0; i < val.length; i++) if (!val[i] && T.stores(i, sqs)) positions++;
+    for (const [base, val] of T.valuePages()) for (let i = 0; i < val.length; i++) if (!val[i] && T.stores(base + i, sqs)) positions++;
   }
   return { positions, win, draw: positions - win - loss, loss, longestPlies: longest, longestMoves: (longest + 1) / 2 };
 }
@@ -52,7 +54,7 @@ const total = (Date.now() - t0) / 1000;
 const rows = [];
 for (const [key, T] of egtb.tables) {
   const c = census(T);
-  rows.push({ table: key, size: T.size, seconds: T.stats?.cached ? 'cache' : +(T.stats.ms / 1000).toFixed(1), threads: T.stats?.threads ?? 1, ...c, mb: +(T.size / 1048576).toFixed(0) });
+  rows.push({ table: key, size: T.size, seconds: T.stats?.cached ? 'cache' : +(T.stats.ms / 1000).toFixed(1), threads: T.stats?.threads ?? 1, ...c, mb: +((T.size * T.width) / 1048576).toFixed(0), storage: T.store ? 'disk' : 'memory' });
 }
 const w = (s, n) => String(s).padStart(n);
 console.log(`${'table'.padEnd(18)}${w('index', 12)}${w('MB', 6)}${w('s', 8)}${w('thr', 4)}${w('positions', 12)}${w('wins', 12)}${w('draws', 12)}${w('losses', 12)}${w('longest', 9)}`);
