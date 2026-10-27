@@ -26,7 +26,9 @@ npm run build    # production build in dist/
 4. **See / export** – the **Lines** tab lists every line (edit, reorder, delete, copy PGN/FEN) and
    exports the whole course as PGN or a JSON backup.
 5. **Learn** – lines play one after another. The coach explains each move and an arrow shows what
-   to play; the opponent's moves are played for you. When a line ends you get 15 seconds to read the
+   to play; the opponent's moves are played for you. Each note is labelled with its move (light for
+   yours, dark for the opponent's), the line's introduction stays until your first move, and the
+   opponent waits a little longer before replying when there is more to read. When a line ends you get 15 seconds to read the
    final notes before the next one starts: press **Next line** to go on now, or **Stay** to stop the
    countdown and look at the position as long as you like.
 6. **Practice** – unlocks after you learn a line. No arrows: play from memory. Hints and wrong moves

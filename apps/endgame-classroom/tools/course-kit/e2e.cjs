@@ -10,6 +10,8 @@
 //     drawn where the PGN has them (and none where it has none), and the line's takeaway shown at the end;
 //   - Practice: an [%also] move is accepted as "good too" without counting a mistake ("Perfect"; without
 //     [%also] moves in the course, a line is played cleanly in Practice);
+//   - the coach's notes: the intro stays until the learner's first move (also after the opponent's opening
+//     move), and a move's note is labelled with its move (so the learner's move and the reply are told apart);
 //   - no console errors or warnings.
 // Needs Playwright (npm i -D playwright, or a global install) and a Chromium: set CHROMIUM_PATH, or let
 // Playwright use its own (npx playwright install chromium).
@@ -44,7 +46,10 @@ function loadPlaywright() {
   let failures = 0;
   const check = (ok, msg) => { console.log(`${ok ? 'PASS' : 'FAIL'}  ${msg}`); if (!ok) failures++; };
   try {
-    const page = await (await browser.newContext({ viewport: { width: 1280, height: 900 } })).newPage();
+    const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    // the opponent replies without the reading pause (Trainer.tsx), so every line plays quickly
+    await context.addInitScript(() => { window.__ecFastReplies = true; });
+    const page = await context.newPage();
     const errors = [];
     page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errors.push(`${m.type()}: ${m.text()}`); });
     page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
@@ -121,6 +126,42 @@ function loadPlaywright() {
       const promos = r.moves.filter((m) => m.promotion).map((m) => m.san);
       check(r.bubble.includes('Well done!') && r.bubble.includes(r.line.description),
         `Learn: "${r.line.name}" played to the end (${r.line.moves.length} ${r.line.moves.length === 1 ? 'ply' : 'plies'}${promos.length ? `, promotion in the picker: ${promos.join(', ')}` : ''})`);
+    }
+
+    // ---- the coach's notes: the intro stays until the learner moves; notes are labelled with their moves ----
+    {
+      const opens = course.lines.findIndex((l) => l.startFen.split(' ')[1] !== learner && l.intro?.trim());
+      const i = opens >= 0 ? opens : 0;
+      const line = course.lines[i];
+      await page.goto(`${BASE}#/course/${course.id}/learn?line=${line.id}`);
+      await page.waitForSelector('[data-square="e4"]');
+      const g = new Chess(line.startFen);
+      const moves = line.moves.map((m) => g.move(m.san));
+      const first = moves.findIndex((m) => m.color === learner);
+      if (first > 0) {
+        const op = moves[0];
+        await page.waitForSelector(`[data-square="${op.to}"] [data-piece="${op.color}${op.piece.toUpperCase()}"]`, { timeout: 5000 });
+        await page.waitForTimeout(300);
+        const head = line.intro.trim().slice(0, 40);
+        check((await page.locator('.bubble').innerText()).replace(/\s+/g, ' ').includes(head.replace(/\s+/g, ' ')),
+          `notes: the intro is still shown after the opponent's opening move ("${line.name}")`);
+      }
+      const k = moves.findIndex((m, j) => m.color === learner && line.moves[j].comment?.trim());
+      if (k >= 0) {
+        for (let j = first; j < k; j++) {
+          const mv = moves[j];
+          if (mv.color !== learner) { await page.waitForSelector(`[data-square="${mv.to}"] [data-piece="${mv.color}${mv.piece.toUpperCase()}"]`, { timeout: 5000 }); continue; }
+          await page.click(`[data-square="${mv.from}"]`); await page.click(`[data-square="${mv.to}"]`);
+          if (mv.promotion) await page.locator('.promo-piece', { hasText: GLYPH[mv.promotion] }).click();
+          await page.waitForSelector(`[data-square="${mv.to}"] [data-piece="${mv.color}${(mv.promotion ?? mv.piece).toUpperCase()}"]`, { timeout: 5000 });
+        }
+        const mv = moves[k];
+        await page.click(`[data-square="${mv.from}"]`); await page.click(`[data-square="${mv.to}"]`);
+        if (mv.promotion) await page.locator('.promo-piece', { hasText: GLYPH[mv.promotion] }).click();
+        await page.waitForSelector('.bubble .note-move', { timeout: 3000 }).catch(() => null);
+        const labels = await page.locator('.bubble .note-move').allInnerTexts();
+        check(labels.some((t) => t.includes(mv.san.replace(/[+#]$/, ''))), `notes: the learner's note is labelled with its move (${labels.join(', ') || 'no label'})`);
+      }
     }
 
     // ---- Practice: an [%also] move is not a mistake ----

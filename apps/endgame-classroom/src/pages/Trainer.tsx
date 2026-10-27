@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { Chess } from "chess.js";
 import type { Arrow } from "react-chessboard";
@@ -23,6 +23,20 @@ interface Props {
   updateCourse: UpdateCourse;
 }
 
+/** A coach note: the comment of the move at `ply`. */
+interface Note {
+  ply: number;
+  text: string;
+}
+
+/** A paragraph of the coach's bubble; a move's note carries the move as a label and the side that played it. */
+interface CoachText {
+  key: string;
+  text: string;
+  label?: string;
+  side?: "w" | "b";
+}
+
 interface Run {
   idx: number;
   ply: number;
@@ -30,8 +44,8 @@ interface Run {
   mistakes: number;
   wrongAtPly: number;
   hintLevel: number;
-  /** Coach notes gathered since the trainee's last turn. */
-  notes: string[];
+  /** Coach notes gathered since the trainee's last turn: the trainee's move, then the opponent's reply. */
+  notes: Note[];
   /** Feedback on a move that wasn't the line's move; `good` = it was one of the line's [%also] moves. */
   flash: { square: string; text: string; good?: boolean } | null;
   status: "playing" | "done";
@@ -42,6 +56,21 @@ interface Run {
 }
 
 const OPPONENT_DELAY_MS = 550;
+// A line that starts with the opponent's move: its first reply (the intro stays on screen meanwhile).
+const FIRST_REPLY_MS = 1000;
+// After a note the opponent waits a little longer, so it can be read before the board changes.
+const READ_MS_PER_WORD = 120;
+const READ_MAX_EXTRA_MS = 2000;
+
+// The browser test (tools/course-kit/e2e.cjs) turns the reading pause off, so it can play every line quickly.
+const readingPause = () => !(window as Window & { __ecFastReplies?: boolean }).__ecFastReplies;
+
+/** How long the opponent waits before replying: longer when the notes on screen have more to read. */
+function replyDelay(notes: Note[]) {
+  if (!readingPause()) return OPPONENT_DELAY_MS;
+  const words = notes.reduce((n, x) => n + x.text.split(/\s+/).filter(Boolean).length, 0);
+  return OPPONENT_DELAY_MS + Math.min(READ_MAX_EXTRA_MS, words * READ_MS_PER_WORD);
+}
 // Time to read the final notes before the next line starts (the learner can skip or stay).
 const AUTO_NEXT_MS = 15000;
 
@@ -93,6 +122,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
   const [run, setRun] = useState<Run>(() => freshRun(0));
   const [allDone, setAllDone] = useState(false);
   const [sound, setSound] = useState(soundEnabled);
+  const notesRef = useRef<HTMLDivElement>(null);
 
   const line = queue[run.idx] as Line | undefined;
   const fens = useMemo(() => (line ? lineFens(line) : []), [line]);
@@ -136,15 +166,27 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
             ...r,
             ply: r.ply + 1,
             viewPly: null,
-            notes: [...r.notes, line.moves[r.ply]?.comment ?? ""],
+            notes: [...r.notes, { ply: r.ply, text: line.moves[r.ply]?.comment ?? "" }],
           }));
         },
-        run.ply === 0 ? 800 : OPPONENT_DELAY_MS,
+        run.ply === 0 ? FIRST_REPLY_MS : replyDelay(run.notes),
       );
       return () => window.clearTimeout(t);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [line, run.ply, run.status]);
+
+  // The opponent's reply, noted below the learner's move, is scrolled into view when the notes overflow. Only the
+  // notes scroll (never the page, so the board stays put), and not while the line's intro is still shown.
+  useEffect(() => {
+    const el = notesRef.current;
+    const last = el?.lastElementChild;
+    const afterLearnerMove = run.notes.length > 0 && turnAt(run.notes[0].ply) === trainee;
+    if (!el || !last || !afterLearnerMove) return;
+    const over = last.getBoundingClientRect().bottom - el.getBoundingClientRect().bottom;
+    if (over > 0) el.scrollBy({ top: over, behavior: "smooth" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [run.notes.length, run.idx]);
 
   // Move on to the next line automatically after a completed one.
   useEffect(() => {
@@ -217,7 +259,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
       setRun((r) => ({
         ...r,
         ply: r.ply + 1,
-        notes: [line.moves[r.ply]?.comment ?? ""],
+        notes: [{ ply: r.ply, text: line.moves[r.ply]?.comment ?? "" }],
         hintLevel: 0,
         wrongAtPly: 0,
         flash: null,
@@ -318,32 +360,56 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
   if (run.flash && live)
     marks[run.flash.square] = { backgroundColor: run.flash.good ? "rgba(46, 160, 110, 0.5)" : "rgba(220, 60, 60, 0.6)" };
 
-  const notes = run.notes.filter((n) => n.trim());
+  /**
+   * A note as the coach shows it: labelled with its move ("2. Kd4!", "2… Kc6"), so the learner's move and the
+   * reply are never confused. A note that starts with its own move ("Kd4! — Take …") gives that part to the label.
+   */
+  function noteView(n: Note): CoachText {
+    const mv = verbose[n.ply];
+    let text = n.text.trim();
+    if (!mv) return { key: `n${n.ply}`, text };
+    let glyph = "";
+    const lead = text.startsWith(mv.san) ? text.slice(mv.san.length).match(/^([!?]{0,2}) — /) : null;
+    if (lead) {
+      glyph = lead[1];
+      text = text.slice(mv.san.length + lead[0].length);
+    }
+    const number = fens[n.ply]?.split(" ")[5] ?? "1";
+    return { key: `n${n.ply}`, text, side: mv.color, label: `${number}${mv.color === "w" ? "." : "…"} ${mv.san}${glyph}` };
+  }
+  const notes = run.notes.filter((n) => n.text.trim()).map(noteView);
+  const plain = (key: string, text: string): CoachText => ({ key, text });
   const progress = allDone
     ? 1
     : (run.idx + (run.status === "done" ? 1 : total ? run.ply / total : 0)) / queue.length;
 
-  let coachMain: string[];
+  let coachMain: CoachText[];
   let coachAction = "";
   // Keeps the instruction row in place while the opponent replies, so the bubble doesn't collapse.
   let waiting = false;
   if (allDone) {
     coachMain = [
-      mode === "learn"
-        ? queue.length === 1
-          ? "You've finished this line. Time to practice it from memory!"
-          : `You've gone through all ${queue.length} lines. Time to practice them from memory!`
-        : `Practice round complete: ${queue.length} line${queue.length === 1 ? "" : "s"}.`,
+      plain(
+        "all",
+        mode === "learn"
+          ? queue.length === 1
+            ? "You've finished this line. Time to practice it from memory!"
+            : `You've gone through all ${queue.length} lines. Time to practice them from memory!`
+          : `Practice round complete: ${queue.length} line${queue.length === 1 ? "" : "s"}.`,
+      ),
     ];
   } else if (run.status === "done") {
     // Keep the final move's note: it often explains why the line is won.
-    coachMain = [...notes, "Well done!", line?.description ?? ""];
+    coachMain = [...notes, plain("well", "Well done!"), plain("takeaway", line?.description ?? "")];
     if (mode === "practice") coachAction = run.mistakes === 0 ? "Perfect — no mistakes." : `${run.mistakes} mistake${run.mistakes === 1 ? "" : "s"} — this line will come back.`;
   } else if (!live) {
-    coachMain = [line?.moves[viewing - 1]?.comment || "Reviewing earlier moves."];
+    const comment = line?.moves[viewing - 1]?.comment?.trim();
+    coachMain = [comment ? noteView({ ply: viewing - 1, text: comment }) : plain("review", "Reviewing earlier moves.")];
     coachAction = "Press › or → to return to the game.";
   } else {
-    coachMain = run.ply === 0 && !notes.length ? [line?.intro || line?.name || ""] : notes;
+    // The intro stays until the learner's first move, also when the line starts with the opponent's move.
+    const learnerMoved = verbose.slice(0, run.ply).some((m) => m.color === trainee);
+    coachMain = learnerMoved ? notes : [plain("intro", line?.intro || line?.name || ""), ...notes];
     if (run.flash) coachAction = run.flash.text;
     else if (expected) {
       if (mode === "learn") coachAction = moveInstruction(expected);
@@ -354,7 +420,7 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
       waiting = true;
     }
   }
-  coachMain = coachMain.filter((t) => t.trim());
+  coachMain = coachMain.filter((t) => t.text.trim());
 
   return (
     <div className="trainer">
@@ -415,9 +481,13 @@ export default function Trainer({ course, mode, startLineId, updateCourse }: Pro
             <div className={`bubble${run.flash && live ? (run.flash.good ? " good" : " wrong") : ""}`}>
               {coachMain.length > 0 && (
                 // Only the notes scroll, so the instruction below stays visible even for long notes.
-                <div className="bubble-notes">
-                  {coachMain.map((t, i) => (
-                    <p key={i}>{t}</p>
+                <div className="bubble-notes" ref={notesRef}>
+                  {coachMain.map((t) => (
+                    <p key={t.key} className={t.side ? `note ${t.side}` : undefined}>
+                      {t.label && <span className="note-move">{t.label}</span>}
+                      {t.label && " "}
+                      {t.text}
+                    </p>
                   ))}
                 </div>
               )}
