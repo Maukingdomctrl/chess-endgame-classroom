@@ -1,6 +1,6 @@
-// The egtb engine: exact distance-to-mate tables for up to five pieces by retrograde analysis (see
+// The egtb engine: exact distance-to-mate tables for up to six pieces by retrograde analysis (see
 // README.md in this folder). The toolkit's solver.cjs hands it every material it does not build itself
-// (five pieces, and pawns on both sides, where en passant matters).
+// (five and six pieces, and pawns on both sides, where en passant matters).
 //
 // Values, as everywhere in the toolkit, for the side to move: v > 0 mates in v plies, v < 0 is mated in
 // -v - 1 plies (-1: checkmated now), 0 draw. Stored as level + 1 (level = plies to mate, odd when the side to

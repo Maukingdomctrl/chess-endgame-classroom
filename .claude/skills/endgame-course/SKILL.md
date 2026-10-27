@@ -61,12 +61,14 @@ skill**: it has the pawn toolkit, the independent checker and what was learned t
   R = danger (the move that only draws or stalemates, the mated king), B = zones (the box the king is
   trapped in, or the squares it can step to). No marks in the exam.
 
-## Five-piece endings (`tools/course-kit/egtb/`)
+## Five- and six-piece endings (`tools/course-kit/egtb/`)
 
-Read `egtb/README.md`. `solver.cjs` routes five-piece materials (and pawns on both sides) to the egtb engine
-with the same API, so `line.cjs`, `verify.cjs` and the course pipeline work unchanged. The **egtb** skill has
-the details for using the tables (measures, costs, finding positions, verified positions, traps); to change the
-solver or the engine itself (a new goal, six pieces, speed, memory), use the **exact-solver-engineering** skill.
+Read `egtb/README.md`. `solver.cjs` routes five- and six-piece materials (and pawns on both sides) to the egtb
+engine with the same API, so `line.cjs`, `verify.cjs` and the course pipeline work unchanged; a six-piece ending
+worth a lesson needs a big machine (K+R+P vs K+R+P: about 128 GB of memory and over a terabyte of disk; its
+README, "Six pieces"). The **egtb** skill has the details for using the tables (measures, costs, finding
+positions, verified positions, traps); to change the solver or the engine itself (a new goal, bigger tables,
+speed, memory), use the **exact-solver-engineering** skill.
 
 - **Check the cost first** (`egtb/README.md`, "What it costs"): a pawnless ending is one table (about a
   minute); piece and pawn against a piece is five (K+R+P vs K+R: about 6 minutes on four cores, 3.2 GB, 1.5 GB on disk); pawns
