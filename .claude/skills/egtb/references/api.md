@@ -21,7 +21,7 @@ const solver = require('./tools/course-kit/solver.cjs');
 
 | Call | Returns |
 |---|---|
-| `probe(fen)` | `{ result: 'win' \| 'loss' \| 'draw', dtm }` for the side to move: plies to mate (win), until mated (loss), `-1` for a draw. Up to 5 pieces; throws `illegal position` (e.g. the side not to move in check) |
+| `probe(fen)` | `{ result: 'win' \| 'loss' \| 'draw', dtm }` for the side to move: plies to mate (win), until mated (loss), `-1` for a draw. Up to 6 pieces (a six-piece family needs a big machine); throws `illegal position` (e.g. the side not to move in check) |
 | `probeConversion(fen)` | `{ result, dtc }`: plies until White's capture or promotion that keeps the win, or mate (egtb conversion table) |
 | `probePromotion(fen)` | `{ result, dtc }`: plies to a safe queen or rook promotion; White's pawns against the lone king (up to three pawns) |
 | `table(name, { goal })` | the solved table (built on first use, then kept); goal `'mate'` (default), `'conversion'`, `'promotion'`. A material with less for White, goal mate, comes back as a colour-swapped view of its stored twin |
