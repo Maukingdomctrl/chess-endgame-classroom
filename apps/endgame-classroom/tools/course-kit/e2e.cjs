@@ -48,7 +48,7 @@ function loadPlaywright() {
   try {
     const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
     // the opponent replies without the reading pause (Trainer.tsx), so every line plays quickly
-    await context.addInitScript(() => { window.__ecFastReplies = true; });
+    await context.addInitScript(() => { globalThis.__ecFastReplies = true; });
     const page = await context.newPage();
     const errors = [];
     page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errors.push(`${m.type()}: ${m.text()}`); });

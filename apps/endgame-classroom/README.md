@@ -105,6 +105,14 @@ time the app opens on a device:
   lines. Every move of yours is a fastest win (or keeps the draw), equal moves are accepted via
   `[%also]`, and every line is checked again with an independent solver. Regenerate it with
   `npm run course:opposition` (see `tools/direct-opposition-course/`).
+- *Rook Endings: Lucena, Skewer, Philidor* (`courses/rook-endings-course.pgn`): 21 positions in 5
+  lessons, rook and pawn against rook: building the bridge in the Lucena (your rook on the 4th rank
+  shelters your king from the checks), the skewer behind a rook's pawn, the Philidor defence (you
+  defend: check from behind once the pawn has advanced), and a final exam. Every move is decided by
+  the exact five-piece tables: each of your moves wins as fast as possible (to the safe queen or the
+  rook won) or keeps the draw, equal moves are accepted via `[%also]`, and the notes say only what the
+  board shows. Blue marks the file that cuts the black king off (or the 7th rank of the skewer), green
+  where your rook goes. Regenerate it with `npm run course:rook` (see `tools/rook-endings-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
 imported by hand is adopted instead of duplicated. When a newer version of the app changes a

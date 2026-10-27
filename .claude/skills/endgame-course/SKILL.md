@@ -214,5 +214,18 @@ per course).
   without a variety key as repeats. Fix the general mechanism (with a test), not the one position.
 - **Some losing move almost always exists** in a pawn ending: "important" and difficulty count only the
   moves a learner is likely to consider (the domain's heuristic), and say "unknown" where there is none.
+- **Measure the lesson's whole filter before proposing counts.** The rook course's Lucena estimate (about 70
+  positions) counted lines with a rook move to the 4th rank; requiring the textbook picture (the rook shielding
+  the king on its file when the pawn queens) left three patterns, each in a few setups, so nine lines repeat
+  them on both wings. Say how much a lesson will repeat when you propose it.
+- **Defending lines have many equal moves.** Once a draw is safe almost any move holds: `[%also]` grows to 8-10
+  moves, and the opponent (which avoids repeating) plays on for dozens of moves. Cap the line (`maxPlies` in
+  `line.cjs`) and the size of `[%also]`, and keep lines that end with the pawn taken.
+- **Read the explainer's notes on real lines before trusting a domain.** The rook domain said "build the bridge"
+  of a king move, credited a far rook that could simply be taken, and saw a skewer where the king could protect
+  its rook; each was fixed with a hand-checked test that a planted bug fails (`rook/test.cjs`).
+- **Screen with the table's own values.** `T.options(sqs, stm)` gives every move's value without chess.js: find a
+  unique best move of the lesson's kind there, then confirm with `verify.fastestMoves` (the rook course's search
+  went from 15 to 7 minutes).
 - The browser test needs Playwright and a Chromium (`CHROMIUM_PATH`; in the cloud container it is
   `/opt/pw-browsers/chromium` with Playwright installed globally).

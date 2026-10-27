@@ -3,6 +3,7 @@ import endgameBasicsPgn from "../../courses/endgame-basics-course.pgn?raw";
 import ladderMatePgn from "../../courses/ladder-mate-course.pgn?raw";
 import connectedPawnsPgn from "../../courses/connected-pawns-course.pgn?raw";
 import directOppositionPgn from "../../courses/direct-opposition-course.pgn?raw";
+import rookEndingsPgn from "../../courses/rook-endings-course.pgn?raw";
 import type { Category, Course, Line, Side } from "../types";
 import { importPgn } from "./pgn";
 import { createCourse } from "./storage";
@@ -69,6 +70,16 @@ export const BUILTIN_COURSES: BuiltinCourse[] = [
     playAs: "white",
     pgn: directOppositionPgn,
     signature: "01. What the opposition is (1/10)",
+  },
+  {
+    id: "rook-endings",
+    name: "Rook Endings: Lucena, Skewer, Philidor",
+    description:
+      "21 positions in 5 lessons on rook and pawn against rook: building the bridge in the Lucena, the skewer behind a rook's pawn, the Philidor defence with checks from behind, and a final exam. Every move is verified with exact five-piece endgame tables.",
+    category: "endgame",
+    playAs: "white",
+    pgn: rookEndingsPgn,
+    signature: "01. The Lucena: build a bridge (1/4)",
   },
 ];
 
