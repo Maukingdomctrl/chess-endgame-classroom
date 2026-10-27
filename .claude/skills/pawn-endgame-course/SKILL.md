@@ -83,6 +83,13 @@ first and wait for the OK, never moves from memory, verify twice and fail loudly
   line; no black-king walk repeated; at most a quarter of a line's positions shared. Short lessons
   (1-3 moves) need other kings, other pawns and another walk in every line instead.
 - Prefer instructional diversity (formation, king zones, files, wing, line length) over new FENs.
+- **One pawn, many lines** (*Direct Opposition*, 100 lines): the course-wide rules above leave slots empty.
+  K+P lines converge (a long walk passes the starts of the shorter walks; most lines end in the same few
+  promotion pictures), so measure first and keep what matters: no start twice, no line that is another one
+  shifted along the board (`lineShape`), no two lines meeting right after the learner's first move, within
+  a task no line starting in or joining another's first moves; report the rest. Fill the slots with a
+  matching that knows the conflicts (cliques of conflicting lines as one resource) and back up when stuck,
+  most constrained slot first: greedy picks starve the scarce slots.
 
 ## Stalemate
 

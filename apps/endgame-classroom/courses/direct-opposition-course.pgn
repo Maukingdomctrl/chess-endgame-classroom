@@ -1,0 +1,1867 @@
+[Event "01. What the opposition is (1/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/8/4K3/3P4/8/8 b - - 0 1"]
+[LineName "01. What the opposition is (1/10)"]
+[LineDescription "When the black king must move, it gives up ground: use it to walk your king forward."]
+
+{Welcome! This course teaches one idea: the direct opposition. Two kings on one
+file with one square between them cannot step forward, so the side that has to
+move must give way. You play White in every line, to the end. Every help is on
+in this lesson: the idea in words, a question to guide you, and colours on the
+board. Pawn on d3. Black moves first; then win. Two kings are contesting the
+same narrow road, with one square between them. Who will have to give ground
+first? Red arrows: tempting moves that only draw.} 1... Kd6 {[%cal
+Re4f5,Re4f4,Rd3d4] Black has to move, so its king steps aside.} 2. Kd4 {Kd4! —
+Take the opposition: the kings face across d5. Black must give way. Kf5? — Black
+gets the opposition. Only a draw now.} 2... Kc6 {Black steps aside, but its king
+still guards d5.} 3. Ke5 {Ke5 — Your king walks forward, next to the pawn's
+path.} 3... Kd7 {[%cal Re5f6,Re5f5,Rd3d4] Black's king gets back in front of the
+pawn.} 4. Kd5 {Kd5! — Take the opposition again, across d6.} 4... Kc7 {[%cal
+Rd3d4] Black steps aside, still near the d-file.} 5. Ke6 {Ke6! — King first:
+your king goes ahead before the pawn moves.} 5... Kc6 {[%cal Re6e7,Re6f7,Re6f6]
+Black's king comes forward to guard d5, d6 and d7.} 6. d4 {d4! — Now the pawn
+steps forward, with your king ahead of it.} 6... Kc7 {[%cal Re6f7,Re6f6] Black
+steps back. Your king guards the pawn's path: d5, d6, d7.} 7. d5 {d5! — The pawn
+steps up, protected by your king.} 7... Kd8 {[%cal Re6f7,Re6f6,Rd5d6] Black
+stands in front of the pawn, on d8.} 8. Kd6 {Kd6! — Take the opposition across
+d7; your king also protects the pawn.} 8... Kc8 {Black steps aside, but still
+watches d7 and d8.} 9. Ke7 {Ke7 — Your king guards d8, the promotion square.}
+9... Kb7 {Black heads for your pawn from the side.} 10. d6 {d6 — Protected by
+your king, the pawn steps up. The finish is in sight!} 10... Kc6 {[%cal
+Re7d8,Re7e8] Black attacks the pawn, but your king protects it.} 11. d7 {d7! —
+The pawn reaches d7, still protected by your king.} 11... Kd5 {Black is too late
+to stop the pawn.} 12. d8=Q+ {Queen! With check, and your king protects the new
+queen.} *
+
+[Event "01. What the opposition is (2/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/5P2/3K4/8/8/8/8 w - - 0 1"]
+[LineName "01. What the opposition is (2/10)"]
+[LineDescription "Clear the road with your king first; then your pawn can advance with support."]
+
+{[%cal Rf6f7,Rd5c6,Rd5e6] Pawn on f6. White to move and win. Your pawn is near
+the finish, but Black guards the road. Can your king take the opposition and
+clear the way?} 1. Kd6 {Kd6! — Take the opposition: the kings face across d7.
+f7? — Black's king attacks the f-pawn. Only a draw now.} 1... Ke8 {[%cal Rf6f7]
+Black cannot step forward, so it steps aside.} 2. Ke6 {Ke6! — Take the
+opposition again, and protect your pawn. Black must give way.} 2... Kf8 {[%cal
+Re6d7,Re6d6] Black steps in front of the pawn, on f8.} 3. f7 {f7! — The pawn
+steps up, protected by your king.} 3... Kg7 {[%cal Rf7f8] Black has only one
+move, away from f8.} 4. Ke7 {Ke7! — Your king guards f8, the promotion square.}
+4... Kg6 {Black cannot stop the pawn now.} 5. f8=Q {Queen! The pawn reaches f8,
+and your king protects the new queen.} *
+
+[Event "01. What the opposition is (3/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/8/1K1P4/8/8/8/8 w - - 0 1"]
+[LineName "01. What the opposition is (3/10)"]
+[LineDescription "A diagonal step can take the opposition too. Let your king win the way before the pawn moves."]
+
+{[%cal Rb5a6,Rb5b6,Rb5c5] Pawn on d5. White to move and win. Black's king guards
+the road ahead of your pawn. Take the opposition first; this time the step is
+not straight. Which step is it?} 1. Kc6 {Kc6! — Take the opposition with a
+diagonal step: the kings face across c7. Ka6? — Black's king blocks the d-pawn.
+Only a draw now.} 1... Kb8 {[%cal Rd5d6] Black steps aside, away from the
+d-file.} 2. Kd6 {[%also Kd7] Kd6! — Your king steps in front of the pawn and
+guards c7. Kd7 wins just as fast.} 2... Kb7 {Black comes closer, but your king
+protects the pawn.} 3. Ke7 {Ke7 — Your king guards the pawn's path: d6, d7 and
+d8.} 3... Kb6 {[%cal Re7d8,Re7e8] Black stays near your pawn. Is it safe?} 4. d6
+{d6! — The pawn steps up, protected by your king.} 4... Kc5 {[%cal Re7d8,Re7e8]
+Black attacks the pawn, but your king protects it.} 5. d7 {d7! — The pawn steps
+up; your king guards d8.} 5... Kd4 {Black cannot reach d8 in time.} 6. d8=Q+
+{Queen! With check, and your king protects the new queen.} *
+
+[Event "01. What the opposition is (4/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7k/8/7K/6P1/8/8 b - - 0 1"]
+[LineName "01. What the opposition is (4/10)"]
+[LineDescription "Keep king and pawn working as a team: one holds ground while the other advances."]
+
+{Pawn on g3. Black moves first; then win. The kings face each other on the
+h-file, with h5 between them. Can your king escort the g-pawn past Black's
+defence?} 1... Kg6 {[%cal Rg3g4] Black has to move. It steps aside, in front of
+your pawn.} 2. Kg4 {Kg4! — Take the opposition, and keep the pawn protected.
+Black must give way. g4? — Black gets the opposition. Only a draw now.} 2... Kf6
+{Black steps aside, but still guards g5.} 3. Kh5 {Kh5 — g5 is guarded, so your
+king goes round, and the pawn waits.} 3... Kg7 {[%cal Rg3g4] Black gets back in
+front of the pawn.} 4. Kg5 {Kg5! — Take the opposition again, across g6.} 4...
+Kh7 {[%cal Rg3g4] Black steps aside, still guarding g6 and g7.} 5. Kf6 {Kf6! —
+Your king goes ahead and guards g5, g6 and g7.} 5... Kh8 {[%cal Rf6e7] Black
+retreats to the corner.} 6. g4 {[%also Kg6] g4! — The pawn steps up, far from
+Black's king. Kg6 wins just as fast.} 6... Kg8 {[%cal Rf6e7,Rf6e6] Black gets in
+front of the pawn again.} 7. Kg6 {Kg6! — Take the opposition again: the kings
+face across g7.} 7... Kh8 {Black steps aside, back into the corner.} 8. Kh6
+{[%also g5] Kh6 — Take the opposition again: Black can only go to g8. g5 wins
+just as fast.} 8... Kg8 {Black's only move, back in front of the pawn.} 9. g5
+{g5 — The pawn steps up, protected by your king.} 9... Kf7 {Black guards the
+pawn's path: g6, g7 and g8.} 10. Kh7 {[%also g6+] Kh7 — Your king also guards
+g6, g7, g8. g6+ wins just as fast.} 10... Ke6 {[%cal Rh7g8,Rh7h8] Black steps
+away from the pawn's path.} 11. g6 {g6! — The pawn steps up, right next to your
+king.} 11... Ke5 {Black's king is too slow to catch the pawn.} 12. g7 {g7 — The
+pawn reaches g7; your king guards g8.} 12... Ke4 {Nothing can stop the pawn
+now.} 13. g8=Q {Queen! The pawn reaches g8, and your king protects the new
+queen.} *
+
+[Event "01. What the opposition is (5/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "k7/8/1P6/K7/8/8/8/8 w - - 0 1"]
+[LineName "01. What the opposition is (5/10)"]
+[LineDescription "Even near the corner, a well-placed king clears the way for its pawn."]
+
+{[%cal Rb6b7,Ra5b5] Pawn on b6. White to move and win. Black's king sits in the
+corner, next to your pawn's path. Can your king take the opposition and escort
+the pawn?} 1. Ka6 {Ka6! — Take the opposition and guard b7. Black must give way.
+b7+?? — Black takes the pawn. Only a draw now.} 1... Kb8 {Black steps in front
+of the pawn, on b8.} 2. b7 {b7 — The pawn steps up, protected by your king.}
+2... Kc7 {[%cal Rb7b8] Black's only move: it has to leave b8.} 3. Ka7 {Ka7! —
+Your king guards b8, the promotion square.} 3... Kc6 {Black cannot stop the pawn
+now.} 4. b8=Q {Queen! The pawn reaches b8, and your king protects the new
+queen.} *
+
+[Event "01. What the opposition is (6/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/8/7K/5P2/8/8/8 w - - 0 1"]
+[LineName "01. What the opposition is (6/10)"]
+[LineDescription "Let your king lead the way: one wrong step hands Black the opposition."]
+
+{[%cal Rh5h6,Rh5g5,Rf4f5] Pawn on f4. White to move and win. Your f-pawn needs
+an escort. Can your king take the opposition before Black blocks the road?} 1.
+Kg6 {Kg6! — Take the opposition across g7, ahead of your pawn. Kg5? — Black gets
+the opposition. Only a draw now.} 1... Kh8 {Black steps aside, away from the
+f-file.} 2. Kf6 {[%also Kf7,f5] Kf6 — Your king steps onto the f-file, ahead of
+the pawn. Kf7 and f5 win just as fast.} 2... Kh7 {Black comes out of the corner,
+still far from the pawn.} 3. f5 {f5 — The pawn steps up, protected by your
+king.} 3... Kh6 {Black tries to reach your pawn from the side.} 4. Ke7 {Ke7 —
+Your king guards the pawn's path: f6, f7 and f8.} 4... Kg5 {[%cal
+Re7e8,Re7f8,Re7f7] Black attacks your pawn. Can you save it?} 5. f6 {f6! — The
+pawn steps up, protected by your king.} 5... Kf4 {Black's king is left behind
+the pawn.} 6. f7 {f7 — One step from the finish, and your king guards f8.} 6...
+Ke4 {Too late: Black cannot stop the pawn.} 7. f8=Q {Queen! The pawn reaches f8,
+and your king protects the new queen.} *
+
+[Event "01. What the opposition is (7/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/6K1/3P4/8/8/8/8 w - - 0 1"]
+[LineName "01. What the opposition is (7/10)"]
+[LineDescription "Hold the important squares with your king, and advance the pawn when the path is safe."]
+
+{[%cal Rg6g5,Rg6f5,Rd5d6] Pawn on d5. White to move and win. Your d-pawn wants
+to reach d8, but Black's king can come back to block it. Can your king hold the
+road first?} 1. Kf6 {Kf6! — Take the opposition: the kings face across f7. d6? —
+Black answers Ke8 and holds the draw.} 1... Ke8 {[%cal Rd5d6] Black steps aside,
+toward the d-file.} 2. Ke6 {Ke6! — Take the opposition again, and protect your
+pawn.} 2... Kd8 {[%cal Re6f7,Re6f6,Rd5d6] Black steps in front of the pawn, on
+d8.} 3. Kd6 {Kd6! — Take the opposition from the square in front of your pawn.}
+3... Kc8 {Black steps aside, but still watches d7 and d8.} 4. Ke7 {Ke7 — Your
+king guards d8, the promotion square.} 4... Kb7 {Black heads for your pawn from
+the side.} 5. d6 {d6 — The pawn steps up, protected by your king on e7.} 5...
+Kc6 {[%cal Re7d8,Re7e8] Black attacks the pawn, but your king protects it.} 6.
+d7 {d7! — The pawn reaches d7; your king guards d8.} 6... Kd5 {Black is too late
+to stop the pawn.} 7. d8=Q+ {Queen! With check, and your king protects the new
+queen.} *
+
+[Event "01. What the opposition is (8/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/7k/8/7K/5P2/8/8/8 b - - 0 1"]
+[LineName "01. What the opposition is (8/10)"]
+[LineDescription "Use each king move to win a little ground, then send the pawn when its path is safe."]
+
+{Pawn on f4. Black moves first; then win. The kings face each other across h6.
+Can you turn Black's first move into ground for your king?} 1... Kg7 {[%cal
+Rf4f5] Black has to move, and steps aside to g7.} 2. Kg5 {Kg5! — Take the
+opposition and protect your pawn. Black must give way. f5? — Black's king blocks
+the f-pawn. Only a draw now.} 2... Kf7 {[%cal Rg5h6,Rg5h5,Rf4f5] Black steps
+aside, in front of your pawn.} 3. Kf5 {Kf5! — Take the opposition again: the
+kings face across f6. Black must give way.} 3... Ke7 {Black steps aside, but
+still guards f6.} 4. Kg6 {Kg6 — f6 is guarded, so your king walks around it.}
+4... Kf8 {[%cal Rg6h7,Rg6h6] Black steps in front of the pawn, on f8.} 5. Kf6
+{[%also f5] Kf6! — Take the opposition again, across f7. f5 wins just as fast.}
+5... Kg8 {Black steps aside, watching f7 and f8.} 6. Ke7 {Ke7 — Your king guards
+the pawn's path: f6, f7 and f8.} 6... Kg7 {[%cal Re7e8] Black comes back to
+guard f6, f7 and f8.} 7. f5 {f5! — Now the pawn moves: your king already guards
+the squares ahead.} 7... Kh6 {[%cal Re7e8,Re7f8] Black tries to reach your pawn
+from the side.} 8. f6 {f6! — The pawn steps up, protected by your king.} 8...
+Kg5 {[%cal Re7e8,Re7f8] Black attacks the pawn, but your king protects it.} 9.
+f7 {f7! — One step from the finish; your king guards f8.} 9... Kf4 {Black is too
+late to reach f8.} 10. f8=Q+ {Queen! With check, and your king protects the new
+queen.} *
+
+[Event "01. What the opposition is (9/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4k3/8/8/5K2/8/8/2P5/8 w - - 0 1"]
+[LineName "01. What the opposition is (9/10)"]
+[LineDescription "Bring your king forward to secure the route before sending the c-pawn on its way."]
+
+{[%cal Rc2c3,Rc2c4] Pawn on c2. White to move and win. Your king is far from the
+pawn, and Black is ready to block its road. Should you push the pawn, or use
+your king first?} 1. Ke6 {Ke6! — Take the opposition across e7, before touching
+the pawn. c3? — Black answers Kd7 and holds the draw.} 1... Kd8 {[%cal Rc2c4]
+Black steps aside, toward the c-file.} 2. Kd6 {Kd6! — Take the opposition again,
+across d7.} 2... Kc8 {[%cal Rd6e7] Black steps in front of the pawn, on c8.} 3.
+Kc6 {[%also c4] Kc6! — Opposition again, in front of your pawn. c4 wins just as
+fast.} 3... Kb8 {Black steps aside again.} 4. c4 {c4 — Your king is in front, so
+now the pawn moves.} 4... Ka7 {Black moves away from the c-file.} 5. c5 {c5 —
+The pawn steps up, protected by your king.} 5... Ka6 {Black tries to reach your
+pawn from the side.} 6. Kd7 {Kd7 — Your king guards the pawn's path: c6, c7 and
+c8.} 6... Kb5 {[%cal Rd7c8,Rd7d8,Rd7c7] Black attacks your pawn. Can you save
+it?} 7. c6 {c6! — The pawn steps up, protected by your king.} 7... Kc4 {Black's
+king is left behind the pawn.} 8. c7 {c7 — The pawn reaches c7; your king guards
+c8.} 8... Kd4 {Black cannot stop the pawn now.} 9. c8=Q {Queen! The pawn reaches
+c8, and your king protects the new queen.} *
+
+[Event "01. What the opposition is (10/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/8/8/1K2P3/8/8/8 w - - 0 1"]
+[LineName "01. What the opposition is (10/10)"]
+[LineDescription "Win ground with your king first; then push the pawn at the right moment."]
+
+{[%cal Rb4a5,Rb4b5,Rb4c4] Pawn on e4. White to move and win. The kings are
+manoeuvring for the central road. Can you take the opposition, then find the
+right moment to push the e-pawn?} 1. Kc5 {Kc5! — Take the opposition across c6.
+Black must give way. Ka5? — Black answers Kc8 and holds the draw.} 1... Kd7
+{[%cal Rc5b6,Rc5b5,Re4e5] Black steps aside, toward the e-file.} 2. Kd5 {Kd5! —
+Take the opposition again, across d6, and protect your pawn. Black must give
+way.} 2... Ke7 {[%cal Rd5c6,Rd5c5,Re4e5] Black steps in front of your pawn, on
+e7.} 3. Ke5 {Ke5! — Once more: the kings face across e6. Black must give way.}
+3... Kf7 {Black steps aside, but still guards e6.} 4. Kd6 {Kd6 — Your king goes
+around and guards e5, e6 and e7.} 4... Kf6 {[%cal Rd6c7,Rd6d7,Rd6c6] Black comes
+closer to your pawn.} 5. e5+ {e5+! — The pawn steps up with check, protected by
+your king.} 5... Kf5 {[%cal Rd6c7,Rd6d7,Rd6e7] Black has to step out of check.}
+6. e6 {e6! — The pawn steps up, still protected by your king.} 6... Kf6 {[%cal
+Rd6c7,Rd6c6] Black attacks the pawn and guards e7.} 7. e7 {[%also Kd7] e7! — The
+pawn reaches the 7th rank, protected by your king. Kd7 wins just as fast.} 7...
+Kf7 {[%cal Re7e8] Black guards e8, the promotion square.} 8. Kd7 {Kd7! — Your
+king guards e8 too, so the pawn can promote.} 8... Kf6 {Black steps away;
+nothing can stop the pawn now.} 9. e8=Q {Queen! The pawn reaches e8, and your
+king protects the new queen.} *
+
+[Event "02. How to take the opposition (1/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/8/2K5/8/8/2P5/8 w - - 0 1"]
+[LineName "02. How to take the opposition (1/15)"]
+[LineDescription "Straight ahead: face the black king with one square between."]
+
+{[%cal Rc2c4] Now you find the move that takes the opposition. It is not always
+straight ahead: sometimes it is a diagonal step, sometimes a step to the side.
+Pawn on c2. White to move and win. Take the opposition: face the black king with
+one square between, and Black to move. When the kings face each other, who
+should be to move? Red arrows: tempting moves that only draw.} 1. Kc6 {Kc6! —
+Take the opposition. c4? — Black gets the opposition. Only a draw now.} 1... Kb8
+2. c4 Ka7 3. c5 Ka6 4. Kd7 Kb5 {[%cal Rd7c8,Rd7d8,Rd7c7]} 5. c6 {c6! — Your king
+protects the c-pawn.} 5... Kc4 6. c7 Kd4 7. c8=Q {Queen! Your king protects the
+new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (2/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/8/7K/8/8/4P3/8 w - - 0 1"]
+[LineName "02. How to take the opposition (2/15)"]
+[LineDescription "When the straight step is wrong, step diagonally."]
+
+{[%cal Re2e3,Re2e4] Pawn on e2. White to move and win. Take the opposition. The
+straight step is not the right one here. When the kings face each other, who
+should be to move?} 1. Kg6 {Kg6! — Take the opposition. e3? — Black answers Kf7
+and holds the draw.} 1... Kf8 {[%cal Re2e4]} 2. Kf6 {Kf6! — Take the opposition
+again.} 2... Kg8 3. Ke6 {[%also Ke7,e3,e4]} 3... Kg7 4. e4 Kg6 5. e5 Kg5 6. Kf7
+{[%also Kd7]} 6... Kf4 {[%cal Rf7e8,Rf7f8,Rf7e7]} 7. e6 {e6! — Your king
+protects the e-pawn.} 7... Ke4 8. e7 Ke5 9. e8=Q+ {Queen! Your king protects the
+new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (3/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/K7/8/8/2P5/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (3/15)"]
+[LineDescription "The right king move does not always go forward: a sideways step can take the opposition."]
+
+{[%cal Rc3c4] Pawn on c3. White to move and win. Take the opposition. The right
+king move does not always go forward. When the kings face each other, who should
+be to move?} 1. Kb6 {Kb6! — Take the opposition. c4? — Black's king blocks the
+c-pawn. Only a draw now.} 1... Ka8 2. Kc6 {[%also Kc7,c4]} 2... Ka7 3. c4 Ka6 4.
+c5 Ka5 5. Kb7 {[%also Kd7]} 5... Kb4 {[%cal Rb7b8,Rb7c8,Rb7c7]} 6. c6 {c6! —
+Your king protects the c-pawn.} 6... Kc3 7. c7 Kd4 8. c8=Q {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (4/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/7k/8/7K/6P1/8/8/8 b - - 0 1"]
+[LineName "02. How to take the opposition (4/15)"]
+[LineDescription "Answer Black's step to the side and keep the opposition."]
+
+{Pawn on g4. Black moves first; then win. You have the opposition: Black must
+move and give way. When Black steps aside, take it again. If it were your move,
+it would only be a draw. When the kings face each other, who should be to move?}
+1... Kg7 {[%cal Rg4g5]} 2. Kg5 {Kg5! — Take the opposition. Black must give way.
+g5? — Black gets the opposition. Only a draw now.} 2... Kh7 3. Kf6 Kh6 {[%cal
+Rf6e7,Rf6f7,Rf6e6]} 4. g5+ {g5+! — Your king protects the g-pawn.} 4... Kh7
+{[%cal Rf6e7,Rf6e6,Rg5g6]} 5. Kf7 {Kf7! — Take the opposition.} 5... Kh8 {[%cal
+Rg5g6]} 6. Kg6 Kg8 7. Kh6 Kf7 8. Kh7 {[%also g6+]} 8... Ke6 {[%cal Rh7g8,Rh7h8]}
+9. g6 Ke5 10. g7 Ke4 11. g8=Q {Queen! Your king protects the new queen, and the
+win is easy now.} *
+
+[Event "02. How to take the opposition (5/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/8/8/2PK4/8/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (5/15)"]
+[LineDescription "A diagonal step that takes the opposition makes Black give way."]
+
+{[%cal Rc4c5,Rd4d5,Rd4e5] Pawn on c4. White to move and win. Take the opposition
+with the step that leaves Black to move. When the kings face each other, who
+should be to move?} 1. Kc5 {Kc5! — Take the opposition. Black must give way. c5?
+— Black answers Kd8 and holds the draw.} 1... Kd7 2. Kb6 Kc8 {[%cal
+Rb6a7,Rb6a6]} 3. Kc6 {[%also c5] Kc6! — Take the opposition. c5 wins just as
+fast.} 3... Kb8 4. Kd7 Kb7 {[%cal Rd7d8]} 5. c5 Ka6 {[%cal Rd7c8,Rd7d8]} 6. c6
+{c6! — Your king protects the c-pawn.} 6... Kb5 {[%cal Rd7c8,Rd7d8]} 7. c7 {c7!
+— The c-pawn runs: the king cannot catch it.} 7... Kc4 8. c8=Q+ {Queen! Your
+king protects the new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (6/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4k3/8/8/4K3/8/4P3/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (6/15)"]
+[LineDescription "You found the opposition square without the idea being named."]
+
+{[%cal Re3e4] Pawn on e3. White to move and win. When the kings face each other,
+who should be to move?} 1. Ke6 {Ke6! — Take the opposition. e4? — Black gets the
+opposition. Only a draw now.} 1... Kf8 2. e4 Kg7 3. e5 Kg6 4. Kd7 Kf5 {[%cal
+Rd7d8,Rd7e8,Rd7e7]} 5. e6 {e6! — Your king protects the e-pawn.} 5... Ke4 6. e7
+Ke5 7. e8=Q+ {Queen! Your king protects the new queen, and the win is easy now.}
+*
+
+[Event "02. How to take the opposition (7/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/K7/8/1k6/3P4/8 w - - 0 1"]
+[LineName "02. How to take the opposition (7/15)"]
+[LineDescription "A sideways step is right when the black king stands to the side."]
+
+{[%cal Ra5a6,Ra5b6,Rd2d3] Pawn on d2. White to move and win. When the kings face
+each other, who should be to move?} 1. Kb5 {Kb5! — Take the opposition. Ka6? —
+Black gets the opposition. Only a draw now.} 1... Kb2 {[%cal Rd2d3]} 2. d4 {d4!
+— The d-pawn runs: the king cannot catch it.} 2... Kc3 {[%cal
+Rb5a6,Rb5b6,Rb5c6]} 3. d5 Kd4 {[%cal Rb5a6,Rb5b6,Rb5a5]} 4. d6 Kd5 {[%cal
+Rb5a6,Rb5b6,Rb5a5]} 5. d7 Kd4 6. d8=Q+ {Queen! The black king cannot take it,
+and the win is easy now.} *
+
+[Event "02. How to take the opposition (8/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/8/2K5/8/8/4P3/8 w - - 0 1"]
+[LineName "02. How to take the opposition (8/15)"]
+[LineDescription "A diagonal step works with the pawn far back too."]
+
+{[%cal Re2e4] Pawn on e2. White to move and win. When the kings face each other,
+who should be to move?} 1. Kd6 {Kd6! — Take the opposition. e4? — Black's king
+blocks the e-pawn. Only a draw now.} 1... Ke8 {[%cal Rd6c7]} 2. Ke6 {[%also e4]
+Ke6! — Take the opposition. e4 wins just as fast.} 2... Kf8 3. e4 Kg7 4. e5 Kg6
+5. Kd7 Kf5 {[%cal Rd7d8,Rd7e8,Rd7e7]} 6. e6 {e6! — Your king protects the
+e-pawn.} 6... Ke4 7. e7 Ke5 8. e8=Q+ {Queen! Your king protects the new queen,
+and the win is easy now.} *
+
+[Event "02. How to take the opposition (9/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k6/8/1K6/3P4/8/8/8 b - - 0 1"]
+[LineName "02. How to take the opposition (9/15)"]
+[LineDescription "Keeping the opposition is part of taking it."]
+
+{Pawn on d4. Black moves first; then win. When the kings face each other, who
+should be to move?} 1... Kc7 {[%cal Rb5a6,Rb5a5,Rd4d5]} 2. Kc5 {Kc5! — Take the
+opposition. Black must give way. Ka6? — Black answers Kc8 and holds the draw.}
+2... Kd7 {[%cal Rc5b6,Rc5b5,Rd4d5]} 3. Kd5 {Kd5! — Take the opposition again.}
+3... Kc7 4. Ke6 Kc6 {[%cal Re6e7,Re6f7,Re6f6]} 5. d5+ {d5+! — Your king protects
+the d-pawn.} 5... Kc5 {[%cal Re6d7,Re6e7,Re6f7]} 6. d6 {d6! — Your king keeps
+the d-pawn protected.} 6... Kc6 {[%cal Re6f7,Re6f6]} 7. d7 {[%also Ke7]} 7...
+Kc7 {[%cal Rd7d8]} 8. Ke7 Kc6 9. d8=Q {Queen! Your king protects the new queen,
+and the win is easy now.} *
+
+[Event "02. How to take the opposition (10/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/8/1K6/4P3/8/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (10/15)"]
+[LineDescription "King before pawn: the early push only draws."]
+
+{[%cal Rb5b6,Rb5c5,Re4e5] Pawn on e4. White to move and win. When the kings face
+each other, who should be to move?} 1. Kc6 {Kc6! — Take the opposition. e5? —
+Black answers Kd7 and holds the draw.} 1... Kd8 {[%cal Re4e5]} 2. Kd6 {Kd6! —
+Take the opposition again.} 2... Ke8 {[%cal Rd6c7,Rd6c6]} 3. e5 Kf7 {[%cal
+Rd6c7,Rd6c6]} 4. Kd7 {[%also e6+] Kd7! — Take the opposition. e6+ wins just as
+fast.} 4... Kg6 {[%cal Rd7d8,Rd7e8]} 5. e6 {e6! — Your king protects the
+e-pawn.} 5... Kf5 {[%cal Rd7d8,Rd7e8]} 6. e7 {e7! — The e-pawn runs: the king
+cannot catch it.} 6... Ke4 7. e8=Q+ {Queen! Your king protects the new queen,
+and the win is easy now.} *
+
+[Event "02. How to take the opposition (11/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/3k4/8/8/3PK3/8/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (11/15)"]
+[LineDescription "Take the opposition with a diagonal step, and Black must give way."]
+
+{[%cal Rd4d5,Re4e5,Re4f5] Pawn on d4. White to move and win. When the kings face
+each other, who should be to move?} 1. Kd5 {Kd5! — Take the opposition. Black
+must give way. d5? — Black answers Ke8 and holds the draw.} 1... Kc7 2. Ke6 Kc6
+{[%cal Re6e7,Re6f7,Re6f6]} 3. d5+ {d5+! — Your king protects the d-pawn.} 3...
+Kc5 {[%cal Re6d7,Re6e7,Re6f7]} 4. d6 {d6! — Your king keeps the d-pawn
+protected.} 4... Kc6 {[%cal Re6f7,Re6f6]} 5. d7 {[%also Ke7]} 5... Kc7 {[%cal
+Rd7d8]} 6. Ke7 Kc6 7. d8=Q {Queen! Your king protects the new queen, and the win
+is easy now.} *
+
+[Event "02. How to take the opposition (12/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/7K/6P1/8/8/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (12/15)"]
+[LineDescription "Even close to the queening square, the opposition decides."]
+
+{[%cal Rg5g6] Pawn on g5. White to move and win. When the kings face each other,
+who should be to move?} 1. Kg6 {Kg6! — Take the opposition. g6? — Black gets the
+opposition. Only a draw now.} 1... Kh8 2. Kf7 Kh7 {[%cal Rf7f8]} 3. g6+ {g6+! —
+Your king protects the g-pawn.} 3... Kh6 {[%cal Rf7f8,Rf7g8]} 4. g7 {g7! — Your
+king keeps the g-pawn protected.} 4... Kg5 5. g8=Q+ {Queen! Your king protects
+the new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (13/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/8/8/2P1K3/8/8/8 w - - 0 1"]
+[LineName "02. How to take the opposition (13/15)"]
+[LineDescription "A straight step that leaves Black to move: Black must give way."]
+
+{[%cal Rc4c5,Re4d5,Re4f5] Pawn on c4. White to move and win. When the kings face
+each other, who should be to move?} 1. Ke5 {Ke5! — Take the opposition. Black
+must give way. c5? — Black answers Ke8 and holds the draw.} 1... Kd7 {[%cal
+Re5f6,Re5f5,Rc4c5]} 2. Kd5 {Kd5! — Take the opposition again.} 2... Kc7 {[%cal
+Rd5e6,Rd5e5,Rc4c5]} 3. Kc5 {Kc5! — Take the opposition again.} 3... Kd7 4. Kb6
+Kc8 {[%cal Rb6a7,Rb6a6]} 5. Kc6 {[%also c5] Kc6! — Take the opposition. c5 wins
+just as fast.} 5... Kb8 6. Kd7 Kb7 {[%cal Rd7d8]} 7. c5 Ka6 {[%cal Rd7c8,Rd7d8]}
+8. c6 {c6! — Your king protects the c-pawn.} 8... Kb5 {[%cal Rd7c8,Rd7d8]} 9. c7
+{c7! — The c-pawn runs: the king cannot catch it.} 9... Kc4 10. c8=Q+ {Queen!
+Your king protects the new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (14/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/6k1/8/6K1/5P2/8/8 b - - 0 1"]
+[LineName "02. How to take the opposition (14/15)"]
+[LineDescription "Keep the opposition after every step Black takes aside."]
+
+{Pawn on f3. Black moves first; then win. When the kings face each other, who
+should be to move?} 1... Kf6 {[%cal Rg4h5,Rg4h4,Rf3f4]} 2. Kf4 {Kf4! — Take the
+opposition. Black must give way. Kh5? — Black gets the opposition. Only a draw
+now.} 2... Ke6 3. Kg5 Kf7 {[%cal Rg5h6,Rg5h5,Rf3f4]} 4. Kf5 {Kf5! — Take the
+opposition.} 4... Kg7 {[%cal Rf3f4]} 5. Ke6 Kg6 {[%cal Re6d7,Re6e7,Re6d6]} 6. f4
+Kg7 {[%cal Re6d7,Re6d6]} 7. f5 Kf8 {[%cal Re6d7,Re6d6,Rf5f6]} 8. Kf6 {Kf6! —
+Take the opposition again.} 8... Kg8 9. Ke7 Kg7 {[%cal Re7e8]} 10. f6+ {f6+! —
+Your king protects the f-pawn.} 10... Kg6 {[%cal Re7e8,Re7f8]} 11. f7 {f7! —
+Your king keeps the f-pawn protected.} 11... Kf5 12. f8=Q+ {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "02. How to take the opposition (15/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/5K2/8/4k3/2P5/8 w - - 0 1"]
+[LineName "02. How to take the opposition (15/15)"]
+[LineDescription "The step that only comes close hands Black the opposition: take it yourself."]
+
+{[%cal Rf5e6,Rf5f6,Rc2c3] Pawn on c2. White to move and win. When the kings face
+each other, who should be to move?} 1. Ke5 {Ke5! — Take the opposition. Ke6? —
+Black gets the opposition. Only a draw now.} 1... Kf3 {[%cal Re5e6,Re5f6]} 2. c4
+Ke3 {[%cal Re5e6,Re5f6,Re5f5]} 3. c5 {c5! — The c-pawn runs: the king cannot
+catch it.} 3... Kd3 4. c6 Kc3 5. c7 Kc4 6. c8=Q+ {Queen! The black king cannot
+take it, and the win is easy now.} *
+
+[Event "03. From every position (1/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/2K5/8/8/1P6/8 w - - 0 1"]
+[LineName "03. From every position (1/15)"]
+[LineDescription "With the black king on the pawn's file, take the opposition in front of it."]
+
+{[%cal Rb2b4] The same idea from new places: the black king beside the pawn's
+file, Black moving first, longer walks. Sometimes several moves win, and one of
+them takes the opposition. Pawn on b2. White to move and win. When the kings
+face each other, who should be to move? Red arrows: tempting moves that only
+draw.} 1. Kb6 {Kb6! — Take the opposition. b4? — Black gets the opposition. Only
+a draw now.} 1... Ka8 2. b4 Kb8 3. b5 Ka8 4. Kc7 Ka7 {[%cal Rc7c8]} 5. b6+ {b6+!
+— Your king protects the b-pawn.} 5... Ka6 {[%cal Rc7b8,Rc7c8]} 6. b7 {b7! —
+Your king keeps the b-pawn protected.} 6... Kb5 7. b8=Q+ {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (2/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/6K1/8/4P3/8/8 w - - 0 1"]
+[LineName "03. From every position (2/15)"]
+[LineDescription "The opposition square moves with the black king, even beside the pawn's file."]
+
+{[%cal Rg5h6,Rg5h5,Re3e4] Pawn on e3. White to move and win. When the kings face
+each other, who should be to move?} 1. Kf6 {Kf6! — Take the opposition. Kh6? —
+Black's king blocks the e-pawn. Only a draw now.} 1... Kg8 2. Ke6 {[%also
+Ke7,e4]} 2... Kg7 3. e4 Kg6 4. e5 Kg5 5. Kf7 {[%also Kd7]} 5... Kf4 {[%cal
+Rf7e8,Rf7f8,Rf7e7]} 6. e6 {e6! — Your king protects the e-pawn.} 6... Ke4 7. e7
+Ke5 8. e8=Q+ {Queen! Your king protects the new queen, and the win is easy now.}
+*
+
+[Event "03. From every position (3/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/6k1/8/6K1/2P5/8/8/8 b - - 0 1"]
+[LineName "03. From every position (3/15)"]
+[LineDescription "Black moved first: you kept the opposition."]
+
+{Pawn on c4. Black moves first; then win. When the kings face each other, who
+should be to move?} 1... Kf7 {[%cal Rg5g4,Rg5f4,Rc4c5]} 2. Kf5 {Kf5! — Take the
+opposition. Black must give way. Kg4? — Black answers Kg8 and holds the draw.}
+2... Ke7 {[%cal Rc4c5]} 3. Ke5 {Ke5! — Take the opposition again.} 3... Kd7
+{[%cal Re5f6,Re5f5,Rc4c5]} 4. Kd5 {Kd5! — Take the opposition again.} 4... Kc7
+{[%cal Rd5e6,Rd5e5,Rc4c5]} 5. Kc5 Kd7 6. Kb6 Kc8 {[%cal Rb6a7,Rb6a6]} 7. Kc6
+{[%also c5] Kc6! — Take the opposition. c5 wins just as fast.} 7... Kb8 8. Kd7
+Kb7 {[%cal Rd7d8]} 9. c5 Ka6 {[%cal Rd7c8,Rd7d8]} 10. c6 {c6! — Your king
+protects the c-pawn.} 10... Kb5 {[%cal Rd7c8,Rd7d8]} 11. c7 {c7! — The c-pawn
+runs: the king cannot catch it.} 11... Kc4 12. c8=Q+ {Queen! Your king protects
+the new queen, and the win is easy now.} *
+
+[Event "03. From every position (4/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/6P1/8/3K4/8/8/8 w - - 0 1"]
+[LineName "03. From every position (4/15)"]
+[LineDescription "A diagonal step with the pawn far advanced: the same idea, a shorter line."]
+
+{[%cal Rg6g7,Rd4c5,Rd4d5] Pawn on g6. White to move and win. When the kings face
+each other, who should be to move?} 1. Ke5 {Ke5! — Take the opposition. g7? —
+Black's king attacks the g-pawn. Only a draw now.} 1... Ke8 {[%cal
+Rg6g7,Re5d6,Re5f6]} 2. Ke6 {Ke6! — Take the opposition again.} 2... Kf8 {[%cal
+Rg6g7]} 3. Kf6 {Kf6! — Take the opposition. Black must give way.} 3... Kg8
+{[%cal Rf6e7,Rf6e6]} 4. g7 Kh7 {[%cal Rg7g8]} 5. Kf7 {Kf7! — Your king keeps the
+g-pawn protected.} 5... Kh6 6. g8=Q {Queen! Your king protects the new queen,
+and the win is easy now.} *
+
+[Event "03. From every position (5/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/2K2k2/8/8/3P4/8 w - - 0 1"]
+[LineName "03. From every position (5/15)"]
+[LineDescription "Several moves win here; taking the opposition is one of them."]
+
+{[%cal Rc5b6,Rc5c6,Rc5d6] Pawn on d2. White to move and win. When the kings face
+each other, who should be to move?} 1. Kd5 {[%also d4] Kd5! — Take the
+opposition. d4 wins just as fast. Kb6? — Black answers Ke4 and holds the draw.}
+1... Kf4 {[%cal Rd5c6,Rd5d6,Rd5e6]} 2. d4 {d4! — Your king protects the d-pawn.}
+2... Kf5 3. Kc6 Ke4 {[%cal Rc6b7,Rc6c7,Rc6d7]} 4. d5 Ke5 {[%cal
+Rc6b7,Rc6c7,Rc6d7]} 5. d6 {d6! — Your king keeps the d-pawn protected.} 5... Ke6
+{[%cal Rc6b7,Rc6b6]} 6. Kc7 {[%also d7]} 6... Kd5 {[%cal Rc7c8,Rc7d8]} 7. d7
+{d7! — The d-pawn runs: the king cannot catch it.} 7... Kd4 8. d8=Q+ {Queen!
+Your king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (6/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/8/8/4K1P1/8/8/8 w - - 0 1"]
+[LineName "03. From every position (6/15)"]
+[LineDescription "Straight ahead, and Black must give way."]
+
+{[%cal Re4d5,Re4f5,Re4f4] Pawn on g4. White to move and win. When the kings face
+each other, who should be to move?} 1. Ke5 {Ke5! — Take the opposition. Black
+must give way. Kd5? — Black answers Kf7 and holds the draw.} 1... Kf7 {[%cal
+Re5d6,Re5d5,Rg4g5]} 2. Kf5 {Kf5! — Take the opposition again.} 2... Kg7 {[%cal
+Rf5e6,Rf5e5,Rg4g5]} 3. Kg5 {Kg5! — Take the opposition again.} 3... Kh7 4. Kf6
+Kh6 {[%cal Rf6e7,Rf6f7,Rf6e6]} 5. g5+ {g5+! — Your king protects the g-pawn.}
+5... Kh7 {[%cal Rf6e7,Rf6e6,Rg5g6]} 6. Kf7 {Kf7! — Take the opposition.} 6...
+Kh8 {[%cal Rg5g6]} 7. Kg6 Kg8 8. Kh6 Kf7 9. Kh7 {[%also g6+]} 9... Ke6 {[%cal
+Rh7g8,Rh7h8]} 10. g6 Ke5 11. g7 Ke4 12. g8=Q {Queen! Your king protects the new
+queen, and the win is easy now.} *
+
+[Event "03. From every position (7/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/5k2/8/6K1/8/8/2P5/8 w - - 0 1"]
+[LineName "03. From every position (7/15)"]
+[LineDescription "A sideways step can start the whole walk."]
+
+{[%cal Rg5g4,Rc2c3,Rc2c4] Pawn on c2. White to move and win. When the kings face
+each other, who should be to move?} 1. Kf5 {Kf5! — Take the opposition. Kg4? —
+Black answers Ke6 and holds the draw.} 1... Ke7 {[%cal Rc2c3,Rc2c4]} 2. Ke5
+{Ke5! — Take the opposition again.} 2... Kd7 {[%cal Re5f6,Re5f5,Rc2c3]} 3. Kd5
+{Kd5! — Take the opposition again.} 3... Kc7 {[%cal Rd5e6,Rc2c4]} 4. Kc5 Kb7
+{[%cal Rc2c4]} 5. Kd6 Kb6 {[%cal Rd6d7,Rd6e7,Rd6e6]} 6. c4 Kb7 {[%cal
+Rd6e7,Rd6e6]} 7. c5 Kc8 {[%cal Rd6e7,Rd6e6,Rc5c6]} 8. Kc6 Kb8 9. Kd7 Kb7 {[%cal
+Rd7d8]} 10. c6+ {c6+! — Your king protects the c-pawn.} 10... Kb6 {[%cal
+Rd7c8,Rd7d8]} 11. c7 {c7! — Your king keeps the c-pawn protected.} 11... Kc5 12.
+c8=Q+ {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (8/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4k3/8/8/3K4/8/5P2/8/8 w - - 0 1"]
+[LineName "03. From every position (8/15)"]
+[LineDescription "Read where the black king stands, then take the opposition."]
+
+{Pawn on f3. White to move and win. Which king will have to give way?} 1. Ke6
+{Ke6! — Take the opposition. Kc6? — Black's king blocks the f-pawn. Only a draw
+now.} 1... Kf8 2. Kf6 {[%also f4] Kf6! — Take the opposition. f4 wins just as
+fast.} 2... Kg8 3. f4 Kh7 4. f5 Kh6 5. Ke7 Kg5 6. f6 {f6! — Your king protects
+the f-pawn.} 6... Kf4 7. f7 Ke4 8. f8=Q {Queen! Your king protects the new
+queen, and the win is easy now.} *
+
+[Event "03. From every position (9/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/6k1/8/6K1/1P6/8 b - - 0 1"]
+[LineName "03. From every position (9/15)"]
+[LineDescription "A long walk: take the opposition again after every step aside."]
+
+{Pawn on b2. Black moves first; then win. Which king will have to give way?}
+1... Kf5 2. Kf3 {Kf3! — Take the opposition. Black must give way. b3? — Black
+gets the opposition. Only a draw now.} 2... Ke5 3. Ke3 {Ke3! — Take the
+opposition again.} 3... Kd5 4. Kd3 {Kd3! — Take the opposition again.} 4... Kc5
+5. Kc3 Kb5 6. Kb3 Kc5 7. Ka4 Kb6 8. Kb4 {Kb4! — Take the opposition.} 8... Kc6
+9. Ka5 Kb7 10. Kb5 Ka7 11. Kc6 Ka8 12. b4 {[%also Kb6]} 12... Kb8 13. Kb6 Ka8
+14. Ka6 {[%also b5]} 14... Kb8 15. b5 Kc7 16. Ka7 {[%also b6+]} 16... Kd6 17. b6
+{b6! — Your king protects the b-pawn.} 17... Kd5 18. b7 Kd4 19. b8=Q {Queen!
+Your king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (10/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/K7/8/8/6P1/8 w - - 0 1"]
+[LineName "03. From every position (10/15)"]
+[LineDescription "A diagonal step with the pawn far back, found with the question alone."]
+
+{Pawn on g2. White to move and win. Which king will have to give way?} 1. Kb6
+{Kb6! — Take the opposition. Ka6? — Black answers Kc8 and holds the draw.} 1...
+Kc8 2. Kc6 {Kc6! — Take the opposition again.} 2... Kd8 3. Kd6 {Kd6! — Take the
+opposition again.} 3... Ke8 4. Ke6 Kf8 5. Kf6 Kg8 6. Kg6 {[%also g4] Kg6! — Take
+the opposition. g4 wins just as fast.} 6... Kh8 7. g4 Kg8 8. g5 Kh8 9. Kf7 Kh7
+10. g6+ {g6+! — Your king protects the g-pawn.} 10... Kh6 11. g7 {g7! — Your
+king keeps the g-pawn protected.} 11... Kg5 12. g8=Q+ {Queen! Your king protects
+the new queen, and the win is easy now.} *
+
+[Event "03. From every position (11/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/8/8/3K4/3P4/8/8/8 w - - 0 1"]
+[LineName "03. From every position (11/15)"]
+[LineDescription "One straight step decides the whole line."]
+
+{Pawn on d4. White to move and win. Which king will have to give way?} 1. Kd6
+{Kd6! — Take the opposition. Ke5? — Black gets the opposition. Only a draw now.}
+1... Kc8 2. Ke7 Kb7 3. d5 Kb6 4. d6 {d6! — Your king protects the d-pawn.} 4...
+Kc5 5. d7 {d7! — The d-pawn runs: the king cannot catch it.} 5... Kd4 6. d8=Q+
+{Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (12/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/6K1/4P3/8/8/8/8/8 w - - 0 1"]
+[LineName "03. From every position (12/15)"]
+[LineDescription "When several moves win, there is no one magic move."]
+
+{Pawn on e6. White to move and win. Which king will have to give way?} 1. Kf8
+{[%also Kf7] Kf8! — Take the opposition. Kf7 wins just as fast. Kg8? — Black
+gets the opposition. Only a draw now.} 1... Kc7 2. e7 Kd6 3. e8=Q {Queen! Your
+king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (13/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/8/1K1P4/8/8 w - - 0 1"]
+[LineName "03. From every position (13/15)"]
+[LineDescription "Take the opposition and Black must give way, even with the pawn far back."]
+
+{Pawn on d3. White to move and win. Which king will have to give way?} 1. Kc4
+{Kc4! — Take the opposition. Black must give way. Ka4? — Black's king blocks the
+d-pawn. Only a draw now.} 1... Kd6 2. Kd4 {Kd4! — Take the opposition again.}
+2... Kc6 3. Ke5 Kd7 4. Kd5 {Kd5! — Take the opposition.} 4... Kc7 5. Ke6 Kc6 6.
+d4 Kc7 7. d5 Kd8 8. Kd6 {Kd6! — Take the opposition again.} 8... Kc8 9. Ke7 Kb7
+10. d6 Kc6 11. d7 {d7! — Your king keeps the d-pawn protected.} 11... Kd5 12.
+d8=Q+ {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (14/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/K7/8/8/5P2/8/8 w - - 0 1"]
+[LineName "03. From every position (14/15)"]
+[LineDescription "A sideways step, found without marks."]
+
+{Pawn on f3. White to move and win. Which king will have to give way?} 1. Kb6
+{Kb6! — Take the opposition. Ka5? — Black answers Kc7 and holds the draw.} 1...
+Kc8 2. Kc6 {Kc6! — Take the opposition again.} 2... Kd8 3. Kd6 {Kd6! — Take the
+opposition again.} 3... Ke8 4. Ke6 Kf8 5. Kf6 {[%also f4] Kf6! — Take the
+opposition. f4 wins just as fast.} 5... Kg8 6. f4 Kh7 7. f5 Kh6 8. Ke7 Kg5 9. f6
+{f6! — Your king protects the f-pawn.} 9... Kf4 10. f7 Ke4 11. f8=Q {Queen! Your
+king protects the new queen, and the win is easy now.} *
+
+[Event "03. From every position (15/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/8/4K3/1P6/8/8 b - - 0 1"]
+[LineName "03. From every position (15/15)"]
+[LineDescription "Black moved first: keep the opposition step by step."]
+
+{Pawn on b3. Black moves first; then win. Which king will have to give way?}
+1... Kd6 2. Kd4 {Kd4! — Take the opposition. Black must give way. Kf5? — Black
+answers Kd7 and holds the draw.} 2... Kc6 3. Kc4 {Kc4! — Take the opposition
+again.} 3... Kb6 4. Kb4 {Kb4! — Take the opposition again.} 4... Kc6 5. Ka5 Kb7
+6. Kb5 {Kb5! — Take the opposition.} 6... Ka7 7. Kc6 Ka8 8. b4 {[%also Kb6]}
+8... Kb8 9. Kb6 Ka8 10. Ka6 {[%also b5]} 10... Kb8 11. b5 Kc7 12. Ka7 {[%also
+b6+]} 12... Kd6 13. b6 {b6! — Your king protects the b-pawn.} 13... Kd5 14. b7
+Kd4 15. b8=Q {Queen! Your king protects the new queen, and the win is easy now.}
+*
+
+[Event "04. On the way to the queen (1/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/8/1P1K4/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (1/15)"]
+[LineDescription "On a long approach, take the opposition at every chance."]
+
+{Use the opposition on the way to the queen: take it again each time Black gives
+way. But first check two things: does the pawn need protection, and can it
+simply run? Pawn on b3. White to move and win. Which king will have to give
+way?} 1. Kc4 {Kc4! — Take the opposition. Black must give way. b4? — Black
+answers Kd7 and holds the draw.} 1... Kb6 2. Kb4 {Kb4! — Take the opposition
+again.} 2... Kc6 3. Ka5 Kb7 4. Kb5 {Kb5! — Take the opposition.} 4... Ka7 5. Kc6
+Ka8 6. b4 {[%also Kb6]} 6... Kb8 7. Kb6 {Kb6! — Take the opposition again.} 7...
+Ka8 8. Ka6 {[%also b5]} 8... Kb8 9. b5 Kc7 10. Ka7 {[%also b6+]} 10... Kd6 11.
+b6 {b6! — Your king protects the b-pawn.} 11... Kd5 12. b7 Kd4 13. b8=Q {Queen!
+Your king protects the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (2/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/6k1/8/8/5K2/8/6P1/8 w - - 0 1"]
+[LineName "04. On the way to the queen (2/15)"]
+[LineDescription "The opposition opens the way: your king walks in front of the pawn."]
+
+{Pawn on g2. White to move and win. Which king will have to give way?} 1. Kg5
+{Kg5! — Take the opposition. g3? — Black gets the opposition. Only a draw now.}
+1... Kh7 2. Kf6 Kh8 3. g4 {[%also Kg6]} 3... Kg8 4. Kg6 {Kg6! — Take the
+opposition again.} 4... Kh8 5. Kh6 {[%also g5]} 5... Kg8 6. g5 Kf7 7. Kh7
+{[%also g6+]} 7... Ke6 8. g6 {g6! — Your king protects the g-pawn.} 8... Ke5 9.
+g7 Ke4 10. g8=Q {Queen! Your king protects the new queen, and the win is easy
+now.} *
+
+[Event "04. On the way to the queen (3/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/1k6/8/1K6/2P5/8 b - - 0 1"]
+[LineName "04. On the way to the queen (3/15)"]
+[LineDescription "Keep the opposition over many moves."]
+
+{Pawn on c2. Black moves first; then win. Which king will have to give way?}
+1... Kc5 2. Kc3 {Kc3! — Take the opposition. Black must give way. Ka4? — Black
+gets the opposition. Only a draw now.} 2... Kd5 3. Kb4 Kc6 4. Kc4 {Kc4! — Take
+the opposition.} 4... Kd6 5. Kb5 Kc7 6. Kc5 {Kc5! — Take the opposition again.}
+6... Kb7 7. Kd6 Kb6 8. c4 Kb7 9. c5 Kc8 10. Kc6 {Kc6! — Take the opposition
+again.} 10... Kb8 11. Kd7 Kb7 12. c6+ {c6+! — Your king protects the c-pawn.}
+12... Kb6 13. c7 {c7! — Your king keeps the c-pawn protected.} 13... Kc5 14.
+c8=Q+ {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (4/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/K7/8/4P3/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (4/15)"]
+[LineDescription "The king leads and the pawn follows: pushing early only draws."]
+
+{Pawn on e3. White to move and win. Which king will have to give way?} 1. Kb6
+{Kb6! — Take the opposition. e4? — Black answers Kc7 and holds the draw.} 1...
+Kc8 2. Kc6 {Kc6! — Take the opposition again.} 2... Kd8 3. Kd6 {Kd6! — Take the
+opposition again.} 3... Ke8 4. Ke6 {[%also e4] Ke6! — Take the opposition. e4
+wins just as fast.} 4... Kf8 5. e4 Kg7 6. e5 Kg6 7. Kd7 Kf5 8. e6 {e6! — Your
+king protects the e-pawn.} 8... Ke4 9. e7 Ke5 10. e8=Q+ {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (5/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/5K2/8/3P4/8/8/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (5/15)"]
+[LineDescription "Not always first: protect the pawn, the opposition can wait."]
+
+{[%cal Rf7f8,Rf7f6,Rd5d6] Pawn on d5. White to move and win. Can the black king
+reach your pawn? Red arrows: tempting moves that only draw.} 1. Ke6 {Ke6! — Your
+king protects the d-pawn. Kf8? — Taking the opposition only draws here. Black
+answers Kd7.} 1... Kc7 {[%cal Re6f7,Re6f6]} 2. Ke7 {[%also d6+] Ke7! — Take the
+opposition. d6+ wins just as fast.} 2... Kb6 {[%cal Re7d8,Re7e8]} 3. d6 Kc5
+{[%cal Re7d8,Re7e8]} 4. d7 {d7! — The d-pawn runs: the king cannot catch it.}
+4... Kd4 5. d8=Q+ {Queen! Your king protects the new queen, and the win is easy
+now.} *
+
+[Event "04. On the way to the queen (6/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k6/8/8/K4P2/8/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (6/15)"]
+[LineDescription "Inside a longer line the opposition still decides: Black must give way."]
+
+{Pawn on f4. White to move and win. Which king will have to give way?} 1. Kb5
+{Kb5! — Take the opposition. Black must give way. Ka5? — Black answers Kc7 and
+holds the draw.} 1... Kc7 2. Kc5 {Kc5! — Take the opposition again.} 2... Kd7 3.
+Kd5 {Kd5! — Take the opposition again.} 3... Ke7 4. Ke5 Kf7 5. Kf5 Ke7 6. Kg6
+Kf8 7. Kf6 {[%also f5] Kf6! — Take the opposition. f5 wins just as fast.} 7...
+Kg8 8. Ke7 Kg7 9. f5 Kh6 10. f6 {f6! — Your king protects the f-pawn.} 10... Kg5
+11. f7 {f7! — The f-pawn runs: the king cannot catch it.} 11... Kf4 12. f8=Q+
+{Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (7/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/6k1/8/8/7K/8/1P6/8 w - - 0 1"]
+[LineName "04. On the way to the queen (7/15)"]
+[LineDescription "A diagonal step on the way, then keep the opposition."]
+
+{Pawn on b2. White to move and win. Which king will have to give way?} 1. Kg5
+{Kg5! — Take the opposition. Kh5? — Black answers Kf7 and holds the draw.} 1...
+Kf7 2. Kf5 {Kf5! — Take the opposition again.} 2... Ke7 3. Ke5 {Ke5! — Take the
+opposition again.} 3... Kd7 4. Kd5 Kc7 5. Kc5 Kb7 6. Kb5 Ka7 7. Kc6 Ka8 8. b4
+{[%also Kb6]} 8... Kb8 9. Kb6 Ka8 10. Ka6 {[%also b5]} 10... Kb8 11. b5 Kc7 12.
+Ka7 {[%also b6+]} 12... Kd6 13. b6 {b6! — Your king protects the b-pawn.} 13...
+Kd5 14. b7 Kd4 15. b8=Q {Queen! Your king protects the new queen, and the win is
+easy now.} *
+
+[Event "04. On the way to the queen (8/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/k7/5P2/8/K7/8 w - - 0 1"]
+[LineName "04. On the way to the queen (8/15)"]
+[LineDescription "If the pawn simply runs, push it: no opposition needed."]
+
+{[%cal Ra2a3,Ra2b3,Ra2b2] Pawn on f4. White to move and win. How many moves does
+each side need in the race?} 1. f5 {f5! — The f-pawn runs: the king cannot catch
+it. Ka3? — Taking the opposition only draws here. Black answers Kb6.} 1... Kb4
+{[%cal Ra2b2]} 2. f6 Kc3 3. f7 Kd4 4. f8=Q {Queen! The black king cannot take
+it, and the win is easy now.} *
+
+[Event "04. On the way to the queen (9/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/8/7K/8/8/1P6/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (9/15)"]
+[LineDescription "A sideways step on the way, then the opposition decides."]
+
+{Pawn on b3. White to move and win. Which king will have to give way?} 1. Kg6
+{Kg6! — Take the opposition. Kh5? — Black answers Kf7 and holds the draw.} 1...
+Kf8 2. Kf6 {Kf6! — Take the opposition again.} 2... Ke8 3. Ke6 {Ke6! — Take the
+opposition again.} 3... Kd8 4. Kd6 Kc8 5. Kc6 Kb8 6. Kb6 {[%also b4] Kb6! — Take
+the opposition. b4 wins just as fast.} 6... Ka8 7. b4 Kb8 8. b5 Ka8 9. Kc7 Ka7
+10. b6+ {b6+! — Your king protects the b-pawn.} 10... Ka6 11. b7 {b7! — Your
+king keeps the b-pawn protected.} 11... Kb5 12. b8=Q+ {Queen! Your king protects
+the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (10/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/8/2K5/6P1/8/8/8 b - - 0 1"]
+[LineName "04. On the way to the queen (10/15)"]
+[LineDescription "Keeping the opposition is a routine: do it to the end."]
+
+{Pawn on g4. Black moves first; then win. Which king will have to give way?}
+1... Kd7 2. Kd5 {Kd5! — Take the opposition. Black must give way. Kd4? — Black
+answers Kd8 and holds the draw.} 2... Ke7 3. Ke5 {Ke5! — Take the opposition
+again.} 3... Kf7 4. Kf5 {Kf5! — Take the opposition again.} 4... Kg7 5. Kg5 Kh7
+6. Kf6 Kh6 7. g5+ {g5+! — Your king protects the g-pawn.} 7... Kh7 8. Kf7 {Kf7!
+— Take the opposition.} 8... Kh8 9. Kg6 Kg8 10. Kh6 Kf7 11. Kh7 {[%also g6+]}
+11... Ke6 12. g6 Ke5 13. g7 Ke4 14. g8=Q {Queen! Your king protects the new
+queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (11/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/k7/8/8/KP6/8 w - - 0 1"]
+[LineName "04. On the way to the queen (11/15)"]
+[LineDescription "The classic long win: take the opposition, Black gives way, again and again."]
+
+{Pawn on b2. White to move and win. Which king will have to give way?} 1. Ka3
+{Ka3! — Take the opposition. Black must give way. Kb3? — Black gets the
+opposition. Only a draw now.} 1... Kb5 2. Kb3 {Kb3! — Take the opposition
+again.} 2... Kc5 3. Ka4 Kb6 4. Kb4 {Kb4! — Take the opposition.} 4... Kc6 5. Ka5
+Kb7 6. Kb5 {Kb5! — Take the opposition again.} 6... Ka7 7. Kc6 Ka8 8. b4 {[%also
+Kb6]} 8... Kb8 9. Kb6 Ka8 10. Ka6 {[%also b5]} 10... Kb8 11. b5 Kc7 12. Ka7
+{[%also b6+]} 12... Kd6 13. b6 {b6! — Your king protects the b-pawn.} 13... Kd5
+14. b7 Kd4 15. b8=Q {Queen! Your king protects the new queen, and the win is
+easy now.} *
+
+[Event "04. On the way to the queen (12/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6k1/4K3/8/6P1/8/8/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (12/15)"]
+[LineDescription "Check whether the pawn needs protection before anything else."]
+
+{Pawn on g5. White to move and win. Is your pawn safe?} 1. Kf6 {Kf6! — Your king
+protects the g-pawn. Ke8? — Taking the opposition only draws here. Black answers
+Kg7.} 1... Kh7 2. Kf7 {Kf7! — Take the opposition.} 2... Kh8 3. Kg6 Kg8 4. Kh6
+Kf7 5. Kh7 {[%also g6+]} 5... Ke6 6. g6 Ke5 7. g7 Ke4 8. g8=Q {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (13/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/8/6K1/2P5/8/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (13/15)"]
+[LineDescription "A short line: the opposition decides it in a few moves."]
+
+{Pawn on c4. White to move and win. Which king will have to give way?} 1. Kf6
+{Kf6! — Take the opposition. Kg6? — Black answers Ke8 and holds the draw.} 1...
+Ke8 2. Ke6 {Ke6! — Take the opposition again.} 2... Kd8 3. Kd6 {Kd6! — Take the
+opposition again.} 3... Kc8 4. c5 Kb7 5. Kd7 {[%also c6+] Kd7! — Take the
+opposition. c6+ wins just as fast.} 5... Ka6 6. c6 {c6! — Your king protects the
+c-pawn.} 6... Kb5 7. c7 {c7! — The c-pawn runs: the king cannot catch it.} 7...
+Kc4 8. c8=Q+ {Queen! Your king protects the new queen, and the win is easy now.}
+*
+
+[Event "04. On the way to the queen (14/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/2k5/8/8/1K3P2/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (14/15)"]
+[LineDescription "Black had to give way more than once: take the opposition each time."]
+
+{Pawn on f3. White to move and win. Which king will have to give way?} 1. Kc4
+{Kc4! — Take the opposition. Black must give way. Ka4? — Black answers Kc7 and
+holds the draw.} 1... Kd6 2. Kd4 {Kd4! — Take the opposition again.} 2... Ke6 3.
+Ke4 {Ke4! — Take the opposition again.} 3... Kf6 4. Kf4 Ke6 5. Kg5 Kf7 6. Kf5
+{Kf5! — Take the opposition.} 6... Kg7 7. Ke6 Kg6 8. f4 Kg7 9. f5 Kf8 10. Kf6
+Kg8 11. Ke7 Kg7 12. f6+ {f6+! — Your king protects the f-pawn.} 12... Kg6 13. f7
+{f7! — Your king keeps the f-pawn protected.} 13... Kf5 14. f8=Q+ {Queen! Your
+king protects the new queen, and the win is easy now.} *
+
+[Event "04. On the way to the queen (15/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7k/3P4/8/6K1/8/8 w - - 0 1"]
+[LineName "04. On the way to the queen (15/15)"]
+[LineDescription "Count the race before you walk: this pawn runs alone."]
+
+{Pawn on d5. White to move and win. Can the black king catch the pawn?} 1. d6
+{d6! — The d-pawn runs: the king cannot catch it. Kh4? — Taking the opposition
+only draws here. Black answers Kg7.} 1... Kg5 2. d7 Kf5 3. d8=Q {Queen! The
+black king cannot take it, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (1/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4K3/1k6/8/8/8/8/3P4/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (1/15)"]
+[LineDescription "The kings can face each other along a rank too."]
+
+{[%cal Re8d8,Rd2d3,Rd2d4] The kings can also face each other along a rank, side
+by side. And the defender uses the same idea: against Black's pawn, the
+opposition holds the draw. Pawn on d2. White to move and win. When the kings
+face each other, who should be to move? Red arrows: tempting moves that only
+draw.} 1. Kd7 {Kd7! — Take the opposition. Kd8? — Black answers Kb6 and holds
+the draw.} 1... Kb6 {[%cal Rd7c8,Rd7d8,Rd7e8]} 2. d4 Kb5 {[%cal
+Rd7c8,Rd7d8,Rd7e8]} 3. d5 Kc4 {[%cal Rd7c8,Rd7d8,Rd7e8]} 4. d6 {[%also Kc6] d6!
+— Your king protects the d-pawn. Kc6 wins just as fast.} 4... Kd4 5. Kc6 {[%also
+Kc7,Kc8,Ke6,Ke7,Ke8]} 5... Ke4 6. d7 Kd4 7. d8=Q+ {Queen! The black king cannot
+take it, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (2/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/2k5/4KP2/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (2/15)"]
+[LineDescription "The opposition along a rank: the same idea, turned sideways."]
+
+{Pawn on f3. White to move and win. Which king will have to give way?} 1. Ke4
+{Ke4! — Take the opposition. f4? — Black answers Kd5 and holds the draw.} 1...
+Kc5 2. Ke5 Kc6 3. f4 {[%also Ke6]} 3... Kd7 4. Kf6 Kd6 5. f5 Kd5 6. Kg7 {[%also
+Ke7]} 6... Ke4 7. f6 {f6! — Your king protects the f-pawn.} 7... Ke5 8. f7 {f7!
+— The f-pawn runs: the king cannot catch it.} 8... Ke4 9. f8=Q {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (3/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k6/3P4/K7/8/8/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (3/15)"]
+[LineDescription "The idea does not depend on how far the pawn has come."]
+
+{Pawn on d6. White to move and win. Which king will have to give way?} 1. Kb5
+{Kb5! — Take the opposition. d7? — Black's king attacks the d-pawn. Only a draw
+now.} 1... Kb8 2. Kb6 {Kb6! — Take the opposition again.} 2... Kc8 3. Kc6 {Kc6!
+— Take the opposition. Black must give way.} 3... Kd8 4. d7 Ke7 5. Kc7 {Kc7! —
+Your king keeps the d-pawn protected.} 5... Ke6 6. d8=Q {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (4/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5K2/2k5/8/8/8/8/5P2/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (4/15)"]
+[LineDescription "Along a rank, with the pawn far back."]
+
+{Pawn on f2. White to move and win. Which king will have to give way?} 1. Ke7
+{Ke7! — Take the opposition. f3? — Black answers Kd6 and holds the draw.} 1...
+Kc6 2. f4 Kd5 3. f5 Ke4 4. f6 {f6! — Your king protects the f-pawn.} 4... Ke5 5.
+f7 {f7! — The f-pawn runs: the king cannot catch it.} 5... Ke4 6. f8=Q {Queen!
+Your king protects the new queen, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (5/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/7K/8/6k1/3P4/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (5/15)"]
+[LineDescription "The opposition square, even with the black king away from the pawn's file."]
+
+{Pawn on d2. White to move and win. Which king will have to give way?} 1. Kg5
+{Kg5! — Take the opposition. Kg6? — Black gets the opposition. Only a draw now.}
+1... Kf3 2. Kf5 {Kf5! — Take the opposition again.} 2... Ke2 3. d4 {d4! — The
+d-pawn runs: the king cannot catch it.} 3... Kd3 4. d5 Kd4 5. d6 Kd5 6. d7 Kd4
+7. d8=Q+ {Queen! The black king cannot take it, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (6/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/6pk/8/6K1/8/8/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (6/15)"]
+[LineDescription "The defender takes the opposition too: it holds the draw."]
+
+{[%cal Rg5h4,Rg5g4,Rg5f4] Black's pawn is on g7. You are White: hold the draw.
+The defender uses the same idea: take the opposition to hold the draw. When the
+kings face each other, who should be to move? Red arrows: tempting moves that
+lose.} 1. Kh5 {Kh5! — Take the opposition. Kf4? — Black answers Kh6 and wins.}
+1... g5 2. Kxg5 {[%also Kg4] Draw! You take the pawn, and bare kings cannot
+win.} *
+
+[Event "05. Along a rank, and in defence (7/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/3p2K1/8/8/5k2 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (7/15)"]
+[LineDescription "Defending: the move that holds takes the opposition."]
+
+{[%cal Rg4g3,Rg4f4] Black's pawn is on d4. You are White: hold the draw. When
+the kings face each other, who should be to move?} 1. Kf3 {Kf3! — Take the
+opposition. Kg3? — Black answers Ke2 and wins.} 1... d3 2. Ke3 d2 {[%cal
+Re3f3,Re3d3]} 3. Kxd2 {Draw! You take the pawn, and bare kings cannot win.} *
+
+[Event "05. Along a rank, and in defence (8/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/6p1/6k1/8/7K/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (8/15)"]
+[LineDescription "Defending: after your move Black must give way, and the draw holds."]
+
+{[%cal Rh3h2,Rh3g2] Black's pawn is on g6. You are White: hold the draw. When
+the kings face each other, who should be to move?} 1. Kg3 {Kg3! — Take the
+opposition. Black must give way. Kg2? — Black answers Kh4 and wins.} 1... Kh5
+{[%cal Rg3h2,Rg3g2,Rg3f2]} 2. Kh3 {Kh3! — Take the opposition again.} 2... g5
+{[%cal Rh3h2,Rh3g2]} 3. Kg3 g4 4. Kg2 {[%also Kh2,Kf2]} 4... Kh4 {[%cal
+Rg2h1,Rg2g1,Rg2f1]} 5. Kh2 {Kh2! — Take the opposition.} 5... g3+ {[%cal Rh2h1]}
+6. Kg1 {[%also Kg2] Kg1! — Your king blocks the g-pawn. Kg2 also holds.} 6...
+Kh3 7. Kh1 g2+ 8. Kg1 Kh4 9. Kxg2 {[%also Kh2,Kf2] Draw! You take the pawn, and
+bare kings cannot win.} *
+
+[Event "05. Along a rank, and in defence (9/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/4k3/2K5/3P4/8/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (9/15)"]
+[LineDescription "Along a rank, the wrong step hands Black the opposition."]
+
+{Pawn on d4. White to move and win. Which king will have to give way?} 1. Kc6
+{Kc6! — Take the opposition. Kb6? — Black gets the opposition. Only a draw now.}
+1... Ke7 2. d5 Kd8 3. Kd6 {Kd6! — Take the opposition again.} 3... Kc8 4. Ke7
+Kb7 5. d6 Kc6 6. d7 {d7! — Your king keeps the d-pawn protected.} 6... Kd5 7.
+d8=Q+ {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (10/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/4p3/8/2k5/5K2 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (10/15)"]
+[LineDescription "The defender's opposition works along a rank too."]
+
+{Black's pawn is on e4. You are White: hold the draw. Which king will have to
+give way?} 1. Ke2 {Ke2! — Take the opposition. Kf2? — Black's king protects the
+e-pawn. Now Black wins.} 1... Kc3 2. Ke3 {Ke3! — Take the opposition again.}
+2... Kc2 3. Kxe4 {[%also Kd4,Ke2] Draw! You take the pawn, and bare kings cannot
+win.} *
+
+[Event "05. Along a rank, and in defence (11/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/7K/8/6k1/1P6/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (11/15)"]
+[LineDescription "The same idea with the pawn on the b-file."]
+
+{Pawn on b2. White to move and win. Which king will have to give way?} 1. Kg5
+{Kg5! — Take the opposition. Kg6? — Black gets the opposition. Only a draw now.}
+1... Kf3 2. Kf5 {Kf5! — Take the opposition again.} 2... Ke3 3. Ke5 {Ke5! — Take
+the opposition again.} 3... Kd3 4. Kd5 Ke3 5. b4 Kd3 6. b5 {b5! — The b-pawn
+runs: the king cannot catch it.} 6... Kc3 7. b6 Kd3 8. b7 Kc3 9. b8=Q {Queen!
+The black king cannot take it, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (12/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k2p3/8/K7/8/8/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (12/15)"]
+[LineDescription "You held the draw with the opposition, without marks."]
+
+{Black's pawn is on e7. You are White: hold the draw. Which king will have to
+give way?} 1. Kb5 {Kb5! — Take the opposition. Ka4? — Black answers Kc6 and
+wins.} 1... Kc7 2. Kc5 {Kc5! — Take the opposition again.} 2... Kd7 3. Kd5 {Kd5!
+— Take the opposition again.} 3... e5 4. Kxe5 {[%also Ke4,Kc4] Draw! You take
+the pawn, and bare kings cannot win.} *
+
+[Event "05. Along a rank, and in defence (13/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/5k2/2PK4/8/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (13/15)"]
+[LineDescription "Several right moves again, and none of them is magic."]
+
+{Pawn on c4. White to move and win. Which king will have to give way?} 1. Kd5
+{[%also Kc5] Kd5! — Take the opposition. Kc5 wins just as fast. c5? — Black
+answers Ke6 and holds the draw.} 1... Kf6 2. c5 {[%also Kd6,Kc6]} 2... Ke7 3.
+Kc6 Ke6 4. Kb7 Kd5 5. c6 {c6! — Your king protects the c-pawn.} 5... Kd4 6. c7
+Kd5 7. c8=Q {Queen! Your king protects the new queen, and the win is easy now.}
+*
+
+[Event "05. Along a rank, and in defence (14/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/4k3/7K/5P2/8/8/8/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (14/15)"]
+[LineDescription "Along a rank, with the pawn far advanced."]
+
+{Pawn on f5. White to move and win. Which king will have to give way?} 1. Kg7
+{Kg7! — Take the opposition. Kh7? — Black gets the opposition. Only a draw now.}
+1... Kd6 2. f6 {f6! — Your king protects the f-pawn.} 2... Ke5 3. f7 {f7! — The
+f-pawn runs: the king cannot catch it.} 3... Ke4 4. f8=Q {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "05. Along a rank, and in defence (15/15)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/3p4/2k5/8/3K4/8 w - - 0 1"]
+[LineName "05. Along a rank, and in defence (15/15)"]
+[LineDescription "Defending: after your move Black must give way."]
+
+{Black's pawn is on d5. You are White: hold the draw. Which king will have to
+give way?} 1. Kc2 {Kc2! — Take the opposition. Black must give way. Kc1? — Black
+answers Kd3 and wins.} 1... d4 2. Kd2 d3 3. Kd1 {Kd1! — Your king stays in front
+of the d-pawn.} 3... Kb3 4. Kd2 Kb2 5. Kxd3 {[%also Kd1] Draw! You take the
+pawn, and bare kings cannot win.} *
+
+[Event "06. On your own (1/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1k6/8/8/K7/8/8/2P5/8 w - - 0 1"]
+[LineName "06. On your own (1/12)"]
+[LineDescription "This position asked for the opposition, and you found it alone."]
+
+{From here on there are no hints before your move. Each position asks for
+something else; you still get feedback after each move. Pawn on c2. White to
+move and win.} 1. Kb6 {Kb6! — Take the opposition. c4? — Black's king blocks the
+c-pawn. Only a draw now.} 1... Ka8 2. Kc6 {[%also Kc7,c4]} 2... Ka7 3. c4 Ka6 4.
+c5 Ka5 5. Kb7 {[%also Kd7]} 5... Kb4 6. c6 {c6! — Your king protects the
+c-pawn.} 6... Kc3 7. c7 Kd4 8. c8=Q {Queen! Your king protects the new queen,
+and the win is easy now.} *
+
+[Event "06. On your own (2/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/k7/8/1K4P1/8 w - - 0 1"]
+[LineName "06. On your own (2/12)"]
+[LineDescription "Here the pawn simply ran: no opposition needed."]
+
+{Pawn on g2. White to move and win.} 1. g4 {g4! — The g-pawn runs: the king
+cannot catch it. Ka2? — Taking the opposition only draws here. Black answers
+Kb4.} 1... Kb4 2. g5 Kc4 3. g6 Kd4 4. g7 Ke4 5. g8=Q {Queen! The black king
+cannot take it, and the win is easy now.} *
+
+[Event "06. On your own (3/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k1p4/8/K7/8/8/8/8 w - - 0 1"]
+[LineName "06. On your own (3/12)"]
+[LineDescription "Defending: the opposition held the draw."]
+
+{Black's pawn is on d7. You are White: hold the draw.} 1. Kb5 {Kb5! — Take the
+opposition. Ka4? — Black's king protects the d-pawn. Now Black wins.} 1... Kc7
+2. Kc5 {Kc5! — Take the opposition again.} 2... d5 3. Kxd5 {[%also Kd4,Kb4]
+Draw! You take the pawn, and bare kings cannot win.} *
+
+[Event "06. On your own (4/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/4k3/8/4K3/6P1/8 b - - 0 1"]
+[LineName "06. On your own (4/12)"]
+[LineDescription "Black moved first: you kept the opposition."]
+
+{Pawn on g2. Black moves first; then win.} 1... Kf5 2. Kf3 {Kf3! — Take the
+opposition. Black must give way. Kd4? — Black answers Kf6 and holds the draw.}
+2... Kg5 3. Kg3 {Kg3! — Take the opposition again.} 3... Kf5 4. Kh4 Kg6 5. Kg4
+{Kg4! — Take the opposition.} 5... Kf6 6. Kh5 Kg7 7. Kg5 {Kg5! — Take the
+opposition again.} 7... Kh7 8. Kf6 Kh8 9. g4 {[%also Kg6]} 9... Kg8 10. Kg6 Kh8
+11. Kh6 {[%also g5]} 11... Kg8 12. g5 Kf7 13. Kh7 {[%also g6+]} 13... Ke6 14. g6
+{g6! — Your king protects the g-pawn.} 14... Ke5 15. g7 Ke4 16. g8=Q {Queen!
+Your king protects the new queen, and the win is easy now.} *
+
+[Event "06. On your own (5/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/K7/8/2P5/8/8/8/8 w - - 0 1"]
+[LineName "06. On your own (5/12)"]
+[LineDescription "The pawn needed protection first."]
+
+{Pawn on c5. White to move and win.} 1. Kb6 {Kb6! — Your king protects the
+c-pawn. Ka8? — Taking the opposition only draws here. Black answers Kc7.} 1...
+Kb8 2. c6 Ka8 3. Kc7 Ka7 4. Kd7 {[%also Kd8]} 4... Kb6 5. c7 {c7! — Your king
+keeps the c-pawn protected.} 5... Kc5 6. c8=Q+ {Queen! Your king protects the
+new queen, and the win is easy now.} *
+
+[Event "06. On your own (6/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "4K3/7k/8/8/8/8/5P2/8 w - - 0 1"]
+[LineName "06. On your own (6/12)"]
+[LineDescription "The opposition along a rank, found alone."]
+
+{Pawn on f2. White to move and win.} 1. Kf7 {Kf7! — Take the opposition. Kf8? —
+Black answers Kh6 and holds the draw.} 1... Kh6 2. f4 Kh5 3. f5 Kg4 4. f6
+{[%also Kg6] f6! — Your king protects the f-pawn. Kg6 wins just as fast.} 4...
+Kf3 5. Kg6 {[%also Kg7,Kg8,Ke6,Ke7,Ke8]} 5... Ke4 6. f7 Ke5 7. f8=Q {Queen! The
+black king cannot take it, and the win is easy now.} *
+
+[Event "06. On your own (7/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k2K2/8/3P4/8/8/8/8/8 w - - 0 1"]
+[LineName "06. On your own (7/12)"]
+[LineDescription "Several moves won here; the opposition was one of them."]
+
+{Pawn on d6. White to move and win.} 1. Ke8 {[%also Ke7] Ke8! — Take the
+opposition. Ke7 wins just as fast. Kf7? — Black gets the opposition. Only a draw
+now.} 1... Kb7 2. d7 Kc6 3. d8=Q {Queen! Your king protects the new queen, and
+the win is easy now.} *
+
+[Event "06. On your own (8/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/4p3/6k1/4K3/8 w - - 0 1"]
+[LineName "06. On your own (8/12)"]
+[LineDescription "The defender's opposition, found alone."]
+
+{Black's pawn is on e4. You are White: hold the draw.} 1. Ke3 {Ke3! — Take the
+opposition. Kd1? — Your king steps out of the e-pawn's way. Now Black wins.}
+1... Kg2 2. Kxe4 {[%also Ke2,Kf4] Draw! You take the pawn, and bare kings cannot
+win.} *
+
+[Event "06. On your own (9/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "5k2/8/3P4/6K1/8/8/8/8 w - - 0 1"]
+[LineName "06. On your own (9/12)"]
+[LineDescription "With the pawn far advanced, the opposition still decides."]
+
+{Pawn on d6. White to move and win.} 1. Kf6 {Kf6! — Take the opposition. d7? —
+Black's king attacks the d-pawn. Only a draw now.} 1... Ke8 2. Ke6 {Ke6! — Take
+the opposition. Black must give way.} 2... Kd8 3. d7 Kc7 4. Ke7 {Ke7! — Your
+king keeps the d-pawn protected.} 4... Kc6 5. d8=Q {Queen! Your king protects
+the new queen, and the win is easy now.} *
+
+[Event "06. On your own (10/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/K7/8/8/k7/6P1/8/8 w - - 0 1"]
+[LineName "06. On your own (10/12)"]
+[LineDescription "The pawn ran on its own."]
+
+{Pawn on g3. White to move and win.} 1. g4 {g4! — The g-pawn runs: the king
+cannot catch it. Ka6? — Taking the opposition only draws here. Black answers
+Kb4.} 1... Kb3 2. g5 Kc3 3. g6 Kd4 4. g7 Ke4 5. g8=Q {Queen! The black king
+cannot take it, and the win is easy now.} *
+
+[Event "06. On your own (11/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/3k4/KP6/8 w - - 0 1"]
+[LineName "06. On your own (11/12)"]
+[LineDescription "Along a rank with the pawn far back, found alone."]
+
+{Pawn on b2. White to move and win.} 1. Kb3 {Kb3! — Take the opposition. b4? —
+Black's king attacks the b-pawn. Only a draw now.} 1... Kd4 2. Kb4 Kd5 3. Kb5
+Kd4 4. b4 {b4! — Your king protects the b-pawn.} 4... Kd5 5. Ka6 Kd4 6. b5 Kd5
+7. Ka7 {[%also b6]} 7... Kd4 8. b6 Kd5 9. b7 Kd4 10. b8=Q {Queen! Your king
+protects the new queen, and the win is easy now.} *
+
+[Event "06. On your own (12/12)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/5p2/5k2/8/8/4K3 w - - 0 1"]
+[LineName "06. On your own (12/12)"]
+[LineDescription "Defending: after your move Black had to give way."]
+
+{Black's pawn is on f5. You are White: hold the draw.} 1. Kf2 {Kf2! — Take the
+opposition. Black must give way. Kf1? — Black answers Kg3 and wins.} 1... Kg4 2.
+Kg2 {Kg2! — Take the opposition again.} 2... f4 3. Kf2 f3 4. Kf1 {Kf1! — Your
+king stays in front of the f-pawn.} 4... Kh3 5. Kf2 Kh2 6. Kxf3 {[%also Kf1]
+Draw! You take the pawn, and bare kings cannot win.} *
+
+[Event "07. Long lines (1/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/7k/8/8/3P3K/8 w - - 0 1"]
+[LineName "07. Long lines (1/10)"]
+[LineDescription "Accuracy over many moves: the opposition again and again."]
+
+{Long lines with tempting moves at many moments. Stay accurate all the way to
+the queen, or to the draw. Pawn on d2. White to move and win.} 1. Kh3 {Kh3! —
+Take the opposition. Black must give way. d3? — Black answers Kh6 and holds the
+draw.} 1... Kg5 2. Kg3 {Kg3! — Take the opposition again.} 2... Kf5 3. Kf3 {Kf3!
+— Take the opposition again.} 3... Ke5 4. Ke3 Kd5 5. Kd3 Ke5 6. Kc4 Kd6 7. Kd4
+{Kd4! — Take the opposition.} 7... Kc6 8. Ke5 Kd7 9. Kd5 {[%also d3] Kd5! — Take
+the opposition. d3 wins just as fast.} 9... Kc7 10. d3 {[%also Ke6]} 10... Kb6
+11. d4 Kb5 12. Ke6 Kc4 13. d5 {d5! — Your king protects the d-pawn.} 13... Kc5
+14. d6 {d6! — Your king keeps the d-pawn protected.} 14... Kc6 15. d7 {[%also
+Ke7]} 15... Kc7 16. Ke7 Kc6 17. d8=Q {Queen! Your king protects the new queen,
+and the win is easy now.} *
+
+[Event "07. Long lines (2/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/7k/8/7K/4P3/8 b - - 0 1"]
+[LineName "07. Long lines (2/10)"]
+[LineDescription "Black moved first: you kept the opposition all the way."]
+
+{Pawn on e2. Black moves first; then win.} 1... Kg5 2. Kg3 {Kg3! — Take the
+opposition. Black must give way. e3? — Black gets the opposition. Only a draw
+now.} 2... Kf5 3. Kf3 {Kf3! — Take the opposition again.} 3... Ke5 4. Ke3 {Ke3!
+— Take the opposition again.} 4... Kd5 5. Kf4 Ke6 6. Ke4 {Ke4! — Take the
+opposition.} 6... Kf6 7. Kd5 Ke7 8. Ke5 {[%also e3] Ke5! — Take the opposition.
+e3 wins just as fast.} 8... Kf7 9. e3 {[%also Kd6]} 9... Kg6 10. e4 Kg5 11. Kd6
+Kf4 12. e5 {e5! — Your king protects the e-pawn.} 12... Kf5 13. e6 {e6! — Your
+king keeps the e-pawn protected.} 13... Kf6 14. e7 {[%also Kd7]} 14... Kf7 15.
+Kd7 Kf6 16. e8=Q {Queen! Your king protects the new queen, and the win is easy
+now.} *
+
+[Event "07. Long lines (3/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/6k1/8/7K/2P5/8 w - - 0 1"]
+[LineName "07. Long lines (3/10)"]
+[LineDescription "Every opposition counted: Black had to give way again and again."]
+
+{Pawn on c2. White to move and win.} 1. Kg3 {Kg3! — Take the opposition. Black
+must give way. c3? — Black gets the opposition. Only a draw now.} 1... Kf5 2.
+Kf3 {Kf3! — Take the opposition again.} 2... Ke5 3. Ke3 {Ke3! — Take the
+opposition again.} 3... Kd5 4. Kd3 Kc5 5. Kc3 Kd5 6. Kb4 Kc6 7. Kc4 {Kc4! — Take
+the opposition.} 7... Kd6 8. Kb5 Kc7 9. Kc5 Kb7 10. Kd6 Kb6 11. c4 Kb7 12. c5
+Kc8 13. Kc6 Kb8 14. Kd7 Kb7 15. c6+ {c6+! — Your king protects the c-pawn.}
+15... Kb6 16. c7 {c7! — Your king keeps the c-pawn protected.} 16... Kc5 17.
+c8=Q+ {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "07. Long lines (4/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/8/8/8/7k/4KP2/8 w - - 0 1"]
+[LineName "07. Long lines (4/10)"]
+[LineDescription "The opposition along a rank, in a long line."]
+
+{Pawn on f2. White to move and win.} 1. Kf3 {Kf3! — Take the opposition. f4? —
+Black's king attacks the f-pawn. Only a draw now.} 1... Kh4 2. Kf4 Kh5 3. Kf5
+Kh4 4. f4 {f4! — Your king protects the f-pawn.} 4... Kh5 5. Ke6 Kg4 6. f5 Kg5
+7. f6 {f6! — Your king keeps the f-pawn protected.} 7... Kg6 8. f7 {[%also Ke7]}
+8... Kg7 9. Ke7 Kg6 10. f8=Q {Queen! Your king protects the new queen, and the
+win is easy now.} *
+
+[Event "07. Long lines (5/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2p3k1/8/7K/8/8/8/8 w - - 0 1"]
+[LineName "07. Long lines (5/10)"]
+[LineDescription "A long defence: the opposition held all the way."]
+
+{Black's pawn is on c7. You are White: hold the draw.} 1. Kg5 {Kg5! — Take the
+opposition. Kg4? — Black gets the opposition. Now Black wins.} 1... Kf7 2. Kf5
+{Kf5! — Take the opposition again.} 2... Ke7 3. Ke5 {Ke5! — Take the opposition
+again.} 3... Kd7 4. Kd5 c5 5. Kxc5 {[%also Kc4,Ke4] Draw! You take the pawn, and
+bare kings cannot win.} *
+
+[Event "07. Long lines (6/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/k7/8/8/K4P2/8/8 w - - 0 1"]
+[LineName "07. Long lines (6/10)"]
+[LineDescription "One wrong step hands Black the opposition: accuracy from the first move."]
+
+{Pawn on f3. White to move and win.} 1. Ka4 {Ka4! — Take the opposition. Black
+must give way. Kb4? — Black gets the opposition. Only a draw now.} 1... Kb6 2.
+Kb4 {Kb4! — Take the opposition again.} 2... Kc6 3. Kc4 {Kc4! — Take the
+opposition again.} 3... Kd6 4. Kd4 Ke6 5. Ke4 Kf6 6. Kf4 Ke6 7. Kg5 Kf7 8. Kf5
+{Kf5! — Take the opposition.} 8... Kg7 9. Ke6 Kg6 10. f4 Kg7 11. f5 Kf8 12. Kf6
+Kg8 13. Ke7 Kg7 14. f6+ {f6+! — Your king protects the f-pawn.} 14... Kg6 15. f7
+{f7! — Your king keeps the f-pawn protected.} 15... Kf5 16. f8=Q+ {Queen! Your
+king protects the new queen, and the win is easy now.} *
+
+[Event "07. Long lines (7/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7k/8/7K/3P4/8/8 b - - 0 1"]
+[LineName "07. Long lines (7/10)"]
+[LineDescription "Endurance: you kept the opposition to the end."]
+
+{Pawn on d3. Black moves first; then win.} 1... Kg6 2. Kg4 {Kg4! — Take the
+opposition. Black must give way. d4? — Black gets the opposition. Only a draw
+now.} 2... Kf6 3. Kf4 {Kf4! — Take the opposition again.} 3... Ke6 4. Ke4 {Ke4!
+— Take the opposition again.} 4... Kd6 5. Kd4 Kc6 6. Ke5 Kd7 7. Kd5 {Kd5! — Take
+the opposition.} 7... Kc7 8. Ke6 Kc6 9. d4 Kc7 10. d5 Kd8 11. Kd6 Kc8 12. Ke7
+Kb7 13. d6 Kc6 14. d7 {d7! — Your king keeps the d-pawn protected.} 14... Kd5
+15. d8=Q+ {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "07. Long lines (8/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/1k6/8/8/K7/6P1/8 w - - 0 1"]
+[LineName "07. Long lines (8/10)"]
+[LineDescription "From far back all the way to the queen."]
+
+{Pawn on g2. White to move and win.} 1. Kb4 {Kb4! — Take the opposition. Ka4? —
+Black answers Kc6 and holds the draw.} 1... Kc6 2. Kc4 {Kc4! — Take the
+opposition again.} 2... Kd6 3. Kd4 {Kd4! — Take the opposition again.} 3... Ke6
+4. Ke4 Kf6 5. Kf4 Kg6 6. Kg4 Kf6 7. Kh5 Kg7 8. Kg5 Kh7 9. Kf6 Kh8 10. g4 {[%also
+Kg6]} 10... Kg8 11. Kg6 Kh8 12. Kh6 {[%also g5]} 12... Kg8 13. g5 Kf7 14. Kh7
+{[%also g6+]} 14... Ke6 15. g6 {g6! — Your king protects the g-pawn.} 15... Ke5
+16. g7 Ke4 17. g8=Q {Queen! Your king protects the new queen, and the win is
+easy now.} *
+
+[Event "07. Long lines (9/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/3p4/3k4/8/8/4K3/8 w - - 0 1"]
+[LineName "07. Long lines (9/10)"]
+[LineDescription "Defending under pressure: after your move Black had to give way."]
+
+{Black's pawn is on d6. You are White: hold the draw.} 1. Kd3 {Kd3! — Take the
+opposition. Black must give way. Kd1? — Black answers Ke4 and wins.} 1... Kc5 2.
+Kc3 {Kc3! — Take the opposition again.} 2... d5 3. Kd3 Kb4 4. Kd2 {[%also Kd4]
+Kd2! — Your king stays in front of the d-pawn. Kd4 also holds.} 4... Kb3 5. Kd3
+{Kd3! — Take the opposition.} 5... d4 6. Kxd4 {[%also Kd2] Draw! You take the
+pawn, and bare kings cannot win.} *
+
+[Event "07. Long lines (10/10)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2k5/8/8/1K4P1/8/8/8 w - - 0 1"]
+[LineName "07. Long lines (10/10)"]
+[LineDescription "Everything at once: take the opposition, keep it, escort the pawn."]
+
+{Pawn on g4. White to move and win.} 1. Kc5 {Kc5! — Take the opposition. Black
+must give way. Kb5? — Black answers Kd7 and holds the draw.} 1... Kd7 2. Kd5
+{Kd5! — Take the opposition again.} 2... Ke7 3. Ke5 {Ke5! — Take the opposition
+again.} 3... Kf7 4. Kf5 Kg7 5. Kg5 Kh7 6. Kf6 Kh6 7. g5+ {g5+! — Your king
+protects the g-pawn.} 7... Kh7 8. Kf7 {Kf7! — Take the opposition.} 8... Kh8 9.
+Kg6 Kg8 10. Kh6 Kf7 11. Kh7 {[%also g6+]} 11... Ke6 12. g6 Ke5 13. g7 Ke4 14.
+g8=Q {Queen! Your king protects the new queen, and the win is easy now.} *
+
+[Event "08. Final assessment (1/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "2k5/8/8/1K6/3P4/8/8/8 w - - 0 1"]
+[LineName "08. Final assessment (1/8)"]
+[LineDescription "The opposition decided this one."]
+
+{Final assessment: eight positions, one of each kind. No hints, and no feedback
+until the end of each line. Pawn on d4. White to move and win.} 1. Kc6 Kb8 2. d5
+Kc8 3. d6 Kd8 4. d7 Ke7 5. Kc7 Ke6 6. d8=Q {Queen! Your king protects the new
+queen, and the win is easy now.} *
+
+[Event "08. Final assessment (2/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1k4p1/8/K7/8/8/8/8 w - - 0 1"]
+[LineName "08. Final assessment (2/8)"]
+[LineDescription "The defender's opposition held the draw."]
+
+{Black's pawn is on g7. You are White: hold the draw.} 1. Kb5 Kc7 2. Kc5 Kd7 3.
+Kd5 Ke7 4. Ke5 Kf7 5. Kf5 g5 6. Kxg5 {[%also Kg4,Ke4] Draw! You take the pawn,
+and bare kings cannot win.} *
+
+[Event "08. Final assessment (3/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7k/8/2P5/6K1/8/8 w - - 0 1"]
+[LineName "08. Final assessment (3/8)"]
+[LineDescription "The pawn ran by itself."]
+
+{Pawn on c4. White to move and win.} 1. c5 Kg5 2. c6 Kf5 3. c7 Ke4 4. c8=Q
+{Queen! The black king cannot take it, and the win is easy now.} *
+
+[Event "08. Final assessment (4/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7k/8/7K/4P3/8/8 b - - 0 1"]
+[LineName "08. Final assessment (4/8)"]
+[LineDescription "Black moved first; keeping the opposition won."]
+
+{Pawn on e3. Black moves first; then win.} 1... Kg6 2. Kg4 Kf6 3. Kf4 Ke6 4. Ke4
+Kf6 5. Kd5 Ke7 6. Ke5 Kf7 7. Kd6 Kf6 8. e4 Kf7 9. e5 Ke8 10. Ke6 Kf8 11. Kd7 Kg7
+12. e6 Kf6 13. e7 Ke5 14. e8=Q+ {Queen! Your king protects the new queen, and
+the win is easy now.} *
+
+[Event "08. Final assessment (5/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "3k4/1K6/8/3P4/8/8/8/8 w - - 0 1"]
+[LineName "08. Final assessment (5/8)"]
+[LineDescription "Protecting the pawn came first."]
+
+{Pawn on d5. White to move and win.} 1. Kc6 Ke7 2. Kc7 {[%also d6+]} 2... Kf6 3.
+d6 Ke5 4. d7 Kd4 5. d8=Q+ {Queen! Your king protects the new queen, and the win
+is easy now.} *
+
+[Event "08. Final assessment (6/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "6K1/3k4/8/8/8/8/6P1/8 w - - 0 1"]
+[LineName "08. Final assessment (6/8)"]
+[LineDescription "The opposition along a rank decided this one."]
+
+{Pawn on g2. White to move and win.} 1. Kf7 Kd6 2. g4 Ke5 3. g5 Ke4 4. g6 Ke5 5.
+g7 Ke4 6. g8=Q {Queen! Your king protects the new queen, and the win is easy
+now.} *
+
+[Event "08. Final assessment (7/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/K7/8/8/k7/2P5/8 w - - 0 1"]
+[LineName "08. Final assessment (7/8)"]
+[LineDescription "Several moves won; the opposition was one of them."]
+
+{Pawn on c2. White to move and win.} 1. Ka5 {[%also Kb5]} 1... Kb2 2. c4 Kc3 3.
+c5 Kd4 4. c6 Kd5 5. c7 Kd4 6. c8=Q {Queen! The black king cannot take it, and
+the win is easy now.} *
+
+[Event "08. Final assessment (8/8)"]
+[Site "Endgame Classroom"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/k7/8/8/K3P3/8/8/8 w - - 0 1"]
+[LineName "08. Final assessment (8/8)"]
+[LineDescription "A long line with the opposition at several moments."]
+
+{Pawn on e4. White to move and win.} 1. Ka5 Kb7 2. Kb5 Kc7 3. Kc5 Kd7 4. Kd5 Ke7
+5. Ke5 Kf7 6. Kd6 Kf6 7. e5+ Kf5 8. e6 Kf6 9. e7 {[%also Kd7]} 9... Kf7 10. Kd7
+Kf6 11. e8=Q {Queen! Your king protects the new queen, and the win is easy now.}
+*

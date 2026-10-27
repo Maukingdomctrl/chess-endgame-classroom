@@ -92,6 +92,17 @@ time the app opens on a device:
   where your king is heading), blue the squares the black king can step to, red the pawn the king
   is going to take or the move that would be stalemate. Regenerate it with `npm run course:pawns`
   (see `tools/pawns-course/`).
+- *Direct Opposition* (`courses/direct-opposition-course.pgn`): 100 positions in 8 lessons, course 1
+  of the Opposition curriculum (`tools/course-kit/curricula/opposition/`): what the direct opposition
+  is and why the side to move matters, how to take it (straight, diagonal, sideways) and keep it when
+  Black moves first, using it on the way to the queen, along a rank and as the defender against
+  Black's pawn, the two cases where it is not the first thing to do (protect the pawn; push a pawn
+  that runs), then lines without hints, long calculation lines and a final assessment. Help goes down
+  step by step (the idea named, a question, red arrows on the tempting moves that only draw or lose),
+  and every line is played to the end: a safe promotion, or a draw on the board in the defending
+  lines. Every move of yours is a fastest win (or keeps the draw), equal moves are accepted via
+  `[%also]`, and every line is checked again with an independent solver. Regenerate it with
+  `npm run course:opposition` (see `tools/direct-opposition-course/`).
 
 A built-in course you delete stays deleted; the section page offers **Restore**. A copy you had
 imported by hand is adopted instead of duplicated. When a newer version of the app changes a

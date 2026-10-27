@@ -19,6 +19,8 @@ every line to its real end, exact `[%also]`, the learner plays White, verify twi
 | `feasibility.cjs` | `npm run curriculum:opposition`: how many positions the solver offers per task and band, and whether the 100 slots can be filled. |
 | `test.cjs` | Checks of the blueprint, the tasks and the prototypes (part of `npm run kit:test`). |
 
+The generator of course 1 is `tools/direct-opposition-course/` (`npm run course:opposition`).
+
 ## Principles
 
 - **Understand before recognising.** Each course first shows why the idea works (the side that has to
